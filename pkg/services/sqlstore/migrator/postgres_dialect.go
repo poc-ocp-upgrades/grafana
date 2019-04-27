@@ -13,6 +13,8 @@ type Postgres struct{ BaseDialect }
 func NewPostgresDialect(engine *xorm.Engine) *Postgres {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	d := Postgres{}
 	d.BaseDialect.dialect = &d
 	d.BaseDialect.engine = engine
@@ -22,9 +24,13 @@ func NewPostgresDialect(engine *xorm.Engine) *Postgres {
 func (db *Postgres) SupportEngine() bool {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return false
 }
 func (db *Postgres) Quote(name string) string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return "\"" + name + "\""
@@ -32,9 +38,13 @@ func (db *Postgres) Quote(name string) string {
 func (b *Postgres) LikeStr() string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return "ILIKE"
 }
 func (db *Postgres) AutoIncrStr() string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return ""
@@ -42,9 +52,13 @@ func (db *Postgres) AutoIncrStr() string {
 func (db *Postgres) BooleanStr(value bool) string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return strconv.FormatBool(value)
 }
 func (b *Postgres) Default(col *Column) string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if col.Type == DB_Bool {
@@ -56,6 +70,8 @@ func (b *Postgres) Default(col *Column) string {
 	return col.Default
 }
 func (db *Postgres) SqlType(c *Column) string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var res string
@@ -108,11 +124,15 @@ func (db *Postgres) SqlType(c *Column) string {
 func (db *Postgres) TableCheckSql(tableName string) (string, []interface{}) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	args := []interface{}{"grafana", tableName}
 	sql := "SELECT table_name FROM information_schema.tables WHERE table_schema=? and table_name=?"
 	return sql, args
 }
 func (db *Postgres) DropIndexSql(tableName string, index *Index) string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	quote := db.Quote
@@ -122,6 +142,8 @@ func (db *Postgres) DropIndexSql(tableName string, index *Index) string {
 func (db *Postgres) UpdateTableSql(tableName string, columns []*Column) string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var statements = []string{}
 	for _, col := range columns {
 		statements = append(statements, "ALTER "+db.Quote(col.Name)+" TYPE "+db.SqlType(col))
@@ -129,6 +151,8 @@ func (db *Postgres) UpdateTableSql(tableName string, columns []*Column) string {
 	return "ALTER TABLE " + db.Quote(tableName) + " " + strings.Join(statements, ", ") + ";"
 }
 func (db *Postgres) CleanDB() error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	sess := db.engine.NewSession()
@@ -142,6 +166,8 @@ func (db *Postgres) CleanDB() error {
 	return nil
 }
 func (db *Postgres) IsUniqueConstraintViolation(err error) bool {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if driverErr, ok := err.(*pq.Error); ok {

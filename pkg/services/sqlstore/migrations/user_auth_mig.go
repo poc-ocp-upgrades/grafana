@@ -5,6 +5,8 @@ import . "github.com/grafana/grafana/pkg/services/sqlstore/migrator"
 func addUserAuthMigrations(mg *Migrator) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	userAuthV1 := Table{Name: "user_auth", Columns: []*Column{{Name: "id", Type: DB_BigInt, IsPrimaryKey: true, IsAutoIncrement: true}, {Name: "user_id", Type: DB_BigInt, Nullable: false}, {Name: "auth_module", Type: DB_NVarchar, Length: 190, Nullable: false}, {Name: "auth_id", Type: DB_NVarchar, Length: 100, Nullable: false}, {Name: "created", Type: DB_DateTime, Nullable: false}}, Indices: []*Index{{Cols: []string{"auth_module", "auth_id"}}}}
 	mg.AddMigration("create user auth table", NewAddTableMigration(userAuthV1))
 	addTableIndicesMigrations(mg, "v1", userAuthV1)

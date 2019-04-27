@@ -12,6 +12,8 @@ import (
 func init() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	alerting.RegisterNotifier(&alerting.NotifierPlugin{Type: "LINE", Name: "LINE", Description: "Send notifications to LINE notify", Factory: NewLINENotifier, OptionsTemplate: `
     <div class="gf-form-group">
       <h3 class="page-heading">LINE notify settings</h3>
@@ -30,6 +32,8 @@ const (
 func NewLINENotifier(model *m.AlertNotification) (alerting.Notifier, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	token := model.Settings.Get("token").MustString()
 	if token == "" {
 		return nil, alerting.ValidationError{Reason: "Could not find token in settings"}
@@ -46,6 +50,8 @@ type LineNotifier struct {
 func (this *LineNotifier) Notify(evalContext *alerting.EvalContext) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	this.log.Info("Executing line notification", "ruleId", evalContext.Rule.Id, "notification", this.Name)
 	var err error
 	switch evalContext.Rule.State {
@@ -55,6 +61,8 @@ func (this *LineNotifier) Notify(evalContext *alerting.EvalContext) error {
 	return err
 }
 func (this *LineNotifier) createAlert(evalContext *alerting.EvalContext) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	this.log.Info("Creating Line notify", "ruleId", evalContext.Rule.Id, "notification", this.Name)

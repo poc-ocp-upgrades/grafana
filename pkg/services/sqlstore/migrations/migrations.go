@@ -5,6 +5,8 @@ import . "github.com/grafana/grafana/pkg/services/sqlstore/migrator"
 func AddMigrations(mg *Migrator) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	addMigrationLogMigrations(mg)
 	addUserMigrations(mg)
 	addTempUserMigrations(mg)
@@ -32,10 +34,14 @@ func AddMigrations(mg *Migrator) {
 func addMigrationLogMigrations(mg *Migrator) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	migrationLogV1 := Table{Name: "migration_log", Columns: []*Column{{Name: "id", Type: DB_BigInt, IsPrimaryKey: true, IsAutoIncrement: true}, {Name: "migration_id", Type: DB_NVarchar, Length: 255}, {Name: "sql", Type: DB_Text}, {Name: "success", Type: DB_Bool}, {Name: "error", Type: DB_Text}, {Name: "timestamp", Type: DB_DateTime}}}
 	mg.AddMigration("create migration_log table", NewAddTableMigration(migrationLogV1))
 }
 func addStarMigrations(mg *Migrator) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	starV1 := Table{Name: "star", Columns: []*Column{{Name: "id", Type: DB_BigInt, IsPrimaryKey: true, IsAutoIncrement: true}, {Name: "user_id", Type: DB_BigInt, Nullable: false}, {Name: "dashboard_id", Type: DB_BigInt, Nullable: false}}, Indices: []*Index{{Cols: []string{"user_id", "dashboard_id"}, Type: UniqueIndex}}}

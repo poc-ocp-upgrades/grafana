@@ -12,6 +12,8 @@ import (
 func TestEmailIntegrationTest(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	SkipConvey("Given the notifications service", t, func() {
 		setting.StaticRootPath = "../../../public/"
 		setting.BuildVersion = "4.0.0"

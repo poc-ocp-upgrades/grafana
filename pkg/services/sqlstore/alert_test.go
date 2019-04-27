@@ -11,6 +11,8 @@ import (
 func mockTimeNow() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var timeSeed int64
 	timeNow = func() time.Time {
 		fakeNow := time.Unix(timeSeed, 0)
@@ -21,9 +23,13 @@ func mockTimeNow() {
 func resetTimeNow() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	timeNow = time.Now
 }
 func TestAlertingDataAccess(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	mockTimeNow()
@@ -156,6 +162,8 @@ func TestAlertingDataAccess(t *testing.T) {
 func TestPausingAlerts(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	mockTimeNow()
 	defer resetTimeNow()
 	Convey("Given an alert", t, func() {
@@ -185,12 +193,16 @@ func TestPausingAlerts(t *testing.T) {
 func pauseAlert(orgId int64, alertId int64, pauseState bool) (int64, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	cmd := &m.PauseAlertCommand{OrgId: orgId, AlertIds: []int64{alertId}, Paused: pauseState}
 	err := PauseAlert(cmd)
 	So(err, ShouldBeNil)
 	return cmd.ResultCount, err
 }
 func insertTestAlert(title string, message string, orgId int64, dashId int64, settings *simplejson.Json) (*m.Alert, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	items := []*m.Alert{{PanelId: 1, DashboardId: dashId, OrgId: orgId, Name: title, Message: message, Settings: settings, Frequency: 1}}
@@ -201,12 +213,16 @@ func insertTestAlert(title string, message string, orgId int64, dashId int64, se
 func getAlertById(id int64) (*m.Alert, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	q := &m.GetAlertByIdQuery{Id: id}
 	err := GetAlertById(q)
 	So(err, ShouldBeNil)
 	return q.Result, err
 }
 func pauseAllAlerts(pauseState bool) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	cmd := &m.PauseAllAlertCommand{Paused: pauseState}

@@ -31,6 +31,8 @@ type fileReader struct {
 func NewDashboardFileReader(cfg *DashboardsAsConfig, log log.Logger) (*fileReader, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var path string
 	path, ok := cfg.Options["path"].(string)
 	if !ok {
@@ -43,6 +45,8 @@ func NewDashboardFileReader(cfg *DashboardsAsConfig, log log.Logger) (*fileReade
 	return &fileReader{Cfg: cfg, Path: path, log: log, dashboardService: dashboards.NewProvisioningService()}, nil
 }
 func (fr *fileReader) ReadAndListen(ctx context.Context) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if err := fr.startWalkingDisk(); err != nil {
@@ -68,6 +72,8 @@ func (fr *fileReader) ReadAndListen(ctx context.Context) error {
 	}
 }
 func (fr *fileReader) startWalkingDisk() error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	resolvedPath := fr.resolvePath(fr.Path)
@@ -104,6 +110,8 @@ func (fr *fileReader) startWalkingDisk() error {
 func (fr *fileReader) deleteDashboardIfFileIsMissing(provisionedDashboardRefs map[string]*models.DashboardProvisioning, filesFoundOnDisk map[string]os.FileInfo) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if fr.Cfg.DisableDeletion {
 		return
 	}
@@ -124,6 +132,8 @@ func (fr *fileReader) deleteDashboardIfFileIsMissing(provisionedDashboardRefs ma
 	}
 }
 func (fr *fileReader) saveDashboard(path string, folderId int64, fileInfo os.FileInfo, provisionedDashboardRefs map[string]*models.DashboardProvisioning) (provisioningMetadata, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	provisioningMetadata := provisioningMetadata{}
@@ -162,6 +172,8 @@ func (fr *fileReader) saveDashboard(path string, folderId int64, fileInfo os.Fil
 func getProvisionedDashboardByPath(service dashboards.DashboardProvisioningService, name string) (map[string]*models.DashboardProvisioning, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	arr, err := service.GetProvisionedDashboardData(name)
 	if err != nil {
 		return nil, err
@@ -173,6 +185,8 @@ func getProvisionedDashboardByPath(service dashboards.DashboardProvisioningServi
 	return byPath, nil
 }
 func getOrCreateFolderId(cfg *DashboardsAsConfig, service dashboards.DashboardProvisioningService) (int64, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if cfg.Folder == "" {
@@ -203,6 +217,8 @@ func getOrCreateFolderId(cfg *DashboardsAsConfig, service dashboards.DashboardPr
 func resolveSymlink(fileinfo os.FileInfo, path string) (os.FileInfo, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	checkFilepath, err := filepath.EvalSymlinks(path)
 	if path != checkFilepath {
 		fi, err := os.Lstat(checkFilepath)
@@ -214,6 +230,8 @@ func resolveSymlink(fileinfo os.FileInfo, path string) (os.FileInfo, error) {
 	return fileinfo, err
 }
 func createWalkFn(filesOnDisk map[string]os.FileInfo) filepath.WalkFunc {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return func(path string, fileInfo os.FileInfo, err error) error {
@@ -229,6 +247,8 @@ func createWalkFn(filesOnDisk map[string]os.FileInfo) filepath.WalkFunc {
 	}
 }
 func validateWalkablePath(fileInfo os.FileInfo) (bool, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if fileInfo.IsDir() {
@@ -250,6 +270,8 @@ type dashboardJsonFile struct {
 }
 
 func (fr *fileReader) readDashboardFromFile(path string, lastModified time.Time, folderId int64) (*dashboardJsonFile, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	reader, err := os.Open(path)
@@ -276,6 +298,8 @@ func (fr *fileReader) readDashboardFromFile(path string, lastModified time.Time,
 	return &dashboardJsonFile{dashboard: dash, checkSum: checkSum, lastModified: lastModified}, nil
 }
 func (fr *fileReader) resolvePath(path string) string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if _, err := os.Stat(path); os.IsNotExist(err) {
@@ -305,6 +329,8 @@ type provisioningMetadata struct {
 func newProvisioningSanityChecker(provisioningProvider string) provisioningSanityChecker {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return provisioningSanityChecker{provisioningProvider: provisioningProvider, uidUsage: map[string]uint8{}, titleUsage: map[string]uint8{}}
 }
 
@@ -317,6 +343,8 @@ type provisioningSanityChecker struct {
 func (checker provisioningSanityChecker) track(pm provisioningMetadata) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if len(pm.uid) > 0 {
 		checker.uidUsage[pm.uid] += 1
 	}
@@ -325,6 +353,8 @@ func (checker provisioningSanityChecker) track(pm provisioningMetadata) {
 	}
 }
 func (checker provisioningSanityChecker) logWarnings(log log.Logger) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	for uid, times := range checker.uidUsage {

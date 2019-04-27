@@ -16,9 +16,13 @@ type conditionStub struct {
 func (c *conditionStub) Eval(context *EvalContext) (*ConditionResult, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return &ConditionResult{Firing: c.firing, EvalMatches: c.matches, Operator: c.operator, NoDataFound: c.noData}, nil
 }
 func TestAlertingEvaluationHandler(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	Convey("Test alert evaluation handler", t, func() {

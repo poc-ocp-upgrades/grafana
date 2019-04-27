@@ -20,6 +20,8 @@ import (
 func init() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	registry.RegisterService(&RenderingService{})
 }
 
@@ -35,6 +37,8 @@ type RenderingService struct {
 }
 
 func (rs *RenderingService) Init() error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	rs.log = log.New("rendering")
@@ -53,6 +57,8 @@ func (rs *RenderingService) Init() error {
 	return nil
 }
 func (rs *RenderingService) Run(ctx context.Context) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if rs.Cfg.RendererUrl != "" {
@@ -81,6 +87,8 @@ func (rs *RenderingService) Run(ctx context.Context) error {
 func (rs *RenderingService) Render(ctx context.Context, opts Opts) (*RenderResult, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if rs.inProgressCount > opts.ConcurrentLimit {
 		return &RenderResult{FilePath: filepath.Join(setting.HomePath, "public/img/rendering_limit.png")}, nil
 	}
@@ -97,10 +105,14 @@ func (rs *RenderingService) Render(ctx context.Context, opts Opts) (*RenderResul
 func (rs *RenderingService) getFilePathForNewImage() string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	pngPath, _ := filepath.Abs(filepath.Join(rs.Cfg.ImagesDir, util.GetRandomString(20)))
 	return pngPath + ".png"
 }
 func (rs *RenderingService) getURL(path string) string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if rs.Cfg.RendererUrl != "" {
@@ -109,6 +121,8 @@ func (rs *RenderingService) getURL(path string) string {
 	return fmt.Sprintf("%s://%s:%s/%s&render=1", setting.Protocol, rs.domain, setting.HttpPort, path)
 }
 func (rs *RenderingService) getRenderKey(orgId, userId int64, orgRole models.RoleType) string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return middleware.AddRenderAuthKey(orgId, userId, orgRole)

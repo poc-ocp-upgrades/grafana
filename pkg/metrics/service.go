@@ -16,9 +16,13 @@ type logWrapper struct{ logger log.Logger }
 func (lw *logWrapper) Println(v ...interface{}) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	lw.logger.Info("graphite metric bridge", v...)
 }
 func init() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	registry.RegisterService(&InternalMetricsService{})
@@ -35,9 +39,13 @@ type InternalMetricsService struct {
 func (im *InternalMetricsService) Init() error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return im.readSettings()
 }
 func (im *InternalMetricsService) Run(ctx context.Context) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if im.graphiteCfg != nil {

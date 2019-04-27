@@ -11,6 +11,8 @@ import (
 func TestInfluxdbQueryParser(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	Convey("Influxdb query parser", t, func() {
 		parser := &InfluxdbQueryParser{}
 		dsInfo := &models.DataSource{JsonData: simplejson.New()}

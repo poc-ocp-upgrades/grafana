@@ -10,6 +10,8 @@ import (
 func TestMetricQuery(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	Convey("When executing request with one query", t, func() {
 		req := &TsdbQuery{Queries: []*Query{{RefId: "A", DataSource: &models.DataSource{Id: 1, Type: "test"}}}}
 		fakeExecutor := registerFakeExecutor()
@@ -40,6 +42,8 @@ func TestMetricQuery(t *testing.T) {
 	})
 }
 func registerFakeExecutor() *FakeExecutor {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	executor, _ := NewFakeExecutor(nil)

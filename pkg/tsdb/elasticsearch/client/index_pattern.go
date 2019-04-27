@@ -33,6 +33,8 @@ type staticIndexPattern struct{ indexName string }
 func (ip *staticIndexPattern) GetIndices(timeRange *tsdb.TimeRange) ([]string, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return []string{ip.indexName}, nil
 }
 
@@ -46,6 +48,8 @@ type dynamicIndexPattern struct {
 }
 
 func newDynamicIndexPattern(interval, pattern string) (*dynamicIndexPattern, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var generator intervalGenerator
@@ -68,6 +72,8 @@ func newDynamicIndexPattern(interval, pattern string) (*dynamicIndexPattern, err
 func (ip *dynamicIndexPattern) GetIndices(timeRange *tsdb.TimeRange) ([]string, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	from := timeRange.GetFromAsTimeUTC()
 	to := timeRange.GetToAsTimeUTC()
 	intervals := ip.intervalGenerator.Generate(from, to)
@@ -81,6 +87,8 @@ func (ip *dynamicIndexPattern) GetIndices(timeRange *tsdb.TimeRange) ([]string, 
 type hourlyInterval struct{}
 
 func (i *hourlyInterval) Generate(from, to time.Time) []time.Time {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	intervals := []time.Time{}
@@ -99,6 +107,8 @@ type dailyInterval struct{}
 func (i *dailyInterval) Generate(from, to time.Time) []time.Time {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	intervals := []time.Time{}
 	start := time.Date(from.Year(), from.Month(), from.Day(), 0, 0, 0, 0, time.UTC)
 	end := time.Date(to.Year(), to.Month(), to.Day(), 0, 0, 0, 0, time.UTC)
@@ -113,6 +123,8 @@ func (i *dailyInterval) Generate(from, to time.Time) []time.Time {
 type weeklyInterval struct{}
 
 func (i *weeklyInterval) Generate(from, to time.Time) []time.Time {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	intervals := []time.Time{}
@@ -143,6 +155,8 @@ type monthlyInterval struct{}
 func (i *monthlyInterval) Generate(from, to time.Time) []time.Time {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	intervals := []time.Time{}
 	start := time.Date(from.Year(), from.Month(), 1, 0, 0, 0, 0, time.UTC)
 	end := time.Date(to.Year(), to.Month(), 1, 0, 0, 0, 0, time.UTC)
@@ -162,6 +176,8 @@ func (i *monthlyInterval) Generate(from, to time.Time) []time.Time {
 type yearlyInterval struct{}
 
 func (i *yearlyInterval) Generate(from, to time.Time) []time.Time {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	intervals := []time.Time{}
@@ -184,6 +200,8 @@ var datePatternRegex = regexp.MustCompile("(LT|LL?L?L?|l{1,4}|Mo|MM?M?M?|Do|DDDo
 var datePatternReplacements = map[string]string{"M": "1", "MM": "01", "MMM": "Jan", "MMMM": "January", "D": "2", "DD": "02", "DDD": "<stdDayOfYear>", "DDDD": "<stdDayOfYearZero>", "d": "<stdDayOfWeek>", "dd": "Mon", "ddd": "Mon", "dddd": "Monday", "e": "<stdDayOfWeek>", "E": "<stdDayOfWeekISO>", "w": "<stdWeekOfYear>", "ww": "<stdWeekOfYear>", "W": "<stdWeekOfYear>", "WW": "<stdWeekOfYear>", "YY": "06", "YYYY": "2006", "gg": "<stdIsoYearShort>", "gggg": "<stdIsoYear>", "GG": "<stdIsoYearShort>", "GGGG": "<stdIsoYear>", "Q": "<stdQuarter>", "A": "PM", "a": "pm", "H": "<stdHourNoZero>", "HH": "15", "h": "3", "hh": "03", "m": "4", "mm": "04", "s": "5", "ss": "05", "z": "MST", "zz": "MST", "Z": "Z07:00", "ZZ": "-0700", "X": "<stdUnix>", "LT": "3:04 PM", "L": "01/02/2006", "l": "1/2/2006", "ll": "Jan 2 2006", "lll": "Jan 2 2006 3:04 PM", "llll": "Mon, Jan 2 2006 3:04 PM"}
 
 func formatDate(t time.Time, pattern string) string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var datePattern string
@@ -243,6 +261,8 @@ func formatDate(t time.Time, pattern string) string {
 	return formatted + base
 }
 func patternToLayout(pattern string) string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var match [][]string

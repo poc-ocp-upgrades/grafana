@@ -20,6 +20,8 @@ type releaseLocalSources struct {
 func (r releaseLocalSources) prepareRelease(baseArchiveUrl, whatsNewUrl string, releaseNotesUrl string, nightly bool) (*release, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if !nightly {
 		return nil, errors.New("Local releases only supported for nightly builds.")
 	}
@@ -36,11 +38,15 @@ type buildData struct {
 func (r releaseLocalSources) findBuilds(baseArchiveUrl string) buildData {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	data := buildData{}
 	filepath.Walk(r.path, createBuildWalker(r.path, &data, r.artifactConfigurations, baseArchiveUrl))
 	return data
 }
 func createBuildWalker(path string, data *buildData, archiveTypes []buildArtifact, baseArchiveUrl string) func(path string, f os.FileInfo, err error) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return func(path string, f os.FileInfo, err error) error {
@@ -70,6 +76,8 @@ func createBuildWalker(path string, data *buildData, archiveTypes []buildArtifac
 	}
 }
 func grabVersion(name string, suffix string) (string, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	match := regexp.MustCompile(fmt.Sprintf(`grafana(-enterprise)?[-_](.*)%s`, suffix)).FindSubmatch([]byte(name))

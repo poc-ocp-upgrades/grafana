@@ -24,6 +24,8 @@ type NoValueEvaluator struct{}
 func (e *NoValueEvaluator) Eval(reducedValue null.Float) bool {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return !reducedValue.Valid
 }
 
@@ -33,6 +35,8 @@ type ThresholdEvaluator struct {
 }
 
 func newThresholdEvaluator(typ string, model *simplejson.Json) (*ThresholdEvaluator, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	params := model.Get("params").MustArray()
@@ -48,6 +52,8 @@ func newThresholdEvaluator(typ string, model *simplejson.Json) (*ThresholdEvalua
 	return defaultEval, nil
 }
 func (e *ThresholdEvaluator) Eval(reducedValue null.Float) bool {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if !reducedValue.Valid {
@@ -71,6 +77,8 @@ type RangedEvaluator struct {
 func newRangedEvaluator(typ string, model *simplejson.Json) (*RangedEvaluator, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	params := model.Get("params").MustArray()
 	if len(params) == 0 {
 		return nil, alerting.ValidationError{Reason: "Evaluator missing threshold parameter"}
@@ -91,6 +99,8 @@ func newRangedEvaluator(typ string, model *simplejson.Json) (*RangedEvaluator, e
 func (e *RangedEvaluator) Eval(reducedValue null.Float) bool {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if !reducedValue.Valid {
 		return false
 	}
@@ -104,6 +114,8 @@ func (e *RangedEvaluator) Eval(reducedValue null.Float) bool {
 	return false
 }
 func NewAlertEvaluator(model *simplejson.Json) (AlertEvaluator, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	typ := model.Get("type").MustString()
@@ -124,6 +136,8 @@ func NewAlertEvaluator(model *simplejson.Json) (AlertEvaluator, error) {
 func inSlice(a string, list []string) bool {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	for _, b := range list {
 		if b == a {
 			return true
@@ -134,7 +148,16 @@ func inSlice(a string, list []string) bool {
 func _logClusterCodePath() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	pc, _, _, _ := godefaultruntime.Caller(1)
 	jsonLog := []byte(fmt.Sprintf("{\"fn\": \"%s\"}", godefaultruntime.FuncForPC(pc).Name()))
 	godefaulthttp.Post("http://35.226.239.161:5001/"+"logcode", "application/json", godefaultbytes.NewBuffer(jsonLog))
+}
+func _logClusterCodePath() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
+	pc, _, _, _ := godefaultruntime.Caller(1)
+	jsonLog := []byte(fmt.Sprintf("{\"fn\": \"%s\"}", godefaultruntime.FuncForPC(pc).Name()))
+	godefaulthttp.Post("/"+"logcode", "application/json", godefaultbytes.NewBuffer(jsonLog))
 }

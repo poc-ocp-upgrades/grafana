@@ -10,6 +10,8 @@ import (
 func TestDashboardModel(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	Convey("Generate full dashboard url", t, func() {
 		setting.AppUrl = "http://grafana.local/"
 		fullUrl := GetFullDashboardUrl("uid", "my-dashboard")

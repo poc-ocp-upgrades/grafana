@@ -96,6 +96,8 @@ type DataSourceFromConfigV1 struct {
 func (cfg *DatasourcesAsConfigV1) mapToDatasourceFromConfig(apiVersion int64) *DatasourcesAsConfig {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	r := &DatasourcesAsConfig{}
 	r.ApiVersion = apiVersion
 	if cfg == nil {
@@ -110,6 +112,8 @@ func (cfg *DatasourcesAsConfigV1) mapToDatasourceFromConfig(apiVersion int64) *D
 	return r
 }
 func (cfg *DatasourcesAsConfigV0) mapToDatasourceFromConfig(apiVersion int64) *DatasourcesAsConfig {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	r := &DatasourcesAsConfig{}
@@ -128,6 +132,8 @@ func (cfg *DatasourcesAsConfigV0) mapToDatasourceFromConfig(apiVersion int64) *D
 func createInsertCommand(ds *DataSourceFromConfig) *models.AddDataSourceCommand {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	jsonData := simplejson.New()
 	if len(ds.JsonData) > 0 {
 		for k, v := range ds.JsonData {
@@ -137,6 +143,8 @@ func createInsertCommand(ds *DataSourceFromConfig) *models.AddDataSourceCommand 
 	return &models.AddDataSourceCommand{OrgId: ds.OrgId, Name: ds.Name, Type: ds.Type, Access: models.DsAccess(ds.Access), Url: ds.Url, Password: ds.Password, User: ds.User, Database: ds.Database, BasicAuth: ds.BasicAuth, BasicAuthUser: ds.BasicAuthUser, BasicAuthPassword: ds.BasicAuthPassword, WithCredentials: ds.WithCredentials, IsDefault: ds.IsDefault, JsonData: jsonData, SecureJsonData: ds.SecureJsonData, ReadOnly: !ds.Editable}
 }
 func createUpdateCommand(ds *DataSourceFromConfig, id int64) *models.UpdateDataSourceCommand {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	jsonData := simplejson.New()

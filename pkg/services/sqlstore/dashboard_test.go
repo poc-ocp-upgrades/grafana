@@ -16,6 +16,8 @@ import (
 func TestDashboardDataAccess(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	Convey("Testing DB", t, func() {
 		InitTestDB(t)
 		Convey("Given saved dashboard", func() {
@@ -202,6 +204,8 @@ func TestDashboardDataAccess(t *testing.T) {
 func insertTestDashboard(title string, orgId int64, folderId int64, isFolder bool, tags ...interface{}) *m.Dashboard {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	cmd := m.SaveDashboardCommand{OrgId: orgId, FolderId: folderId, IsFolder: isFolder, Dashboard: simplejson.NewFromAny(map[string]interface{}{"id": nil, "title": title, "tags": tags})}
 	err := SaveDashboard(&cmd)
 	So(err, ShouldBeNil)
@@ -212,12 +216,16 @@ func insertTestDashboard(title string, orgId int64, folderId int64, isFolder boo
 func insertTestDashboardForPlugin(title string, orgId int64, folderId int64, isFolder bool, pluginId string) *m.Dashboard {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	cmd := m.SaveDashboardCommand{OrgId: orgId, FolderId: folderId, IsFolder: isFolder, Dashboard: simplejson.NewFromAny(map[string]interface{}{"id": nil, "title": title}), PluginId: pluginId}
 	err := SaveDashboard(&cmd)
 	So(err, ShouldBeNil)
 	return cmd.Result
 }
 func createUser(name string, role string, isAdmin bool) m.User {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	setting.AutoAssignOrg = true
@@ -232,6 +240,8 @@ func createUser(name string, role string, isAdmin bool) m.User {
 	return currentUserCmd.Result
 }
 func moveDashboard(orgId int64, dashboard *simplejson.Json, newFolderId int64) *m.Dashboard {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	cmd := m.SaveDashboardCommand{OrgId: orgId, FolderId: newFolderId, Dashboard: dashboard, Overwrite: true}

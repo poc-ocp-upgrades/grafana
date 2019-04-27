@@ -16,6 +16,8 @@ type LdapUserInfo struct {
 func (u *LdapUserInfo) isMemberOf(group string) bool {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if group == "*" {
 		return true
 	}

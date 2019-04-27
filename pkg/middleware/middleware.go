@@ -22,6 +22,8 @@ var (
 func GetContextHandler() macaron.Handler {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return func(c *macaron.Context) {
 		ctx := &m.ReqContext{Context: c, SignedInUser: &m.SignedInUser{}, Session: session.GetSession(), IsSignedIn: false, AllowAnonymous: false, SkipCache: false, Logger: log.New("context")}
 		orgId := int64(0)
@@ -51,6 +53,8 @@ func GetContextHandler() macaron.Handler {
 func initContextWithAnonymousUser(ctx *m.ReqContext) bool {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if !setting.AnonymousEnabled {
 		return false
 	}
@@ -68,6 +72,8 @@ func initContextWithAnonymousUser(ctx *m.ReqContext) bool {
 	return true
 }
 func initContextWithUserSessionCookie(ctx *m.ReqContext, orgId int64) bool {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if err := ctx.Session.Start(ctx.Context); err != nil {
@@ -88,6 +94,8 @@ func initContextWithUserSessionCookie(ctx *m.ReqContext, orgId int64) bool {
 	return true
 }
 func initContextWithApiKey(ctx *m.ReqContext) bool {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var keyString string
@@ -117,6 +125,8 @@ func initContextWithApiKey(ctx *m.ReqContext) bool {
 	return true
 }
 func initContextWithBasicAuth(ctx *m.ReqContext, orgId int64) bool {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if !setting.BasicAuthEnabled {
@@ -152,6 +162,8 @@ func initContextWithBasicAuth(ctx *m.ReqContext, orgId int64) bool {
 	return true
 }
 func AddDefaultResponseHeaders() macaron.Handler {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return func(ctx *m.ReqContext) {

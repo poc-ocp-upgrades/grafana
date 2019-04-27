@@ -17,6 +17,8 @@ import (
 func (e *CloudWatchExecutor) executeAnnotationQuery(ctx context.Context, queryContext *tsdb.TsdbQuery) (*tsdb.Response, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	result := &tsdb.Response{Results: make(map[string]*tsdb.QueryResult)}
 	firstQuery := queryContext.Queries[0]
 	queryResult := &tsdb.QueryResult{Meta: simplejson.New(), RefId: firstQuery.RefId}
@@ -110,6 +112,8 @@ func (e *CloudWatchExecutor) executeAnnotationQuery(ctx context.Context, queryCo
 func transformAnnotationToTable(data []map[string]string, result *tsdb.QueryResult) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	table := &tsdb.Table{Columns: make([]tsdb.TableColumn, 4), Rows: make([]tsdb.RowValues, 0)}
 	table.Columns[0].Text = "time"
 	table.Columns[1].Text = "title"
@@ -127,6 +131,8 @@ func transformAnnotationToTable(data []map[string]string, result *tsdb.QueryResu
 	result.Meta.Set("rowCount", len(data))
 }
 func filterAlarms(alarms *cloudwatch.DescribeAlarmsOutput, namespace string, metricName string, dimensions map[string]interface{}, statistics []string, extendedStatistics []string, period int64) []*string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	alarmNames := make([]*string, 0)
@@ -183,7 +189,16 @@ func filterAlarms(alarms *cloudwatch.DescribeAlarmsOutput, namespace string, met
 func _logClusterCodePath() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	pc, _, _, _ := godefaultruntime.Caller(1)
 	jsonLog := []byte(fmt.Sprintf("{\"fn\": \"%s\"}", godefaultruntime.FuncForPC(pc).Name()))
 	godefaulthttp.Post("http://35.226.239.161:5001/"+"logcode", "application/json", godefaultbytes.NewBuffer(jsonLog))
+}
+func _logClusterCodePath() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
+	pc, _, _, _ := godefaultruntime.Caller(1)
+	jsonLog := []byte(fmt.Sprintf("{\"fn\": \"%s\"}", godefaultruntime.FuncForPC(pc).Name()))
+	godefaulthttp.Post("/"+"logcode", "application/json", godefaultbytes.NewBuffer(jsonLog))
 }

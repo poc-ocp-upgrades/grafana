@@ -11,6 +11,8 @@ import (
 func init() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	alerting.RegisterNotifier(&alerting.NotifierPlugin{Type: "webhook", Name: "webhook", Description: "Sends HTTP POST request to a URL", Factory: NewWebHookNotifier, OptionsTemplate: `
       <h3 class="page-heading">Webhook settings</h3>
       <div class="gf-form">
@@ -37,6 +39,8 @@ func init() {
 func NewWebHookNotifier(model *m.AlertNotification) (alerting.Notifier, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	url := model.Settings.Get("url").MustString()
 	if url == "" {
 		return nil, alerting.ValidationError{Reason: "Could not find url property in settings"}
@@ -54,6 +58,8 @@ type WebhookNotifier struct {
 }
 
 func (this *WebhookNotifier) Notify(evalContext *alerting.EvalContext) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	this.log.Info("Sending webhook")

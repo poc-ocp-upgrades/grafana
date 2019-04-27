@@ -16,6 +16,8 @@ import (
 func TestStackdriver(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	Convey("Stackdriver", t, func() {
 		executor := &StackdriverExecutor{}
 		Convey("Parse queries from frontend and build Stackdriver API queries", func() {
@@ -359,6 +361,8 @@ func TestStackdriver(t *testing.T) {
 	})
 }
 func loadTestFile(path string) (StackdriverResponse, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var data StackdriverResponse

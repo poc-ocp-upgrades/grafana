@@ -11,6 +11,8 @@ import (
 func TestPluginScans(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	Convey("When scanning for plugins", t, func() {
 		setting.StaticRootPath, _ = filepath.Abs("../../public/")
 		setting.Raw = ini.Empty()

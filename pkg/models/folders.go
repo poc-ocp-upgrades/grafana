@@ -32,6 +32,8 @@ type Folder struct {
 func (cmd *CreateFolderCommand) GetDashboardModel(orgId int64, userId int64) *Dashboard {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	dashFolder := NewDashboardFolder(strings.TrimSpace(cmd.Title))
 	dashFolder.OrgId = orgId
 	dashFolder.SetUid(strings.TrimSpace(cmd.Uid))
@@ -44,6 +46,8 @@ func (cmd *CreateFolderCommand) GetDashboardModel(orgId int64, userId int64) *Da
 	return dashFolder
 }
 func (cmd *UpdateFolderCommand) UpdateDashboardModel(dashFolder *Dashboard, orgId int64, userId int64) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	dashFolder.OrgId = orgId

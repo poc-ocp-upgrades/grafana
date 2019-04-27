@@ -7,6 +7,8 @@ import (
 func addDashboardMigration(mg *Migrator) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var dashboardV1 = Table{Name: "dashboard", Columns: []*Column{{Name: "id", Type: DB_BigInt, IsPrimaryKey: true, IsAutoIncrement: true}, {Name: "version", Type: DB_Int, Nullable: false}, {Name: "slug", Type: DB_NVarchar, Length: 189, Nullable: false}, {Name: "title", Type: DB_NVarchar, Length: 255, Nullable: false}, {Name: "data", Type: DB_Text, Nullable: false}, {Name: "account_id", Type: DB_BigInt, Nullable: false}, {Name: "created", Type: DB_DateTime, Nullable: false}, {Name: "updated", Type: DB_DateTime, Nullable: false}}, Indices: []*Index{{Cols: []string{"account_id"}}, {Cols: []string{"account_id", "slug"}, Type: UniqueIndex}}}
 	mg.AddMigration("create dashboard table", NewAddTableMigration(dashboardV1))
 	mg.AddMigration("add index dashboard.account_id", NewAddIndexMigration(dashboardV1, dashboardV1.Indices[0]))

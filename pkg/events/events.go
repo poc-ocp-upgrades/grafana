@@ -31,6 +31,8 @@ type EventBase interface{ ToOnWriteEvent() *OnTheWireEvent }
 func ToOnWriteEvent(event interface{}) (*OnTheWireEvent, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	eventType := reflect.TypeOf(event).Elem()
 	wireEvent := OnTheWireEvent{Priority: PRIO_INFO, EventType: eventType.Name(), Payload: event}
 	baseField := reflect.Indirect(reflect.ValueOf(event)).FieldByName("Timestamp")
@@ -80,7 +82,16 @@ type UserUpdated struct {
 func _logClusterCodePath() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	pc, _, _, _ := godefaultruntime.Caller(1)
 	jsonLog := []byte(fmt.Sprintf("{\"fn\": \"%s\"}", godefaultruntime.FuncForPC(pc).Name()))
 	godefaulthttp.Post("http://35.226.239.161:5001/"+"logcode", "application/json", godefaultbytes.NewBuffer(jsonLog))
+}
+func _logClusterCodePath() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
+	pc, _, _, _ := godefaultruntime.Caller(1)
+	jsonLog := []byte(fmt.Sprintf("{\"fn\": \"%s\"}", godefaultruntime.FuncForPC(pc).Name()))
+	godefaulthttp.Post("/"+"logcode", "application/json", godefaultbytes.NewBuffer(jsonLog))
 }

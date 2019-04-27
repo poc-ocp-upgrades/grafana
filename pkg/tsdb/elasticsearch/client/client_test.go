@@ -18,6 +18,8 @@ import (
 func TestClient(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	Convey("Test elasticsearch client", t, func() {
 		Convey("NewClient", func() {
 			Convey("When no version set should return error", func() {
@@ -189,6 +191,8 @@ func TestClient(t *testing.T) {
 	})
 }
 func createMultisearchForTest(c Client) (*MultiSearchRequest, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	msb := c.MultiSearch()

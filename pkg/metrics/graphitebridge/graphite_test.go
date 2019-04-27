@@ -16,6 +16,8 @@ import (
 func TestCountersAsDelta(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	b, _ := NewBridge(&Config{URL: "localhost:12345", CountersAsDelta: true})
 	ty := dto.MetricType(0)
 	mf := &dto.MetricFamily{Type: &ty, Metric: []*dto.Metric{}}
@@ -33,6 +35,8 @@ func TestCountersAsDelta(t *testing.T) {
 	}
 }
 func TestCountersAsDeltaDisabled(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	b, _ := NewBridge(&Config{URL: "localhost:12345", CountersAsDelta: false})
@@ -55,6 +59,8 @@ func TestCountersAsDeltaDisabled(t *testing.T) {
 func TestSanitize(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	testCases := []struct{ in, out string }{{in: "hello", out: "hello"}, {in: "hE/l1o", out: "hE_l1o"}, {in: "he,*ll(.o", out: "he_ll_o"}, {in: "hello_there%^&", out: "hello_there_"}}
 	var buf bytes.Buffer
 	w := bufio.NewWriter(&buf)
@@ -74,6 +80,8 @@ func TestSanitize(t *testing.T) {
 func TestSanitizePrefix(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	testCases := []struct{ in, out string }{{in: "service.prod.", out: "service.prod."}, {in: "service.prod", out: "service.prod"}}
 	var buf bytes.Buffer
 	w := bufio.NewWriter(&buf)
@@ -91,6 +99,8 @@ func TestSanitizePrefix(t *testing.T) {
 	}
 }
 func TestWriteSummary(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	sumVec := prometheus.NewSummaryVec(prometheus.SummaryOpts{Name: "name", Help: "docstring", Namespace: "grafana", ConstLabels: prometheus.Labels{"constname": "constvalue"}, Objectives: map[float64]float64{0.5: 0.05, 0.9: 0.01, 0.99: 0.001}}, []string{"labelname"})
@@ -132,6 +142,8 @@ prefix.name_count.constname.constvalue.labelname.val2.count 3 1477043
 	}
 }
 func TestWriteHistogram(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	histVec := prometheus.NewHistogramVec(prometheus.HistogramOpts{Name: "name", Help: "docstring", Namespace: "grafana", ConstLabels: prometheus.Labels{"constname": "constvalue"}, Buckets: []float64{0.01, 0.02, 0.05, 0.1}}, []string{"labelname"})
@@ -177,6 +189,8 @@ prefix.name_bucket.constname.constvalue.labelname.val2.le._Inf 3 1477043
 	}
 }
 func TestCounterVec(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	cntVec := prometheus.NewCounterVec(prometheus.CounterOpts{Name: "page_response", Namespace: "grafana", Help: "docstring", ConstLabels: prometheus.Labels{"constname": "constvalue"}}, []string{"labelname"})
@@ -234,6 +248,8 @@ prefix.page.response.constname.constvalue.labelname.val2.count 1 1477053
 func TestCounter(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	cntVec := prometheus.NewCounter(prometheus.CounterOpts{Name: "page_response", Help: "docstring", Namespace: "grafana", ConstLabels: prometheus.Labels{"constname": "constvalue"}})
 	reg := prometheus.NewRegistry()
 	reg.MustRegister(cntVec)
@@ -273,6 +289,8 @@ func TestCounter(t *testing.T) {
 func TestTrimGrafanaNamespace(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	cntVec := prometheus.NewCounter(prometheus.CounterOpts{Name: "http_request_total", Help: "docstring", ConstLabels: prometheus.Labels{"constname": "constvalue"}})
 	reg := prometheus.NewRegistry()
 	reg.MustRegister(cntVec)
@@ -296,6 +314,8 @@ func TestTrimGrafanaNamespace(t *testing.T) {
 	}
 }
 func TestSkipNanValues(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	cntVec := prometheus.NewSummary(prometheus.SummaryOpts{Name: "http_request_total", Help: "docstring", ConstLabels: prometheus.Labels{"constname": "constvalue"}})
@@ -322,6 +342,8 @@ prefix.http_request_total_count.constname.constvalue.count 0 1477043
 	}
 }
 func TestPush(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	reg := prometheus.NewRegistry()
@@ -364,6 +386,8 @@ func TestPush(t *testing.T) {
 	}
 }
 func newMockGraphite(port string) (*mockGraphite, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	readc := make(chan string)

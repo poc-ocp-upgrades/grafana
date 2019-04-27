@@ -11,6 +11,8 @@ import (
 func GetDashboardPermissionList(c *m.ReqContext) Response {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	dashID := c.ParamsInt64(":dashboardId")
 	_, rsp := getDashboardHelper(c.OrgId, "", dashID, "")
 	if rsp != nil {
@@ -36,6 +38,8 @@ func GetDashboardPermissionList(c *m.ReqContext) Response {
 	return JSON(200, acl)
 }
 func UpdateDashboardPermissions(c *m.ReqContext, apiCmd dtos.UpdateDashboardAclCommand) Response {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	dashID := c.ParamsInt64(":dashboardId")

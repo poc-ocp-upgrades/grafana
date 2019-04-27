@@ -16,6 +16,8 @@ import (
 func (ss *SqlStore) addUserQueryAndCommandHandlers() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	ss.Bus.AddHandler(ss.GetSignedInUserWithCache)
 	bus.AddHandler("sql", GetUserById)
 	bus.AddHandler("sql", UpdateUser)
@@ -33,6 +35,8 @@ func (ss *SqlStore) addUserQueryAndCommandHandlers() {
 	bus.AddHandlerCtx("sql", CreateUser)
 }
 func getOrgIdForNewUser(cmd *m.CreateUserCommand, sess *DBSession) (int64, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if cmd.SkipOrgSetup {
@@ -78,6 +82,8 @@ func getOrgIdForNewUser(cmd *m.CreateUserCommand, sess *DBSession) (int64, error
 func CreateUser(ctx context.Context, cmd *m.CreateUserCommand) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return inTransactionCtx(ctx, func(sess *DBSession) error {
 		orgId, err := getOrgIdForNewUser(cmd, sess)
 		if err != nil {
@@ -117,6 +123,8 @@ func CreateUser(ctx context.Context, cmd *m.CreateUserCommand) error {
 func GetUserById(query *m.GetUserByIdQuery) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	user := new(m.User)
 	has, err := x.Id(query.Id).Get(user)
 	if err != nil {
@@ -128,6 +136,8 @@ func GetUserById(query *m.GetUserByIdQuery) error {
 	return nil
 }
 func GetUserByLogin(query *m.GetUserByLoginQuery) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if query.LoginOrEmail == "" {
@@ -153,6 +163,8 @@ func GetUserByLogin(query *m.GetUserByLoginQuery) error {
 func GetUserByEmail(query *m.GetUserByEmailQuery) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if query.Email == "" {
 		return m.ErrUserNotFound
 	}
@@ -169,6 +181,8 @@ func GetUserByEmail(query *m.GetUserByEmailQuery) error {
 func UpdateUser(cmd *m.UpdateUserCommand) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return inTransaction(func(sess *DBSession) error {
 		user := m.User{Name: cmd.Name, Email: cmd.Email, Login: cmd.Login, Theme: cmd.Theme, Updated: time.Now()}
 		if _, err := sess.ID(cmd.UserId).Update(&user); err != nil {
@@ -181,6 +195,8 @@ func UpdateUser(cmd *m.UpdateUserCommand) error {
 func ChangeUserPassword(cmd *m.ChangeUserPasswordCommand) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return inTransaction(func(sess *DBSession) error {
 		user := m.User{Password: cmd.NewPassword, Updated: time.Now()}
 		_, err := sess.ID(cmd.UserId).Update(&user)
@@ -190,6 +206,8 @@ func ChangeUserPassword(cmd *m.ChangeUserPasswordCommand) error {
 func UpdateUserLastSeenAt(cmd *m.UpdateUserLastSeenAtCommand) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return inTransaction(func(sess *DBSession) error {
 		user := m.User{Id: cmd.UserId, LastSeenAt: time.Now()}
 		_, err := sess.ID(cmd.UserId).Update(&user)
@@ -197,6 +215,8 @@ func UpdateUserLastSeenAt(cmd *m.UpdateUserLastSeenAtCommand) error {
 	})
 }
 func SetUsingOrg(cmd *m.SetUsingOrgCommand) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	getOrgsForUserCmd := &m.GetUserOrgListQuery{UserId: cmd.UserId}
@@ -217,11 +237,15 @@ func SetUsingOrg(cmd *m.SetUsingOrgCommand) error {
 func setUsingOrgInTransaction(sess *DBSession, userID int64, orgID int64) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	user := m.User{Id: userID, OrgId: orgID}
 	_, err := sess.ID(userID).Update(&user)
 	return err
 }
 func GetUserProfile(query *m.GetUserProfileQuery) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var user m.User
@@ -237,6 +261,8 @@ func GetUserProfile(query *m.GetUserProfileQuery) error {
 func GetUserOrgList(query *m.GetUserOrgListQuery) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	query.Result = make([]*m.UserOrgDTO, 0)
 	sess := x.Table("org_user")
 	sess.Join("INNER", "org", "org_user.org_id=org.id")
@@ -249,9 +275,13 @@ func GetUserOrgList(query *m.GetUserOrgListQuery) error {
 func newSignedInUserCacheKey(orgID, userID int64) string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return fmt.Sprintf("signed-in-user-%d-%d", userID, orgID)
 }
 func (ss *SqlStore) GetSignedInUserWithCache(query *m.GetSignedInUserQuery) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	cacheKey := newSignedInUserCacheKey(query.OrgId, query.UserId)
@@ -268,6 +298,8 @@ func (ss *SqlStore) GetSignedInUserWithCache(query *m.GetSignedInUserQuery) erro
 	return nil
 }
 func GetSignedInUser(query *m.GetSignedInUserQuery) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	orgId := "u.org_id"
@@ -323,6 +355,8 @@ func GetSignedInUser(query *m.GetSignedInUserQuery) error {
 func SearchUsers(query *m.SearchUsersQuery) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	query.Result = m.SearchUserQueryResult{Users: make([]*m.UserSearchHitDTO, 0)}
 	queryWithWildcards := "%" + query.Query + "%"
 	whereConditions := make([]string, 0)
@@ -360,11 +394,15 @@ func SearchUsers(query *m.SearchUsersQuery) error {
 func DeleteUser(cmd *m.DeleteUserCommand) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return inTransaction(func(sess *DBSession) error {
 		return deleteUserInTransaction(sess, cmd)
 	})
 }
 func deleteUserInTransaction(sess *DBSession, cmd *m.DeleteUserCommand) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	deletes := []string{"DELETE FROM star WHERE user_id = ?", "DELETE FROM " + dialect.Quote("user") + " WHERE id = ?", "DELETE FROM org_user WHERE user_id = ?", "DELETE FROM dashboard_acl WHERE user_id = ?", "DELETE FROM preferences WHERE user_id = ?", "DELETE FROM team_member WHERE user_id = ?", "DELETE FROM user_auth WHERE user_id = ?"}
@@ -379,6 +417,8 @@ func deleteUserInTransaction(sess *DBSession, cmd *m.DeleteUserCommand) error {
 func UpdateUserPermissions(cmd *m.UpdateUserPermissionsCommand) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return inTransaction(func(sess *DBSession) error {
 		user := m.User{}
 		sess.ID(cmd.UserId).Get(&user)
@@ -389,6 +429,8 @@ func UpdateUserPermissions(cmd *m.UpdateUserPermissionsCommand) error {
 	})
 }
 func SetUserHelpFlag(cmd *m.SetUserHelpFlagCommand) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return inTransaction(func(sess *DBSession) error {

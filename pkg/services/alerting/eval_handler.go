@@ -16,9 +16,13 @@ type DefaultEvalHandler struct {
 func NewEvalHandler() *DefaultEvalHandler {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return &DefaultEvalHandler{log: log.New("alerting.evalHandler"), alertJobTimeout: time.Second * 5}
 }
 func (e *DefaultEvalHandler) Eval(context *EvalContext) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	firing := true

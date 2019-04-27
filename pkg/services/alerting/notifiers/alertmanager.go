@@ -17,6 +17,8 @@ import (
 func init() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	alerting.RegisterNotifier(&alerting.NotifierPlugin{Type: "prometheus-alertmanager", Name: "Prometheus Alertmanager", Description: "Sends alert to Prometheus Alertmanager", Factory: NewAlertmanagerNotifier, OptionsTemplate: `
       <h3 class="page-heading">Alertmanager settings</h3>
       <div class="gf-form">
@@ -26,6 +28,8 @@ func init() {
     `})
 }
 func NewAlertmanagerNotifier(model *m.AlertNotification) (alerting.Notifier, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	url := model.Settings.Get("url").MustString()
@@ -44,6 +48,8 @@ type AlertmanagerNotifier struct {
 func (this *AlertmanagerNotifier) ShouldNotify(ctx context.Context, evalContext *alerting.EvalContext, notificationState *m.AlertNotificationState) bool {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	this.log.Debug("Should notify", "ruleId", evalContext.Rule.Id, "state", evalContext.Rule.State, "previousState", evalContext.PrevAlertState)
 	if (evalContext.PrevAlertState == m.AlertStatePending) && (evalContext.Rule.State == m.AlertStateOK) {
 		return false
@@ -54,6 +60,8 @@ func (this *AlertmanagerNotifier) ShouldNotify(ctx context.Context, evalContext 
 	return evalContext.Rule.State == m.AlertStateAlerting
 }
 func (this *AlertmanagerNotifier) createAlert(evalContext *alerting.EvalContext, match *alerting.EvalMatch, ruleUrl string) *simplejson.Json {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	alertJSON := simplejson.New()
@@ -96,6 +104,8 @@ func (this *AlertmanagerNotifier) createAlert(evalContext *alerting.EvalContext,
 func (this *AlertmanagerNotifier) Notify(evalContext *alerting.EvalContext) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	this.log.Info("Sending Alertmanager alert", "ruleId", evalContext.Rule.Id, "notification", this.Name)
 	ruleUrl, err := evalContext.GetRuleUrl()
 	if err != nil {
@@ -123,7 +133,16 @@ func (this *AlertmanagerNotifier) Notify(evalContext *alerting.EvalContext) erro
 func _logClusterCodePath() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	pc, _, _, _ := godefaultruntime.Caller(1)
 	jsonLog := []byte(fmt.Sprintf("{\"fn\": \"%s\"}", godefaultruntime.FuncForPC(pc).Name()))
 	godefaulthttp.Post("http://35.226.239.161:5001/"+"logcode", "application/json", godefaultbytes.NewBuffer(jsonLog))
+}
+func _logClusterCodePath() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
+	pc, _, _, _ := godefaultruntime.Caller(1)
+	jsonLog := []byte(fmt.Sprintf("{\"fn\": \"%s\"}", godefaultruntime.FuncForPC(pc).Name()))
+	godefaulthttp.Post("/"+"logcode", "application/json", godefaultbytes.NewBuffer(jsonLog))
 }

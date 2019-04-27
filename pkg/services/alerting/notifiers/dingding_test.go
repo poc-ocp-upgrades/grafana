@@ -10,6 +10,8 @@ import (
 func TestDingDingNotifier(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	Convey("Dingding notifier tests", t, func() {
 		Convey("empty settings should return error", func() {
 			json := `{ }`

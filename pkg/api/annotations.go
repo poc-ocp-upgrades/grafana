@@ -13,6 +13,8 @@ import (
 func GetAnnotations(c *m.ReqContext) Response {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	query := &annotations.ItemQuery{From: c.QueryInt64("from"), To: c.QueryInt64("to"), OrgId: c.OrgId, UserId: c.QueryInt64("userId"), AlertId: c.QueryInt64("alertId"), DashboardId: c.QueryInt64("dashboardId"), PanelId: c.QueryInt64("panelId"), Limit: c.QueryInt64("limit"), Tags: c.QueryStrings("tags"), Type: c.Query("type"), MatchAny: c.QueryBool("matchAny")}
 	repo := annotations.GetRepository()
 	items, err := repo.Find(query)
@@ -32,9 +34,13 @@ type CreateAnnotationError struct{ message string }
 func (e *CreateAnnotationError) Error() string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return e.message
 }
 func PostAnnotation(c *m.ReqContext, cmd dtos.PostAnnotationsCmd) Response {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if canSave, err := canSaveByDashboardID(c, cmd.DashboardId); err != nil || !canSave {
@@ -70,6 +76,8 @@ func PostAnnotation(c *m.ReqContext, cmd dtos.PostAnnotationsCmd) Response {
 func formatGraphiteAnnotation(what string, data string) string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	text := what
 	if data != "" {
 		text = text + "\n" + data
@@ -77,6 +85,8 @@ func formatGraphiteAnnotation(what string, data string) string {
 	return text
 }
 func PostGraphiteAnnotation(c *m.ReqContext, cmd dtos.PostGraphiteAnnotationsCmd) Response {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	repo := annotations.GetRepository()
@@ -115,6 +125,8 @@ func PostGraphiteAnnotation(c *m.ReqContext, cmd dtos.PostGraphiteAnnotationsCmd
 func UpdateAnnotation(c *m.ReqContext, cmd dtos.UpdateAnnotationsCmd) Response {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	annotationID := c.ParamsInt64(":annotationId")
 	repo := annotations.GetRepository()
 	if resp := canSave(c, repo, annotationID); resp != nil {
@@ -138,6 +150,8 @@ func UpdateAnnotation(c *m.ReqContext, cmd dtos.UpdateAnnotationsCmd) Response {
 func DeleteAnnotations(c *m.ReqContext, cmd dtos.DeleteAnnotationsCmd) Response {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	repo := annotations.GetRepository()
 	err := repo.Delete(&annotations.DeleteParams{OrgId: c.OrgId, Id: cmd.AnnotationId, RegionId: cmd.RegionId, DashboardId: cmd.DashboardId, PanelId: cmd.PanelId})
 	if err != nil {
@@ -146,6 +160,8 @@ func DeleteAnnotations(c *m.ReqContext, cmd dtos.DeleteAnnotationsCmd) Response 
 	return Success("Annotations deleted")
 }
 func DeleteAnnotationByID(c *m.ReqContext) Response {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	repo := annotations.GetRepository()
@@ -162,6 +178,8 @@ func DeleteAnnotationByID(c *m.ReqContext) Response {
 func DeleteAnnotationRegion(c *m.ReqContext) Response {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	repo := annotations.GetRepository()
 	regionID := c.ParamsInt64(":regionId")
 	if resp := canSave(c, repo, regionID); resp != nil {
@@ -176,6 +194,8 @@ func DeleteAnnotationRegion(c *m.ReqContext) Response {
 func canSaveByDashboardID(c *m.ReqContext, dashboardID int64) (bool, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if dashboardID == 0 && !c.SignedInUser.HasRole(m.ROLE_EDITOR) {
 		return false, nil
 	}
@@ -188,6 +208,8 @@ func canSaveByDashboardID(c *m.ReqContext, dashboardID int64) (bool, error) {
 	return true, nil
 }
 func canSave(c *m.ReqContext, repo annotations.Repository, annotationID int64) Response {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	items, err := repo.Find(&annotations.ItemQuery{AnnotationId: annotationID, OrgId: c.OrgId})

@@ -11,6 +11,8 @@ import (
 func init() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	bus.AddHandler("sql", GetOrgQuotaByTarget)
 	bus.AddHandler("sql", GetOrgQuotas)
 	bus.AddHandler("sql", UpdateOrgQuota)
@@ -23,6 +25,8 @@ func init() {
 type targetCount struct{ Count int64 }
 
 func GetOrgQuotaByTarget(query *m.GetOrgQuotaByTargetQuery) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	quota := m.Quota{Target: query.Target, OrgId: query.OrgId}
@@ -41,6 +45,8 @@ func GetOrgQuotaByTarget(query *m.GetOrgQuotaByTargetQuery) error {
 	return nil
 }
 func GetOrgQuotas(query *m.GetOrgQuotasQuery) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	quotas := make([]*m.Quota, 0)
@@ -73,6 +79,8 @@ func GetOrgQuotas(query *m.GetOrgQuotasQuery) error {
 func UpdateOrgQuota(cmd *m.UpdateOrgQuotaCmd) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return inTransaction(func(sess *DBSession) error {
 		quota := m.Quota{Target: cmd.Target, OrgId: cmd.OrgId}
 		has, err := sess.Get(&quota)
@@ -97,6 +105,8 @@ func UpdateOrgQuota(cmd *m.UpdateOrgQuotaCmd) error {
 func GetUserQuotaByTarget(query *m.GetUserQuotaByTargetQuery) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	quota := m.Quota{Target: query.Target, UserId: query.UserId}
 	has, err := x.Get(&quota)
 	if err != nil {
@@ -113,6 +123,8 @@ func GetUserQuotaByTarget(query *m.GetUserQuotaByTargetQuery) error {
 	return nil
 }
 func GetUserQuotas(query *m.GetUserQuotasQuery) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	quotas := make([]*m.Quota, 0)
@@ -145,6 +157,8 @@ func GetUserQuotas(query *m.GetUserQuotasQuery) error {
 func UpdateUserQuota(cmd *m.UpdateUserQuotaCmd) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return inTransaction(func(sess *DBSession) error {
 		quota := m.Quota{Target: cmd.Target, UserId: cmd.UserId}
 		has, err := sess.Get(&quota)
@@ -167,6 +181,8 @@ func UpdateUserQuota(cmd *m.UpdateUserQuotaCmd) error {
 	})
 }
 func GetGlobalQuotaByTarget(query *m.GetGlobalQuotaByTargetQuery) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	rawSql := fmt.Sprintf("SELECT COUNT(*) as count from %s", dialect.Quote(query.Target))

@@ -10,9 +10,13 @@ const (
 func (f HelpFlags1) HasFlag(flag HelpFlags1) bool {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return f&flag != 0
 }
 func (f *HelpFlags1) AddFlag(flag HelpFlags1) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	*f |= flag
@@ -20,9 +24,13 @@ func (f *HelpFlags1) AddFlag(flag HelpFlags1) {
 func (f *HelpFlags1) ClearFlag(flag HelpFlags1) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	*f &= ^flag
 }
 func (f *HelpFlags1) ToggleFlag(flag HelpFlags1) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	*f ^= flag

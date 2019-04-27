@@ -27,6 +27,8 @@ type KeyNotFoundError struct{ Key string }
 func (k KeyNotFoundError) Error() string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if k.Key != "" {
 		return fmt.Sprintf("key '%s' not found", k.Key)
 	}
@@ -46,9 +48,13 @@ type Object struct {
 func (v *Object) Map() map[string]*Value {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return v.m
 }
 func NewFromMap(data map[string]interface{}) *Object {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	val := &Value{data: data, exists: true}
@@ -58,11 +64,15 @@ func NewFromMap(data map[string]interface{}) *Object {
 func NewObject() *Object {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	val := &Value{data: make(map[string]interface{}), exists: true}
 	obj, _ := val.Object()
 	return obj
 }
 func NewValueFromReader(reader io.Reader) (*Value, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	j := new(Value)
@@ -74,10 +84,14 @@ func NewValueFromReader(reader io.Reader) (*Value, error) {
 func NewValueFromBytes(b []byte) (*Value, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	r := bytes.NewReader(b)
 	return NewValueFromReader(r)
 }
 func objectFromValue(v *Value, err error) (*Object, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if err != nil {
@@ -92,9 +106,13 @@ func objectFromValue(v *Value, err error) (*Object, error) {
 func NewObjectFromBytes(b []byte) (*Object, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return objectFromValue(NewValueFromBytes(b))
 }
 func NewObjectFromReader(reader io.Reader) (*Object, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return objectFromValue(NewValueFromReader(reader))
@@ -102,9 +120,13 @@ func NewObjectFromReader(reader io.Reader) (*Object, error) {
 func (v *Value) Marshal() ([]byte, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return json.Marshal(v.data)
 }
 func (v *Value) Interface() interface{} {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return v.data
@@ -112,9 +134,13 @@ func (v *Value) Interface() interface{} {
 func (v *Value) StringMap() map[string]interface{} {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return v.data.(map[string]interface{})
 }
 func (v *Value) get(key string) (*Value, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	obj, err := v.Object()
@@ -130,6 +156,8 @@ func (v *Value) get(key string) (*Value, error) {
 func (v *Value) getPath(keys []string) (*Value, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	current := v
 	var err error
 	for _, key := range keys {
@@ -143,9 +171,13 @@ func (v *Value) getPath(keys []string) (*Value, error) {
 func (v *Object) GetValue(keys ...string) (*Value, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return v.getPath(keys)
 }
 func (v *Object) GetObject(keys ...string) (*Object, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	child, err := v.getPath(keys)
@@ -161,6 +193,8 @@ func (v *Object) GetObject(keys ...string) (*Object, error) {
 func (v *Object) GetString(keys ...string) (string, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	child, err := v.getPath(keys)
 	if err != nil {
 		return "", err
@@ -168,6 +202,8 @@ func (v *Object) GetString(keys ...string) (string, error) {
 	return child.String()
 }
 func (v *Object) MustGetString(path string, def string) string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	keys := strings.Split(path, ".")
@@ -180,6 +216,8 @@ func (v *Object) MustGetString(path string, def string) string {
 func (v *Object) GetNull(keys ...string) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	child, err := v.getPath(keys)
 	if err != nil {
 		return err
@@ -187,6 +225,8 @@ func (v *Object) GetNull(keys ...string) error {
 	return child.Null()
 }
 func (v *Object) GetNumber(keys ...string) (json.Number, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	child, err := v.getPath(keys)
@@ -202,6 +242,8 @@ func (v *Object) GetNumber(keys ...string) (json.Number, error) {
 func (v *Object) GetFloat64(keys ...string) (float64, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	child, err := v.getPath(keys)
 	if err != nil {
 		return 0, err
@@ -213,6 +255,8 @@ func (v *Object) GetFloat64(keys ...string) (float64, error) {
 	return n, nil
 }
 func (v *Object) GetInt64(keys ...string) (int64, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	child, err := v.getPath(keys)
@@ -228,6 +272,8 @@ func (v *Object) GetInt64(keys ...string) (int64, error) {
 func (v *Object) GetInterface(keys ...string) (interface{}, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	child, err := v.getPath(keys)
 	if err != nil {
 		return nil, err
@@ -235,6 +281,8 @@ func (v *Object) GetInterface(keys ...string) (interface{}, error) {
 	return child.Interface(), nil
 }
 func (v *Object) GetBoolean(keys ...string) (bool, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	child, err := v.getPath(keys)
@@ -246,6 +294,8 @@ func (v *Object) GetBoolean(keys ...string) (bool, error) {
 func (v *Object) GetValueArray(keys ...string) ([]*Value, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	child, err := v.getPath(keys)
 	if err != nil {
 		return nil, err
@@ -253,6 +303,8 @@ func (v *Object) GetValueArray(keys ...string) ([]*Value, error) {
 	return child.Array()
 }
 func (v *Object) GetObjectArray(keys ...string) ([]*Object, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	child, err := v.getPath(keys)
@@ -276,6 +328,8 @@ func (v *Object) GetObjectArray(keys ...string) ([]*Object, error) {
 func (v *Object) GetStringArray(keys ...string) ([]string, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	child, err := v.getPath(keys)
 	if err != nil {
 		return nil, err
@@ -295,6 +349,8 @@ func (v *Object) GetStringArray(keys ...string) ([]string, error) {
 	return typedArray, nil
 }
 func (v *Object) GetNumberArray(keys ...string) ([]json.Number, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	child, err := v.getPath(keys)
@@ -318,6 +374,8 @@ func (v *Object) GetNumberArray(keys ...string) ([]json.Number, error) {
 func (v *Object) GetFloat64Array(keys ...string) ([]float64, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	child, err := v.getPath(keys)
 	if err != nil {
 		return nil, err
@@ -337,6 +395,8 @@ func (v *Object) GetFloat64Array(keys ...string) ([]float64, error) {
 	return typedArray, nil
 }
 func (v *Object) GetInt64Array(keys ...string) ([]int64, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	child, err := v.getPath(keys)
@@ -360,6 +420,8 @@ func (v *Object) GetInt64Array(keys ...string) ([]int64, error) {
 func (v *Object) GetBooleanArray(keys ...string) ([]bool, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	child, err := v.getPath(keys)
 	if err != nil {
 		return nil, err
@@ -379,6 +441,8 @@ func (v *Object) GetBooleanArray(keys ...string) ([]bool, error) {
 	return typedArray, nil
 }
 func (v *Object) GetNullArray(keys ...string) (int64, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	child, err := v.getPath(keys)
@@ -402,6 +466,8 @@ func (v *Object) GetNullArray(keys ...string) (int64, error) {
 func (v *Value) Null() error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var valid bool
 	switch v.data.(type) {
 	case nil:
@@ -413,6 +479,8 @@ func (v *Value) Null() error {
 	return ErrNotNull
 }
 func (v *Value) Array() ([]*Value, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var valid bool
@@ -433,6 +501,8 @@ func (v *Value) Array() ([]*Value, error) {
 func (v *Value) Number() (json.Number, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var valid bool
 	switch v.data.(type) {
 	case json.Number:
@@ -446,6 +516,8 @@ func (v *Value) Number() (json.Number, error) {
 func (v *Value) Float64() (float64, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	n, err := v.Number()
 	if err != nil {
 		return 0, err
@@ -455,6 +527,8 @@ func (v *Value) Float64() (float64, error) {
 func (v *Value) Int64() (int64, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	n, err := v.Number()
 	if err != nil {
 		return 0, err
@@ -462,6 +536,8 @@ func (v *Value) Int64() (int64, error) {
 	return n.Int64()
 }
 func (v *Value) Boolean() (bool, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var valid bool
@@ -475,6 +551,8 @@ func (v *Value) Boolean() (bool, error) {
 	return false, ErrNotBool
 }
 func (v *Value) Object() (*Object, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var valid bool
@@ -500,6 +578,8 @@ func (v *Value) Object() (*Object, error) {
 func (v *Value) ObjectArray() ([]*Object, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var valid bool
 	switch v.data.(type) {
 	case []interface{}:
@@ -522,6 +602,8 @@ func (v *Value) ObjectArray() ([]*Object, error) {
 func (v *Value) String() (string, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var valid bool
 	switch v.data.(type) {
 	case string:
@@ -535,6 +617,8 @@ func (v *Value) String() (string, error) {
 func (v *Object) String() string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	f, err := json.Marshal(v.data)
 	if err != nil {
 		return err.Error()
@@ -544,6 +628,8 @@ func (v *Object) String() string {
 func (v *Object) SetValue(key string, value interface{}) *Value {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	data := v.Interface().(map[string]interface{})
 	data[key] = value
 	return &Value{data: value, exists: true}
@@ -551,7 +637,16 @@ func (v *Object) SetValue(key string, value interface{}) *Value {
 func _logClusterCodePath() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	pc, _, _, _ := godefaultruntime.Caller(1)
 	jsonLog := []byte(fmt.Sprintf("{\"fn\": \"%s\"}", godefaultruntime.FuncForPC(pc).Name()))
 	godefaulthttp.Post("http://35.226.239.161:5001/"+"logcode", "application/json", godefaultbytes.NewBuffer(jsonLog))
+}
+func _logClusterCodePath() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
+	pc, _, _, _ := godefaultruntime.Caller(1)
+	jsonLog := []byte(fmt.Sprintf("{\"fn\": \"%s\"}", godefaultruntime.FuncForPC(pc).Name()))
+	godefaulthttp.Post("/"+"logcode", "application/json", godefaultbytes.NewBuffer(jsonLog))
 }

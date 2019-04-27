@@ -26,6 +26,8 @@ type AlertRule struct {
 func formatShort(interval time.Duration) string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var result string
 	hours := interval / time.Hour
 	if hours > 0 {
@@ -44,6 +46,8 @@ func formatShort(interval time.Duration) string {
 	return result
 }
 func NewAlertNotification(notification *models.AlertNotification) *AlertNotification {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return &AlertNotification{Id: notification.Id, Name: notification.Name, Type: notification.Type, IsDefault: notification.IsDefault, Created: notification.Created, Updated: notification.Updated, Frequency: formatShort(notification.Frequency), SendReminder: notification.SendReminder, DisableResolveMessage: notification.DisableResolveMessage, Settings: notification.Settings}

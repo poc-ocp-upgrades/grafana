@@ -22,9 +22,13 @@ type DefaultResultHandler struct {
 func NewResultHandler(renderService rendering.Service) *DefaultResultHandler {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return &DefaultResultHandler{log: log.New("alerting.resultHandler"), notifier: NewNotificationService(renderService)}
 }
 func (handler *DefaultResultHandler) Handle(evalContext *EvalContext) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	executionError := ""

@@ -13,6 +13,8 @@ import (
 func init() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	alerting.RegisterNotifier(&alerting.NotifierPlugin{Type: "opsgenie", Name: "OpsGenie", Description: "Sends notifications to OpsGenie", Factory: NewOpsGenieNotifier, OptionsTemplate: `
       <h3 class="page-heading">OpsGenie settings</h3>
       <div class="gf-form">
@@ -42,6 +44,8 @@ var (
 func NewOpsGenieNotifier(model *m.AlertNotification) (alerting.Notifier, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	autoClose := model.Settings.Get("autoClose").MustBool(true)
 	apiKey := model.Settings.Get("apiKey").MustString()
 	apiUrl := model.Settings.Get("apiUrl").MustString()
@@ -65,6 +69,8 @@ type OpsGenieNotifier struct {
 func (this *OpsGenieNotifier) Notify(evalContext *alerting.EvalContext) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var err error
 	switch evalContext.Rule.State {
 	case m.AlertStateOK:
@@ -77,6 +83,8 @@ func (this *OpsGenieNotifier) Notify(evalContext *alerting.EvalContext) error {
 	return err
 }
 func (this *OpsGenieNotifier) createAlert(evalContext *alerting.EvalContext) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	this.log.Info("Creating OpsGenie alert", "ruleId", evalContext.Rule.Id, "notification", this.Name)
@@ -108,6 +116,8 @@ func (this *OpsGenieNotifier) createAlert(evalContext *alerting.EvalContext) err
 	return nil
 }
 func (this *OpsGenieNotifier) closeAlert(evalContext *alerting.EvalContext) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	this.log.Info("Closing OpsGenie alert", "ruleId", evalContext.Rule.Id, "notification", this.Name)

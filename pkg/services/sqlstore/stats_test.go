@@ -10,6 +10,8 @@ import (
 func TestStatsDataAccess(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	Convey("Testing Stats Data Access", t, func() {
 		InitTestDB(t)
 		Convey("Get system stats should not results in error", func() {

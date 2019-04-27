@@ -15,14 +15,20 @@ type dbTransactionFunc func(sess *DBSession) error
 func (sess *DBSession) publishAfterCommit(msg interface{}) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	sess.events = append(sess.events, msg)
 }
 func newSession() *DBSession {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return &DBSession{Session: x.NewSession()}
 }
 func startSession(ctx context.Context, engine *xorm.Engine, beginTran bool) (*DBSession, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	value := ctx.Value(ContextSessionName)
@@ -43,6 +49,8 @@ func startSession(ctx context.Context, engine *xorm.Engine, beginTran bool) (*DB
 func withDbSession(ctx context.Context, callback dbTransactionFunc) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	sess, err := startSession(ctx, x, false)
 	if err != nil {
 		return err
@@ -52,6 +60,8 @@ func withDbSession(ctx context.Context, callback dbTransactionFunc) error {
 func (sess *DBSession) InsertId(bean interface{}) (int64, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	table := sess.DB().Mapper.Obj2Table(getTypeName(bean))
 	dialect.PreInsertId(table, sess.Session)
 	id, err := sess.Session.InsertOne(bean)
@@ -59,6 +69,8 @@ func (sess *DBSession) InsertId(bean interface{}) (int64, error) {
 	return id, err
 }
 func getTypeName(bean interface{}) (res string) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	t := reflect.TypeOf(bean)

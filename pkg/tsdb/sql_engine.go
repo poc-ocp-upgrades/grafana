@@ -90,6 +90,8 @@ const rowLimit = 1000000
 func (e *sqlQueryEndpoint) Query(ctx context.Context, dsInfo *models.DataSource, tsdbQuery *TsdbQuery) (*Response, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	result := &Response{Results: make(map[string]*QueryResult)}
 	var wg sync.WaitGroup
 	for _, query := range tsdbQuery.Queries {
@@ -159,6 +161,8 @@ var Interpolate = func(query *Query, timeRange *TimeRange, sql string) (string, 
 func (e *sqlQueryEndpoint) transformToTable(query *Query, rows *core.Rows, result *QueryResult, tsdbQuery *TsdbQuery) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	columnNames, err := rows.Columns()
 	columnCount := len(columnNames)
 	if err != nil {
@@ -196,6 +200,8 @@ func (e *sqlQueryEndpoint) transformToTable(query *Query, rows *core.Rows, resul
 	return nil
 }
 func (e *sqlQueryEndpoint) transformToTimeSeries(query *Query, rows *core.Rows, result *QueryResult, tsdbQuery *TsdbQuery) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	pointsBySeries := make(map[string]*TimeSeries)
@@ -356,6 +362,8 @@ func (e *sqlQueryEndpoint) transformToTimeSeries(query *Query, rows *core.Rows, 
 func ConvertSqlTimeColumnToEpochMs(values RowValues, timeIndex int) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if timeIndex >= 0 {
 		switch value := values[timeIndex].(type) {
 		case time.Time:
@@ -404,6 +412,8 @@ func ConvertSqlTimeColumnToEpochMs(values RowValues, timeIndex int) {
 	}
 }
 func ConvertSqlValueColumnToFloat(columnName string, columnValue interface{}) (null.Float, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var value null.Float
@@ -510,6 +520,8 @@ func ConvertSqlValueColumnToFloat(columnName string, columnValue interface{}) (n
 func SetupFillmode(query *Query, interval time.Duration, fillmode string) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	query.Model.Set("fill", true)
 	query.Model.Set("fillInterval", interval.Seconds())
 	switch fillmode {
@@ -533,9 +545,13 @@ type SqlMacroEngineBase struct{}
 func NewSqlMacroEngineBase() *SqlMacroEngineBase {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return &SqlMacroEngineBase{}
 }
 func (m *SqlMacroEngineBase) ReplaceAllStringSubmatchFunc(re *regexp.Regexp, str string, repl func([]string) string) string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	result := ""

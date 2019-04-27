@@ -13,6 +13,8 @@ import (
 func populateDashboardsByID(dashboardByIDs []int64, dashboardIDOrder map[int64]int) (dtos.PlaylistDashboardsSlice, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	result := make(dtos.PlaylistDashboardsSlice, 0)
 	if len(dashboardByIDs) > 0 {
 		dashboardQuery := m.GetDashboardsQuery{DashboardIds: dashboardByIDs}
@@ -28,6 +30,8 @@ func populateDashboardsByID(dashboardByIDs []int64, dashboardIDOrder map[int64]i
 func populateDashboardsByTag(orgID int64, signedInUser *m.SignedInUser, dashboardByTag []string, dashboardTagOrder map[string]int) dtos.PlaylistDashboardsSlice {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	result := make(dtos.PlaylistDashboardsSlice, 0)
 	for _, tag := range dashboardByTag {
 		searchQuery := search.Query{Title: "", Tags: []string{tag}, SignedInUser: signedInUser, Limit: 100, IsStarred: false, OrgId: orgID}
@@ -40,6 +44,8 @@ func populateDashboardsByTag(orgID int64, signedInUser *m.SignedInUser, dashboar
 	return result
 }
 func LoadPlaylistDashboards(orgID int64, signedInUser *m.SignedInUser, playlistID int64) (dtos.PlaylistDashboardsSlice, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	playlistItems, _ := LoadPlaylistItems(playlistID)

@@ -26,9 +26,13 @@ var (
 func (s *SocialGithub) Type() int {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return int(models.GITHUB)
 }
 func (s *SocialGithub) IsEmailAllowed(email string) bool {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return isEmailAllowed(email, s.allowedDomains)
@@ -36,9 +40,13 @@ func (s *SocialGithub) IsEmailAllowed(email string) bool {
 func (s *SocialGithub) IsSignupAllowed() bool {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return s.allowSignup
 }
 func (s *SocialGithub) IsTeamMember(client *http.Client) bool {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if len(s.teamIds) == 0 {
@@ -60,6 +68,8 @@ func (s *SocialGithub) IsTeamMember(client *http.Client) bool {
 func (s *SocialGithub) IsOrganizationMember(client *http.Client, organizationsUrl string) bool {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if len(s.allowedOrganizations) == 0 {
 		return true
 	}
@@ -77,6 +87,8 @@ func (s *SocialGithub) IsOrganizationMember(client *http.Client, organizationsUr
 	return false
 }
 func (s *SocialGithub) FetchPrivateEmail(client *http.Client) (string, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	type Record struct {
@@ -102,6 +114,8 @@ func (s *SocialGithub) FetchPrivateEmail(client *http.Client) (string, error) {
 	return email, nil
 }
 func (s *SocialGithub) FetchTeamMemberships(client *http.Client) ([]int, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	type Record struct {
@@ -135,6 +149,8 @@ func (s *SocialGithub) FetchTeamMemberships(client *http.Client) ([]int, error) 
 func (s *SocialGithub) HasMoreRecords(headers http.Header) (string, bool) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	value, exists := headers["Link"]
 	if !exists {
 		return "", false
@@ -148,6 +164,8 @@ func (s *SocialGithub) HasMoreRecords(headers http.Header) (string, bool) {
 	return url, true
 }
 func (s *SocialGithub) FetchOrganizations(client *http.Client, organizationsUrl string) ([]string, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	type Record struct {
@@ -169,6 +187,8 @@ func (s *SocialGithub) FetchOrganizations(client *http.Client, organizationsUrl 
 	return logins, nil
 }
 func (s *SocialGithub) UserInfo(client *http.Client, token *oauth2.Token) (*BasicUserInfo, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var data struct {

@@ -11,6 +11,8 @@ type TestEvent struct{ Timestamp time.Time }
 func TestEventCreation(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	Convey("Event to wire event", t, func() {
 		e := TestEvent{Timestamp: time.Unix(1231421123, 223)}
 		wire, _ := ToOnWriteEvent(&e)

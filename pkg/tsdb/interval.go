@@ -28,6 +28,8 @@ type IntervalOptions struct{ MinInterval time.Duration }
 func NewIntervalCalculator(opt *IntervalOptions) *intervalCalculator {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if opt == nil {
 		opt = &IntervalOptions{}
 	}
@@ -42,9 +44,13 @@ func NewIntervalCalculator(opt *IntervalOptions) *intervalCalculator {
 func (i *Interval) Milliseconds() int64 {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return i.Value.Nanoseconds() / int64(time.Millisecond)
 }
 func (ic *intervalCalculator) Calculate(timerange *TimeRange, minInterval time.Duration) Interval {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	to := timerange.MustGetTo().UnixNano()
@@ -57,6 +63,8 @@ func (ic *intervalCalculator) Calculate(timerange *TimeRange, minInterval time.D
 	return Interval{Text: formatDuration(rounded), Value: rounded}
 }
 func GetIntervalFrom(dsInfo *models.DataSource, queryModel *simplejson.Json, defaultInterval time.Duration) (time.Duration, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	interval := queryModel.Get("interval").MustString("")
@@ -77,6 +85,8 @@ func GetIntervalFrom(dsInfo *models.DataSource, queryModel *simplejson.Json, def
 	return parsedInterval, nil
 }
 func formatDuration(inter time.Duration) string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if inter >= year {
@@ -100,6 +110,8 @@ func formatDuration(inter time.Duration) string {
 	return "1ms"
 }
 func roundInterval(interval time.Duration) time.Duration {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	switch true {

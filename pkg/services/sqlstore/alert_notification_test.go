@@ -12,6 +12,8 @@ import (
 func TestAlertNotificationSQLAccess(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	Convey("Testing Alert notification sql access", t, func() {
 		InitTestDB(t)
 		Convey("Alert notification state", func() {

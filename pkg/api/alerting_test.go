@@ -12,6 +12,8 @@ import (
 func TestAlertingApiEndpoint(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	Convey("Given an alert in a dashboard with an acl", t, func() {
 		singleAlert := &m.Alert{Id: 1, DashboardId: 1, Name: "singlealert"}
 		bus.AddHandler("test", func(query *m.GetAlertByIdQuery) error {
@@ -95,12 +97,16 @@ func TestAlertingApiEndpoint(t *testing.T) {
 func CallPauseAlert(sc *scenarioContext) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	bus.AddHandler("test", func(cmd *m.PauseAlertCommand) error {
 		return nil
 	})
 	sc.fakeReqWithParams("POST", sc.url, map[string]string{}).exec()
 }
 func postAlertScenario(desc string, url string, routePattern string, role m.RoleType, cmd dtos.PauseAlertCommand, fn scenarioFunc) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	Convey(desc+" "+url, func() {

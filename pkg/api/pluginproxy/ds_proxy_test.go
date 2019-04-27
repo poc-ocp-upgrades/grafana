@@ -21,6 +21,8 @@ import (
 func TestDSRouteRule(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	Convey("DataSourceProxy", t, func() {
 		Convey("Plugin with routes", func() {
 			plugin := &plugins.DataSourcePlugin{Routes: []*plugins.AppPluginRoute{{Path: "api/v4/", Url: "https://www.google.com", ReqRole: m.ROLE_EDITOR, Headers: []plugins.AppPluginRouteHeader{{Name: "x-header", Content: "my secret {{.SecureJsonData.key}}"}}}, {Path: "api/admin", Url: "https://www.google.com", ReqRole: m.ROLE_ADMIN, Headers: []plugins.AppPluginRouteHeader{{Name: "x-header", Content: "my secret {{.SecureJsonData.key}}"}}}, {Path: "api/anon", Url: "https://www.google.com", Headers: []plugins.AppPluginRouteHeader{{Name: "x-header", Content: "my secret {{.SecureJsonData.key}}"}}}, {Path: "api/common", Url: "{{.JsonData.dynamicUrl}}", Headers: []plugins.AppPluginRouteHeader{{Name: "x-header", Content: "my secret {{.SecureJsonData.key}}"}}}}}
@@ -221,6 +223,8 @@ type httpClientStub struct{ fakeBody []byte }
 func (c *httpClientStub) Do(req *http.Request) (*http.Response, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	bodyJSON, _ := simplejson.NewJson(c.fakeBody)
 	_, passedTokenCacheTest := bodyJSON.CheckGet("expires_on")
 	So(passedTokenCacheTest, ShouldBeTrue)
@@ -230,6 +234,8 @@ func (c *httpClientStub) Do(req *http.Request) (*http.Response, error) {
 	return resp, nil
 }
 func newFakeHTTPClient(fakeBody []byte) httpClient {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return &httpClientStub{fakeBody: fakeBody}

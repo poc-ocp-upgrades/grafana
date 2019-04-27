@@ -14,6 +14,8 @@ import (
 func TestAccessToken(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	Convey("Plugin with JWT token auth route", t, func() {
 		pluginRoute := &plugins.AppPluginRoute{Path: "pathwithjwttoken1", Url: "https://api.jwt.io/some/path", Method: "GET", JwtTokenAuth: &plugins.JwtTokenAuth{Url: "https://login.server.com/{{.JsonData.tenantId}}/oauth2/token", Scopes: []string{"https://www.testapi.com/auth/monitoring.read", "https://www.testapi.com/auth/cloudplatformprojects.readonly"}, Params: map[string]string{"token_uri": "{{.JsonData.tokenUri}}", "client_email": "{{.JsonData.clientEmail}}", "private_key": "{{.SecureJsonData.privateKey}}"}}}
 		templateData := templateData{JsonData: map[string]interface{}{"clientEmail": "test@test.com", "tokenUri": "login.url.com/token"}, SecureJsonData: map[string]string{"privateKey": "testkey"}}

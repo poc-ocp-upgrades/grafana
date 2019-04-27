@@ -25,9 +25,13 @@ const (
 func (r RoleType) IsValid() bool {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return r == ROLE_VIEWER || r == ROLE_ADMIN || r == ROLE_EDITOR
 }
 func (r RoleType) Includes(other RoleType) bool {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if r == ROLE_ADMIN {
@@ -39,6 +43,8 @@ func (r RoleType) Includes(other RoleType) bool {
 	return false
 }
 func (r *RoleType) UnmarshalJSON(data []byte) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var str string

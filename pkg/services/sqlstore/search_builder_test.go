@@ -9,6 +9,8 @@ import (
 func TestSearchBuilder(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	Convey("Testing building a search", t, func() {
 		signedInUser := &m.SignedInUser{OrgId: 1, UserId: 1}
 		sb := NewSearchBuilder(signedInUser, 1000, m.PERMISSION_VIEW)

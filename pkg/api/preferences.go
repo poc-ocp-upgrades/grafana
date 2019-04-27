@@ -9,6 +9,8 @@ import (
 func SetHomeDashboard(c *m.ReqContext, cmd m.SavePreferencesCommand) Response {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	cmd.UserId = c.UserId
 	cmd.OrgId = c.OrgId
 	if err := bus.Dispatch(&cmd); err != nil {
@@ -19,9 +21,13 @@ func SetHomeDashboard(c *m.ReqContext, cmd m.SavePreferencesCommand) Response {
 func GetUserPreferences(c *m.ReqContext) Response {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return getPreferencesFor(c.OrgId, c.UserId, 0)
 }
 func getPreferencesFor(orgID, userID, teamID int64) Response {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	prefsQuery := m.GetPreferencesQuery{UserId: userID, OrgId: orgID, TeamId: teamID}
@@ -34,9 +40,13 @@ func getPreferencesFor(orgID, userID, teamID int64) Response {
 func UpdateUserPreferences(c *m.ReqContext, dtoCmd dtos.UpdatePrefsCmd) Response {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return updatePreferencesFor(c.OrgId, c.UserId, 0, &dtoCmd)
 }
 func updatePreferencesFor(orgID, userID, teamId int64, dtoCmd *dtos.UpdatePrefsCmd) Response {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	saveCmd := m.SavePreferencesCommand{UserId: userID, OrgId: orgID, TeamId: teamId, Theme: dtoCmd.Theme, Timezone: dtoCmd.Timezone, HomeDashboardId: dtoCmd.HomeDashboardID}
@@ -48,9 +58,13 @@ func updatePreferencesFor(orgID, userID, teamId int64, dtoCmd *dtos.UpdatePrefsC
 func GetOrgPreferences(c *m.ReqContext) Response {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return getPreferencesFor(c.OrgId, 0, 0)
 }
 func UpdateOrgPreferences(c *m.ReqContext, dtoCmd dtos.UpdatePrefsCmd) Response {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return updatePreferencesFor(c.OrgId, 0, 0, &dtoCmd)

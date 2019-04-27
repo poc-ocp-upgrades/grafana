@@ -31,9 +31,13 @@ type S3Uploader struct {
 func NewS3Uploader(region, bucket, path, acl, accessKey, secretKey string) *S3Uploader {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return &S3Uploader{region: region, bucket: bucket, path: path, acl: acl, accessKey: accessKey, secretKey: secretKey, log: log.New("s3uploader")}
 }
 func (u *S3Uploader) Upload(ctx context.Context, imageDiskPath string) (string, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	sess, err := session.NewSession()
@@ -65,6 +69,8 @@ func (u *S3Uploader) Upload(ctx context.Context, imageDiskPath string) (string, 
 func remoteCredProvider(sess *session.Session) credentials.Provider {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	ecsCredURI := os.Getenv("AWS_CONTAINER_CREDENTIALS_RELATIVE_URI")
 	if len(ecsCredURI) > 0 {
 		return ecsCredProvider(sess, ecsCredURI)
@@ -74,6 +80,8 @@ func remoteCredProvider(sess *session.Session) credentials.Provider {
 func ecsCredProvider(sess *session.Session, uri string) credentials.Provider {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	const host = `169.254.170.2`
 	d := defaults.Get()
 	return endpointcreds.NewProviderClient(*d.Config, d.Handlers, fmt.Sprintf("http://%s%s", host, uri), func(p *endpointcreds.Provider) {
@@ -81,6 +89,8 @@ func ecsCredProvider(sess *session.Session, uri string) credentials.Provider {
 	})
 }
 func ec2RoleProvider(sess *session.Session) credentials.Provider {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return &ec2rolecreds.EC2RoleProvider{Client: ec2metadata.New(sess), ExpiryWindow: 5 * time.Minute}

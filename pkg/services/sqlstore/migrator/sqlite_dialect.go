@@ -11,6 +11,8 @@ type Sqlite3 struct{ BaseDialect }
 func NewSqlite3Dialect(engine *xorm.Engine) *Sqlite3 {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	d := Sqlite3{}
 	d.BaseDialect.dialect = &d
 	d.BaseDialect.engine = engine
@@ -20,9 +22,13 @@ func NewSqlite3Dialect(engine *xorm.Engine) *Sqlite3 {
 func (db *Sqlite3) SupportEngine() bool {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return false
 }
 func (db *Sqlite3) Quote(name string) string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return "`" + name + "`"
@@ -30,9 +36,13 @@ func (db *Sqlite3) Quote(name string) string {
 func (db *Sqlite3) AutoIncrStr() string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return "AUTOINCREMENT"
 }
 func (db *Sqlite3) BooleanStr(value bool) string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if value {
@@ -43,9 +53,13 @@ func (db *Sqlite3) BooleanStr(value bool) string {
 func (db *Sqlite3) DateTimeFunc(value string) string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return "datetime(" + value + ")"
 }
 func (db *Sqlite3) SqlType(c *Column) string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	switch c.Type {
@@ -75,10 +89,14 @@ func (db *Sqlite3) SqlType(c *Column) string {
 func (db *Sqlite3) TableCheckSql(tableName string) (string, []interface{}) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	args := []interface{}{tableName}
 	return "SELECT name FROM sqlite_master WHERE type='table' and name = ?", args
 }
 func (db *Sqlite3) DropIndexSql(tableName string, index *Index) string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	quote := db.Quote
@@ -88,9 +106,13 @@ func (db *Sqlite3) DropIndexSql(tableName string, index *Index) string {
 func (db *Sqlite3) CleanDB() error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return nil
 }
 func (db *Sqlite3) IsUniqueConstraintViolation(err error) bool {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if driverErr, ok := err.(sqlite3.Error); ok {

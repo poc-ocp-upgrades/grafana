@@ -14,6 +14,8 @@ import (
 func TestDashboardImport(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	pluginScenario("When importing a plugin dashboard", t, func() {
 		origNewDashboardService := dashboards.NewService
 		mock := &dashboards.FakeDashboardService{}
@@ -60,6 +62,8 @@ func TestDashboardImport(t *testing.T) {
 	})
 }
 func pluginScenario(desc string, t *testing.T, fn func()) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	Convey("Given a plugin", t, func() {

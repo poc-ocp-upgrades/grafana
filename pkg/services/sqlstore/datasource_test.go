@@ -14,6 +14,8 @@ type Test struct {
 func TestDataAccess(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	Convey("Testing DB", t, func() {
 		InitTestDB(t)
 		Convey("Can add datasource", func() {

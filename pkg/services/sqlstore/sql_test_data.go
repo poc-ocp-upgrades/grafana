@@ -10,9 +10,13 @@ import (
 func init() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	bus.AddHandler("sql", InsertSqlTestData)
 }
 func sqlRandomWalk(m1 string, m2 string, intWalker int64, floatWalker float64, sess *DBSession) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	timeWalker := time.Now().UTC().Add(time.Hour * -200)
@@ -35,6 +39,8 @@ func sqlRandomWalk(m1 string, m2 string, intWalker int64, floatWalker float64, s
 	return nil
 }
 func InsertSqlTestData(cmd *m.InsertSqlTestDataCommand) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return inTransaction(func(sess *DBSession) error {

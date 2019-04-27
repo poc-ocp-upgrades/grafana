@@ -11,6 +11,8 @@ import (
 func AdminCreateUser(c *m.ReqContext, form dtos.AdminCreateUserForm) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	cmd := m.CreateUserCommand{Login: form.Login, Email: form.Email, Password: form.Password, Name: form.Name}
 	if len(cmd.Login) == 0 {
 		cmd.Login = cmd.Email
@@ -35,6 +37,8 @@ func AdminCreateUser(c *m.ReqContext, form dtos.AdminCreateUserForm) {
 func AdminUpdateUserPassword(c *m.ReqContext, form dtos.AdminUpdateUserPasswordForm) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	userID := c.ParamsInt64(":id")
 	if len(form.Password) < 4 {
 		c.JsonApiErr(400, "New password too short", nil)
@@ -56,6 +60,8 @@ func AdminUpdateUserPassword(c *m.ReqContext, form dtos.AdminUpdateUserPasswordF
 func AdminUpdateUserPermissions(c *m.ReqContext, form dtos.AdminUpdateUserPermissionsForm) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	userID := c.ParamsInt64(":id")
 	cmd := m.UpdateUserPermissionsCommand{UserId: userID, IsGrafanaAdmin: form.IsGrafanaAdmin}
 	if err := bus.Dispatch(&cmd); err != nil {
@@ -65,6 +71,8 @@ func AdminUpdateUserPermissions(c *m.ReqContext, form dtos.AdminUpdateUserPermis
 	c.JsonOK("User permissions updated")
 }
 func AdminDeleteUser(c *m.ReqContext) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	userID := c.ParamsInt64(":id")

@@ -10,6 +10,8 @@ import (
 func TestOpenTsdbExecutor(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	Convey("OpenTsdb query testing", t, func() {
 		exec := &OpenTsdbExecutor{}
 		Convey("Build metric with downsampling enabled", func() {

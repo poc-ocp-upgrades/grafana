@@ -20,11 +20,15 @@ type DefaultRuleReader struct {
 func NewRuleReader() *DefaultRuleReader {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	ruleReader := &DefaultRuleReader{log: log.New("alerting.ruleReader")}
 	go ruleReader.initReader()
 	return ruleReader
 }
 func (arr *DefaultRuleReader) initReader() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	heartbeat := time.NewTicker(time.Second * 10)
@@ -33,6 +37,8 @@ func (arr *DefaultRuleReader) initReader() {
 	}
 }
 func (arr *DefaultRuleReader) Fetch() []*Rule {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	cmd := &m.GetAllAlertsQuery{}
@@ -52,6 +58,8 @@ func (arr *DefaultRuleReader) Fetch() []*Rule {
 	return res
 }
 func (arr *DefaultRuleReader) heartbeat() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	arr.clusterSize = 1

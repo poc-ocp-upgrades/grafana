@@ -12,6 +12,8 @@ var removePlugin func(pluginPath, id string) error = services.RemoveInstalledPlu
 func removeCommand(c CommandLine) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	pluginPath := c.PluginDirectory()
 	plugin := c.Args().First()
 	if plugin == "" {

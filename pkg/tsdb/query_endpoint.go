@@ -17,9 +17,13 @@ type GetTsdbQueryEndpointFn func(dsInfo *models.DataSource) (TsdbQueryEndpoint, 
 func init() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	registry = make(map[string]GetTsdbQueryEndpointFn)
 }
 func getTsdbQueryEndpointFor(dsInfo *models.DataSource) (TsdbQueryEndpoint, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if fn, exists := registry[dsInfo.Type]; exists {
@@ -32,6 +36,8 @@ func getTsdbQueryEndpointFor(dsInfo *models.DataSource) (TsdbQueryEndpoint, erro
 	return nil, fmt.Errorf("Could not find executor for data source type: %s", dsInfo.Type)
 }
 func RegisterTsdbQueryEndpoint(pluginId string, fn GetTsdbQueryEndpointFn) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	registry[pluginId] = fn

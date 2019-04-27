@@ -11,6 +11,8 @@ import (
 func TestLoadingSettings(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	Convey("Testing loading settings from ini file", t, func() {
 		skipStaticRootValidation = true
 		Convey("Given the default ini files", func() {

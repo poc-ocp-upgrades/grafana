@@ -10,6 +10,8 @@ import (
 func TestLineNotifier(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	Convey("Line notifier tests", t, func() {
 		Convey("empty settings should return error", func() {
 			json := `{ }`

@@ -11,6 +11,8 @@ import (
 func init() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	bus.AddHandler("sql", CreateTeam)
 	bus.AddHandler("sql", UpdateTeam)
 	bus.AddHandler("sql", DeleteTeam)
@@ -24,6 +26,8 @@ func init() {
 func getTeamSelectSqlBase() string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return `SELECT
 		team.id as id,
 		team.org_id,
@@ -33,6 +37,8 @@ func getTeamSelectSqlBase() string {
 		FROM team as team `
 }
 func CreateTeam(cmd *m.CreateTeamCommand) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return inTransaction(func(sess *DBSession) error {
@@ -48,6 +54,8 @@ func CreateTeam(cmd *m.CreateTeamCommand) error {
 	})
 }
 func UpdateTeam(cmd *m.UpdateTeamCommand) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return inTransaction(func(sess *DBSession) error {
@@ -71,6 +79,8 @@ func UpdateTeam(cmd *m.UpdateTeamCommand) error {
 func DeleteTeam(cmd *m.DeleteTeamCommand) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return inTransaction(func(sess *DBSession) error {
 		if teamExists, err := teamExists(cmd.OrgId, cmd.Id, sess); err != nil {
 			return err
@@ -90,6 +100,8 @@ func DeleteTeam(cmd *m.DeleteTeamCommand) error {
 func teamExists(orgId int64, teamId int64, sess *DBSession) (bool, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if res, err := sess.Query("SELECT 1 from team WHERE org_id=? and id=?", orgId, teamId); err != nil {
 		return false, err
 	} else if len(res) != 1 {
@@ -98,6 +110,8 @@ func teamExists(orgId int64, teamId int64, sess *DBSession) (bool, error) {
 	return true, nil
 }
 func isTeamNameTaken(orgId int64, name string, existingId int64, sess *DBSession) (bool, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var team m.Team
@@ -111,6 +125,8 @@ func isTeamNameTaken(orgId int64, name string, existingId int64, sess *DBSession
 	return false, nil
 }
 func SearchTeams(query *m.SearchTeamsQuery) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	query.Result = m.SearchTeamQueryResult{Teams: make([]*m.TeamDTO, 0)}
@@ -151,6 +167,8 @@ func SearchTeams(query *m.SearchTeamsQuery) error {
 func GetTeamById(query *m.GetTeamByIdQuery) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var sql bytes.Buffer
 	sql.WriteString(getTeamSelectSqlBase())
 	sql.WriteString(` WHERE team.org_id = ? and team.id = ?`)
@@ -168,6 +186,8 @@ func GetTeamById(query *m.GetTeamByIdQuery) error {
 func GetTeamsByUser(query *m.GetTeamsByUserQuery) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	query.Result = make([]*m.TeamDTO, 0)
 	var sql bytes.Buffer
 	sql.WriteString(getTeamSelectSqlBase())
@@ -177,6 +197,8 @@ func GetTeamsByUser(query *m.GetTeamsByUserQuery) error {
 	return err
 }
 func AddTeamMember(cmd *m.AddTeamMemberCommand) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return inTransaction(func(sess *DBSession) error {
@@ -198,6 +220,8 @@ func AddTeamMember(cmd *m.AddTeamMemberCommand) error {
 func RemoveTeamMember(cmd *m.RemoveTeamMemberCommand) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return inTransaction(func(sess *DBSession) error {
 		if teamExists, err := teamExists(cmd.OrgId, cmd.TeamId, sess); err != nil {
 			return err
@@ -217,6 +241,8 @@ func RemoveTeamMember(cmd *m.RemoveTeamMemberCommand) error {
 	})
 }
 func GetTeamMembers(query *m.GetTeamMembersQuery) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	query.Result = make([]*m.TeamMemberDTO, 0)

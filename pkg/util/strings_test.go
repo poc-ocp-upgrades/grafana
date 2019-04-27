@@ -9,6 +9,8 @@ import (
 func TestStringsUtil(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	Convey("Falling back until none empty string", t, func() {
 		So(StringsFallback2("1", "2"), ShouldEqual, "1")
 		So(StringsFallback2("", "2"), ShouldEqual, "2")
@@ -16,6 +18,8 @@ func TestStringsUtil(t *testing.T) {
 	})
 }
 func TestSplitString(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	Convey("Splits strings correctly", t, func() {
@@ -28,6 +32,8 @@ func TestSplitString(t *testing.T) {
 	})
 }
 func TestDateAge(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	Convey("GetAgeString", t, func() {

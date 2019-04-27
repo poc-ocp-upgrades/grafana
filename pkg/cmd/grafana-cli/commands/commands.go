@@ -14,6 +14,8 @@ import (
 func runDbCommand(command func(commandLine CommandLine) error) func(context *cli.Context) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return func(context *cli.Context) {
 		cmd := &contextCommandLine{context}
 		cfg := setting.NewCfg()
@@ -33,6 +35,8 @@ func runDbCommand(command func(commandLine CommandLine) error) func(context *cli
 	}
 }
 func runPluginCommand(command func(commandLine CommandLine) error) func(context *cli.Context) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return func(context *cli.Context) {

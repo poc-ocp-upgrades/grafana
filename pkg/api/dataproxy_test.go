@@ -8,6 +8,8 @@ import (
 func TestDataProxy(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	Convey("Data proxy test", t, func() {
 		Convey("Should append trailing slash to proxy path if original path has a trailing slash", func() {
 			So(ensureProxyPathTrailingSlash("/api/datasources/proxy/6/api/v1/query_range/", "api/v1/query_range/"), ShouldEqual, "api/v1/query_range/")

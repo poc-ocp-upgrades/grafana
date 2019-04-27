@@ -9,6 +9,8 @@ import (
 func TestPlaylistDataAccess(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	Convey("Testing Playlist data access", t, func() {
 		InitTestDB(t)
 		Convey("Can create playlist", func() {

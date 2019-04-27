@@ -14,6 +14,8 @@ type Mysql struct{ BaseDialect }
 func NewMysqlDialect(engine *xorm.Engine) *Mysql {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	d := Mysql{}
 	d.BaseDialect.dialect = &d
 	d.BaseDialect.engine = engine
@@ -23,9 +25,13 @@ func NewMysqlDialect(engine *xorm.Engine) *Mysql {
 func (db *Mysql) SupportEngine() bool {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return true
 }
 func (db *Mysql) Quote(name string) string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return "`" + name + "`"
@@ -33,9 +39,13 @@ func (db *Mysql) Quote(name string) string {
 func (db *Mysql) AutoIncrStr() string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return "AUTO_INCREMENT"
 }
 func (db *Mysql) BooleanStr(value bool) string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if value {
@@ -44,6 +54,8 @@ func (db *Mysql) BooleanStr(value bool) string {
 	return "0"
 }
 func (db *Mysql) SqlType(c *Column) string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var res string
@@ -91,11 +103,15 @@ func (db *Mysql) SqlType(c *Column) string {
 func (db *Mysql) TableCheckSql(tableName string) (string, []interface{}) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	args := []interface{}{"grafana", tableName}
 	sql := "SELECT `TABLE_NAME` from `INFORMATION_SCHEMA`.`TABLES` WHERE `TABLE_SCHEMA`=? and `TABLE_NAME`=?"
 	return sql, args
 }
 func (db *Mysql) UpdateTableSql(tableName string, columns []*Column) string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var statements = []string{}
@@ -106,6 +122,8 @@ func (db *Mysql) UpdateTableSql(tableName string, columns []*Column) string {
 	return "ALTER TABLE " + db.Quote(tableName) + " " + strings.Join(statements, ", ") + ";"
 }
 func (db *Mysql) CleanDB() error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	tables, _ := db.engine.DBMetas()
@@ -125,6 +143,8 @@ func (db *Mysql) CleanDB() error {
 	return nil
 }
 func (db *Mysql) IsUniqueConstraintViolation(err error) bool {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if driverErr, ok := err.(*mysql.MySQLError); ok {

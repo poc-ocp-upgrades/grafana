@@ -35,6 +35,8 @@ var newResponseParser = func(responses []*es.SearchResponse, targets []*Query) *
 func (rp *responseParser) getTimeSeries() (*tsdb.Response, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	result := &tsdb.Response{}
 	result.Results = make(map[string]*tsdb.QueryResult)
 	if rp.Responses == nil {
@@ -63,6 +65,8 @@ func (rp *responseParser) getTimeSeries() (*tsdb.Response, error) {
 	return result, nil
 }
 func (rp *responseParser) processBuckets(aggs map[string]interface{}, target *Query, series *tsdb.TimeSeriesSlice, table *tsdb.Table, props map[string]string, depth int) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var err error
@@ -131,6 +135,8 @@ func (rp *responseParser) processBuckets(aggs map[string]interface{}, target *Qu
 	return nil
 }
 func (rp *responseParser) processMetrics(esAgg *simplejson.Json, target *Query, series *tsdb.TimeSeriesSlice, props map[string]string) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	for _, metric := range target.Metrics {
@@ -242,6 +248,8 @@ func (rp *responseParser) processMetrics(esAgg *simplejson.Json, target *Query, 
 func (rp *responseParser) processAggregationDocs(esAgg *simplejson.Json, aggDef *BucketAgg, target *Query, table *tsdb.Table, props map[string]string) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	propKeys := make([]string, 0)
 	for k := range props {
 		propKeys = append(propKeys, k)
@@ -325,6 +333,8 @@ func (rp *responseParser) processAggregationDocs(esAgg *simplejson.Json, aggDef 
 func (rp *responseParser) trimDatapoints(series *tsdb.TimeSeriesSlice, target *Query) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var histogram *BucketAgg
 	for _, bucketAgg := range target.BucketAggs {
 		if bucketAgg.Type == dateHistType {
@@ -348,6 +358,8 @@ func (rp *responseParser) trimDatapoints(series *tsdb.TimeSeriesSlice, target *Q
 func (rp *responseParser) nameSeries(seriesList *tsdb.TimeSeriesSlice, target *Query) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	set := make(map[string]string)
 	for _, v := range *seriesList {
 		if metricType, exists := v.Tags["metric"]; exists {
@@ -365,6 +377,8 @@ func (rp *responseParser) nameSeries(seriesList *tsdb.TimeSeriesSlice, target *Q
 var aliasPatternRegex = regexp.MustCompile(`\{\{([\s\S]+?)\}\}`)
 
 func (rp *responseParser) getSeriesName(series *tsdb.TimeSeries, target *Query, metricTypeCount int) string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	metricType := series.Tags["metric"]
@@ -427,6 +441,8 @@ func (rp *responseParser) getSeriesName(series *tsdb.TimeSeries, target *Query, 
 func (rp *responseParser) getMetricName(metric string) string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if text, ok := metricAggType[metric]; ok {
 		return text
 	}
@@ -436,6 +452,8 @@ func (rp *responseParser) getMetricName(metric string) string {
 	return metric
 }
 func castToNullFloat(j *simplejson.Json) null.Float {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	f, err := j.Float64()
@@ -455,6 +473,8 @@ func castToNullFloat(j *simplejson.Json) null.Float {
 func findAgg(target *Query, aggID string) (*BucketAgg, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	for _, v := range target.BucketAggs {
 		if aggID == v.ID {
 			return v, nil
@@ -463,6 +483,8 @@ func findAgg(target *Query, aggID string) (*BucketAgg, error) {
 	return nil, errors.New("can't found aggDef, aggID:" + aggID)
 }
 func getErrorFromElasticResponse(response *es.SearchResponse) *tsdb.QueryResult {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	result := tsdb.NewQueryResult()

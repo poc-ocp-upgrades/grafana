@@ -11,6 +11,8 @@ import (
 func TestDashboardProvisioningTest(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	Convey("Testing Dashboard provisioning", t, func() {
 		InitTestDB(t)
 		folderCmd := &models.SaveDashboardCommand{OrgId: 1, FolderId: 0, IsFolder: true, Dashboard: simplejson.NewFromAny(map[string]interface{}{"id": nil, "title": "test dashboard"})}

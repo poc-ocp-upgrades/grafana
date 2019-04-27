@@ -10,6 +10,8 @@ import (
 func TestUploadToWebdav(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	SkipConvey("[Integration test] for external_image_store.webdav", t, func() {
 		webdavUploader, _ := NewWebdavImageUploader("http://localhost:8888/webdav/", "test", "test", "")
 		path, err := webdavUploader.Upload(context.Background(), "../../../public/img/logo_transparent_400x.png")
@@ -24,6 +26,8 @@ func TestUploadToWebdav(t *testing.T) {
 	})
 }
 func TestPublicURL(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	Convey("Given a public URL with parameters, and no template", t, func() {

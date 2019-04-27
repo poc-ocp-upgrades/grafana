@@ -10,6 +10,8 @@ import (
 func TestGrafanaLogin(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	Convey("Login using Grafana DB", t, func() {
 		grafanaLoginScenario("When login with non-existing user", func(sc *grafanaLoginScenarioContext) {
 			sc.withNonExistingUser()
@@ -64,6 +66,8 @@ type grafanaLoginScenarioFunc func(c *grafanaLoginScenarioContext)
 func grafanaLoginScenario(desc string, fn grafanaLoginScenarioFunc) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	Convey(desc, func() {
 		origValidatePassword := validatePassword
 		sc := &grafanaLoginScenarioContext{loginUserQuery: &m.LoginUserQuery{Username: "user", Password: "pwd", IpAddress: "192.168.1.1:56433"}, validatePasswordCalled: false}
@@ -74,6 +78,8 @@ func grafanaLoginScenario(desc string, fn grafanaLoginScenarioFunc) {
 	})
 }
 func mockPasswordValidation(valid bool, sc *grafanaLoginScenarioContext) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	validatePassword = func(providedPassword string, userPassword string, userSalt string) error {
@@ -87,6 +93,8 @@ func mockPasswordValidation(valid bool, sc *grafanaLoginScenarioContext) {
 func (sc *grafanaLoginScenarioContext) getUserByLoginQueryReturns(user *m.User) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	bus.AddHandler("test", func(query *m.GetUserByLoginQuery) error {
 		if user == nil {
 			return m.ErrUserNotFound
@@ -98,15 +106,21 @@ func (sc *grafanaLoginScenarioContext) getUserByLoginQueryReturns(user *m.User) 
 func (sc *grafanaLoginScenarioContext) withValidCredentials() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	sc.getUserByLoginQueryReturns(&m.User{Id: 1, Login: sc.loginUserQuery.Username, Password: sc.loginUserQuery.Password, Salt: "salt"})
 	mockPasswordValidation(true, sc)
 }
 func (sc *grafanaLoginScenarioContext) withNonExistingUser() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	sc.getUserByLoginQueryReturns(nil)
 }
 func (sc *grafanaLoginScenarioContext) withInvalidPassword() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	sc.getUserByLoginQueryReturns(&m.User{Password: sc.loginUserQuery.Password, Salt: "salt"})

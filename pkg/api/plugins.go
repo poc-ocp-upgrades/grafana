@@ -12,6 +12,8 @@ import (
 func (hs *HTTPServer) GetPluginList(c *m.ReqContext) Response {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	typeFilter := c.Query("type")
 	enabledFilter := c.Query("enabled")
 	embeddedFilter := c.Query("embedded")
@@ -58,6 +60,8 @@ func (hs *HTTPServer) GetPluginList(c *m.ReqContext) Response {
 func GetPluginSettingByID(c *m.ReqContext) Response {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	pluginID := c.Params(":pluginId")
 	def, exists := plugins.Plugins[pluginID]
 	if !exists {
@@ -79,6 +83,8 @@ func GetPluginSettingByID(c *m.ReqContext) Response {
 func UpdatePluginSetting(c *m.ReqContext, cmd m.UpdatePluginSettingCmd) Response {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	pluginID := c.Params(":pluginId")
 	cmd.OrgId = c.OrgId
 	cmd.PluginId = pluginID
@@ -93,6 +99,8 @@ func UpdatePluginSetting(c *m.ReqContext, cmd m.UpdatePluginSettingCmd) Response
 func GetPluginDashboards(c *m.ReqContext) Response {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	pluginID := c.Params(":pluginId")
 	list, err := plugins.GetPluginDashboards(c.OrgId, pluginID)
 	if err != nil {
@@ -104,6 +112,8 @@ func GetPluginDashboards(c *m.ReqContext) Response {
 	return JSON(200, list)
 }
 func GetPluginMarkdown(c *m.ReqContext) Response {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	pluginID := c.Params(":pluginId")
@@ -120,6 +130,8 @@ func GetPluginMarkdown(c *m.ReqContext) Response {
 	return resp
 }
 func ImportDashboard(c *m.ReqContext, apiCmd dtos.ImportDashboardCommand) Response {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	cmd := plugins.ImportDashboardCommand{OrgId: c.OrgId, User: c.SignedInUser, PluginId: apiCmd.PluginId, Path: apiCmd.Path, Inputs: apiCmd.Inputs, Overwrite: apiCmd.Overwrite, FolderId: apiCmd.FolderId, Dashboard: apiCmd.Dashboard}

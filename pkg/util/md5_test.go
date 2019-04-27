@@ -5,6 +5,8 @@ import "testing"
 func TestMd5Sum(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	input := "don't hash passwords with md5"
 	have, err := Md5SumString(input)
 	if err != nil {

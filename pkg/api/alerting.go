@@ -14,6 +14,8 @@ import (
 func ValidateOrgAlert(c *m.ReqContext) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	id := c.ParamsInt64(":alertId")
 	query := m.GetAlertByIdQuery{Id: id}
 	if err := bus.Dispatch(&query); err != nil {
@@ -28,6 +30,8 @@ func ValidateOrgAlert(c *m.ReqContext) {
 func GetAlertStatesForDashboard(c *m.ReqContext) Response {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	dashboardID := c.QueryInt64("dashboardId")
 	if dashboardID == 0 {
 		return Error(400, "Missing query parameter dashboardId", nil)
@@ -39,6 +43,8 @@ func GetAlertStatesForDashboard(c *m.ReqContext) Response {
 	return JSON(200, query.Result)
 }
 func GetAlerts(c *m.ReqContext) Response {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	dashboardQuery := c.Query("dashboardQuery")
@@ -90,6 +96,8 @@ func GetAlerts(c *m.ReqContext) Response {
 func AlertTest(c *m.ReqContext, dto dtos.AlertTestCommand) Response {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if _, idErr := dto.Dashboard.Get("id").Int64(); idErr != nil {
 		return Error(400, "The dashboard needs to be saved at least once before you can test an alert rule", nil)
 	}
@@ -120,6 +128,8 @@ func AlertTest(c *m.ReqContext, dto dtos.AlertTestCommand) Response {
 func GetAlert(c *m.ReqContext) Response {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	id := c.ParamsInt64(":alertId")
 	query := m.GetAlertByIdQuery{Id: id}
 	if err := bus.Dispatch(&query); err != nil {
@@ -130,9 +140,13 @@ func GetAlert(c *m.ReqContext) Response {
 func GetAlertNotifiers(c *m.ReqContext) Response {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return JSON(200, alerting.GetNotifiers())
 }
 func GetAlertNotifications(c *m.ReqContext) Response {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	query := &m.GetAllAlertNotificationsQuery{OrgId: c.OrgId}
@@ -148,6 +162,8 @@ func GetAlertNotifications(c *m.ReqContext) Response {
 func GetAlertNotificationByID(c *m.ReqContext) Response {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	query := &m.GetAlertNotificationsQuery{OrgId: c.OrgId, Id: c.ParamsInt64("notificationId")}
 	if err := bus.Dispatch(query); err != nil {
 		return Error(500, "Failed to get alert notifications", err)
@@ -155,6 +171,8 @@ func GetAlertNotificationByID(c *m.ReqContext) Response {
 	return JSON(200, dtos.NewAlertNotification(query.Result))
 }
 func CreateAlertNotification(c *m.ReqContext, cmd m.CreateAlertNotificationCommand) Response {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	cmd.OrgId = c.OrgId
@@ -166,6 +184,8 @@ func CreateAlertNotification(c *m.ReqContext, cmd m.CreateAlertNotificationComma
 func UpdateAlertNotification(c *m.ReqContext, cmd m.UpdateAlertNotificationCommand) Response {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	cmd.OrgId = c.OrgId
 	if err := bus.Dispatch(&cmd); err != nil {
 		return Error(500, "Failed to update alert notification", err)
@@ -175,6 +195,8 @@ func UpdateAlertNotification(c *m.ReqContext, cmd m.UpdateAlertNotificationComma
 func DeleteAlertNotification(c *m.ReqContext) Response {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	cmd := m.DeleteAlertNotificationCommand{OrgId: c.OrgId, Id: c.ParamsInt64("notificationId")}
 	if err := bus.Dispatch(&cmd); err != nil {
 		return Error(500, "Failed to delete alert notification", err)
@@ -182,6 +204,8 @@ func DeleteAlertNotification(c *m.ReqContext) Response {
 	return Success("Notification deleted")
 }
 func NotificationTest(c *m.ReqContext, dto dtos.NotificationTestCommand) Response {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	cmd := &alerting.NotificationTestCommand{Name: dto.Name, Type: dto.Type, Settings: dto.Settings}
@@ -194,6 +218,8 @@ func NotificationTest(c *m.ReqContext, dto dtos.NotificationTestCommand) Respons
 	return Success("Test notification sent")
 }
 func PauseAlert(c *m.ReqContext, dto dtos.PauseAlertCommand) Response {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	alertID := c.ParamsInt64("alertId")
@@ -222,6 +248,8 @@ func PauseAlert(c *m.ReqContext, dto dtos.PauseAlertCommand) Response {
 	return JSON(200, result)
 }
 func PauseAllAlerts(c *m.ReqContext, dto dtos.PauseAllAlertsCommand) Response {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	updateCmd := m.PauseAllAlertCommand{Paused: dto.Paused}

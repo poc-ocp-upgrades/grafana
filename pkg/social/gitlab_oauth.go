@@ -24,9 +24,13 @@ var (
 func (s *SocialGitlab) Type() int {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return int(models.GITLAB)
 }
 func (s *SocialGitlab) IsEmailAllowed(email string) bool {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return isEmailAllowed(email, s.allowedDomains)
@@ -34,9 +38,13 @@ func (s *SocialGitlab) IsEmailAllowed(email string) bool {
 func (s *SocialGitlab) IsSignupAllowed() bool {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return s.allowSignup
 }
 func (s *SocialGitlab) IsGroupMember(client *http.Client) bool {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if len(s.allowedGroups) == 0 {
@@ -54,6 +62,8 @@ func (s *SocialGitlab) IsGroupMember(client *http.Client) bool {
 	return false
 }
 func (s *SocialGitlab) GetGroups(client *http.Client, url string) ([]string, string) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	type Group struct {
@@ -88,6 +98,8 @@ func (s *SocialGitlab) GetGroups(client *http.Client, url string) ([]string, str
 	return fullPaths, next
 }
 func (s *SocialGitlab) UserInfo(client *http.Client, token *oauth2.Token) (*BasicUserInfo, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var data struct {

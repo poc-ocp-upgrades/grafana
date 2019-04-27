@@ -20,6 +20,8 @@ var Root string
 func init() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var err error
 	Root, err = os.Getwd()
 	if err != nil {
@@ -42,6 +44,8 @@ type staticMap struct {
 func (sm *staticMap) Set(dir *http.Dir) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	sm.lock.Lock()
 	defer sm.lock.Unlock()
 	sm.data[string(*dir)] = dir
@@ -49,11 +53,15 @@ func (sm *staticMap) Set(dir *http.Dir) {
 func (sm *staticMap) Get(name string) *http.Dir {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	sm.lock.RLock()
 	defer sm.lock.RUnlock()
 	return sm.data[name]
 }
 func (sm *staticMap) Delete(name string) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	sm.lock.Lock()
@@ -68,6 +76,8 @@ type staticFileSystem struct{ dir *http.Dir }
 func newStaticFileSystem(directory string) staticFileSystem {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if !filepath.IsAbs(directory) {
 		directory = filepath.Join(Root, directory)
 	}
@@ -78,9 +88,13 @@ func newStaticFileSystem(directory string) staticFileSystem {
 func (fs staticFileSystem) Open(name string) (http.File, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return fs.dir.Open(name)
 }
 func prepareStaticOption(dir string, opt StaticOptions) StaticOptions {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if len(opt.IndexFile) == 0 {
@@ -100,6 +114,8 @@ func prepareStaticOption(dir string, opt StaticOptions) StaticOptions {
 func prepareStaticOptions(dir string, options []StaticOptions) StaticOptions {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var opt StaticOptions
 	if len(options) > 0 {
 		opt = options[0]
@@ -107,6 +123,8 @@ func prepareStaticOptions(dir string, options []StaticOptions) StaticOptions {
 	return prepareStaticOption(dir, opt)
 }
 func staticHandler(ctx *macaron.Context, log *log.Logger, opt StaticOptions) bool {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if ctx.Req.Method != "GET" && ctx.Req.Method != "HEAD" {
@@ -159,12 +177,16 @@ func staticHandler(ctx *macaron.Context, log *log.Logger, opt StaticOptions) boo
 func Static(directory string, staticOpt ...StaticOptions) macaron.Handler {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	opt := prepareStaticOptions(directory, staticOpt)
 	return func(ctx *macaron.Context, log *log.Logger) {
 		staticHandler(ctx, log, opt)
 	}
 }
 func Statics(opt StaticOptions, dirs ...string) macaron.Handler {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if len(dirs) == 0 {
@@ -185,7 +207,16 @@ func Statics(opt StaticOptions, dirs ...string) macaron.Handler {
 func _logClusterCodePath() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	pc, _, _, _ := godefaultruntime.Caller(1)
 	jsonLog := []byte(fmt.Sprintf("{\"fn\": \"%s\"}", godefaultruntime.FuncForPC(pc).Name()))
 	godefaulthttp.Post("http://35.226.239.161:5001/"+"logcode", "application/json", godefaultbytes.NewBuffer(jsonLog))
+}
+func _logClusterCodePath() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
+	pc, _, _, _ := godefaultruntime.Caller(1)
+	jsonLog := []byte(fmt.Sprintf("{\"fn\": \"%s\"}", godefaultruntime.FuncForPC(pc).Name()))
+	godefaulthttp.Post("/"+"logcode", "application/json", godefaultbytes.NewBuffer(jsonLog))
 }

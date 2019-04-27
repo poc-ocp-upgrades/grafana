@@ -14,6 +14,8 @@ import (
 func TestFolderPermissionApiEndpoint(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	Convey("Folder permissions test", t, func() {
 		Convey("Given folder not exists", func() {
 			mock := &fakeFolderService{GetFolderByUIDError: m.ErrFolderNotFound}
@@ -114,10 +116,14 @@ func TestFolderPermissionApiEndpoint(t *testing.T) {
 func callGetFolderPermissions(sc *scenarioContext) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	sc.handlerFunc = GetFolderPermissionList
 	sc.fakeReqWithParams("GET", sc.url, map[string]string{}).exec()
 }
 func callUpdateFolderPermissions(sc *scenarioContext) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	bus.AddHandler("test", func(cmd *m.UpdateDashboardAclCommand) error {
@@ -126,6 +132,8 @@ func callUpdateFolderPermissions(sc *scenarioContext) {
 	sc.fakeReqWithParams("POST", sc.url, map[string]string{}).exec()
 }
 func updateFolderPermissionScenario(desc string, url string, routePattern string, cmd dtos.UpdateDashboardAclCommand, fn scenarioFunc) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	Convey(desc+" "+url, func() {

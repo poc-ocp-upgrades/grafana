@@ -16,6 +16,8 @@ import (
 func init() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	alerting.RegisterCondition("query", func(model *simplejson.Json, index int) (alerting.Condition, error) {
 		return NewQueryCondition(model, index)
 	})
@@ -37,6 +39,8 @@ type AlertQuery struct {
 }
 
 func (c *QueryCondition) Eval(context *alerting.EvalContext) (*alerting.ConditionResult, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	timeRange := tsdb.NewTimeRange(c.Query.From, c.Query.To)
@@ -76,6 +80,8 @@ func (c *QueryCondition) Eval(context *alerting.EvalContext) (*alerting.Conditio
 func (c *QueryCondition) executeQuery(context *alerting.EvalContext, timeRange *tsdb.TimeRange) (tsdb.TimeSeriesSlice, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	getDsInfo := &m.GetDataSourceByIdQuery{Id: c.Query.DatasourceId, OrgId: context.Rule.OrgId}
 	if err := bus.Dispatch(getDsInfo); err != nil {
 		return nil, fmt.Errorf("Could not find datasource %v", err)
@@ -103,10 +109,14 @@ func (c *QueryCondition) executeQuery(context *alerting.EvalContext, timeRange *
 func (c *QueryCondition) getRequestForAlertRule(datasource *m.DataSource, timeRange *tsdb.TimeRange) *tsdb.TsdbQuery {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	req := &tsdb.TsdbQuery{TimeRange: timeRange, Queries: []*tsdb.Query{{RefId: "A", Model: c.Query.Model, DataSource: datasource}}}
 	return req
 }
 func NewQueryCondition(model *simplejson.Json, index int) (*QueryCondition, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	condition := QueryCondition{}
@@ -139,11 +149,15 @@ func NewQueryCondition(model *simplejson.Json, index int) (*QueryCondition, erro
 func validateFromValue(from string) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	fromRaw := strings.Replace(from, "now-", "", 1)
 	_, err := time.ParseDuration("-" + fromRaw)
 	return err
 }
 func validateToValue(to string) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if to == "now" {

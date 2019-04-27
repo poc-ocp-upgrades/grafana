@@ -10,6 +10,8 @@ import (
 func init() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	bus.AddHandler("sql", GetSystemStats)
 	bus.AddHandler("sql", GetDataSourceStats)
 	bus.AddHandler("sql", GetDataSourceAccessStats)
@@ -23,12 +25,16 @@ var activeUserTimeLimit = time.Hour * 24 * 30
 func GetAlertNotifiersUsageStats(ctx context.Context, query *m.GetAlertNotifierUsageStatsQuery) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var rawSql = `SELECT COUNT(*) as count, type FROM alert_notification GROUP BY type`
 	query.Result = make([]*m.NotifierUsageStats, 0)
 	err := x.SQL(rawSql).Find(&query.Result)
 	return err
 }
 func GetDataSourceStats(query *m.GetDataSourceStatsQuery) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var rawSql = `SELECT COUNT(*) as count, type FROM data_source GROUP BY type`
@@ -39,12 +45,16 @@ func GetDataSourceStats(query *m.GetDataSourceStatsQuery) error {
 func GetDataSourceAccessStats(query *m.GetDataSourceAccessStatsQuery) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var rawSql = `SELECT COUNT(*) as count, type, access FROM data_source GROUP BY type, access`
 	query.Result = make([]*m.DataSourceAccessStats, 0)
 	err := x.SQL(rawSql).Find(&query.Result)
 	return err
 }
 func GetSystemStats(query *m.GetSystemStatsQuery) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	sb := &SqlBuilder{}
@@ -85,6 +95,8 @@ func GetSystemStats(query *m.GetSystemStatsQuery) error {
 	return err
 }
 func GetAdminStats(query *m.GetAdminStatsQuery) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var rawSql = `SELECT
@@ -138,6 +150,8 @@ func GetAdminStats(query *m.GetAdminStatsQuery) error {
 	return err
 }
 func GetSystemUserCountStats(ctx context.Context, query *m.GetSystemUserCountStatsQuery) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return withDbSession(ctx, func(sess *DBSession) error {

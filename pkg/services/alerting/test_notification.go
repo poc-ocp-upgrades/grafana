@@ -20,9 +20,13 @@ type NotificationTestCommand struct {
 func init() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	bus.AddHandler("alerting", handleNotificationTestCommand)
 }
 func handleNotificationTestCommand(cmd *NotificationTestCommand) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	notifier := NewNotificationService(nil).(*notificationService)
@@ -37,6 +41,8 @@ func handleNotificationTestCommand(cmd *NotificationTestCommand) error {
 func createTestEvalContext(cmd *NotificationTestCommand) *EvalContext {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	testRule := &Rule{DashboardId: 1, PanelId: 1, Name: "Test notification", Message: "Someone is testing the alert notification within grafana.", State: m.AlertStateAlerting}
 	ctx := NewEvalContext(context.Background(), testRule)
 	if cmd.Settings.Get("uploadImage").MustBool(true) {
@@ -49,6 +55,8 @@ func createTestEvalContext(cmd *NotificationTestCommand) *EvalContext {
 	return ctx
 }
 func evalMatchesBasedOnState() []*EvalMatch {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	matches := make([]*EvalMatch, 0)

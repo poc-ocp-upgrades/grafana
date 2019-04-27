@@ -9,6 +9,8 @@ import (
 func TestUserStarsDataAccess(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	Convey("Testing User Stars Data Access", t, func() {
 		InitTestDB(t)
 		Convey("Given saved star", func() {

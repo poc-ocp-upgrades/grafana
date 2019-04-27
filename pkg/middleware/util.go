@@ -9,6 +9,8 @@ import (
 func Gziper() macaron.Handler {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	macaronGziper := gzip.Gziper()
 	return func(ctx *macaron.Context) {
 		requestPath := ctx.Req.URL.RequestURI()

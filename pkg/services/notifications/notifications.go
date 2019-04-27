@@ -25,6 +25,8 @@ var tmplWelcomeOnSignUp = "welcome_on_signup.html"
 func init() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	registry.RegisterService(&NotificationService{})
 }
 
@@ -37,6 +39,8 @@ type NotificationService struct {
 }
 
 func (ns *NotificationService) Init() error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	ns.log = log.New("notifications")
@@ -67,6 +71,8 @@ func (ns *NotificationService) Init() error {
 func (ns *NotificationService) Run(ctx context.Context) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	for {
 		select {
 		case webhook := <-ns.webhookQueue:
@@ -94,15 +100,21 @@ func (ns *NotificationService) Run(ctx context.Context) error {
 func (ns *NotificationService) SendWebhookSync(ctx context.Context, cmd *m.SendWebhookSync) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return ns.sendWebRequestSync(ctx, &Webhook{Url: cmd.Url, User: cmd.User, Password: cmd.Password, Body: cmd.Body, HttpMethod: cmd.HttpMethod, HttpHeader: cmd.HttpHeader, ContentType: cmd.ContentType})
 }
 func subjectTemplateFunc(obj map[string]interface{}, value string) string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	obj["value"] = value
 	return ""
 }
 func (ns *NotificationService) sendEmailCommandHandlerSync(ctx context.Context, cmd *m.SendEmailCommandSync) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	message, err := ns.buildEmailMessage(&m.SendEmailCommand{Data: cmd.Data, Info: cmd.Info, Template: cmd.Template, To: cmd.To, EmbededFiles: cmd.EmbededFiles, Subject: cmd.Subject})
@@ -115,6 +127,8 @@ func (ns *NotificationService) sendEmailCommandHandlerSync(ctx context.Context, 
 func (ns *NotificationService) sendEmailCommandHandler(cmd *m.SendEmailCommand) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	message, err := ns.buildEmailMessage(cmd)
 	if err != nil {
 		return err
@@ -125,9 +139,13 @@ func (ns *NotificationService) sendEmailCommandHandler(cmd *m.SendEmailCommand) 
 func (ns *NotificationService) sendResetPasswordEmail(cmd *m.SendResetPasswordEmailCommand) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return ns.sendEmailCommandHandler(&m.SendEmailCommand{To: []string{cmd.User.Email}, Template: tmplResetPassword, Data: map[string]interface{}{"Code": createUserEmailCode(cmd.User, nil), "Name": cmd.User.NameOrFallback()}})
 }
 func (ns *NotificationService) validateResetPasswordCode(query *m.ValidateResetPasswordCodeQuery) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	login := getLoginForEmailCode(query.Code)
@@ -147,6 +165,8 @@ func (ns *NotificationService) validateResetPasswordCode(query *m.ValidateResetP
 func (ns *NotificationService) signUpStartedHandler(evt *events.SignUpStarted) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if !setting.VerifyEmailEnabled {
 		return nil
 	}
@@ -162,6 +182,8 @@ func (ns *NotificationService) signUpStartedHandler(evt *events.SignUpStarted) e
 	return bus.Dispatch(&emailSentCmd)
 }
 func (ns *NotificationService) signUpCompletedHandler(evt *events.SignUpCompleted) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if evt.Email == "" || !ns.Cfg.Smtp.SendWelcomeEmailOnSignUp {

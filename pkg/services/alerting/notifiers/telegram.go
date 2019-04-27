@@ -23,6 +23,8 @@ var (
 func init() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	alerting.RegisterNotifier(&alerting.NotifierPlugin{Type: "telegram", Name: "Telegram", Description: "Sends notifications to Telegram", Factory: NewTelegramNotifier, OptionsTemplate: `
       <h3 class="page-heading">Telegram API settings</h3>
       <div class="gf-form">
@@ -57,6 +59,8 @@ type TelegramNotifier struct {
 func NewTelegramNotifier(model *m.AlertNotification) (alerting.Notifier, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if model.Settings == nil {
 		return nil, alerting.ValidationError{Reason: "No Settings Supplied"}
 	}
@@ -74,6 +78,8 @@ func NewTelegramNotifier(model *m.AlertNotification) (alerting.Notifier, error) 
 func (this *TelegramNotifier) buildMessage(evalContext *alerting.EvalContext, sendImageInline bool) *m.SendWebhookSync {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if sendImageInline {
 		cmd, err := this.buildMessageInlineImage(evalContext)
 		if err == nil {
@@ -84,6 +90,8 @@ func (this *TelegramNotifier) buildMessage(evalContext *alerting.EvalContext, se
 	return this.buildMessageLinkedImage(evalContext)
 }
 func (this *TelegramNotifier) buildMessageLinkedImage(evalContext *alerting.EvalContext) *m.SendWebhookSync {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	message := fmt.Sprintf("<b>%s</b>\nState: %s\nMessage: %s\n", evalContext.GetNotificationTitle(), evalContext.Rule.Name, evalContext.Rule.Message)
@@ -105,6 +113,8 @@ func (this *TelegramNotifier) buildMessageLinkedImage(evalContext *alerting.Eval
 	return cmd
 }
 func (this *TelegramNotifier) buildMessageInlineImage(evalContext *alerting.EvalContext) (*m.SendWebhookSync, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var imageFile *os.File
@@ -134,6 +144,8 @@ func (this *TelegramNotifier) buildMessageInlineImage(evalContext *alerting.Eval
 func (this *TelegramNotifier) generateTelegramCmd(message string, messageField string, apiAction string, extraConf func(writer *multipart.Writer)) *m.SendWebhookSync {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var body bytes.Buffer
 	w := multipart.NewWriter(&body)
 	fw, _ := w.CreateFormField("chat_id")
@@ -150,6 +162,8 @@ func (this *TelegramNotifier) generateTelegramCmd(message string, messageField s
 func generateMetricsMessage(evalContext *alerting.EvalContext) string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	metrics := ""
 	fieldLimitCount := 4
 	for index, evt := range evalContext.EvalMatches {
@@ -161,6 +175,8 @@ func generateMetricsMessage(evalContext *alerting.EvalContext) string {
 	return metrics
 }
 func generateImageCaption(evalContext *alerting.EvalContext, ruleUrl string, metrics string) string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	message := evalContext.GetNotificationTitle()
@@ -183,6 +199,8 @@ func generateImageCaption(evalContext *alerting.EvalContext, ruleUrl string, met
 func appendIfPossible(message string, extra string, sizeLimit int) string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if len(extra)+len(message) <= sizeLimit {
 		return message + extra
 	}
@@ -190,6 +208,8 @@ func appendIfPossible(message string, extra string, sizeLimit int) string {
 	return message
 }
 func (this *TelegramNotifier) Notify(evalContext *alerting.EvalContext) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var cmd *m.SendWebhookSync

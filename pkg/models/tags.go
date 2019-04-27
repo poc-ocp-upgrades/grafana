@@ -13,6 +13,8 @@ type Tag struct {
 func ParseTagPairs(tagPairs []string) (tags []*Tag) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if tagPairs == nil {
 		return []*Tag{}
 	}
@@ -35,6 +37,8 @@ func ParseTagPairs(tagPairs []string) (tags []*Tag) {
 func ContainsTag(existingTags []*Tag, tag *Tag) bool {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	for _, t := range existingTags {
 		if t.Key == tag.Key && t.Value == tag.Value {
 			return true
@@ -43,6 +47,8 @@ func ContainsTag(existingTags []*Tag, tag *Tag) bool {
 	return false
 }
 func JoinTagPairs(tags []*Tag) []string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	tagPairs := []string{}

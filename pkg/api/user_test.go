@@ -11,6 +11,8 @@ import (
 func TestUserApiEndpoint(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	Convey("Given a user is logged in", t, func() {
 		mockResult := models.SearchUserQueryResult{Users: []*models.UserSearchHitDTO{{Name: "user1"}, {Name: "user2"}}, TotalCount: 2}
 		loggedInUserScenario("When calling GET on", "/api/users", func(sc *scenarioContext) {

@@ -16,6 +16,8 @@ var (
 func (query *Query) Build(queryContext *tsdb.TsdbQuery) (string, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var res string
 	if query.UseRawQuery && query.RawQuery != "" {
 		res = query.RawQuery
@@ -35,6 +37,8 @@ func (query *Query) Build(queryContext *tsdb.TsdbQuery) (string, error) {
 	return res, nil
 }
 func (query *Query) renderTags() []string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var res []string
@@ -70,6 +74,8 @@ func (query *Query) renderTags() []string {
 func (query *Query) renderTimeFilter(queryContext *tsdb.TsdbQuery) string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	from := "now() - " + queryContext.TimeRange.From
 	to := ""
 	if queryContext.TimeRange.To != "now" && queryContext.TimeRange.To != "" {
@@ -78,6 +84,8 @@ func (query *Query) renderTimeFilter(queryContext *tsdb.TsdbQuery) string {
 	return fmt.Sprintf("time > %s%s", from, to)
 }
 func (query *Query) renderSelectors(queryContext *tsdb.TsdbQuery) string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	res := "SELECT "
@@ -92,6 +100,8 @@ func (query *Query) renderSelectors(queryContext *tsdb.TsdbQuery) string {
 	return res + strings.Join(selectors, ", ")
 }
 func (query *Query) renderMeasurement() string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var policy string
@@ -109,6 +119,8 @@ func (query *Query) renderMeasurement() string {
 func (query *Query) renderWhereClause() string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	res := " WHERE "
 	conditions := query.renderTags()
 	if len(conditions) > 0 {
@@ -122,6 +134,8 @@ func (query *Query) renderWhereClause() string {
 	return res
 }
 func (query *Query) renderGroupBy(queryContext *tsdb.TsdbQuery) string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	groupBy := ""

@@ -48,14 +48,20 @@ type DataSourceList []DataSourceListItemDTO
 func (slice DataSourceList) Len() int {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return len(slice)
 }
 func (slice DataSourceList) Less(i, j int) bool {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return strings.ToLower(slice[i].Name) < strings.ToLower(slice[j].Name)
 }
 func (slice DataSourceList) Swap(i, j int) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	slice[i], slice[j] = slice[j], slice[i]

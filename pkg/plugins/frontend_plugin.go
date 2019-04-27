@@ -13,6 +13,8 @@ type FrontendPluginBase struct{ PluginBase }
 func (fp *FrontendPluginBase) initFrontendPlugin() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if isExternalPlugin(fp.PluginDir) {
 		StaticRoutes = append(StaticRoutes, &PluginStaticRoute{Directory: fp.PluginDir, PluginId: fp.Id})
 	}
@@ -26,12 +28,16 @@ func (fp *FrontendPluginBase) initFrontendPlugin() {
 func getPluginLogoUrl(pluginType, path, baseUrl string) string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if path == "" {
 		return "public/img/icn-" + pluginType + ".svg"
 	}
 	return evalRelativePluginUrlPath(path, baseUrl)
 }
 func (fp *FrontendPluginBase) setPathsBasedOnApp(app *AppPlugin) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	appSubPath := strings.Replace(strings.Replace(fp.PluginDir, app.PluginDir, "", 1), "\\", "/", -1)
@@ -46,6 +52,8 @@ func (fp *FrontendPluginBase) setPathsBasedOnApp(app *AppPlugin) {
 func (fp *FrontendPluginBase) handleModuleDefaults() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if isExternalPlugin(fp.PluginDir) {
 		fp.Module = path.Join("plugins", fp.Id, "module")
 		fp.BaseUrl = path.Join("public/plugins", fp.Id)
@@ -58,9 +66,13 @@ func (fp *FrontendPluginBase) handleModuleDefaults() {
 func isExternalPlugin(pluginDir string) bool {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return !strings.Contains(pluginDir, setting.StaticRootPath)
 }
 func evalRelativePluginUrlPath(pathStr string, baseUrl string) string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if pathStr == "" {

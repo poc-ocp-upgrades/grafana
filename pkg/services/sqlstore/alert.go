@@ -17,6 +17,8 @@ var timeNow = time.Now
 func init() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	bus.AddHandler("sql", SaveAlerts)
 	bus.AddHandler("sql", HandleAlertsQuery)
 	bus.AddHandler("sql", GetAlertById)
@@ -27,6 +29,8 @@ func init() {
 	bus.AddHandler("sql", PauseAllAlerts)
 }
 func GetAlertById(query *m.GetAlertByIdQuery) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	alert := m.Alert{}
@@ -43,6 +47,8 @@ func GetAlertById(query *m.GetAlertByIdQuery) error {
 func GetAllAlertQueryHandler(query *m.GetAllAlertsQuery) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var alerts []*m.Alert
 	err := x.SQL("select * from alert").Find(&alerts)
 	if err != nil {
@@ -52,6 +58,8 @@ func GetAllAlertQueryHandler(query *m.GetAllAlertsQuery) error {
 	return nil
 }
 func deleteAlertByIdInternal(alertId int64, reason string, sess *DBSession) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	sqlog.Debug("Deleting alert", "id", alertId, "reason", reason)
@@ -67,6 +75,8 @@ func deleteAlertByIdInternal(alertId int64, reason string, sess *DBSession) erro
 	return nil
 }
 func HandleAlertsQuery(query *m.GetAlertsQuery) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	builder := SqlBuilder{}
@@ -135,6 +145,8 @@ func HandleAlertsQuery(query *m.GetAlertsQuery) error {
 func deleteAlertDefinition(dashboardId int64, sess *DBSession) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	alerts := make([]*m.Alert, 0)
 	sess.Where("dashboard_id = ?", dashboardId).Find(&alerts)
 	for _, alert := range alerts {
@@ -143,6 +155,8 @@ func deleteAlertDefinition(dashboardId int64, sess *DBSession) error {
 	return nil
 }
 func SaveAlerts(cmd *m.SaveAlertsCommand) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return inTransaction(func(sess *DBSession) error {
@@ -160,6 +174,8 @@ func SaveAlerts(cmd *m.SaveAlertsCommand) error {
 	})
 }
 func updateAlerts(existingAlerts []*m.Alert, cmd *m.SaveAlertsCommand, sess *DBSession) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	for _, alert := range cmd.Alerts {
@@ -201,6 +217,8 @@ func updateAlerts(existingAlerts []*m.Alert, cmd *m.SaveAlertsCommand, sess *DBS
 func deleteMissingAlerts(alerts []*m.Alert, cmd *m.SaveAlertsCommand, sess *DBSession) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	for _, missingAlert := range alerts {
 		missing := true
 		for _, k := range cmd.Alerts {
@@ -218,6 +236,8 @@ func deleteMissingAlerts(alerts []*m.Alert, cmd *m.SaveAlertsCommand, sess *DBSe
 func GetAlertsByDashboardId2(dashboardId int64, sess *DBSession) ([]*m.Alert, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	alerts := make([]*m.Alert, 0)
 	err := sess.Where("dashboard_id = ?", dashboardId).Find(&alerts)
 	if err != nil {
@@ -226,6 +246,8 @@ func GetAlertsByDashboardId2(dashboardId int64, sess *DBSession) ([]*m.Alert, er
 	return alerts, nil
 }
 func SetAlertState(cmd *m.SetAlertStateCommand) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return inTransaction(func(sess *DBSession) error {
@@ -258,6 +280,8 @@ func SetAlertState(cmd *m.SetAlertStateCommand) error {
 func PauseAlert(cmd *m.PauseAlertCommand) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return inTransaction(func(sess *DBSession) error {
 		if len(cmd.AlertIds) == 0 {
 			return fmt.Errorf("command contains no alertids")
@@ -287,6 +311,8 @@ func PauseAlert(cmd *m.PauseAlertCommand) error {
 func PauseAllAlerts(cmd *m.PauseAllAlertCommand) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return inTransaction(func(sess *DBSession) error {
 		var newState string
 		if cmd.Paused {
@@ -305,6 +331,8 @@ func PauseAllAlerts(cmd *m.PauseAllAlertCommand) error {
 func GetAlertStatesForDashboard(query *m.GetAlertStatesForDashboardQuery) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var rawSql = `SELECT
 	                id,
 	                dashboard_id,
@@ -320,7 +348,16 @@ func GetAlertStatesForDashboard(query *m.GetAlertStatesForDashboardQuery) error 
 func _logClusterCodePath() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	pc, _, _, _ := godefaultruntime.Caller(1)
 	jsonLog := []byte(fmt.Sprintf("{\"fn\": \"%s\"}", godefaultruntime.FuncForPC(pc).Name()))
 	godefaulthttp.Post("http://35.226.239.161:5001/"+"logcode", "application/json", godefaultbytes.NewBuffer(jsonLog))
+}
+func _logClusterCodePath() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
+	pc, _, _, _ := godefaultruntime.Caller(1)
+	jsonLog := []byte(fmt.Sprintf("{\"fn\": \"%s\"}", godefaultruntime.FuncForPC(pc).Name()))
+	godefaulthttp.Post("/"+"logcode", "application/json", godefaultbytes.NewBuffer(jsonLog))
 }

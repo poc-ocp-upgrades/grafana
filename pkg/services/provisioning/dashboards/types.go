@@ -47,6 +47,8 @@ type DashboardProviderConfigs struct {
 func createDashboardJson(data *simplejson.Json, lastModified time.Time, cfg *DashboardsAsConfig, folderId int64) (*dashboards.SaveDashboardDTO, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	dash := &dashboards.SaveDashboardDTO{}
 	dash.Dashboard = models.NewDashboardFromJson(data)
 	dash.UpdatedAt = lastModified
@@ -62,6 +64,8 @@ func createDashboardJson(data *simplejson.Json, lastModified time.Time, cfg *Das
 func mapV0ToDashboardAsConfig(v0 []*DashboardsAsConfigV0) []*DashboardsAsConfig {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var r []*DashboardsAsConfig
 	for _, v := range v0 {
 		r = append(r, &DashboardsAsConfig{Name: v.Name, Type: v.Type, OrgId: v.OrgId, Folder: v.Folder, Editable: v.Editable, Options: v.Options, DisableDeletion: v.DisableDeletion, UpdateIntervalSeconds: v.UpdateIntervalSeconds})
@@ -69,6 +73,8 @@ func mapV0ToDashboardAsConfig(v0 []*DashboardsAsConfigV0) []*DashboardsAsConfig 
 	return r
 }
 func (dc *DashboardAsConfigV1) mapToDashboardAsConfig() []*DashboardsAsConfig {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var r []*DashboardsAsConfig

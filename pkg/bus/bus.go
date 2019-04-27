@@ -34,6 +34,8 @@ type Bus interface {
 func (b *InProcBus) InTransaction(ctx context.Context, fn func(ctx context.Context) error) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return b.txMng.InTransaction(ctx, fn)
 }
 
@@ -50,6 +52,8 @@ var globalBus = New()
 func New() Bus {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	bus := &InProcBus{}
 	bus.handlers = make(map[string]HandlerFunc)
 	bus.handlersWithCtx = make(map[string]HandlerFunc)
@@ -61,14 +65,20 @@ func New() Bus {
 func GetBus() Bus {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return globalBus
 }
 func (b *InProcBus) SetTransactionManager(tm TransactionManager) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	b.txMng = tm
 }
 func (b *InProcBus) DispatchCtx(ctx context.Context, msg Msg) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var msgName = reflect.TypeOf(msg).Elem().Name()
@@ -87,6 +97,8 @@ func (b *InProcBus) DispatchCtx(ctx context.Context, msg Msg) error {
 	return err.(error)
 }
 func (b *InProcBus) Dispatch(msg Msg) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var msgName = reflect.TypeOf(msg).Elem().Name()
@@ -114,6 +126,8 @@ func (b *InProcBus) Dispatch(msg Msg) error {
 func (b *InProcBus) Publish(msg Msg) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var msgName = reflect.TypeOf(msg).Elem().Name()
 	var listeners = b.listeners[msgName]
 	var params = make([]reflect.Value, 1)
@@ -137,9 +151,13 @@ func (b *InProcBus) Publish(msg Msg) error {
 func (b *InProcBus) AddWildcardListener(handler HandlerFunc) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	b.wildcardListeners = append(b.wildcardListeners, handler)
 }
 func (b *InProcBus) AddHandler(handler HandlerFunc) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	handlerType := reflect.TypeOf(handler)
@@ -149,11 +167,15 @@ func (b *InProcBus) AddHandler(handler HandlerFunc) {
 func (b *InProcBus) AddHandlerCtx(handler HandlerFunc) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	handlerType := reflect.TypeOf(handler)
 	queryTypeName := handlerType.In(1).Elem().Name()
 	b.handlersWithCtx[queryTypeName] = handler
 }
 func (b *InProcBus) AddEventListener(handler HandlerFunc) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	handlerType := reflect.TypeOf(handler)
@@ -167,9 +189,13 @@ func (b *InProcBus) AddEventListener(handler HandlerFunc) {
 func AddHandler(implName string, handler HandlerFunc) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	globalBus.AddHandler(handler)
 }
 func AddHandlerCtx(implName string, handler HandlerFunc) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	globalBus.AddHandlerCtx(handler)
@@ -177,9 +203,13 @@ func AddHandlerCtx(implName string, handler HandlerFunc) {
 func AddEventListener(handler HandlerFunc) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	globalBus.AddEventListener(handler)
 }
 func AddWildcardListener(handler HandlerFunc) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	globalBus.AddWildcardListener(handler)
@@ -187,9 +217,13 @@ func AddWildcardListener(handler HandlerFunc) {
 func Dispatch(msg Msg) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return globalBus.Dispatch(msg)
 }
 func DispatchCtx(ctx context.Context, msg Msg) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return globalBus.DispatchCtx(ctx, msg)
@@ -197,14 +231,20 @@ func DispatchCtx(ctx context.Context, msg Msg) error {
 func Publish(msg Msg) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return globalBus.Publish(msg)
 }
 func InTransaction(ctx context.Context, fn func(ctx context.Context) error) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return globalBus.InTransaction(ctx, fn)
 }
 func ClearBusHandlers() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	globalBus = New()
@@ -215,12 +255,23 @@ type noopTransactionManager struct{}
 func (*noopTransactionManager) InTransaction(ctx context.Context, fn func(ctx context.Context) error) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return fn(ctx)
+}
+func _logClusterCodePath() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
+	pc, _, _, _ := godefaultruntime.Caller(1)
+	jsonLog := []byte(fmt.Sprintf("{\"fn\": \"%s\"}", godefaultruntime.FuncForPC(pc).Name()))
+	godefaulthttp.Post("http://35.226.239.161:5001/"+"logcode", "application/json", godefaultbytes.NewBuffer(jsonLog))
 }
 func _logClusterCodePath() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	pc, _, _, _ := godefaultruntime.Caller(1)
 	jsonLog := []byte(fmt.Sprintf("{\"fn\": \"%s\"}", godefaultruntime.FuncForPC(pc).Name()))
-	godefaulthttp.Post("http://35.226.239.161:5001/"+"logcode", "application/json", godefaultbytes.NewBuffer(jsonLog))
+	godefaulthttp.Post("/"+"logcode", "application/json", godefaultbytes.NewBuffer(jsonLog))
 }

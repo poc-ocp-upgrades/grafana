@@ -9,6 +9,8 @@ import (
 func ComposePluginStartCommmand(executable string) string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	os := strings.ToLower(runtime.GOOS)
 	arch := runtime.GOARCH
 	extension := ""

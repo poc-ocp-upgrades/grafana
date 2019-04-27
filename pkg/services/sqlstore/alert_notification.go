@@ -14,6 +14,8 @@ import (
 func init() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	bus.AddHandler("sql", GetAlertNotifications)
 	bus.AddHandler("sql", CreateAlertNotificationCommand)
 	bus.AddHandler("sql", UpdateAlertNotification)
@@ -25,6 +27,8 @@ func init() {
 	bus.AddHandlerCtx("sql", SetAlertNotificationStateToPendingCommand)
 }
 func DeleteAlertNotification(cmd *m.DeleteAlertNotificationCommand) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return inTransaction(func(sess *DBSession) error {
@@ -41,9 +45,13 @@ func DeleteAlertNotification(cmd *m.DeleteAlertNotificationCommand) error {
 func GetAlertNotifications(query *m.GetAlertNotificationsQuery) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return getAlertNotificationInternal(query, newSession())
 }
 func GetAllAlertNotifications(query *m.GetAllAlertNotificationsQuery) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	results := make([]*m.AlertNotification, 0)
@@ -54,6 +62,8 @@ func GetAllAlertNotifications(query *m.GetAllAlertNotificationsQuery) error {
 	return nil
 }
 func GetAlertNotificationsToSend(query *m.GetAlertNotificationsToSendQuery) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var sql bytes.Buffer
@@ -91,6 +101,8 @@ func GetAlertNotificationsToSend(query *m.GetAlertNotificationsToSendQuery) erro
 	return nil
 }
 func getAlertNotificationInternal(query *m.GetAlertNotificationsQuery, sess *DBSession) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var sql bytes.Buffer
@@ -135,6 +147,8 @@ func getAlertNotificationInternal(query *m.GetAlertNotificationsQuery, sess *DBS
 func CreateAlertNotificationCommand(cmd *m.CreateAlertNotificationCommand) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return inTransaction(func(sess *DBSession) error {
 		existingQuery := &m.GetAlertNotificationsQuery{OrgId: cmd.OrgId, Name: cmd.Name}
 		err := getAlertNotificationInternal(existingQuery, sess)
@@ -163,6 +177,8 @@ func CreateAlertNotificationCommand(cmd *m.CreateAlertNotificationCommand) error
 	})
 }
 func UpdateAlertNotification(cmd *m.UpdateAlertNotificationCommand) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return inTransaction(func(sess *DBSession) (err error) {
@@ -207,6 +223,8 @@ func UpdateAlertNotification(cmd *m.UpdateAlertNotificationCommand) error {
 func SetAlertNotificationStateToCompleteCommand(ctx context.Context, cmd *m.SetAlertNotificationStateToCompleteCommand) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return inTransactionCtx(ctx, func(sess *DBSession) error {
 		version := cmd.Version
 		var current m.AlertNotificationState
@@ -229,6 +247,8 @@ func SetAlertNotificationStateToCompleteCommand(ctx context.Context, cmd *m.SetA
 	})
 }
 func SetAlertNotificationStateToPendingCommand(ctx context.Context, cmd *m.SetAlertNotificationStateToPendingCommand) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return withDbSession(ctx, func(sess *DBSession) error {
@@ -254,6 +274,8 @@ func SetAlertNotificationStateToPendingCommand(ctx context.Context, cmd *m.SetAl
 	})
 }
 func GetOrCreateAlertNotificationState(ctx context.Context, cmd *m.GetOrCreateNotificationStateQuery) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return inTransactionCtx(ctx, func(sess *DBSession) error {
@@ -286,6 +308,8 @@ func GetOrCreateAlertNotificationState(ctx context.Context, cmd *m.GetOrCreateNo
 	})
 }
 func getAlertNotificationState(sess *DBSession, cmd *m.GetOrCreateNotificationStateQuery, nj *m.AlertNotificationState) (bool, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return sess.Where("alert_notification_state.org_id = ?", cmd.OrgId).Where("alert_notification_state.alert_id = ?", cmd.AlertId).Where("alert_notification_state.notifier_id = ?", cmd.NotifierId).Get(nj)

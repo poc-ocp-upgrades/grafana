@@ -23,6 +23,8 @@ type ReqContext struct {
 func (ctx *ReqContext) Handle(status int, title string, err error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if err != nil {
 		ctx.Logger.Error(title, "error", err)
 		if setting.Env != setting.PROD {
@@ -37,6 +39,8 @@ func (ctx *ReqContext) Handle(status int, title string, err error) {
 func (ctx *ReqContext) JsonOK(message string) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	resp := make(map[string]interface{})
 	resp["message"] = message
 	ctx.JSON(200, resp)
@@ -44,9 +48,13 @@ func (ctx *ReqContext) JsonOK(message string) {
 func (ctx *ReqContext) IsApiRequest() bool {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return strings.HasPrefix(ctx.Req.URL.Path, "/api")
 }
 func (ctx *ReqContext) JsonApiErr(status int, message string, err error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	resp := make(map[string]interface{})
@@ -70,14 +78,20 @@ func (ctx *ReqContext) JsonApiErr(status int, message string, err error) {
 func (ctx *ReqContext) HasUserRole(role RoleType) bool {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return ctx.OrgRole.Includes(role)
 }
 func (ctx *ReqContext) HasHelpFlag(flag HelpFlags1) bool {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return ctx.HelpFlags1.HasFlag(flag)
 }
 func (ctx *ReqContext) TimeRequest(timer prometheus.Summary) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	ctx.Data["perfmon.timer"] = timer

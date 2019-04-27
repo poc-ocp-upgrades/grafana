@@ -12,6 +12,8 @@ import (
 func getDashboardURLBySlug(orgID int64, slug string) (string, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	query := m.GetDashboardQuery{Slug: slug, OrgId: orgID}
 	if err := bus.Dispatch(&query); err != nil {
 		return "", m.ErrDashboardNotFound
@@ -19,6 +21,8 @@ func getDashboardURLBySlug(orgID int64, slug string) (string, error) {
 	return m.GetDashboardUrl(query.Result.Uid, query.Result.Slug), nil
 }
 func RedirectFromLegacyDashboardURL() macaron.Handler {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return func(c *m.ReqContext) {
@@ -33,6 +37,8 @@ func RedirectFromLegacyDashboardURL() macaron.Handler {
 	}
 }
 func RedirectFromLegacyDashboardSoloURL() macaron.Handler {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return func(c *m.ReqContext) {

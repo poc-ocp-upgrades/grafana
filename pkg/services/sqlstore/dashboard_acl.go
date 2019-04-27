@@ -8,10 +8,14 @@ import (
 func init() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	bus.AddHandler("sql", UpdateDashboardAcl)
 	bus.AddHandler("sql", GetDashboardAclInfoList)
 }
 func UpdateDashboardAcl(cmd *m.UpdateDashboardAclCommand) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return inTransaction(func(sess *DBSession) error {
@@ -37,6 +41,8 @@ func UpdateDashboardAcl(cmd *m.UpdateDashboardAclCommand) error {
 	})
 }
 func GetDashboardAclInfoList(query *m.GetDashboardAclInfoListQuery) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var err error

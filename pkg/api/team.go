@@ -10,6 +10,8 @@ import (
 func CreateTeam(c *m.ReqContext, cmd m.CreateTeamCommand) Response {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	cmd.OrgId = c.OrgId
 	if err := bus.Dispatch(&cmd); err != nil {
 		if err == m.ErrTeamNameTaken {
@@ -20,6 +22,8 @@ func CreateTeam(c *m.ReqContext, cmd m.CreateTeamCommand) Response {
 	return JSON(200, &util.DynMap{"teamId": cmd.Result.Id, "message": "Team created"})
 }
 func UpdateTeam(c *m.ReqContext, cmd m.UpdateTeamCommand) Response {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	cmd.OrgId = c.OrgId
@@ -35,6 +39,8 @@ func UpdateTeam(c *m.ReqContext, cmd m.UpdateTeamCommand) Response {
 func DeleteTeamByID(c *m.ReqContext) Response {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if err := bus.Dispatch(&m.DeleteTeamCommand{OrgId: c.OrgId, Id: c.ParamsInt64(":teamId")}); err != nil {
 		if err == m.ErrTeamNotFound {
 			return Error(404, "Failed to delete Team. ID not found", nil)
@@ -44,6 +50,8 @@ func DeleteTeamByID(c *m.ReqContext) Response {
 	return Success("Team deleted")
 }
 func SearchTeams(c *m.ReqContext) Response {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	perPage := c.QueryInt("perpage")
@@ -68,6 +76,8 @@ func SearchTeams(c *m.ReqContext) Response {
 func GetTeamByID(c *m.ReqContext) Response {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	query := m.GetTeamByIdQuery{OrgId: c.OrgId, Id: c.ParamsInt64(":teamId")}
 	if err := bus.Dispatch(&query); err != nil {
 		if err == m.ErrTeamNotFound {
@@ -81,9 +91,13 @@ func GetTeamByID(c *m.ReqContext) Response {
 func GetTeamPreferences(c *m.ReqContext) Response {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return getPreferencesFor(c.OrgId, 0, c.ParamsInt64(":teamId"))
 }
 func UpdateTeamPreferences(c *m.ReqContext, dtoCmd dtos.UpdatePrefsCmd) Response {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return updatePreferencesFor(c.OrgId, 0, c.ParamsInt64(":teamId"), &dtoCmd)

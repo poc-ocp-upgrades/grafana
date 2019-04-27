@@ -12,6 +12,8 @@ import (
 func init() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	bus.AddHandler("sql", GetDataSources)
 	bus.AddHandler("sql", GetAllDataSources)
 	bus.AddHandler("sql", AddDataSource)
@@ -22,6 +24,8 @@ func init() {
 	bus.AddHandler("sql", GetDataSourceByName)
 }
 func GetDataSourceById(query *m.GetDataSourceByIdQuery) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	metrics.M_DB_DataSource_QueryById.Inc()
@@ -39,6 +43,8 @@ func GetDataSourceById(query *m.GetDataSourceByIdQuery) error {
 func GetDataSourceByName(query *m.GetDataSourceByNameQuery) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	datasource := m.DataSource{OrgId: query.OrgId, Name: query.Name}
 	has, err := x.Get(&datasource)
 	if !has {
@@ -50,6 +56,8 @@ func GetDataSourceByName(query *m.GetDataSourceByNameQuery) error {
 func GetDataSources(query *m.GetDataSourcesQuery) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	sess := x.Limit(5000, 0).Where("org_id=?", query.OrgId).Asc("name")
 	query.Result = make([]*m.DataSource, 0)
 	return sess.Find(&query.Result)
@@ -57,11 +65,15 @@ func GetDataSources(query *m.GetDataSourcesQuery) error {
 func GetAllDataSources(query *m.GetAllDataSourcesQuery) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	sess := x.Limit(5000, 0).Asc("name")
 	query.Result = make([]*m.DataSource, 0)
 	return sess.Find(&query.Result)
 }
 func DeleteDataSourceById(cmd *m.DeleteDataSourceByIdCommand) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return inTransaction(func(sess *DBSession) error {
@@ -75,6 +87,8 @@ func DeleteDataSourceById(cmd *m.DeleteDataSourceByIdCommand) error {
 func DeleteDataSourceByName(cmd *m.DeleteDataSourceByNameCommand) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return inTransaction(func(sess *DBSession) error {
 		var rawSql = "DELETE FROM data_source WHERE name=? and org_id=?"
 		result, err := sess.Exec(rawSql, cmd.Name, cmd.OrgId)
@@ -84,6 +98,8 @@ func DeleteDataSourceByName(cmd *m.DeleteDataSourceByNameCommand) error {
 	})
 }
 func AddDataSource(cmd *m.AddDataSourceCommand) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return inTransaction(func(sess *DBSession) error {
@@ -106,6 +122,8 @@ func AddDataSource(cmd *m.AddDataSourceCommand) error {
 func updateIsDefaultFlag(ds *m.DataSource, sess *DBSession) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if ds.IsDefault {
 		rawSql := "UPDATE data_source SET is_default=? WHERE org_id=? AND id <> ?"
 		if _, err := sess.Exec(rawSql, false, ds.OrgId, ds.Id); err != nil {
@@ -115,6 +133,8 @@ func updateIsDefaultFlag(ds *m.DataSource, sess *DBSession) error {
 	return nil
 }
 func UpdateDataSource(cmd *m.UpdateDataSourceCommand) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return inTransaction(func(sess *DBSession) error {

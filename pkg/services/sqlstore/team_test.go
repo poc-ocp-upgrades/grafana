@@ -11,6 +11,8 @@ import (
 func TestTeamCommandsAndQueries(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	Convey("Testing Team commands & queries", t, func() {
 		InitTestDB(t)
 		Convey("Given saved users and two teams", func() {

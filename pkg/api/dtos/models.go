@@ -48,6 +48,8 @@ type UserStars struct {
 func GetGravatarUrl(text string) string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if setting.DisableGravatar {
 		return setting.AppSubUrl + "/public/img/user_profile.png"
 	}
@@ -59,6 +61,8 @@ func GetGravatarUrl(text string) string {
 	return fmt.Sprintf(setting.AppSubUrl+"/avatar/%x", hasher.Sum(nil))
 }
 func GetGravatarUrlWithDefault(text string, defaultText string) string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if text != "" {

@@ -12,6 +12,8 @@ import (
 func TestMiddlewareQuota(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	Convey("Given the grafana quota middleware", t, func() {
 		session.GetSessionCount = func() int {
 			return 4

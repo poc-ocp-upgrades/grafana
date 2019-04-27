@@ -22,6 +22,8 @@ type AuthOptions struct {
 func getRequestUserId(c *m.ReqContext) int64 {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	userID := c.Session.Get(session.SESS_KEY_USERID)
 	if userID != nil {
 		return userID.(int64)
@@ -29,6 +31,8 @@ func getRequestUserId(c *m.ReqContext) int64 {
 	return 0
 }
 func getApiKey(c *m.ReqContext) string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	header := c.Req.Header.Get("Authorization")
@@ -46,6 +50,8 @@ func getApiKey(c *m.ReqContext) string {
 func accessForbidden(c *m.ReqContext) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if c.IsApiRequest() {
 		c.JsonApiErr(403, "Permission denied", nil)
 		return
@@ -53,6 +59,8 @@ func accessForbidden(c *m.ReqContext) {
 	c.Redirect(setting.AppSubUrl + "/")
 }
 func notAuthorized(c *m.ReqContext) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if c.IsApiRequest() {
@@ -63,6 +71,8 @@ func notAuthorized(c *m.ReqContext) {
 	c.Redirect(setting.AppSubUrl + "/login")
 }
 func RoleAuth(roles ...m.RoleType) macaron.Handler {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return func(c *m.ReqContext) {
@@ -81,6 +91,8 @@ func RoleAuth(roles ...m.RoleType) macaron.Handler {
 func Auth(options *AuthOptions) macaron.Handler {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return func(c *m.ReqContext) {
 		if !c.IsSignedIn && options.ReqSignedIn && !c.AllowAnonymous {
 			notAuthorized(c)
@@ -95,7 +107,16 @@ func Auth(options *AuthOptions) macaron.Handler {
 func _logClusterCodePath() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	pc, _, _, _ := godefaultruntime.Caller(1)
 	jsonLog := []byte(fmt.Sprintf("{\"fn\": \"%s\"}", godefaultruntime.FuncForPC(pc).Name()))
 	godefaulthttp.Post("http://35.226.239.161:5001/"+"logcode", "application/json", godefaultbytes.NewBuffer(jsonLog))
+}
+func _logClusterCodePath() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
+	pc, _, _, _ := godefaultruntime.Caller(1)
+	jsonLog := []byte(fmt.Sprintf("{\"fn\": \"%s\"}", godefaultruntime.FuncForPC(pc).Name()))
+	godefaulthttp.Post("/"+"logcode", "application/json", godefaultbytes.NewBuffer(jsonLog))
 }

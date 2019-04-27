@@ -13,6 +13,8 @@ import (
 func TestWhenAlertManagerShouldNotify(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	tcs := []struct {
 		prevState	m.AlertStateType
 		newState	m.AlertStateType
@@ -29,6 +31,8 @@ func TestWhenAlertManagerShouldNotify(t *testing.T) {
 	}
 }
 func TestAlertmanagerNotifier(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	Convey("Alertmanager notifier tests", t, func() {

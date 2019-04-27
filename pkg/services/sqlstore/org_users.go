@@ -12,12 +12,16 @@ import (
 func init() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	bus.AddHandler("sql", AddOrgUser)
 	bus.AddHandler("sql", RemoveOrgUser)
 	bus.AddHandler("sql", GetOrgUsers)
 	bus.AddHandler("sql", UpdateOrgUser)
 }
 func AddOrgUser(cmd *m.AddOrgUserCommand) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return inTransaction(func(sess *DBSession) error {
@@ -60,6 +64,8 @@ func AddOrgUser(cmd *m.AddOrgUserCommand) error {
 func UpdateOrgUser(cmd *m.UpdateOrgUserCommand) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return inTransaction(func(sess *DBSession) error {
 		var orgUser m.OrgUser
 		exists, err := sess.Where("org_id=? AND user_id=?", cmd.OrgId, cmd.UserId).Get(&orgUser)
@@ -79,6 +85,8 @@ func UpdateOrgUser(cmd *m.UpdateOrgUserCommand) error {
 	})
 }
 func GetOrgUsers(query *m.GetOrgUsersQuery) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	query.Result = make([]*m.OrgUserDTO, 0)
@@ -110,6 +118,8 @@ func GetOrgUsers(query *m.GetOrgUsersQuery) error {
 	return nil
 }
 func RemoveOrgUser(cmd *m.RemoveOrgUserCommand) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return inTransaction(func(sess *DBSession) error {
@@ -162,6 +172,8 @@ func RemoveOrgUser(cmd *m.RemoveOrgUserCommand) error {
 	})
 }
 func validateOneAdminLeftInOrg(orgId int64, sess *DBSession) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	res, err := sess.Query("SELECT 1 from org_user WHERE org_id=? and role='Admin'", orgId)

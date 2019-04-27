@@ -12,11 +12,15 @@ import (
 func (j *Json) UnmarshalJSON(p []byte) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	dec := json.NewDecoder(bytes.NewBuffer(p))
 	dec.UseNumber()
 	return dec.Decode(&j.data)
 }
 func NewFromReader(r io.Reader) (*Json, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	j := new(Json)
@@ -26,6 +30,8 @@ func NewFromReader(r io.Reader) (*Json, error) {
 	return j, err
 }
 func (j *Json) Float64() (float64, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	switch j.data.(type) {
@@ -41,6 +47,8 @@ func (j *Json) Float64() (float64, error) {
 	return 0, errors.New("invalid value type")
 }
 func (j *Json) Int() (int, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	switch j.data.(type) {
@@ -59,6 +67,8 @@ func (j *Json) Int() (int, error) {
 func (j *Json) Int64() (int64, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	switch j.data.(type) {
 	case json.Number:
 		return j.data.(json.Number).Int64()
@@ -72,6 +82,8 @@ func (j *Json) Int64() (int64, error) {
 	return 0, errors.New("invalid value type")
 }
 func (j *Json) Uint64() (uint64, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	switch j.data.(type) {

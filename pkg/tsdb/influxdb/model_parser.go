@@ -13,6 +13,8 @@ type InfluxdbQueryParser struct{}
 func (qp *InfluxdbQueryParser) Parse(model *simplejson.Json, dsInfo *models.DataSource) (*Query, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	policy := model.Get("policy").MustString("default")
 	rawQuery := model.Get("query").MustString("")
 	useRawQuery := model.Get("rawQuery").MustBool(false)
@@ -43,6 +45,8 @@ func (qp *InfluxdbQueryParser) Parse(model *simplejson.Json, dsInfo *models.Data
 func (qp *InfluxdbQueryParser) parseSelects(model *simplejson.Json) ([]*Select, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var result []*Select
 	for _, selectObj := range model.Get("select").MustArray() {
 		selectJson := simplejson.NewFromAny(selectObj)
@@ -60,6 +64,8 @@ func (qp *InfluxdbQueryParser) parseSelects(model *simplejson.Json) ([]*Select, 
 	return result, nil
 }
 func (*InfluxdbQueryParser) parseTags(model *simplejson.Json) ([]*Tag, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var result []*Tag
@@ -90,6 +96,8 @@ func (*InfluxdbQueryParser) parseTags(model *simplejson.Json) ([]*Tag, error) {
 func (*InfluxdbQueryParser) parseQueryPart(model *simplejson.Json) (*QueryPart, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	typ, err := model.Get("type").String()
 	if err != nil {
 		return nil, err
@@ -116,6 +124,8 @@ func (*InfluxdbQueryParser) parseQueryPart(model *simplejson.Json) (*QueryPart, 
 	return qp, nil
 }
 func (qp *InfluxdbQueryParser) parseGroupBy(model *simplejson.Json) ([]*QueryPart, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var result []*QueryPart

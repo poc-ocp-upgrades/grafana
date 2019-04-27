@@ -8,12 +8,16 @@ import (
 func addDropAllIndicesMigrations(mg *Migrator, versionSuffix string, table Table) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	for _, index := range table.Indices {
 		migrationId := fmt.Sprintf("drop index %s - %s", index.XName(table.Name), versionSuffix)
 		mg.AddMigration(migrationId, NewDropIndexMigration(table, index))
 	}
 }
 func addTableIndicesMigrations(mg *Migrator, versionSuffix string, table Table) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	for _, index := range table.Indices {
@@ -24,10 +28,14 @@ func addTableIndicesMigrations(mg *Migrator, versionSuffix string, table Table) 
 func addTableRenameMigration(mg *Migrator, oldName string, newName string, versionSuffix string) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	migrationId := fmt.Sprintf("Rename table %s to %s - %s", oldName, newName, versionSuffix)
 	mg.AddMigration(migrationId, NewRenameTableMigration(oldName, newName))
 }
 func addTableReplaceMigrations(mg *Migrator, from Table, to Table, migrationVersion int64, tableDataMigration map[string]string) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	fromV := version(migrationVersion - 1)
@@ -44,6 +52,8 @@ func addTableReplaceMigrations(mg *Migrator, from Table, to Table, migrationVers
 	mg.AddMigration(dropTable, NewDropTableMigration(tmpTableName))
 }
 func version(v int64) string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return fmt.Sprintf("v%v", v)

@@ -8,6 +8,8 @@ import (
 func TestEncoding(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	Convey("When generating base64 header", t, func() {
 		result := GetBasicAuthHeader("grafana", "1234")
 		So(result, ShouldEqual, "Basic Z3JhZmFuYToxMjM0")

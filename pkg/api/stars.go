@@ -8,6 +8,8 @@ import (
 func StarDashboard(c *m.ReqContext) Response {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if !c.IsSignedIn {
 		return Error(412, "You need to sign in to star dashboards", nil)
 	}
@@ -21,6 +23,8 @@ func StarDashboard(c *m.ReqContext) Response {
 	return Success("Dashboard starred!")
 }
 func UnstarDashboard(c *m.ReqContext) Response {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	cmd := m.UnstarDashboardCommand{UserId: c.UserId, DashboardId: c.ParamsInt64(":id")}

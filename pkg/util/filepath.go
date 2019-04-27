@@ -15,6 +15,8 @@ type WalkFunc func(resolvedPath string, info os.FileInfo, err error) error
 func Walk(path string, followSymlinks bool, detectSymlinkInfiniteLoop bool, walkFn WalkFunc) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	info, err := os.Lstat(path)
 	if err != nil {
 		return err
@@ -30,6 +32,8 @@ func Walk(path string, followSymlinks bool, detectSymlinkInfiniteLoop bool, walk
 	return walk(path, info, resolvedPath, symlinkPathsFollowed, walkFn)
 }
 func walk(path string, info os.FileInfo, resolvedPath string, symlinkPathsFollowed map[string]bool, walkFn WalkFunc) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if info == nil {
@@ -98,6 +102,8 @@ type subFile struct {
 }
 
 func containsDistFolder(subFiles []subFile) bool {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	for _, p := range subFiles {

@@ -11,6 +11,8 @@ import (
 func TestStateIsUpdatedWhenNeeded(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	ctx := NewEvalContext(context.TODO(), &Rule{Conditions: []Condition{&conditionStub{firing: true}}})
 	t.Run("ok -> alerting", func(t *testing.T) {
 		ctx.PrevAlertState = models.AlertStateOK
@@ -28,6 +30,8 @@ func TestStateIsUpdatedWhenNeeded(t *testing.T) {
 	})
 }
 func TestGetStateFromEvalContext(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	tcs := []struct {

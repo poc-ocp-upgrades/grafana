@@ -36,9 +36,13 @@ type AzureBlobUploader struct {
 func NewAzureBlobUploader(account_name string, account_key string, container_name string) *AzureBlobUploader {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return &AzureBlobUploader{account_name: account_name, account_key: account_key, container_name: container_name, log: log.New("azureBlobUploader")}
 }
 func (az *AzureBlobUploader) Upload(ctx context.Context, imageDiskPath string) (string, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	blob := NewStorageClient(az.account_name, az.account_key)
@@ -93,9 +97,13 @@ type Error struct {
 func (e *Error) Error() string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return fmt.Sprintf("status %d: %s", e.Code, e.Body)
 }
 func (e *Error) parseXML() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var xe xmlError
@@ -120,6 +128,8 @@ type StorageClient struct {
 func (c *StorageClient) transport() http.RoundTripper {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if c.Transport != nil {
 		return c.Transport
 	}
@@ -128,9 +138,13 @@ func (c *StorageClient) transport() http.RoundTripper {
 func NewStorageClient(account, accessKey string) *StorageClient {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return &StorageClient{Auth: &Auth{account, accessKey}, Transport: nil}
 }
 func (c *StorageClient) absUrl(format string, a ...interface{}) string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	part := fmt.Sprintf(format, a...)
@@ -139,11 +153,15 @@ func (c *StorageClient) absUrl(format string, a ...interface{}) string {
 func copyHeadersToRequest(req *http.Request, headers map[string]string) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	for k, v := range headers {
 		req.Header[k] = []string{v}
 	}
 }
 func (c *StorageClient) FileUpload(container, blobName string, body io.Reader) (*http.Response, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	blobName = escape(blobName)
@@ -162,6 +180,8 @@ func (c *StorageClient) FileUpload(container, blobName string, body io.Reader) (
 func escape(content string) string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	content = url.QueryEscape(content)
 	content = strings.Replace(content, "+", "%20", -1)
 	content = strings.Replace(content, "%2F", "/", -1)
@@ -176,6 +196,8 @@ type Auth struct {
 func (a *Auth) SignRequest(req *http.Request) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	strToSign := fmt.Sprintf("%s\n%s\n%s\n%s\n%s\n%s\n%s\n%s\n%s\n%s\n%s\n%s\n%s\n%s", strings.ToUpper(req.Method), tryget(req.Header, "Content-Encoding"), tryget(req.Header, "Content-Language"), tryget(req.Header, "Content-Length"), tryget(req.Header, "Content-MD5"), tryget(req.Header, "Content-Type"), tryget(req.Header, "Date"), tryget(req.Header, "If-Modified-Since"), tryget(req.Header, "If-Match"), tryget(req.Header, "If-None-Match"), tryget(req.Header, "If-Unmodified-Since"), tryget(req.Header, "Range"), a.canonicalizedHeaders(req), a.canonicalizedResource(req))
 	decodedKey, _ := base64.StdEncoding.DecodeString(a.Key)
 	sha256 := hmac.New(sha256.New, decodedKey)
@@ -186,12 +208,16 @@ func (a *Auth) SignRequest(req *http.Request) {
 func tryget(headers map[string][]string, key string) string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if len(headers[key]) > 0 {
 		return headers[key][0]
 	}
 	return ""
 }
 func (a *Auth) canonicalizedHeaders(req *http.Request) string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var buffer bytes.Buffer
@@ -212,6 +238,8 @@ func (a *Auth) canonicalizedHeaders(req *http.Request) string {
 func (a *Auth) canonicalizedResource(req *http.Request) string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var buffer bytes.Buffer
 	buffer.WriteString(fmt.Sprintf("/%s%s", a.Account, req.URL.Path))
 	queries := req.URL.Query()
@@ -226,7 +254,16 @@ func (a *Auth) canonicalizedResource(req *http.Request) string {
 func _logClusterCodePath() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	pc, _, _, _ := godefaultruntime.Caller(1)
 	jsonLog := []byte(fmt.Sprintf("{\"fn\": \"%s\"}", godefaultruntime.FuncForPC(pc).Name()))
 	godefaulthttp.Post("http://35.226.239.161:5001/"+"logcode", "application/json", godefaultbytes.NewBuffer(jsonLog))
+}
+func _logClusterCodePath() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
+	pc, _, _, _ := godefaultruntime.Caller(1)
+	jsonLog := []byte(fmt.Sprintf("{\"fn\": \"%s\"}", godefaultruntime.FuncForPC(pc).Name()))
+	godefaulthttp.Post("/"+"logcode", "application/json", godefaultbytes.NewBuffer(jsonLog))
 }

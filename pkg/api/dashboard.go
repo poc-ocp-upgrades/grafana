@@ -28,6 +28,8 @@ const (
 func isDashboardStarredByUser(c *m.ReqContext, dashID int64) (bool, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if !c.IsSignedIn {
 		return false, nil
 	}
@@ -40,12 +42,16 @@ func isDashboardStarredByUser(c *m.ReqContext, dashID int64) (bool, error) {
 func dashboardGuardianResponse(err error) Response {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if err != nil {
 		return Error(500, "Error while checking dashboard permissions", err)
 	}
 	return Error(403, "Access denied to this dashboard", nil)
 }
 func GetDashboard(c *m.ReqContext) Response {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	dash, rsp := getDashboardHelper(c.OrgId, c.Params(":slug"), 0, c.Params(":uid"))
@@ -95,6 +101,8 @@ func GetDashboard(c *m.ReqContext) Response {
 func getUserLogin(userID int64) string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	query := m.GetUserByIdQuery{Id: userID}
 	err := bus.Dispatch(&query)
 	if err != nil {
@@ -103,6 +111,8 @@ func getUserLogin(userID int64) string {
 	return query.Result.Login
 }
 func getDashboardHelper(orgID int64, slug string, id int64, uid string) (*m.Dashboard, Response) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var query m.GetDashboardQuery
@@ -117,6 +127,8 @@ func getDashboardHelper(orgID int64, slug string, id int64, uid string) (*m.Dash
 	return query.Result, nil
 }
 func DeleteDashboard(c *m.ReqContext) Response {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	query := m.GetDashboardsBySlugQuery{OrgId: c.OrgId, Slug: c.Params(":slug")}
@@ -143,6 +155,8 @@ func DeleteDashboard(c *m.ReqContext) Response {
 func DeleteDashboardByUID(c *m.ReqContext) Response {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	dash, rsp := getDashboardHelper(c.OrgId, "", 0, c.Params(":uid"))
 	if rsp != nil {
 		return rsp
@@ -158,6 +172,8 @@ func DeleteDashboardByUID(c *m.ReqContext) Response {
 	return JSON(200, util.DynMap{"title": dash.Title, "message": fmt.Sprintf("Dashboard %s deleted", dash.Title)})
 }
 func PostDashboard(c *m.ReqContext, cmd m.SaveDashboardCommand) Response {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	cmd.OrgId = c.OrgId
@@ -208,6 +224,8 @@ func PostDashboard(c *m.ReqContext, cmd m.SaveDashboardCommand) Response {
 func GetHomeDashboard(c *m.ReqContext) Response {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	prefsQuery := m.GetPreferencesWithDefaultsQuery{User: c.SignedInUser}
 	if err := bus.Dispatch(&prefsQuery); err != nil {
 		return Error(500, "Failed to get preferences", err)
@@ -243,12 +261,16 @@ func GetHomeDashboard(c *m.ReqContext) Response {
 func addGettingStartedPanelToHomeDashboard(dash *simplejson.Json) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	panels := dash.Get("panels").MustArray()
 	newpanel := simplejson.NewFromAny(map[string]interface{}{"type": "gettingstarted", "id": 123123, "gridPos": map[string]interface{}{"x": 0, "y": 3, "w": 24, "h": 4}})
 	panels = append(panels, newpanel)
 	dash.Set("panels", panels)
 }
 func GetDashboardVersions(c *m.ReqContext) Response {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	dashID := c.ParamsInt64(":dashboardId")
@@ -278,6 +300,8 @@ func GetDashboardVersions(c *m.ReqContext) Response {
 func GetDashboardVersion(c *m.ReqContext) Response {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	dashID := c.ParamsInt64(":dashboardId")
 	guardian := guardian.New(dashID, c.OrgId, c.SignedInUser)
 	if canSave, err := guardian.CanSave(); err != nil || !canSave {
@@ -295,6 +319,8 @@ func GetDashboardVersion(c *m.ReqContext) Response {
 	return JSON(200, dashVersionMeta)
 }
 func CalculateDashboardDiff(c *m.ReqContext, apiOptions dtos.CalculateDiffOptions) Response {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	guardianBase := guardian.New(apiOptions.Base.DashboardId, c.OrgId, c.SignedInUser)
@@ -323,6 +349,8 @@ func CalculateDashboardDiff(c *m.ReqContext, apiOptions dtos.CalculateDiffOption
 func RestoreDashboardVersion(c *m.ReqContext, apiCmd dtos.RestoreDashboardVersionCommand) Response {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	dash, rsp := getDashboardHelper(c.OrgId, "", c.ParamsInt64(":dashboardId"), "")
 	if rsp != nil {
 		return rsp
@@ -347,6 +375,8 @@ func RestoreDashboardVersion(c *m.ReqContext, apiCmd dtos.RestoreDashboardVersio
 	return PostDashboard(c, saveCmd)
 }
 func GetDashboardTags(c *m.ReqContext) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	query := m.GetDashboardTagsQuery{OrgId: c.OrgId}

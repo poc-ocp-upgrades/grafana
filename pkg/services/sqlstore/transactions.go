@@ -11,9 +11,13 @@ import (
 func (ss *SqlStore) InTransaction(ctx context.Context, fn func(ctx context.Context) error) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return ss.inTransactionWithRetry(ctx, fn, 0)
 }
 func (ss *SqlStore) inTransactionWithRetry(ctx context.Context, fn func(ctx context.Context) error, retry int) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	sess, err := startSession(ctx, ss.engine, true)
@@ -50,9 +54,13 @@ func (ss *SqlStore) inTransactionWithRetry(ctx context.Context, fn func(ctx cont
 func inTransactionWithRetry(callback dbTransactionFunc, retry int) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return inTransactionWithRetryCtx(context.Background(), callback, retry)
 }
 func inTransactionWithRetryCtx(ctx context.Context, callback dbTransactionFunc, retry int) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	sess, err := startSession(ctx, x, true)
@@ -87,9 +95,13 @@ func inTransactionWithRetryCtx(ctx context.Context, callback dbTransactionFunc, 
 func inTransaction(callback dbTransactionFunc) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return inTransactionWithRetry(callback, 0)
 }
 func inTransactionCtx(ctx context.Context, callback dbTransactionFunc) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return inTransactionWithRetryCtx(ctx, callback, 0)

@@ -27,6 +27,8 @@ var netClient = &http.Client{Timeout: time.Second * 60, Transport: netTransport}
 func (u *WebdavUploader) PublicURL(filename string) string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if strings.Contains(u.public_url, "${file}") {
 		return strings.Replace(u.public_url, "${file}", filename, -1)
 	} else {
@@ -36,6 +38,8 @@ func (u *WebdavUploader) PublicURL(filename string) string {
 	}
 }
 func (u *WebdavUploader) Upload(ctx context.Context, pa string) (string, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	url, _ := url.Parse(u.url)
@@ -66,6 +70,8 @@ func (u *WebdavUploader) Upload(ctx context.Context, pa string) (string, error) 
 	return url.String(), nil
 }
 func NewWebdavImageUploader(url, username, password, public_url string) (*WebdavUploader, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return &WebdavUploader{url: url, username: username, password: password, public_url: public_url}, nil

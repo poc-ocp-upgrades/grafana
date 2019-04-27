@@ -9,12 +9,16 @@ import (
 func init() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	bus.AddHandler("sql", GetUserByAuthInfo)
 	bus.AddHandler("sql", GetAuthInfo)
 	bus.AddHandler("sql", SetAuthInfo)
 	bus.AddHandler("sql", DeleteAuthInfo)
 }
 func GetUserByAuthInfo(query *m.GetUserByAuthInfoQuery) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	user := &m.User{}
@@ -85,6 +89,8 @@ func GetUserByAuthInfo(query *m.GetUserByAuthInfoQuery) error {
 func GetAuthInfo(query *m.GetAuthInfoQuery) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	userAuth := &m.UserAuth{AuthModule: query.AuthModule, AuthId: query.AuthId}
 	has, err := x.Get(userAuth)
 	if err != nil {
@@ -99,6 +105,8 @@ func GetAuthInfo(query *m.GetAuthInfoQuery) error {
 func SetAuthInfo(cmd *m.SetAuthInfoCommand) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return inTransaction(func(sess *DBSession) error {
 		authUser := &m.UserAuth{UserId: cmd.UserId, AuthModule: cmd.AuthModule, AuthId: cmd.AuthId, Created: time.Now()}
 		_, err := sess.Insert(authUser)
@@ -106,6 +114,8 @@ func SetAuthInfo(cmd *m.SetAuthInfoCommand) error {
 	})
 }
 func DeleteAuthInfo(cmd *m.DeleteAuthInfoCommand) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return inTransaction(func(sess *DBSession) error {

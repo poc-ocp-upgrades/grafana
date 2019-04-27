@@ -16,6 +16,8 @@ import (
 func (rs *RenderingService) renderViaPhantomJS(ctx context.Context, opts Opts) (*RenderResult, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	rs.log.Info("Rendering", "path", opts.Path)
 	var executable = "phantomjs"
 	if runtime.GOOS == "windows" {
@@ -63,6 +65,8 @@ func (rs *RenderingService) renderViaPhantomJS(ctx context.Context, opts Opts) (
 func isoTimeOffsetToPosixTz(isoOffset string) string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if strings.HasPrefix(isoOffset, "UTC+") {
 		return strings.Replace(isoOffset, "UTC+", "UTC-", 1)
 	}
@@ -72,6 +76,8 @@ func isoTimeOffsetToPosixTz(isoOffset string) string {
 	return isoOffset
 }
 func appendEnviron(baseEnviron []string, name string, value string) []string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	results := make([]string, 0)

@@ -8,6 +8,8 @@ import (
 func TestInfluxdbQueryPart(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	tcs := []struct {
 		mode		string
 		input		string

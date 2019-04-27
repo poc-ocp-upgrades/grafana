@@ -10,6 +10,8 @@ import (
 func evalutorScenario(json string, reducedValue float64, datapoints ...float64) bool {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	jsonModel, err := simplejson.NewJson([]byte(json))
 	So(err, ShouldBeNil)
 	evaluator, err := NewAlertEvaluator(jsonModel)
@@ -17,6 +19,8 @@ func evalutorScenario(json string, reducedValue float64, datapoints ...float64) 
 	return evaluator.Eval(null.FloatFrom(reducedValue))
 }
 func TestEvalutors(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	Convey("greater then", t, func() {

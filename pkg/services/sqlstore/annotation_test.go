@@ -10,6 +10,8 @@ import (
 func TestSavingTags(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	InitTestDB(t)
 	Convey("Testing annotation saving/loading", t, func() {
 		repo := SqlAnnotationRepo{}
@@ -26,6 +28,8 @@ func TestSavingTags(t *testing.T) {
 	})
 }
 func TestAnnotations(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	InitTestDB(t)

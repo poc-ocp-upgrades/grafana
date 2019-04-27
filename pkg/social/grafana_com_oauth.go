@@ -21,9 +21,13 @@ type OrgRecord struct {
 func (s *SocialGrafanaCom) Type() int {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return int(models.GRAFANA_COM)
 }
 func (s *SocialGrafanaCom) IsEmailAllowed(email string) bool {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return true
@@ -31,9 +35,13 @@ func (s *SocialGrafanaCom) IsEmailAllowed(email string) bool {
 func (s *SocialGrafanaCom) IsSignupAllowed() bool {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return s.allowSignup
 }
 func (s *SocialGrafanaCom) IsOrganizationMember(organizations []OrgRecord) bool {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if len(s.allowedOrganizations) == 0 {
@@ -49,6 +57,8 @@ func (s *SocialGrafanaCom) IsOrganizationMember(organizations []OrgRecord) bool 
 	return false
 }
 func (s *SocialGrafanaCom) UserInfo(client *http.Client, token *oauth2.Token) (*BasicUserInfo, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var data struct {

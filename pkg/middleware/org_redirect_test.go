@@ -12,6 +12,8 @@ import (
 func TestOrgRedirectMiddleware(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	Convey("Can redirect to correct org", t, func() {
 		middlewareScenario("when setting a correct org for the user", func(sc *scenarioContext) {
 			sc.fakeReq("GET", "/").handler(func(c *m.ReqContext) {

@@ -43,6 +43,8 @@ var ldapDial = func(network, addr string) (ILdapConn, error) {
 func (a *ldapAuther) Dial() error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var err error
 	var certPool *x509.CertPool
 	if a.server.RootCACert != "" {
@@ -93,6 +95,8 @@ func (a *ldapAuther) Dial() error {
 func (a *ldapAuther) Login(query *m.LoginUserQuery) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if err := a.Dial(); err != nil {
 		return err
 	}
@@ -121,6 +125,8 @@ func (a *ldapAuther) Login(query *m.LoginUserQuery) error {
 func (a *ldapAuther) SyncUser(query *m.LoginUserQuery) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	err := a.Dial()
 	if err != nil {
 		return err
@@ -144,6 +150,8 @@ func (a *ldapAuther) SyncUser(query *m.LoginUserQuery) error {
 	return nil
 }
 func (a *ldapAuther) GetGrafanaUserFor(ctx *m.ReqContext, ldapUser *LdapUserInfo) (*m.User, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	extUser := &m.ExternalUserInfo{AuthModule: "ldap", AuthId: ldapUser.DN, Name: fmt.Sprintf("%s %s", ldapUser.FirstName, ldapUser.LastName), Login: ldapUser.Username, Email: ldapUser.Email, Groups: ldapUser.MemberOf, OrgRoles: map[int64]m.RoleType{}}
@@ -172,6 +180,8 @@ func (a *ldapAuther) GetGrafanaUserFor(ctx *m.ReqContext, ldapUser *LdapUserInfo
 func (a *ldapAuther) serverBind() error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if err := a.conn.Bind(a.server.BindDN, a.server.BindPassword); err != nil {
 		a.log.Info("LDAP initial bind failed, %v", err)
 		if ldapErr, ok := err.(*ldap.Error); ok {
@@ -186,6 +196,8 @@ func (a *ldapAuther) serverBind() error {
 func (a *ldapAuther) secondBind(ldapUser *LdapUserInfo, userPassword string) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if err := a.conn.Bind(ldapUser.DN, userPassword); err != nil {
 		a.log.Info("Second bind failed", "error", err)
 		if ldapErr, ok := err.(*ldap.Error); ok {
@@ -198,6 +210,8 @@ func (a *ldapAuther) secondBind(ldapUser *LdapUserInfo, userPassword string) err
 	return nil
 }
 func (a *ldapAuther) initialBind(username, userPassword string) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if a.server.BindPassword != "" || a.server.BindDN == "" {
@@ -220,6 +234,8 @@ func (a *ldapAuther) initialBind(username, userPassword string) error {
 	return nil
 }
 func (a *ldapAuther) searchForUser(username string) (*LdapUserInfo, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var searchResult *ldap.SearchResult
@@ -276,6 +292,8 @@ func (a *ldapAuther) searchForUser(username string) (*LdapUserInfo, error) {
 func getLdapAttrN(name string, result *ldap.SearchResult, n int) string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if strings.ToLower(name) == "dn" {
 		return result.Entries[n].DN
 	}
@@ -291,9 +309,13 @@ func getLdapAttrN(name string, result *ldap.SearchResult, n int) string {
 func getLdapAttr(name string, result *ldap.SearchResult) string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return getLdapAttrN(name, result, 0)
 }
 func getLdapAttrArray(name string, result *ldap.SearchResult) []string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	for _, attr := range result.Entries[0].Attributes {

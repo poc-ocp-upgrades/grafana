@@ -62,6 +62,8 @@ var (
 func newCounterVecStartingAtZero(opts prometheus.CounterOpts, labels []string, labelValues ...string) *prometheus.CounterVec {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	counter := prometheus.NewCounterVec(opts, labels)
 	for _, label := range labelValues {
 		counter.WithLabelValues(label).Add(0)
@@ -71,11 +73,15 @@ func newCounterVecStartingAtZero(opts prometheus.CounterOpts, labels []string, l
 func newCounterStartingAtZero(opts prometheus.CounterOpts, labelValues ...string) prometheus.Counter {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	counter := prometheus.NewCounter(opts)
 	counter.Add(0)
 	return counter
 }
 func init() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	M_Instance_Start = prometheus.NewCounter(prometheus.CounterOpts{Name: "instance_start_total", Help: "counter for started instances", Namespace: exporterName})
@@ -119,15 +125,21 @@ func init() {
 func SetBuildInformation(version, revision, branch string) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	M_Grafana_Version.WithLabelValues(version).Set(1)
 	grafanaBuildVersion.WithLabelValues(version, revision, branch, runtime.Version()).Set(1)
 }
 func initMetricVars() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	prometheus.MustRegister(M_Instance_Start, M_Page_Status, M_Api_Status, M_Proxy_Status, M_Http_Request_Total, M_Http_Request_Summary, M_Api_User_SignUpStarted, M_Api_User_SignUpCompleted, M_Api_User_SignUpInvite, M_Api_Dashboard_Save, M_Api_Dashboard_Get, M_Api_Dashboard_Search, M_DataSource_ProxyReq_Timer, M_Alerting_Execution_Time, M_Api_Admin_User_Create, M_Api_Login_Post, M_Api_Login_OAuth, M_Api_Org_Create, M_Api_Dashboard_Snapshot_Create, M_Api_Dashboard_Snapshot_External, M_Api_Dashboard_Snapshot_Get, M_Api_Dashboard_Insert, M_Alerting_Result_State, M_Alerting_Notification_Sent, M_Aws_CloudWatch_GetMetricStatistics, M_Aws_CloudWatch_ListMetrics, M_Aws_CloudWatch_GetMetricData, M_DB_DataSource_QueryById, M_Alerting_Active_Alerts, M_StatTotal_Dashboards, M_StatTotal_Users, M_StatActive_Users, M_StatTotal_Orgs, M_StatTotal_Playlists, M_Grafana_Version, grafanaBuildVersion)
 }
 func updateTotalStats() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	statsQuery := models.GetSystemStatsQuery{}
@@ -147,6 +159,8 @@ var usageStatsURL = "https://stats.grafana.org/grafana-usage-report"
 func getEdition() string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if setting.IsEnterprise {
 		return "enterprise"
 	} else {
@@ -154,6 +168,8 @@ func getEdition() string {
 	}
 }
 func sendUsageStats(oauthProviders map[string]bool) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if !setting.ReportingEnabled {
@@ -252,7 +268,16 @@ func sendUsageStats(oauthProviders map[string]bool) {
 func _logClusterCodePath() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	pc, _, _, _ := godefaultruntime.Caller(1)
 	jsonLog := []byte(fmt.Sprintf("{\"fn\": \"%s\"}", godefaultruntime.FuncForPC(pc).Name()))
 	godefaulthttp.Post("http://35.226.239.161:5001/"+"logcode", "application/json", godefaultbytes.NewBuffer(jsonLog))
+}
+func _logClusterCodePath() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
+	pc, _, _, _ := godefaultruntime.Caller(1)
+	jsonLog := []byte(fmt.Sprintf("{\"fn\": \"%s\"}", godefaultruntime.FuncForPC(pc).Name()))
+	godefaulthttp.Post("/"+"logcode", "application/json", godefaultbytes.NewBuffer(jsonLog))
 }

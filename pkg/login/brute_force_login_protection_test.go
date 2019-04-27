@@ -11,6 +11,8 @@ import (
 func TestLoginAttemptsValidation(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	Convey("Validate login attempts", t, func() {
 		Convey("Given brute force login protection enabled", func() {
 			setting.DisableBruteForceLoginProtection = false
@@ -89,6 +91,8 @@ func TestLoginAttemptsValidation(t *testing.T) {
 	})
 }
 func withLoginAttempts(loginAttempts int64) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	bus.AddHandler("test", func(query *m.GetUserLoginAttemptCountQuery) error {

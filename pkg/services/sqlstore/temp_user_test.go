@@ -9,6 +9,8 @@ import (
 func TestTempUserCommandsAndQueries(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	Convey("Testing Temp User commands & queries", t, func() {
 		InitTestDB(t)
 		Convey("Given saved api key", func() {

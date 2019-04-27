@@ -20,6 +20,8 @@ var AUTH_PROXY_SESSION_VAR = "authProxyHeaderValue"
 func initContextWithAuthProxy(ctx *m.ReqContext, orgID int64) bool {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if !setting.AuthProxyEnabled {
 		return false
 	}
@@ -139,6 +141,8 @@ var syncGrafanaUserWithLdapUser = func(query *m.LoginUserQuery) error {
 }
 
 func checkAuthenticationProxy(remoteAddr string, proxyHeaderValue string) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if len(strings.TrimSpace(setting.AuthProxyWhitelist)) == 0 {

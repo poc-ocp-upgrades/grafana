@@ -40,6 +40,8 @@ type UpdatePluginSettingVersionCmd struct {
 func (cmd *UpdatePluginSettingCmd) GetEncryptedJsonData() securejsondata.SecureJsonData {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return securejsondata.GetEncryptedJsonData(cmd.SecureJsonData)
 }
 

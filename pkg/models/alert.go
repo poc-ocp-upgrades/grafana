@@ -38,9 +38,13 @@ var (
 func (s AlertStateType) IsValid() bool {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return s == AlertStateOK || s == AlertStateNoData || s == AlertStatePaused || s == AlertStatePending || s == AlertStateAlerting || s == AlertStateUnknown
 }
 func (s NoDataOption) IsValid() bool {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return s == NoDataSetNoData || s == NoDataSetAlerting || s == NoDataKeepState || s == NoDataSetOK
@@ -48,14 +52,20 @@ func (s NoDataOption) IsValid() bool {
 func (s NoDataOption) ToAlertState() AlertStateType {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return AlertStateType(s)
 }
 func (s ExecutionErrorOption) IsValid() bool {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return s == ExecutionErrorSetAlerting || s == ExecutionErrorKeepState
 }
 func (s ExecutionErrorOption) ToAlertState() AlertStateType {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return AlertStateType(s)
@@ -87,14 +97,20 @@ type Alert struct {
 func (alert *Alert) ValidToSave() bool {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return alert.DashboardId != 0 && alert.OrgId != 0 && alert.PanelId != 0
 }
 func (alert *Alert) ShouldUpdateState(newState AlertStateType) bool {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return alert.State != newState
 }
 func (this *Alert) ContainsUpdates(other *Alert) bool {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	result := false

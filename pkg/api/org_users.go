@@ -9,16 +9,22 @@ import (
 func AddOrgUserToCurrentOrg(c *m.ReqContext, cmd m.AddOrgUserCommand) Response {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	cmd.OrgId = c.OrgId
 	return addOrgUserHelper(cmd)
 }
 func AddOrgUser(c *m.ReqContext, cmd m.AddOrgUserCommand) Response {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	cmd.OrgId = c.ParamsInt64(":orgId")
 	return addOrgUserHelper(cmd)
 }
 func addOrgUserHelper(cmd m.AddOrgUserCommand) Response {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if !cmd.Role.IsValid() {
@@ -42,14 +48,20 @@ func addOrgUserHelper(cmd m.AddOrgUserCommand) Response {
 func GetOrgUsersForCurrentOrg(c *m.ReqContext) Response {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return getOrgUsersHelper(c.OrgId, c.Query("query"), c.QueryInt("limit"))
 }
 func GetOrgUsers(c *m.ReqContext) Response {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return getOrgUsersHelper(c.ParamsInt64(":orgId"), "", 0)
 }
 func getOrgUsersHelper(orgID int64, query string, limit int) Response {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	q := m.GetOrgUsersQuery{OrgId: orgID, Query: query, Limit: limit}
@@ -64,6 +76,8 @@ func getOrgUsersHelper(orgID int64, query string, limit int) Response {
 func UpdateOrgUserForCurrentOrg(c *m.ReqContext, cmd m.UpdateOrgUserCommand) Response {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	cmd.OrgId = c.OrgId
 	cmd.UserId = c.ParamsInt64(":userId")
 	return updateOrgUserHelper(cmd)
@@ -71,11 +85,15 @@ func UpdateOrgUserForCurrentOrg(c *m.ReqContext, cmd m.UpdateOrgUserCommand) Res
 func UpdateOrgUser(c *m.ReqContext, cmd m.UpdateOrgUserCommand) Response {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	cmd.OrgId = c.ParamsInt64(":orgId")
 	cmd.UserId = c.ParamsInt64(":userId")
 	return updateOrgUserHelper(cmd)
 }
 func updateOrgUserHelper(cmd m.UpdateOrgUserCommand) Response {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if !cmd.Role.IsValid() {
@@ -92,14 +110,20 @@ func updateOrgUserHelper(cmd m.UpdateOrgUserCommand) Response {
 func RemoveOrgUserForCurrentOrg(c *m.ReqContext) Response {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return removeOrgUserHelper(&m.RemoveOrgUserCommand{UserId: c.ParamsInt64(":userId"), OrgId: c.OrgId, ShouldDeleteOrphanedUser: true})
 }
 func RemoveOrgUser(c *m.ReqContext) Response {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return removeOrgUserHelper(&m.RemoveOrgUserCommand{UserId: c.ParamsInt64(":userId"), OrgId: c.ParamsInt64(":orgId")})
 }
 func removeOrgUserHelper(cmd *m.RemoveOrgUserCommand) Response {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if err := bus.Dispatch(cmd); err != nil {

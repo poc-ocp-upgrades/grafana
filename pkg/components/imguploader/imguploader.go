@@ -16,9 +16,13 @@ type NopImageUploader struct{}
 func (NopImageUploader) Upload(ctx context.Context, path string) (string, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return "", nil
 }
 func NewImageUploader() (ImageUploader, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	switch setting.ImageUploadProvider {
@@ -91,6 +95,8 @@ type s3Info struct {
 }
 
 func getRegionAndBucketFromUrl(url string) (*s3Info, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	info := &s3Info{}

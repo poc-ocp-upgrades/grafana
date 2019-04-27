@@ -12,6 +12,8 @@ import (
 func GetFolders(c *m.ReqContext) Response {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	s := dashboards.NewFolderService(c.OrgId, c.SignedInUser)
 	folders, err := s.GetFolders(c.QueryInt("limit"))
 	if err != nil {
@@ -26,6 +28,8 @@ func GetFolders(c *m.ReqContext) Response {
 func GetFolderByUID(c *m.ReqContext) Response {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	s := dashboards.NewFolderService(c.OrgId, c.SignedInUser)
 	folder, err := s.GetFolderByUID(c.Params(":uid"))
 	if err != nil {
@@ -35,6 +39,8 @@ func GetFolderByUID(c *m.ReqContext) Response {
 	return JSON(200, toFolderDto(g, folder))
 }
 func GetFolderByID(c *m.ReqContext) Response {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	s := dashboards.NewFolderService(c.OrgId, c.SignedInUser)
@@ -48,6 +54,8 @@ func GetFolderByID(c *m.ReqContext) Response {
 func CreateFolder(c *m.ReqContext, cmd m.CreateFolderCommand) Response {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	s := dashboards.NewFolderService(c.OrgId, c.SignedInUser)
 	err := s.CreateFolder(&cmd)
 	if err != nil {
@@ -57,6 +65,8 @@ func CreateFolder(c *m.ReqContext, cmd m.CreateFolderCommand) Response {
 	return JSON(200, toFolderDto(g, cmd.Result))
 }
 func UpdateFolder(c *m.ReqContext, cmd m.UpdateFolderCommand) Response {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	s := dashboards.NewFolderService(c.OrgId, c.SignedInUser)
@@ -70,6 +80,8 @@ func UpdateFolder(c *m.ReqContext, cmd m.UpdateFolderCommand) Response {
 func DeleteFolder(c *m.ReqContext) Response {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	s := dashboards.NewFolderService(c.OrgId, c.SignedInUser)
 	f, err := s.DeleteFolder(c.Params(":uid"))
 	if err != nil {
@@ -78,6 +90,8 @@ func DeleteFolder(c *m.ReqContext) Response {
 	return JSON(200, util.DynMap{"title": f.Title, "message": fmt.Sprintf("Folder %s deleted", f.Title)})
 }
 func toFolderDto(g guardian.DashboardGuardian, folder *m.Folder) dtos.Folder {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	canEdit, _ := g.CanEdit()
@@ -93,6 +107,8 @@ func toFolderDto(g guardian.DashboardGuardian, folder *m.Folder) dtos.Folder {
 	return dtos.Folder{Id: folder.Id, Uid: folder.Uid, Title: folder.Title, Url: folder.Url, HasAcl: folder.HasAcl, CanSave: canSave, CanEdit: canEdit, CanAdmin: canAdmin, CreatedBy: creator, Created: folder.Created, UpdatedBy: updater, Updated: folder.Updated, Version: folder.Version}
 }
 func toFolderError(err error) Response {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if err == m.ErrFolderTitleEmpty || err == m.ErrFolderSameNameExists || err == m.ErrFolderWithSameUIDExists || err == m.ErrDashboardTypeMismatch || err == m.ErrDashboardInvalidUid || err == m.ErrDashboardUidToLong {

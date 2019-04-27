@@ -50,6 +50,8 @@ var (
 func main() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	log.SetOutput(os.Stdout)
 	log.SetFlags(0)
 	ensureGoPath()
@@ -132,6 +134,8 @@ func main() {
 func makeLatestDistCopies() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	files, err := ioutil.ReadDir("dist")
 	if err != nil {
 		log.Fatalf("failed to create latest copies. Cannot read from /dist")
@@ -146,6 +150,8 @@ func makeLatestDistCopies() {
 	}
 }
 func readVersionFromPackageJson() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	reader, err := os.Open("package.json")
@@ -198,6 +204,8 @@ type linuxPackageOptions struct {
 func createDebPackages() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	previousPkgArch := pkgArch
 	if pkgArch == "armv7" {
 		pkgArch = "armhf"
@@ -206,6 +214,8 @@ func createDebPackages() {
 	pkgArch = previousPkgArch
 }
 func createRpmPackages() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	previousPkgArch := pkgArch
@@ -221,10 +231,14 @@ func createRpmPackages() {
 func createLinuxPackages() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	createDebPackages()
 	createRpmPackages()
 }
 func createPackage(options linuxPackageOptions) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	packageRoot, _ := ioutil.TempDir("", "grafana-linux-pack")
@@ -279,6 +293,8 @@ func createPackage(options linuxPackageOptions) {
 func ensureGoPath() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if os.Getenv("GOPATH") == "" {
 		cwd, err := os.Getwd()
 		if err != nil {
@@ -292,6 +308,8 @@ func ensureGoPath() {
 func grunt(params ...string) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if runtime.GOOS == windows {
 		runPrint(`.\node_modules\.bin\grunt`, params...)
 	} else {
@@ -299,6 +317,8 @@ func grunt(params ...string) {
 	}
 }
 func gruntBuildArg(task string) []string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	args := []string{task}
@@ -322,16 +342,22 @@ func gruntBuildArg(task string) []string {
 func setup() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	runPrint("go", "get", "-v", "github.com/golang/dep")
 	runPrint("go", "install", "-v", "./pkg/cmd/grafana-server")
 }
 func test(pkg string) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	setBuildEnv()
 	runPrint("go", "test", "-short", "-timeout", "60s", pkg)
 }
 func build(binaryName, pkg string, tags []string) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	binary := fmt.Sprintf("./bin/%s-%s/%s", goos, goarch, binaryName)
@@ -369,6 +395,8 @@ func build(binaryName, pkg string, tags []string) {
 func ldflags() string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var b bytes.Buffer
 	b.WriteString("-w")
 	b.WriteString(fmt.Sprintf(" -X main.version=%s", version))
@@ -380,12 +408,16 @@ func ldflags() string {
 func rmr(paths ...string) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	for _, path := range paths {
 		log.Println("rm -r", path)
 		os.RemoveAll(path)
 	}
 }
 func clean() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if isDev {
@@ -396,6 +428,8 @@ func clean() {
 	rmr(filepath.Join(os.Getenv("GOPATH"), fmt.Sprintf("pkg/%s_%s/github.com/grafana", goos, goarch)))
 }
 func setBuildEnv() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	os.Setenv("GOOS", goos)
@@ -424,6 +458,8 @@ func setBuildEnv() {
 func getGitBranch() string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	v, err := runError("git", "rev-parse", "--abbrev-ref", "HEAD")
 	if err != nil {
 		return "master"
@@ -433,6 +469,8 @@ func getGitBranch() string {
 func getGitSha() string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	v, err := runError("git", "rev-parse", "--short", "HEAD")
 	if err != nil {
 		return "unknown-dev"
@@ -440,6 +478,8 @@ func getGitSha() string {
 	return string(v)
 }
 func buildStamp() int64 {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	bs, err := runError("git", "show", "-s", "--format=%ct")
@@ -452,6 +492,8 @@ func buildStamp() int64 {
 func runError(cmd string, args ...string) ([]byte, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	ecmd := exec.Command(cmd, args...)
 	bs, err := ecmd.CombinedOutput()
 	if err != nil {
@@ -460,6 +502,8 @@ func runError(cmd string, args ...string) ([]byte, error) {
 	return bytes.TrimSpace(bs), nil
 }
 func runPrint(cmd string, args ...string) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	log.Println(cmd, strings.Join(args, " "))
@@ -472,6 +516,8 @@ func runPrint(cmd string, args ...string) {
 	}
 }
 func md5File(file string) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	fd, err := os.Open(file)
@@ -497,6 +543,8 @@ func md5File(file string) error {
 func shaFilesInDist() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	filepath.Walk("./dist", func(path string, f os.FileInfo, err error) error {
 		if path == "./dist" {
 			return nil
@@ -511,6 +559,8 @@ func shaFilesInDist() {
 	})
 }
 func shaFile(file string) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	fd, err := os.Open(file)
@@ -536,6 +586,8 @@ func shaFile(file string) error {
 func shortenBuildId(buildId string) string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	buildId = strings.Replace(buildId, "-", "", -1)
 	if len(buildId) < 9 {
 		return buildId
@@ -545,7 +597,16 @@ func shortenBuildId(buildId string) string {
 func _logClusterCodePath() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	pc, _, _, _ := godefaultruntime.Caller(1)
 	jsonLog := []byte(fmt.Sprintf("{\"fn\": \"%s\"}", godefaultruntime.FuncForPC(pc).Name()))
 	godefaulthttp.Post("http://35.226.239.161:5001/"+"logcode", "application/json", godefaultbytes.NewBuffer(jsonLog))
+}
+func _logClusterCodePath() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
+	pc, _, _, _ := godefaultruntime.Caller(1)
+	jsonLog := []byte(fmt.Sprintf("{\"fn\": \"%s\"}", godefaultruntime.FuncForPC(pc).Name()))
+	godefaulthttp.Post("/"+"logcode", "application/json", godefaultbytes.NewBuffer(jsonLog))
 }

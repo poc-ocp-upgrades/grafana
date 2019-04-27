@@ -10,6 +10,8 @@ import (
 func TestStackdriverAnnotationQuery(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	Convey("Stackdriver Annotation Query Executor", t, func() {
 		executor := &StackdriverExecutor{}
 		Convey("When parsing the stackdriver api response", func() {

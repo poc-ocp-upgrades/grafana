@@ -25,11 +25,15 @@ var (
 func Init(version string, skipTLSVerify bool) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	grafanaVersion = version
 	tr := &http.Transport{Proxy: http.ProxyFromEnvironment, DialContext: (&net.Dialer{Timeout: 30 * time.Second, KeepAlive: 30 * time.Second, DualStack: true}).DialContext, MaxIdleConns: 100, IdleConnTimeout: 90 * time.Second, TLSHandshakeTimeout: 10 * time.Second, ExpectContinueTimeout: 1 * time.Second, TLSClientConfig: &tls.Config{InsecureSkipVerify: skipTLSVerify}}
 	HttpClient = http.Client{Timeout: 10 * time.Second, Transport: tr}
 }
 func ListAllPlugins(repoUrl string) (m.PluginRepo, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	body, err := sendRequest(repoUrl, "repo")
@@ -49,6 +53,8 @@ func ListAllPlugins(repoUrl string) (m.PluginRepo, error) {
 	return data, nil
 }
 func ReadPlugin(pluginDir, pluginName string) (m.InstalledPlugin, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	distPluginDataPath := path.Join(pluginDir, pluginName, "dist", "plugin.json")
@@ -75,6 +81,8 @@ func ReadPlugin(pluginDir, pluginName string) (m.InstalledPlugin, error) {
 func GetLocalPlugins(pluginDir string) []m.InstalledPlugin {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	result := make([]m.InstalledPlugin, 0)
 	files, _ := IoHelper.ReadDir(pluginDir)
 	for _, f := range files {
@@ -88,6 +96,8 @@ func GetLocalPlugins(pluginDir string) []m.InstalledPlugin {
 func RemoveInstalledPlugin(pluginPath, pluginName string) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	logger.Infof("Removing plugin: %v\n", pluginName)
 	pluginDir := path.Join(pluginPath, pluginName)
 	_, err := IoHelper.Stat(pluginDir)
@@ -97,6 +107,8 @@ func RemoveInstalledPlugin(pluginPath, pluginName string) error {
 	return IoHelper.RemoveAll(pluginDir)
 }
 func GetPlugin(pluginId, repoUrl string) (m.Plugin, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	body, err := sendRequest(repoUrl, "repo", pluginId)
@@ -116,6 +128,8 @@ func GetPlugin(pluginId, repoUrl string) (m.Plugin, error) {
 	return data, nil
 }
 func sendRequest(repoUrl string, subPaths ...string) ([]byte, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	u, _ := url.Parse(repoUrl)

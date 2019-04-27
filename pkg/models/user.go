@@ -14,6 +14,8 @@ type Password string
 func (p Password) IsWeak() bool {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return len(p) <= 4
 }
 
@@ -38,6 +40,8 @@ type User struct {
 }
 
 func (u *User) NameOrFallback() string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if u.Name != "" {
@@ -143,9 +147,13 @@ type SignedInUser struct {
 func (u *SignedInUser) ShouldUpdateLastSeenAt() bool {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return u.UserId > 0 && time.Since(u.LastSeenAt) > time.Minute*5
 }
 func (u *SignedInUser) NameOrFallback() string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if u.Name != "" {
@@ -160,6 +168,8 @@ func (u *SignedInUser) NameOrFallback() string {
 type UpdateUserLastSeenAtCommand struct{ UserId int64 }
 
 func (user *SignedInUser) HasRole(role RoleType) bool {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if user.IsGrafanaAdmin {

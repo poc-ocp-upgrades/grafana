@@ -5,6 +5,8 @@ import . "github.com/grafana/grafana/pkg/services/sqlstore/migrator"
 func addDashboardAclMigrations(mg *Migrator) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	dashboardAclV1 := Table{Name: "dashboard_acl", Columns: []*Column{{Name: "id", Type: DB_BigInt, IsPrimaryKey: true, IsAutoIncrement: true}, {Name: "org_id", Type: DB_BigInt}, {Name: "dashboard_id", Type: DB_BigInt}, {Name: "user_id", Type: DB_BigInt, Nullable: true}, {Name: "team_id", Type: DB_BigInt, Nullable: true}, {Name: "permission", Type: DB_SmallInt, Default: "4"}, {Name: "role", Type: DB_Varchar, Length: 20, Nullable: true}, {Name: "created", Type: DB_DateTime, Nullable: false}, {Name: "updated", Type: DB_DateTime, Nullable: false}}, Indices: []*Index{{Cols: []string{"dashboard_id"}}, {Cols: []string{"dashboard_id", "user_id"}, Type: UniqueIndex}, {Cols: []string{"dashboard_id", "team_id"}, Type: UniqueIndex}}}
 	mg.AddMigration("create dashboard acl table", NewAddTableMigration(dashboardAclV1))
 	mg.AddMigration("add index dashboard_acl_dashboard_id", NewAddIndexMigration(dashboardAclV1, dashboardAclV1.Indices[0]))

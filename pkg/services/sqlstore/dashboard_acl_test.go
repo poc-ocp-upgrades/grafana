@@ -9,6 +9,8 @@ import (
 func TestDashboardAclDataAccess(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	Convey("Testing DB", t, func() {
 		InitTestDB(t)
 		Convey("Given a dashboard folder and a user", func() {

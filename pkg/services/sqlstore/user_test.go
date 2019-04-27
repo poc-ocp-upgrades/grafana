@@ -11,6 +11,8 @@ import (
 func TestUserDataAccess(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	Convey("Testing DB", t, func() {
 		ss := InitTestDB(t)
 		Convey("Creating a user", func() {
@@ -136,6 +138,8 @@ func TestUserDataAccess(t *testing.T) {
 	})
 }
 func GetOrgUsersForTest(query *m.GetOrgUsersQuery) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	query.Result = make([]*m.OrgUserDTO, 0)

@@ -16,6 +16,8 @@ var grafanaComProxyTransport = &http.Transport{Proxy: http.ProxyFromEnvironment,
 func ReverseProxyGnetReq(proxyPath string) *httputil.ReverseProxy {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	url, _ := url.Parse(setting.GrafanaComUrl)
 	director := func(req *http.Request) {
 		req.URL.Scheme = url.Scheme
@@ -29,6 +31,8 @@ func ReverseProxyGnetReq(proxyPath string) *httputil.ReverseProxy {
 	return &httputil.ReverseProxy{Director: director}
 }
 func ProxyGnetRequest(c *m.ReqContext) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	proxyPath := c.Params("*")

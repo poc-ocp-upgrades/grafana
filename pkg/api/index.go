@@ -18,6 +18,8 @@ const (
 func (hs *HTTPServer) setIndexViewData(c *m.ReqContext) (*dtos.IndexViewData, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	settings, err := hs.getFrontendSettingsMap(c)
 	if err != nil {
 		return nil, err
@@ -136,6 +138,8 @@ func (hs *HTTPServer) setIndexViewData(c *m.ReqContext) (*dtos.IndexViewData, er
 func (hs *HTTPServer) Index(c *m.ReqContext) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	data, err := hs.setIndexViewData(c)
 	if err != nil {
 		c.Handle(500, "Failed to get settings", err)
@@ -144,6 +148,8 @@ func (hs *HTTPServer) Index(c *m.ReqContext) {
 	c.HTML(200, "index", data)
 }
 func (hs *HTTPServer) NotFoundHandler(c *m.ReqContext) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if c.IsApiRequest() {
@@ -158,6 +164,8 @@ func (hs *HTTPServer) NotFoundHandler(c *m.ReqContext) {
 	c.HTML(404, "index", data)
 }
 func getAppNameBodyClass(name string) string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	switch name {

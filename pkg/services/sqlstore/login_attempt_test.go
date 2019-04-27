@@ -10,12 +10,16 @@ import (
 func mockTime(mock time.Time) time.Time {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	getTimeNow = func() time.Time {
 		return mock
 	}
 	return mock
 }
 func TestLoginAttempts(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	Convey("Testing Login Attempts DB Access", t, func() {

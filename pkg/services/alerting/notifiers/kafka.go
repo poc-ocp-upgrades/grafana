@@ -13,6 +13,8 @@ import (
 func init() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	alerting.RegisterNotifier(&alerting.NotifierPlugin{Type: "kafka", Name: "Kafka REST Proxy", Description: "Sends notifications to Kafka Rest Proxy", Factory: NewKafkaNotifier, OptionsTemplate: `
       <h3 class="page-heading">Kafka settings</h3>
       <div class="gf-form">
@@ -26,6 +28,8 @@ func init() {
     `})
 }
 func NewKafkaNotifier(model *m.AlertNotification) (alerting.Notifier, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	endpoint := model.Settings.Get("kafkaRestProxy").MustString()
@@ -47,6 +51,8 @@ type KafkaNotifier struct {
 }
 
 func (this *KafkaNotifier) Notify(evalContext *alerting.EvalContext) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	state := evalContext.Rule.State

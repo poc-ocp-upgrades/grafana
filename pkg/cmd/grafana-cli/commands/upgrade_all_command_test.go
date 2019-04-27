@@ -9,6 +9,8 @@ import (
 func TestVersionComparsion(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	Convey("Validate that version is outdated", t, func() {
 		versions := []m.Version{{Version: "1.1.1"}, {Version: "2.0.0"}}
 		shouldUpgrade := map[string]m.Plugin{"0.0.0": {Versions: versions}, "1.0.0": {Versions: versions}}

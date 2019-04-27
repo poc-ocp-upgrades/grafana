@@ -15,6 +15,8 @@ import (
 func TestQueryCondition(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	Convey("when evaluating query condition", t, func() {
 		queryConditionScenario("Given avg() and > 100", func(ctx *queryConditionTestContext) {
 			ctx.reducer = `{"type": "avg"}`
@@ -114,6 +116,8 @@ type queryConditionScenarioFunc func(c *queryConditionTestContext)
 func (ctx *queryConditionTestContext) exec() (*alerting.ConditionResult, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	jsonModel, err := simplejson.NewJson([]byte(`{
             "type": "query",
             "query":  {
@@ -134,6 +138,8 @@ func (ctx *queryConditionTestContext) exec() (*alerting.ConditionResult, error) 
 	return condition.Eval(ctx.result)
 }
 func queryConditionScenario(desc string, fn queryConditionScenarioFunc) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	Convey(desc, func() {

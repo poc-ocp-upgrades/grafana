@@ -11,6 +11,8 @@ import (
 func TestIndexPattern(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	Convey("Static index patterns", t, func() {
 		indexPatternScenario(noInterval, "data-*", nil, func(indices []string) {
 			So(indices, ShouldHaveLength, 1)
@@ -226,6 +228,8 @@ func TestIndexPattern(t *testing.T) {
 	})
 }
 func indexPatternScenario(interval string, pattern string, timeRange *tsdb.TimeRange, fn func(indices []string)) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	Convey(fmt.Sprintf("Index pattern (interval=%s, index=%s", interval, pattern), func() {

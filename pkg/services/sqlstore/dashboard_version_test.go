@@ -12,12 +12,16 @@ import (
 func updateTestDashboard(dashboard *m.Dashboard, data map[string]interface{}) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	data["id"] = dashboard.Id
 	saveCmd := m.SaveDashboardCommand{OrgId: dashboard.OrgId, Overwrite: true, Dashboard: simplejson.NewFromAny(data)}
 	err := SaveDashboard(&saveCmd)
 	So(err, ShouldBeNil)
 }
 func TestGetDashboardVersion(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	Convey("Testing dashboard version retrieval", t, func() {
@@ -46,6 +50,8 @@ func TestGetDashboardVersion(t *testing.T) {
 func TestGetDashboardVersions(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	Convey("Testing dashboard versions retrieval", t, func() {
 		InitTestDB(t)
 		savedDash := insertTestDashboard("test dash 43", 1, 0, false, "diff-all")
@@ -72,6 +78,8 @@ func TestGetDashboardVersions(t *testing.T) {
 	})
 }
 func TestDeleteExpiredVersions(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	Convey("Testing dashboard versions clean up", t, func() {

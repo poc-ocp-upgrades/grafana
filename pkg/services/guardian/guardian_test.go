@@ -26,6 +26,8 @@ var (
 func TestGuardianAdmin(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	Convey("Guardian admin org role tests", t, func() {
 		orgRoleScenario("Given user has admin org role", t, m.ROLE_ADMIN, func(sc *scenarioContext) {
 			sc.defaultPermissionScenario(USER, FULL_ACCESS)
@@ -59,6 +61,8 @@ func TestGuardianAdmin(t *testing.T) {
 func TestGuardianEditor(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	Convey("Guardian editor org role tests", t, func() {
 		orgRoleScenario("Given user has editor org role", t, m.ROLE_EDITOR, func(sc *scenarioContext) {
 			sc.defaultPermissionScenario(USER, EDITOR_ACCESS)
@@ -90,6 +94,8 @@ func TestGuardianEditor(t *testing.T) {
 	})
 }
 func TestGuardianViewer(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	Convey("Guardian viewer org role tests", t, func() {
@@ -128,6 +134,8 @@ func TestGuardianViewer(t *testing.T) {
 func (sc *scenarioContext) defaultPermissionScenario(pt permissionType, flag permissionFlags) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_, callerFile, callerLine, _ := runtime.Caller(1)
 	sc.callerFile = callerFile
 	sc.callerLine = callerLine
@@ -141,6 +149,8 @@ func (sc *scenarioContext) defaultPermissionScenario(pt permissionType, flag per
 	})
 }
 func (sc *scenarioContext) dashboardPermissionScenario(pt permissionType, permission m.PermissionType, flag permissionFlags) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	_, callerFile, callerLine, _ := runtime.Caller(1)
@@ -168,6 +178,8 @@ func (sc *scenarioContext) dashboardPermissionScenario(pt permissionType, permis
 func (sc *scenarioContext) parentFolderPermissionScenario(pt permissionType, permission m.PermissionType, flag permissionFlags) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_, callerFile, callerLine, _ := runtime.Caller(1)
 	sc.callerFile = callerFile
 	sc.callerLine = callerLine
@@ -193,6 +205,8 @@ func (sc *scenarioContext) parentFolderPermissionScenario(pt permissionType, per
 	})
 }
 func (sc *scenarioContext) verifyExpectedPermissionsFlags() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	canAdmin, _ := sc.g.CanAdmin()
@@ -224,6 +238,8 @@ func (sc *scenarioContext) verifyExpectedPermissionsFlags() {
 	})
 }
 func (sc *scenarioContext) verifyDuplicatePermissionsShouldNotBeAllowed() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if !sc.expectedFlags.canAdmin() {
@@ -283,6 +299,8 @@ func (sc *scenarioContext) verifyDuplicatePermissionsShouldNotBeAllowed() {
 func (sc *scenarioContext) verifyUpdateDashboardPermissionsShouldBeAllowed(pt permissionType) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if !sc.expectedFlags.canAdmin() {
 		return
 	}
@@ -313,6 +331,8 @@ func (sc *scenarioContext) verifyUpdateDashboardPermissionsShouldBeAllowed(pt pe
 func (sc *scenarioContext) verifyUpdateDashboardPermissionsShouldNotBeAllowed(pt permissionType) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if sc.expectedFlags.canAdmin() {
 		return
 	}
@@ -339,6 +359,8 @@ func (sc *scenarioContext) verifyUpdateDashboardPermissionsShouldNotBeAllowed(pt
 	}
 }
 func (sc *scenarioContext) verifyUpdateChildDashboardPermissionsShouldBeAllowed(pt permissionType, parentFolderPermission m.PermissionType) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if !sc.expectedFlags.canAdmin() {
@@ -379,6 +401,8 @@ func (sc *scenarioContext) verifyUpdateChildDashboardPermissionsShouldBeAllowed(
 func (sc *scenarioContext) verifyUpdateChildDashboardPermissionsShouldNotBeAllowed(pt permissionType, parentFolderPermission m.PermissionType) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if sc.expectedFlags.canAdmin() {
 		return
 	}
@@ -417,6 +441,8 @@ func (sc *scenarioContext) verifyUpdateChildDashboardPermissionsShouldNotBeAllow
 func (sc *scenarioContext) verifyUpdateChildDashboardPermissionsWithOverrideShouldBeAllowed(pt permissionType, parentFolderPermission m.PermissionType) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if !sc.expectedFlags.canAdmin() {
 		return
 	}
@@ -447,6 +473,8 @@ func (sc *scenarioContext) verifyUpdateChildDashboardPermissionsWithOverrideShou
 	}
 }
 func (sc *scenarioContext) verifyUpdateChildDashboardPermissionsWithOverrideShouldNotBeAllowed(pt permissionType, parentFolderPermission m.PermissionType) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if !sc.expectedFlags.canAdmin() {

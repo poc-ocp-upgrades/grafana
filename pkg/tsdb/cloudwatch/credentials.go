@@ -28,6 +28,8 @@ var credentialCacheLock sync.RWMutex
 func GetCredentials(dsInfo *DatasourceInfo) (*credentials.Credentials, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	cacheKey := dsInfo.AccessKey + ":" + dsInfo.Profile + ":" + dsInfo.AssumeRoleArn
 	credentialCacheLock.RLock()
 	if _, ok := awsCredentialCache[cacheKey]; ok {
@@ -83,6 +85,8 @@ func GetCredentials(dsInfo *DatasourceInfo) (*credentials.Credentials, error) {
 func remoteCredProvider(sess *session.Session) credentials.Provider {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	ecsCredURI := os.Getenv("AWS_CONTAINER_CREDENTIALS_RELATIVE_URI")
 	if len(ecsCredURI) > 0 {
 		return ecsCredProvider(sess, ecsCredURI)
@@ -90,6 +94,8 @@ func remoteCredProvider(sess *session.Session) credentials.Provider {
 	return ec2RoleProvider(sess)
 }
 func ecsCredProvider(sess *session.Session, uri string) credentials.Provider {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	const host = `169.254.170.2`
@@ -101,9 +107,13 @@ func ecsCredProvider(sess *session.Session, uri string) credentials.Provider {
 func ec2RoleProvider(sess *session.Session) credentials.Provider {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return &ec2rolecreds.EC2RoleProvider{Client: ec2metadata.New(sess), ExpiryWindow: 5 * time.Minute}
 }
 func (e *CloudWatchExecutor) getDsInfo(region string) *DatasourceInfo {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	defaultRegion := e.DataSource.JsonData.Get("defaultRegion").MustString()
@@ -128,6 +138,8 @@ func (e *CloudWatchExecutor) getDsInfo(region string) *DatasourceInfo {
 func (e *CloudWatchExecutor) getAwsConfig(dsInfo *DatasourceInfo) (*aws.Config, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	creds, err := GetCredentials(dsInfo)
 	if err != nil {
 		return nil, err
@@ -136,6 +148,8 @@ func (e *CloudWatchExecutor) getAwsConfig(dsInfo *DatasourceInfo) (*aws.Config, 
 	return cfg, nil
 }
 func (e *CloudWatchExecutor) getClient(region string) (*cloudwatch.CloudWatch, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	datasourceInfo := e.getDsInfo(region)

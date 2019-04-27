@@ -23,6 +23,8 @@ var NewFolderService = func(orgId int64, user *models.SignedInUser) FolderServic
 func (dr *dashboardServiceImpl) GetFolders(limit int) ([]*models.Folder, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if limit == 0 {
 		limit = 1000
 	}
@@ -37,6 +39,8 @@ func (dr *dashboardServiceImpl) GetFolders(limit int) ([]*models.Folder, error) 
 	return folders, nil
 }
 func (dr *dashboardServiceImpl) GetFolderByID(id int64) (*models.Folder, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	query := models.GetDashboardQuery{OrgId: dr.orgId, Id: id}
@@ -56,6 +60,8 @@ func (dr *dashboardServiceImpl) GetFolderByID(id int64) (*models.Folder, error) 
 func (dr *dashboardServiceImpl) GetFolderByUID(uid string) (*models.Folder, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	query := models.GetDashboardQuery{OrgId: dr.orgId, Uid: uid}
 	dashFolder, err := getFolder(query)
 	if err != nil {
@@ -71,6 +77,8 @@ func (dr *dashboardServiceImpl) GetFolderByUID(uid string) (*models.Folder, erro
 	return dashToFolder(dashFolder), nil
 }
 func (dr *dashboardServiceImpl) CreateFolder(cmd *models.CreateFolderCommand) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	dashFolder := cmd.GetDashboardModel(dr.orgId, dr.user.UserId)
@@ -92,6 +100,8 @@ func (dr *dashboardServiceImpl) CreateFolder(cmd *models.CreateFolderCommand) er
 	return nil
 }
 func (dr *dashboardServiceImpl) UpdateFolder(existingUid string, cmd *models.UpdateFolderCommand) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	query := models.GetDashboardQuery{OrgId: dr.orgId, Uid: existingUid}
@@ -120,6 +130,8 @@ func (dr *dashboardServiceImpl) UpdateFolder(existingUid string, cmd *models.Upd
 func (dr *dashboardServiceImpl) DeleteFolder(uid string) (*models.Folder, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	query := models.GetDashboardQuery{OrgId: dr.orgId, Uid: uid}
 	dashFolder, err := getFolder(query)
 	if err != nil {
@@ -141,6 +153,8 @@ func (dr *dashboardServiceImpl) DeleteFolder(uid string) (*models.Folder, error)
 func getFolder(query models.GetDashboardQuery) (*models.Dashboard, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if err := bus.Dispatch(&query); err != nil {
 		return nil, toFolderError(err)
 	}
@@ -152,9 +166,13 @@ func getFolder(query models.GetDashboardQuery) (*models.Dashboard, error) {
 func dashToFolder(dash *models.Dashboard) *models.Folder {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return &models.Folder{Id: dash.Id, Uid: dash.Uid, Title: dash.Title, HasAcl: dash.HasAcl, Url: dash.GetUrl(), Version: dash.Version, Created: dash.Created, CreatedBy: dash.CreatedBy, Updated: dash.Updated, UpdatedBy: dash.UpdatedBy}
 }
 func toFolderError(err error) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if err == models.ErrDashboardTitleEmpty {

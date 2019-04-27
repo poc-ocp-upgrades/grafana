@@ -46,6 +46,8 @@ type StackdriverExecutor struct {
 func NewStackdriverExecutor(dsInfo *models.DataSource) (tsdb.TsdbQueryEndpoint, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	httpClient, err := dsInfo.GetHttpClient()
 	if err != nil {
 		return nil, err
@@ -55,12 +57,16 @@ func NewStackdriverExecutor(dsInfo *models.DataSource) (tsdb.TsdbQueryEndpoint, 
 func init() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	slog = log.New("tsdb.stackdriver")
 	tsdb.RegisterTsdbQueryEndpoint("stackdriver", NewStackdriverExecutor)
 	legendKeyFormat = regexp.MustCompile(`\{\{\s*(.+?)\s*\}\}`)
 	metricNameFormat = regexp.MustCompile(`([\w\d_]+)\.googleapis\.com/(.+)`)
 }
 func (e *StackdriverExecutor) Query(ctx context.Context, dsInfo *models.DataSource, tsdbQuery *tsdb.TsdbQuery) (*tsdb.Response, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var result *tsdb.Response
@@ -79,6 +85,8 @@ func (e *StackdriverExecutor) Query(ctx context.Context, dsInfo *models.DataSour
 	return result, err
 }
 func (e *StackdriverExecutor) executeTimeSeriesQuery(ctx context.Context, tsdbQuery *tsdb.TsdbQuery) (*tsdb.Response, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	result := &tsdb.Response{Results: make(map[string]*tsdb.QueryResult)}
@@ -108,6 +116,8 @@ func (e *StackdriverExecutor) executeTimeSeriesQuery(ctx context.Context, tsdbQu
 	return result, nil
 }
 func (e *StackdriverExecutor) buildQueries(tsdbQuery *tsdb.TsdbQuery) ([]*StackdriverQuery, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	stackdriverQueries := []*StackdriverQuery{}
@@ -147,6 +157,8 @@ func (e *StackdriverExecutor) buildQueries(tsdbQuery *tsdb.TsdbQuery) ([]*Stackd
 func reverse(s string) string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	chars := []rune(s)
 	for i, j := 0, len(chars)-1; i < j; i, j = i+1, j-1 {
 		chars[i], chars[j] = chars[j], chars[i]
@@ -154,6 +166,8 @@ func reverse(s string) string {
 	return string(chars)
 }
 func interpolateFilterWildcards(value string) string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	matches := strings.Count(value, "*")
@@ -180,6 +194,8 @@ func interpolateFilterWildcards(value string) string {
 func buildFilterString(metricType string, filterParts []interface{}) string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	filterString := ""
 	for i, part := range filterParts {
 		mod := i % 4
@@ -202,6 +218,8 @@ func buildFilterString(metricType string, filterParts []interface{}) string {
 	return strings.Trim(fmt.Sprintf(`metric.type="%s" %s`, metricType, filterString), " ")
 }
 func setAggParams(params *url.Values, query *tsdb.Query, durationSeconds int) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	primaryAggregation := query.Model.Get("primaryAggregation").MustString()
@@ -245,6 +263,8 @@ func setAggParams(params *url.Values, query *tsdb.Query, durationSeconds int) {
 func (e *StackdriverExecutor) executeQuery(ctx context.Context, query *StackdriverQuery, tsdbQuery *tsdb.TsdbQuery) (*tsdb.QueryResult, StackdriverResponse, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	queryResult := &tsdb.QueryResult{Meta: simplejson.New(), RefId: query.RefID}
 	req, err := e.createRequest(ctx, e.dsInfo)
 	if err != nil {
@@ -284,6 +304,8 @@ func (e *StackdriverExecutor) executeQuery(ctx context.Context, query *Stackdriv
 func (e *StackdriverExecutor) unmarshalResponse(res *http.Response) (StackdriverResponse, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	body, err := ioutil.ReadAll(res.Body)
 	defer res.Body.Close()
 	if err != nil {
@@ -302,6 +324,8 @@ func (e *StackdriverExecutor) unmarshalResponse(res *http.Response) (Stackdriver
 	return data, nil
 }
 func (e *StackdriverExecutor) parseResponse(queryRes *tsdb.QueryResult, data StackdriverResponse, query *StackdriverQuery) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	metricLabels := make(map[string][]string)
@@ -400,6 +424,8 @@ func (e *StackdriverExecutor) parseResponse(queryRes *tsdb.QueryResult, data Sta
 func containsLabel(labels []string, newLabel string) bool {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	for _, val := range labels {
 		if val == newLabel {
 			return true
@@ -408,6 +434,8 @@ func containsLabel(labels []string, newLabel string) bool {
 	return false
 }
 func formatLegendKeys(metricType string, defaultMetricName string, resourceType string, metricLabels map[string]string, resourceLabels map[string]string, additionalLabels map[string]string, query *StackdriverQuery) string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if query.AliasBy == "" {
@@ -445,6 +473,8 @@ func formatLegendKeys(metricType string, defaultMetricName string, resourceType 
 func replaceWithMetricPart(metaPartName string, metricType string) []byte {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	shortMatches := metricNameFormat.FindStringSubmatch(metricType)
 	if metaPartName == "metric.name" {
 		if len(shortMatches) > 0 {
@@ -461,6 +491,8 @@ func replaceWithMetricPart(metaPartName string, metricType string) []byte {
 func calcBucketBound(bucketOptions StackdriverBucketOptions, n int) string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	bucketBound := "0"
 	if n == 0 {
 		return bucketBound
@@ -475,6 +507,8 @@ func calcBucketBound(bucketOptions StackdriverBucketOptions, n int) string {
 	return bucketBound
 }
 func (e *StackdriverExecutor) createRequest(ctx context.Context, dsInfo *models.DataSource) (*http.Request, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	u, _ := url.Parse(dsInfo.Url)
@@ -503,6 +537,8 @@ func (e *StackdriverExecutor) createRequest(ctx context.Context, dsInfo *models.
 	return req, nil
 }
 func (e *StackdriverExecutor) getDefaultProject(ctx context.Context) (string, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	authenticationType := e.dsInfo.JsonData.Get("authenticationType").MustString(jwtAuthentication)

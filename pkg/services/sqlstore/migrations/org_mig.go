@@ -5,6 +5,8 @@ import . "github.com/grafana/grafana/pkg/services/sqlstore/migrator"
 func addOrgMigrations(mg *Migrator) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	orgV1 := Table{Name: "org", Columns: []*Column{{Name: "id", Type: DB_BigInt, IsPrimaryKey: true, IsAutoIncrement: true}, {Name: "version", Type: DB_Int, Nullable: false}, {Name: "name", Type: DB_NVarchar, Length: 190, Nullable: false}, {Name: "address1", Type: DB_NVarchar, Length: 255, Nullable: true}, {Name: "address2", Type: DB_NVarchar, Length: 255, Nullable: true}, {Name: "city", Type: DB_NVarchar, Length: 255, Nullable: true}, {Name: "state", Type: DB_NVarchar, Length: 255, Nullable: true}, {Name: "zip_code", Type: DB_NVarchar, Length: 50, Nullable: true}, {Name: "country", Type: DB_NVarchar, Length: 255, Nullable: true}, {Name: "billing_email", Type: DB_NVarchar, Length: 255, Nullable: true}, {Name: "created", Type: DB_DateTime, Nullable: false}, {Name: "updated", Type: DB_DateTime, Nullable: false}}, Indices: []*Index{{Cols: []string{"name"}, Type: UniqueIndex}}}
 	mg.AddMigration("create org table v1", NewAddTableMigration(orgV1))
 	addTableIndicesMigrations(mg, "v1", orgV1)

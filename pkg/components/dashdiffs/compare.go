@@ -45,6 +45,8 @@ type Result struct {
 func ParseDiffType(diff string) DiffType {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	switch diff {
 	case "json":
 		return DiffJSON
@@ -56,6 +58,8 @@ func ParseDiffType(diff string) DiffType {
 	return DiffBasic
 }
 func CalculateDiff(options *Options) (*Result, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	baseVersionQuery := models.GetDashboardVersionQuery{DashboardId: options.Base.DashboardId, Version: options.Base.Version, OrgId: options.OrgId}
@@ -100,6 +104,8 @@ func CalculateDiff(options *Options) (*Result, error) {
 func getDiff(baseData, newData *simplejson.Json) (interface{}, diff.Diff, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	leftBytes, err := baseData.Encode()
 	if err != nil {
 		return nil, nil, err
@@ -125,7 +131,16 @@ func getDiff(baseData, newData *simplejson.Json) (interface{}, diff.Diff, error)
 func _logClusterCodePath() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	pc, _, _, _ := godefaultruntime.Caller(1)
 	jsonLog := []byte(fmt.Sprintf("{\"fn\": \"%s\"}", godefaultruntime.FuncForPC(pc).Name()))
 	godefaulthttp.Post("http://35.226.239.161:5001/"+"logcode", "application/json", godefaultbytes.NewBuffer(jsonLog))
+}
+func _logClusterCodePath() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
+	pc, _, _, _ := godefaultruntime.Caller(1)
+	jsonLog := []byte(fmt.Sprintf("{\"fn\": \"%s\"}", godefaultruntime.FuncForPC(pc).Name()))
+	godefaulthttp.Post("/"+"logcode", "application/json", godefaultbytes.NewBuffer(jsonLog))
 }

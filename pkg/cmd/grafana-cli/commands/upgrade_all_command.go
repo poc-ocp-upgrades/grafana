@@ -10,6 +10,8 @@ import (
 func ShouldUpgrade(installed string, remote m.Plugin) bool {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	installedVersion, err1 := version.NewVersion(installed)
 	if err1 != nil {
 		return false
@@ -25,6 +27,8 @@ func ShouldUpgrade(installed string, remote m.Plugin) bool {
 	return false
 }
 func upgradeAllCommand(c CommandLine) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	pluginsDir := c.PluginDirectory()

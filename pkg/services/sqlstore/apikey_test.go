@@ -9,6 +9,8 @@ import (
 func TestApiKeyDataAccess(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	Convey("Testing API Key data access", t, func() {
 		InitTestDB(t)
 		Convey("Given saved api key", func() {

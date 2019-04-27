@@ -24,15 +24,21 @@ type mockedEc2 struct {
 func (m mockedEc2) DescribeInstancesPages(in *ec2.DescribeInstancesInput, fn func(*ec2.DescribeInstancesOutput, bool) bool) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	fn(&m.Resp, true)
 	return nil
 }
 func (m mockedEc2) DescribeRegions(in *ec2.DescribeRegionsInput) (*ec2.DescribeRegionsOutput, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return &m.RespRegions, nil
 }
 func TestCloudWatchMetrics(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	Convey("When calling getMetricsForCustomMetrics", t, func() {
@@ -99,6 +105,8 @@ func TestCloudWatchMetrics(t *testing.T) {
 	})
 }
 func TestParseMultiSelectValue(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	values := parseMultiSelectValue(" i-someInstance ")

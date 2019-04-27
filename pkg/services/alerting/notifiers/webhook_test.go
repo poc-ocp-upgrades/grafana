@@ -10,6 +10,8 @@ import (
 func TestWebhookNotifier(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	Convey("Webhook notifier tests", t, func() {
 		Convey("Parsing alert notification from settings", func() {
 			Convey("empty settings should return error", func() {

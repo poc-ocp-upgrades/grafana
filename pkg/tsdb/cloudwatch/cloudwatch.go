@@ -41,6 +41,8 @@ type DatasourceInfo struct {
 func NewCloudWatchExecutor(dsInfo *models.DataSource) (tsdb.TsdbQueryEndpoint, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return &CloudWatchExecutor{}, nil
 }
 
@@ -53,12 +55,16 @@ var (
 func init() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	plog = log.New("tsdb.cloudwatch")
 	tsdb.RegisterTsdbQueryEndpoint("cloudwatch", NewCloudWatchExecutor)
 	standardStatistics = map[string]bool{"Average": true, "Maximum": true, "Minimum": true, "Sum": true, "SampleCount": true}
 	aliasFormat = regexp.MustCompile(`\{\{\s*(.+?)\s*\}\}`)
 }
 func (e *CloudWatchExecutor) Query(ctx context.Context, dsInfo *models.DataSource, queryContext *tsdb.TsdbQuery) (*tsdb.Response, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var result *tsdb.Response
@@ -78,6 +84,8 @@ func (e *CloudWatchExecutor) Query(ctx context.Context, dsInfo *models.DataSourc
 	return result, err
 }
 func (e *CloudWatchExecutor) executeTimeSeriesQuery(ctx context.Context, queryContext *tsdb.TsdbQuery) (*tsdb.Response, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	results := &tsdb.Response{Results: make(map[string]*tsdb.QueryResult)}
@@ -166,6 +174,8 @@ func (e *CloudWatchExecutor) executeTimeSeriesQuery(ctx context.Context, queryCo
 func (e *CloudWatchExecutor) executeQuery(ctx context.Context, query *CloudWatchQuery, queryContext *tsdb.TsdbQuery) (*tsdb.QueryResult, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	client, err := e.getClient(query.Region)
 	if err != nil {
 		return nil, err
@@ -221,6 +231,8 @@ func (e *CloudWatchExecutor) executeQuery(ctx context.Context, query *CloudWatch
 	return queryRes, nil
 }
 func (e *CloudWatchExecutor) executeGetMetricDataQuery(ctx context.Context, region string, queries map[string]*CloudWatchQuery, queryContext *tsdb.TsdbQuery) ([]*tsdb.QueryResult, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	queryResponses := make([]*tsdb.QueryResult, 0)
@@ -320,6 +332,8 @@ func (e *CloudWatchExecutor) executeGetMetricDataQuery(ctx context.Context, regi
 func parseDimensions(model *simplejson.Json) ([]*cloudwatch.Dimension, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var result []*cloudwatch.Dimension
 	for k, v := range model.Get("dimensions").MustMap() {
 		kk := k
@@ -335,6 +349,8 @@ func parseDimensions(model *simplejson.Json) ([]*cloudwatch.Dimension, error) {
 	return result, nil
 }
 func parseStatistics(model *simplejson.Json) ([]string, []string, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var statistics []string
@@ -353,6 +369,8 @@ func parseStatistics(model *simplejson.Json) ([]string, []string, error) {
 	return statistics, extendedStatistics, nil
 }
 func parseQuery(model *simplejson.Json) (*CloudWatchQuery, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	region, err := model.Get("region").String()
@@ -409,6 +427,8 @@ func parseQuery(model *simplejson.Json) (*CloudWatchQuery, error) {
 func formatAlias(query *CloudWatchQuery, stat string, dimensions map[string]string) string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if len(query.Id) > 0 && len(query.Expression) > 0 {
 		return query.Id
 	}
@@ -433,6 +453,8 @@ func formatAlias(query *CloudWatchQuery, stat string, dimensions map[string]stri
 	return string(result)
 }
 func parseResponse(resp *cloudwatch.GetMetricStatisticsOutput, query *CloudWatchQuery) (*tsdb.QueryResult, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	queryRes := tsdb.NewQueryResult()

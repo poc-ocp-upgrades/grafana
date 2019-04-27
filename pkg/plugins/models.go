@@ -28,6 +28,8 @@ type PluginNotFoundError struct{ PluginId string }
 func (e PluginNotFoundError) Error() string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return fmt.Sprintf("Plugin with id %s not found", e.PluginId)
 }
 
@@ -54,6 +56,8 @@ type PluginBase struct {
 }
 
 func (pb *PluginBase) registerPlugin(pluginDir string) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if _, exists := Plugins[pb.Id]; exists {
@@ -131,6 +135,8 @@ type EnabledPlugins struct {
 }
 
 func NewEnabledPlugins() EnabledPlugins {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return EnabledPlugins{Panels: make([]*PanelPlugin, 0), DataSources: make(map[string]*DataSourcePlugin), Apps: make([]*AppPlugin, 0)}

@@ -13,6 +13,8 @@ import (
 func TestMacroEngine(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	Convey("MacroEngine", t, func() {
 		engine := &msSqlMacroEngine{}
 		query := &tsdb.Query{Model: simplejson.New()}

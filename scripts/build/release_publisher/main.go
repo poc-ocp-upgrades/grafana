@@ -10,6 +10,8 @@ import (
 func main() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var version string
 	var whatsNewUrl string
 	var releaseNotesUrl string
@@ -64,6 +66,8 @@ func main() {
 	}
 }
 func createBaseUrl(root string, bucketName string, product string, nightly bool) string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var subPath string

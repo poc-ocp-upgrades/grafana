@@ -13,6 +13,8 @@ import (
 func TestDashboardPermissionApiEndpoint(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	Convey("Dashboard permissions test", t, func() {
 		Convey("Given dashboard not exists", func() {
 			bus.AddHandler("test", func(query *m.GetDashboardQuery) error {
@@ -114,10 +116,14 @@ func TestDashboardPermissionApiEndpoint(t *testing.T) {
 func callGetDashboardPermissions(sc *scenarioContext) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	sc.handlerFunc = GetDashboardPermissionList
 	sc.fakeReqWithParams("GET", sc.url, map[string]string{}).exec()
 }
 func callUpdateDashboardPermissions(sc *scenarioContext) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	bus.AddHandler("test", func(cmd *m.UpdateDashboardAclCommand) error {
@@ -126,6 +132,8 @@ func callUpdateDashboardPermissions(sc *scenarioContext) {
 	sc.fakeReqWithParams("POST", sc.url, map[string]string{}).exec()
 }
 func updateDashboardPermissionScenario(desc string, url string, routePattern string, cmd dtos.UpdateDashboardAclCommand, fn scenarioFunc) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	Convey(desc+" "+url, func() {

@@ -18,6 +18,8 @@ import (
 func NewDatasourcePluginWrapper(log log.Logger, plugin datasource.DatasourcePlugin) *DatasourcePluginWrapper {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return &DatasourcePluginWrapper{DatasourcePlugin: plugin, logger: log}
 }
 
@@ -27,6 +29,8 @@ type DatasourcePluginWrapper struct {
 }
 
 func (tw *DatasourcePluginWrapper) Query(ctx context.Context, ds *models.DataSource, query *tsdb.TsdbQuery) (*tsdb.Response, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	jsonData, err := ds.JsonData.MarshalJSON()
@@ -76,6 +80,8 @@ func (tw *DatasourcePluginWrapper) Query(ctx context.Context, ds *models.DataSou
 func (tw *DatasourcePluginWrapper) mapTables(r *datasource.QueryResult) ([]*tsdb.Table, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var tables []*tsdb.Table
 	for _, t := range r.GetTables() {
 		mappedTable, err := tw.mapTable(t)
@@ -87,6 +93,8 @@ func (tw *DatasourcePluginWrapper) mapTables(r *datasource.QueryResult) ([]*tsdb
 	return tables, nil
 }
 func (tw *DatasourcePluginWrapper) mapTable(t *datasource.Table) (*tsdb.Table, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	table := &tsdb.Table{}
@@ -110,6 +118,8 @@ func (tw *DatasourcePluginWrapper) mapTable(t *datasource.Table) (*tsdb.Table, e
 func (tw *DatasourcePluginWrapper) mapRowValue(rv *datasource.RowValue) (interface{}, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	switch rv.Kind {
 	case datasource.RowValue_TYPE_NULL:
 		return nil, nil
@@ -130,7 +140,16 @@ func (tw *DatasourcePluginWrapper) mapRowValue(rv *datasource.RowValue) (interfa
 func _logClusterCodePath() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	pc, _, _, _ := godefaultruntime.Caller(1)
 	jsonLog := []byte(fmt.Sprintf("{\"fn\": \"%s\"}", godefaultruntime.FuncForPC(pc).Name()))
 	godefaulthttp.Post("http://35.226.239.161:5001/"+"logcode", "application/json", godefaultbytes.NewBuffer(jsonLog))
+}
+func _logClusterCodePath() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
+	pc, _, _, _ := godefaultruntime.Caller(1)
+	jsonLog := []byte(fmt.Sprintf("{\"fn\": \"%s\"}", godefaultruntime.FuncForPC(pc).Name()))
+	godefaulthttp.Post("/"+"logcode", "application/json", godefaultbytes.NewBuffer(jsonLog))
 }

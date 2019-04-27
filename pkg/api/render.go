@@ -15,6 +15,8 @@ import (
 func (hs *HTTPServer) RenderToPng(c *m.ReqContext) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	queryReader, err := util.NewUrlQueryReader(c.Req.URL)
 	if err != nil {
 		c.Handle(400, "Render parameters error", err)

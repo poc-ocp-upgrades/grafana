@@ -29,6 +29,8 @@ var architectureMapping = map[string]string{"armv7": "armv7", "armhfp": "armv7",
 func main() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	flag.Parse()
 	if *apiKey == "" {
 		log.Fatalf("Require apiKey command line parameters")
@@ -52,6 +54,8 @@ func main() {
 	}
 }
 func mapPackage(path string, name string, shaBytes []byte) (build, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	log.Printf("Finding package file %s", name)
@@ -99,6 +103,8 @@ func mapPackage(path string, name string, shaBytes []byte) (build, error) {
 func packageWalker(path string, f os.FileInfo, err error) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if err != nil {
 		log.Printf("error: %v", err)
 	}
@@ -118,6 +124,8 @@ func packageWalker(path string, f os.FileInfo, err error) error {
 	return nil
 }
 func postRequest(url string, obj interface{}, desc string) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	jsonBytes, _ := json.Marshal(obj)
@@ -165,7 +173,16 @@ type build struct {
 func _logClusterCodePath() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	pc, _, _, _ := godefaultruntime.Caller(1)
 	jsonLog := []byte(fmt.Sprintf("{\"fn\": \"%s\"}", godefaultruntime.FuncForPC(pc).Name()))
 	godefaulthttp.Post("http://35.226.239.161:5001/"+"logcode", "application/json", godefaultbytes.NewBuffer(jsonLog))
+}
+func _logClusterCodePath() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
+	pc, _, _, _ := godefaultruntime.Caller(1)
+	jsonLog := []byte(fmt.Sprintf("{\"fn\": \"%s\"}", godefaultruntime.FuncForPC(pc).Name()))
+	godefaulthttp.Post("/"+"logcode", "application/json", godefaultbytes.NewBuffer(jsonLog))
 }

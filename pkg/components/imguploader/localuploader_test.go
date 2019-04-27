@@ -9,6 +9,8 @@ import (
 func TestUploadToLocal(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	Convey("[Integration test] for external_image_store.local", t, func() {
 		localUploader, _ := NewLocalImageUploader()
 		path, err := localUploader.Upload(context.Background(), "../../../public/img/logo_transparent_400x.png")

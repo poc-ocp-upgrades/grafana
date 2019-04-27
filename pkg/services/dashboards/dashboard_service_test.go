@@ -12,6 +12,8 @@ import (
 func TestDashboardService(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	Convey("Dashboard service tests", t, func() {
 		bus.ClearBusHandlers()
 		service := &dashboardServiceImpl{}

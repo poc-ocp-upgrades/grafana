@@ -19,9 +19,13 @@ type StreamManager struct {
 func NewStreamManager() *StreamManager {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return &StreamManager{hub: newHub(), log: log.New("stream.manager"), streams: make(map[string]*Stream), streamRWMutex: &sync.RWMutex{}}
 }
 func (sm *StreamManager) Run(context context.Context) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	log.Info("Initializing Stream Manager")
@@ -31,6 +35,8 @@ func (sm *StreamManager) Run(context context.Context) {
 	}()
 }
 func (sm *StreamManager) Serve(w http.ResponseWriter, r *http.Request) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	sm.log.Info("Upgrading to WebSocket")
@@ -47,6 +53,8 @@ func (sm *StreamManager) Serve(w http.ResponseWriter, r *http.Request) {
 func (s *StreamManager) GetStreamList() m.StreamList {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	list := make(m.StreamList, 0)
 	for _, stream := range s.streams {
 		list = append(list, &m.StreamInfo{Name: stream.name})
@@ -54,6 +62,8 @@ func (s *StreamManager) GetStreamList() m.StreamList {
 	return list
 }
 func (s *StreamManager) Push(packet *m.StreamPacket) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	stream, exist := s.streams[packet.Stream]
@@ -73,9 +83,13 @@ type Stream struct {
 func NewStream(name string) *Stream {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return &Stream{subscribers: make([]*connection, 0), name: name}
 }
 func (s *Stream) Push(packet *m.StreamPacket) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	messageBytes, _ := simplejson.NewFromAny(packet).Encode()

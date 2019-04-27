@@ -17,9 +17,13 @@ type FakeLogger struct {
 func (f *FakeLogger) New(ctx ...interface{}) log15.Logger {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return nil
 }
 func (f *FakeLogger) Debug(msg string, ctx ...interface{}) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	f.debug = msg
@@ -27,9 +31,13 @@ func (f *FakeLogger) Debug(msg string, ctx ...interface{}) {
 func (f *FakeLogger) Info(msg string, ctx ...interface{}) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	f.info = msg
 }
 func (f *FakeLogger) Warn(msg string, ctx ...interface{}) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	f.warn = msg
@@ -37,9 +45,13 @@ func (f *FakeLogger) Warn(msg string, ctx ...interface{}) {
 func (f *FakeLogger) Error(msg string, ctx ...interface{}) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	f.err = msg
 }
 func (f *FakeLogger) Crit(msg string, ctx ...interface{}) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	f.crit = msg
@@ -47,13 +59,19 @@ func (f *FakeLogger) Crit(msg string, ctx ...interface{}) {
 func (f *FakeLogger) GetHandler() log15.Handler {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return nil
 }
 func (f *FakeLogger) SetHandler(l log15.Handler) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 }
 func TestLogWriter(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	Convey("When writing to a LogWriter", t, func() {

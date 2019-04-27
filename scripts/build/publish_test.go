@@ -16,6 +16,8 @@ var testData = []testPackage{{path: "grafana-5.2.0-474pre1.aarch64.rpm", version
 func TestFileWalker(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	for _, packageInfo := range testData {
 		version = ""
 		actualPackageInfo, err := mapPackage(packageInfo.path, packageInfo.path, []byte{})

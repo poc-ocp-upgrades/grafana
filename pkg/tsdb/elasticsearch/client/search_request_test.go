@@ -12,6 +12,8 @@ import (
 func TestSearchRequest(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	Convey("Test elasticsearch search request", t, func() {
 		timeField := "@timestamp"
 		Convey("Given new search request builder for es version 5", func() {
@@ -362,6 +364,8 @@ func TestSearchRequest(t *testing.T) {
 	})
 }
 func TestMultiSearchRequest(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	Convey("Test elasticsearch multi search request", t, func() {

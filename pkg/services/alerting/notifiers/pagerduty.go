@@ -15,6 +15,8 @@ import (
 func init() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	alerting.RegisterNotifier(&alerting.NotifierPlugin{Type: "pagerduty", Name: "PagerDuty", Description: "Sends notifications to PagerDuty", Factory: NewPagerdutyNotifier, OptionsTemplate: `
       <h3 class="page-heading">PagerDuty settings</h3>
       <div class="gf-form">
@@ -40,6 +42,8 @@ var (
 func NewPagerdutyNotifier(model *m.AlertNotification) (alerting.Notifier, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	autoResolve := model.Settings.Get("autoResolve").MustBool(false)
 	key := model.Settings.Get("integrationKey").MustString()
 	if key == "" {
@@ -56,6 +60,8 @@ type PagerdutyNotifier struct {
 }
 
 func (this *PagerdutyNotifier) Notify(evalContext *alerting.EvalContext) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if evalContext.Rule.State == m.AlertStateOK && !this.AutoResolve {

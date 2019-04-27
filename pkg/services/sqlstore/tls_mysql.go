@@ -10,6 +10,8 @@ import (
 func makeCert(tlsPoolName string, config DatabaseConfig) (*tls.Config, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	rootCertPool := x509.NewCertPool()
 	pem, err := ioutil.ReadFile(config.CaCertPath)
 	if err != nil {

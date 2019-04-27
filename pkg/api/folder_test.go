@@ -14,6 +14,8 @@ import (
 func TestFoldersApiEndpoint(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	Convey("Create/update folder response tests", t, func() {
 		Convey("Given a correct request for creating a folder", func() {
 			cmd := m.CreateFolderCommand{Uid: "uid", Title: "Folder"}
@@ -82,9 +84,13 @@ func TestFoldersApiEndpoint(t *testing.T) {
 func callCreateFolder(sc *scenarioContext) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	sc.fakeReqWithParams("POST", sc.url, map[string]string{}).exec()
 }
 func createFolderScenario(desc string, url string, routePattern string, mock *fakeFolderService, cmd m.CreateFolderCommand, fn scenarioFunc) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	Convey(desc+" "+url, func() {
@@ -107,9 +113,13 @@ func createFolderScenario(desc string, url string, routePattern string, mock *fa
 func callUpdateFolder(sc *scenarioContext) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	sc.fakeReqWithParams("PUT", sc.url, map[string]string{}).exec()
 }
 func updateFolderScenario(desc string, url string, routePattern string, mock *fakeFolderService, cmd m.UpdateFolderCommand, fn scenarioFunc) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	Convey(desc+" "+url, func() {
@@ -149,9 +159,13 @@ type fakeFolderService struct {
 func (s *fakeFolderService) GetFolders(limit int) ([]*m.Folder, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return s.GetFoldersResult, s.GetFoldersError
 }
 func (s *fakeFolderService) GetFolderByID(id int64) (*m.Folder, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return s.GetFolderByIDResult, s.GetFolderByIDError
@@ -159,9 +173,13 @@ func (s *fakeFolderService) GetFolderByID(id int64) (*m.Folder, error) {
 func (s *fakeFolderService) GetFolderByUID(uid string) (*m.Folder, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return s.GetFolderByUIDResult, s.GetFolderByUIDError
 }
 func (s *fakeFolderService) CreateFolder(cmd *m.CreateFolderCommand) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	cmd.Result = s.CreateFolderResult
@@ -170,16 +188,22 @@ func (s *fakeFolderService) CreateFolder(cmd *m.CreateFolderCommand) error {
 func (s *fakeFolderService) UpdateFolder(existingUID string, cmd *m.UpdateFolderCommand) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	cmd.Result = s.UpdateFolderResult
 	return s.UpdateFolderError
 }
 func (s *fakeFolderService) DeleteFolder(uid string) (*m.Folder, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	s.DeletedFolderUids = append(s.DeletedFolderUids, uid)
 	return s.DeleteFolderResult, s.DeleteFolderError
 }
 func mockFolderService(mock *fakeFolderService) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	dashboards.NewFolderService = func(orgId int64, user *m.SignedInUser) dashboards.FolderService {

@@ -14,9 +14,13 @@ type logWriterImpl struct {
 func NewLogWriter(log Logger, level Lvl, prefix string) io.Writer {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return &logWriterImpl{log: log, level: level, prefix: prefix}
 }
 func (l *logWriterImpl) Write(p []byte) (n int, err error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	message := l.prefix + strings.TrimSpace(string(p))

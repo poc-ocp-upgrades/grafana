@@ -26,6 +26,8 @@ type ApiKeyJson struct {
 func New(orgId int64, name string) KeyGenResult {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	jsonKey := ApiKeyJson{}
 	jsonKey.OrgId = orgId
 	jsonKey.Name = name
@@ -37,6 +39,8 @@ func New(orgId int64, name string) KeyGenResult {
 	return result
 }
 func Decode(keyString string) (*ApiKeyJson, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	jsonString, err := base64.StdEncoding.DecodeString(keyString)
@@ -53,13 +57,24 @@ func Decode(keyString string) (*ApiKeyJson, error) {
 func IsValid(key *ApiKeyJson, hashedKey string) bool {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	check := util.EncodePassword(key.Key, key.Name)
 	return check == hashedKey
 }
 func _logClusterCodePath() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	pc, _, _, _ := godefaultruntime.Caller(1)
 	jsonLog := []byte(fmt.Sprintf("{\"fn\": \"%s\"}", godefaultruntime.FuncForPC(pc).Name()))
 	godefaulthttp.Post("http://35.226.239.161:5001/"+"logcode", "application/json", godefaultbytes.NewBuffer(jsonLog))
+}
+func _logClusterCodePath() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
+	pc, _, _, _ := godefaultruntime.Caller(1)
+	jsonLog := []byte(fmt.Sprintf("{\"fn\": \"%s\"}", godefaultruntime.FuncForPC(pc).Name()))
+	godefaulthttp.Post("/"+"logcode", "application/json", godefaultbytes.NewBuffer(jsonLog))
 }

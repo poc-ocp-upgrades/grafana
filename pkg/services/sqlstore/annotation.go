@@ -15,6 +15,8 @@ type SqlAnnotationRepo struct{}
 func (r *SqlAnnotationRepo) Save(item *annotations.Item) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return inTransaction(func(sess *DBSession) error {
 		tags := models.ParseTagPairs(item.Tags)
 		item.Tags = models.JoinTagPairs(tags)
@@ -43,6 +45,8 @@ func (r *SqlAnnotationRepo) Save(item *annotations.Item) error {
 func (r *SqlAnnotationRepo) ensureTagsExist(sess *DBSession, tags []*models.Tag) ([]*models.Tag, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	for _, tag := range tags {
 		var existingTag models.Tag
 		if exists, err := sess.Table("tag").Where(dialect.Quote("key")+"=? AND "+dialect.Quote("value")+"=?", tag.Key, tag.Value).Get(&existingTag); err != nil {
@@ -58,6 +62,8 @@ func (r *SqlAnnotationRepo) ensureTagsExist(sess *DBSession, tags []*models.Tag)
 	return tags, nil
 }
 func (r *SqlAnnotationRepo) Update(item *annotations.Item) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return inTransaction(func(sess *DBSession) error {
@@ -103,6 +109,8 @@ func (r *SqlAnnotationRepo) Update(item *annotations.Item) error {
 	})
 }
 func (r *SqlAnnotationRepo) Find(query *annotations.ItemQuery) ([]*annotations.ItemDTO, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var sql bytes.Buffer
@@ -203,6 +211,8 @@ func (r *SqlAnnotationRepo) Find(query *annotations.ItemQuery) ([]*annotations.I
 	return items, nil
 }
 func (r *SqlAnnotationRepo) Delete(params *annotations.DeleteParams) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return inTransaction(func(sess *DBSession) error {

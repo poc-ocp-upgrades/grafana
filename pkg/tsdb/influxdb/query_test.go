@@ -11,6 +11,8 @@ import (
 func TestInfluxdbQueryBuilder(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	Convey("Influxdb query builder", t, func() {
 		qp1, _ := NewQueryPart("field", []string{"value"})
 		qp2, _ := NewQueryPart("mean", []string{})

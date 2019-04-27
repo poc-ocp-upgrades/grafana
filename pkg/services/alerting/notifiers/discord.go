@@ -18,6 +18,8 @@ import (
 func init() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	alerting.RegisterNotifier(&alerting.NotifierPlugin{Type: "discord", Name: "Discord", Description: "Sends notifications to Discord", Factory: NewDiscordNotifier, OptionsTemplate: `
       <h3 class="page-heading">Discord settings</h3>
       <div class="gf-form">
@@ -27,6 +29,8 @@ func init() {
     `})
 }
 func NewDiscordNotifier(model *m.AlertNotification) (alerting.Notifier, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	url := model.Settings.Get("url").MustString()
@@ -43,6 +47,8 @@ type DiscordNotifier struct {
 }
 
 func (this *DiscordNotifier) Notify(evalContext *alerting.EvalContext) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	this.log.Info("Sending alert notification to", "webhook_url", this.WebhookURL)

@@ -49,14 +49,20 @@ type TimeSeriesSlice []*TimeSeries
 func NewQueryResult() *QueryResult {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return &QueryResult{Series: make(TimeSeriesSlice, 0)}
 }
 func NewTimePoint(value null.Float, timestamp float64) TimePoint {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return TimePoint{value, null.FloatFrom(timestamp)}
 }
 func NewTimeSeriesPointsFromArgs(values ...float64) TimeSeriesPoints {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	points := make(TimeSeriesPoints, 0)
@@ -66,6 +72,8 @@ func NewTimeSeriesPointsFromArgs(values ...float64) TimeSeriesPoints {
 	return points
 }
 func NewTimeSeries(name string, points TimeSeriesPoints) *TimeSeries {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return &TimeSeries{Name: name, Points: points}

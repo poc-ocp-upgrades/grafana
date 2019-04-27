@@ -9,6 +9,8 @@ import (
 func (w *FileLogWriter) WriteLine(line string) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	n, err := w.mw.Write([]byte(line))
 	if err != nil {
 		return err
@@ -17,6 +19,8 @@ func (w *FileLogWriter) WriteLine(line string) error {
 	return nil
 }
 func TestLogFile(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	Convey("When logging to file", t, func() {

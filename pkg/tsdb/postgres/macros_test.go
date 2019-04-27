@@ -12,6 +12,8 @@ import (
 func TestMacroEngine(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	Convey("MacroEngine", t, func() {
 		timescaledbEnabled := false
 		engine := newPostgresMacroEngine(timescaledbEnabled)

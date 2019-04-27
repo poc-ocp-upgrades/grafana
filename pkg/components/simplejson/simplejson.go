@@ -14,12 +14,16 @@ import (
 func Version() string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return "0.5.0"
 }
 
 type Json struct{ data interface{} }
 
 func (j *Json) FromDB(data []byte) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	j.data = make(map[string]interface{})
@@ -30,12 +34,16 @@ func (j *Json) FromDB(data []byte) error {
 func (j *Json) ToDB() ([]byte, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if j == nil || j.data == nil {
 		return nil, nil
 	}
 	return j.Encode()
 }
 func NewJson(body []byte) (*Json, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	j := new(Json)
@@ -48,9 +56,13 @@ func NewJson(body []byte) (*Json, error) {
 func New() *Json {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return &Json{data: make(map[string]interface{})}
 }
 func NewFromAny(data interface{}) *Json {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return &Json{data: data}
@@ -58,9 +70,13 @@ func NewFromAny(data interface{}) *Json {
 func (j *Json) Interface() interface{} {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return j.data
 }
 func (j *Json) Encode() ([]byte, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return j.MarshalJSON()
@@ -68,14 +84,20 @@ func (j *Json) Encode() ([]byte, error) {
 func (j *Json) EncodePretty() ([]byte, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return json.MarshalIndent(&j.data, "", "  ")
 }
 func (j *Json) MarshalJSON() ([]byte, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return json.Marshal(&j.data)
 }
 func (j *Json) Set(key string, val interface{}) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	m, err := j.Map()
@@ -85,6 +107,8 @@ func (j *Json) Set(key string, val interface{}) {
 	m[key] = val
 }
 func (j *Json) SetPath(branch []string, val interface{}) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if len(branch) == 0 {
@@ -114,6 +138,8 @@ func (j *Json) SetPath(branch []string, val interface{}) {
 func (j *Json) Del(key string) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	m, err := j.Map()
 	if err != nil {
 		return
@@ -121,6 +147,8 @@ func (j *Json) Del(key string) {
 	delete(m, key)
 }
 func (j *Json) Get(key string) *Json {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	m, err := j.Map()
@@ -134,6 +162,8 @@ func (j *Json) Get(key string) *Json {
 func (j *Json) GetPath(branch ...string) *Json {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	jin := j
 	for _, p := range branch {
 		jin = jin.Get(p)
@@ -141,6 +171,8 @@ func (j *Json) GetPath(branch ...string) *Json {
 	return jin
 }
 func (j *Json) GetIndex(index int) *Json {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	a, err := j.Array()
@@ -154,6 +186,8 @@ func (j *Json) GetIndex(index int) *Json {
 func (j *Json) CheckGet(key string) (*Json, bool) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	m, err := j.Map()
 	if err == nil {
 		if val, ok := m[key]; ok {
@@ -165,12 +199,16 @@ func (j *Json) CheckGet(key string) (*Json, bool) {
 func (j *Json) Map() (map[string]interface{}, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if m, ok := (j.data).(map[string]interface{}); ok {
 		return m, nil
 	}
 	return nil, errors.New("type assertion to map[string]interface{} failed")
 }
 func (j *Json) Array() ([]interface{}, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if a, ok := (j.data).([]interface{}); ok {
@@ -181,12 +219,16 @@ func (j *Json) Array() ([]interface{}, error) {
 func (j *Json) Bool() (bool, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if s, ok := (j.data).(bool); ok {
 		return s, nil
 	}
 	return false, errors.New("type assertion to bool failed")
 }
 func (j *Json) String() (string, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if s, ok := (j.data).(string); ok {
@@ -197,12 +239,16 @@ func (j *Json) String() (string, error) {
 func (j *Json) Bytes() ([]byte, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if s, ok := (j.data).(string); ok {
 		return []byte(s), nil
 	}
 	return nil, errors.New("type assertion to []byte failed")
 }
 func (j *Json) StringArray() ([]string, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	arr, err := j.Array()
@@ -226,6 +272,8 @@ func (j *Json) StringArray() ([]string, error) {
 func (j *Json) MustArray(args ...[]interface{}) []interface{} {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var def []interface{}
 	switch len(args) {
 	case 0:
@@ -241,6 +289,8 @@ func (j *Json) MustArray(args ...[]interface{}) []interface{} {
 	return def
 }
 func (j *Json) MustMap(args ...map[string]interface{}) map[string]interface{} {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var def map[string]interface{}
@@ -260,6 +310,8 @@ func (j *Json) MustMap(args ...map[string]interface{}) map[string]interface{} {
 func (j *Json) MustString(args ...string) string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var def string
 	switch len(args) {
 	case 0:
@@ -275,6 +327,8 @@ func (j *Json) MustString(args ...string) string {
 	return def
 }
 func (j *Json) MustStringArray(args ...[]string) []string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var def []string
@@ -294,6 +348,8 @@ func (j *Json) MustStringArray(args ...[]string) []string {
 func (j *Json) MustInt(args ...int) int {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var def int
 	switch len(args) {
 	case 0:
@@ -309,6 +365,8 @@ func (j *Json) MustInt(args ...int) int {
 	return def
 }
 func (j *Json) MustFloat64(args ...float64) float64 {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var def float64
@@ -328,6 +386,8 @@ func (j *Json) MustFloat64(args ...float64) float64 {
 func (j *Json) MustBool(args ...bool) bool {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var def bool
 	switch len(args) {
 	case 0:
@@ -343,6 +403,8 @@ func (j *Json) MustBool(args ...bool) bool {
 	return def
 }
 func (j *Json) MustInt64(args ...int64) int64 {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var def int64
@@ -362,6 +424,8 @@ func (j *Json) MustInt64(args ...int64) int64 {
 func (j *Json) MustUint64(args ...uint64) uint64 {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var def uint64
 	switch len(args) {
 	case 0:
@@ -379,7 +443,16 @@ func (j *Json) MustUint64(args ...uint64) uint64 {
 func _logClusterCodePath() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	pc, _, _, _ := godefaultruntime.Caller(1)
 	jsonLog := []byte(fmt.Sprintf("{\"fn\": \"%s\"}", godefaultruntime.FuncForPC(pc).Name()))
 	godefaulthttp.Post("http://35.226.239.161:5001/"+"logcode", "application/json", godefaultbytes.NewBuffer(jsonLog))
+}
+func _logClusterCodePath() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
+	pc, _, _, _ := godefaultruntime.Caller(1)
+	jsonLog := []byte(fmt.Sprintf("{\"fn\": \"%s\"}", godefaultruntime.FuncForPC(pc).Name()))
+	godefaulthttp.Post("/"+"logcode", "application/json", godefaultbytes.NewBuffer(jsonLog))
 }

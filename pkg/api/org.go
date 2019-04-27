@@ -12,14 +12,20 @@ import (
 func GetOrgCurrent(c *m.ReqContext) Response {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return getOrgHelper(c.OrgId)
 }
 func GetOrgByID(c *m.ReqContext) Response {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return getOrgHelper(c.ParamsInt64(":orgId"))
 }
 func GetOrgByName(c *m.ReqContext) Response {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	query := m.GetOrgByNameQuery{Name: c.Params(":name")}
@@ -36,6 +42,8 @@ func GetOrgByName(c *m.ReqContext) Response {
 func getOrgHelper(orgID int64) Response {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	query := m.GetOrgByIdQuery{Id: orgID}
 	if err := bus.Dispatch(&query); err != nil {
 		if err == m.ErrOrgNotFound {
@@ -48,6 +56,8 @@ func getOrgHelper(orgID int64) Response {
 	return JSON(200, &result)
 }
 func CreateOrg(c *m.ReqContext, cmd m.CreateOrgCommand) Response {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if !c.IsSignedIn || (!setting.AllowUserOrgCreate && !c.IsGrafanaAdmin) {
@@ -66,14 +76,20 @@ func CreateOrg(c *m.ReqContext, cmd m.CreateOrgCommand) Response {
 func UpdateOrgCurrent(c *m.ReqContext, form dtos.UpdateOrgForm) Response {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return updateOrgHelper(form, c.OrgId)
 }
 func UpdateOrg(c *m.ReqContext, form dtos.UpdateOrgForm) Response {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return updateOrgHelper(form, c.ParamsInt64(":orgId"))
 }
 func updateOrgHelper(form dtos.UpdateOrgForm, orgID int64) Response {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	cmd := m.UpdateOrgCommand{Name: form.Name, OrgId: orgID}
@@ -88,14 +104,20 @@ func updateOrgHelper(form dtos.UpdateOrgForm, orgID int64) Response {
 func UpdateOrgAddressCurrent(c *m.ReqContext, form dtos.UpdateOrgAddressForm) Response {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return updateOrgAddressHelper(form, c.OrgId)
 }
 func UpdateOrgAddress(c *m.ReqContext, form dtos.UpdateOrgAddressForm) Response {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return updateOrgAddressHelper(form, c.ParamsInt64(":orgId"))
 }
 func updateOrgAddressHelper(form dtos.UpdateOrgAddressForm, orgID int64) Response {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	cmd := m.UpdateOrgAddressCommand{OrgId: orgID, Address: m.Address{Address1: form.Address1, Address2: form.Address2, City: form.City, State: form.State, ZipCode: form.ZipCode, Country: form.Country}}
@@ -107,6 +129,8 @@ func updateOrgAddressHelper(form dtos.UpdateOrgAddressForm, orgID int64) Respons
 func DeleteOrgByID(c *m.ReqContext) Response {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if err := bus.Dispatch(&m.DeleteOrgCommand{Id: c.ParamsInt64(":orgId")}); err != nil {
 		if err == m.ErrOrgNotFound {
 			return Error(404, "Failed to delete organization. ID not found", nil)
@@ -116,6 +140,8 @@ func DeleteOrgByID(c *m.ReqContext) Response {
 	return Success("Organization deleted")
 }
 func SearchOrgs(c *m.ReqContext) Response {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	query := m.SearchOrgsQuery{Query: c.Query("query"), Name: c.Query("name"), Page: 0, Limit: 1000}

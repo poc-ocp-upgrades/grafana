@@ -37,6 +37,8 @@ type UpdatePluginDashboardError struct{ PluginId string }
 func (d UpdatePluginDashboardError) Error() string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return "Dashboard belong to plugin"
 }
 
@@ -69,10 +71,14 @@ type Dashboard struct {
 func (d *Dashboard) SetId(id int64) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	d.Id = id
 	d.Data.Set("id", id)
 }
 func (d *Dashboard) SetUid(uid string) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	d.Uid = uid
@@ -81,10 +87,14 @@ func (d *Dashboard) SetUid(uid string) {
 func (d *Dashboard) SetVersion(version int) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	d.Version = version
 	d.Data.Set("version", version)
 }
 func (d *Dashboard) GetDashboardIdForSavePermissionCheck() int64 {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if d.Id == 0 {
@@ -93,6 +103,8 @@ func (d *Dashboard) GetDashboardIdForSavePermissionCheck() int64 {
 	return d.Id
 }
 func NewDashboard(title string) *Dashboard {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	dash := &Dashboard{}
@@ -107,6 +119,8 @@ func NewDashboard(title string) *Dashboard {
 func NewDashboardFolder(title string) *Dashboard {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	folder := NewDashboard(title)
 	folder.IsFolder = true
 	folder.Data.Set("schemaVersion", 16)
@@ -117,9 +131,13 @@ func NewDashboardFolder(title string) *Dashboard {
 func (dash *Dashboard) GetTags() []string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return dash.Data.Get("tags").MustStringArray()
 }
 func NewDashboardFromJson(data *simplejson.Json) *Dashboard {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	dash := &Dashboard{}
@@ -151,6 +169,8 @@ func NewDashboardFromJson(data *simplejson.Json) *Dashboard {
 func (cmd *SaveDashboardCommand) GetDashboardModel() *Dashboard {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	dash := NewDashboardFromJson(cmd.Dashboard)
 	userId := cmd.UserId
 	if userId == 0 {
@@ -167,9 +187,13 @@ func (cmd *SaveDashboardCommand) GetDashboardModel() *Dashboard {
 func (dash *Dashboard) GetString(prop string, defaultValue string) string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return dash.Data.Get(prop).MustString(defaultValue)
 }
 func (dash *Dashboard) UpdateSlug() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	title := dash.Data.Get("title").MustString()
@@ -178,9 +202,13 @@ func (dash *Dashboard) UpdateSlug() {
 func SlugifyTitle(title string) string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return slug.Make(strings.ToLower(title))
 }
 func (dash *Dashboard) GetUrl() string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return GetDashboardFolderUrl(dash.IsFolder, dash.Uid, dash.Slug)
@@ -188,9 +216,13 @@ func (dash *Dashboard) GetUrl() string {
 func (dash *Dashboard) GenerateUrl() string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return GetDashboardUrl(dash.Uid, dash.Slug)
 }
 func GetDashboardFolderUrl(isFolder bool, uid string, slug string) string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if isFolder {
@@ -201,14 +233,20 @@ func GetDashboardFolderUrl(isFolder bool, uid string, slug string) string {
 func GetDashboardUrl(uid string, slug string) string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return fmt.Sprintf("%s/d/%s/%s", setting.AppSubUrl, uid, slug)
 }
 func GetFullDashboardUrl(uid string, slug string) string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return fmt.Sprintf("%sd/%s/%s", setting.AppUrl, uid, slug)
 }
 func GetFolderUrl(folderUid string, slug string) string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return fmt.Sprintf("%s/dashboards/f/%s/%s", setting.AppSubUrl, folderUid, slug)

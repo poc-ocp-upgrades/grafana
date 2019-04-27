@@ -11,6 +11,8 @@ import (
 func init() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	alerting.RegisterNotifier(&alerting.NotifierPlugin{Type: "dingding", Name: "DingDing", Description: "Sends HTTP POST request to DingDing", Factory: NewDingDingNotifier, OptionsTemplate: `
       <h3 class="page-heading">DingDing settings</h3>
       <div class="gf-form">
@@ -20,6 +22,8 @@ func init() {
     `})
 }
 func NewDingDingNotifier(model *m.AlertNotification) (alerting.Notifier, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	url := model.Settings.Get("url").MustString()
@@ -36,6 +40,8 @@ type DingDingNotifier struct {
 }
 
 func (this *DingDingNotifier) Notify(evalContext *alerting.EvalContext) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	this.log.Info("Sending dingding")

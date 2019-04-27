@@ -32,14 +32,20 @@ type DashboardInputMissingError struct{ VariableName string }
 func (e DashboardInputMissingError) Error() string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return fmt.Sprintf("Dashboard input variable: %v missing from import command", e.VariableName)
 }
 func init() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	bus.AddHandler("plugins", ImportDashboard)
 }
 func ImportDashboard(cmd *ImportDashboardCommand) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var dashboard *m.Dashboard
@@ -77,6 +83,8 @@ type DashTemplateEvaluator struct {
 func (this *DashTemplateEvaluator) findInput(varName string, varType string) *ImportDashboardInput {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	for _, input := range this.inputs {
 		if varType == input.Type && (input.Name == varName || input.Name == "*") {
 			return &input
@@ -85,6 +93,8 @@ func (this *DashTemplateEvaluator) findInput(varName string, varType string) *Im
 	return nil
 }
 func (this *DashTemplateEvaluator) Eval() (*simplejson.Json, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	this.result = simplejson.New()
@@ -103,6 +113,8 @@ func (this *DashTemplateEvaluator) Eval() (*simplejson.Json, error) {
 	return simplejson.NewFromAny(this.evalObject(this.template)), nil
 }
 func (this *DashTemplateEvaluator) evalValue(source *simplejson.Json) interface{} {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	sourceValue := source.Interface()
@@ -132,6 +144,8 @@ func (this *DashTemplateEvaluator) evalValue(source *simplejson.Json) interface{
 	return nil
 }
 func (this *DashTemplateEvaluator) evalObject(source *simplejson.Json) interface{} {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	result := make(map[string]interface{})

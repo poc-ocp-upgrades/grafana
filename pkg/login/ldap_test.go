@@ -13,6 +13,8 @@ import (
 func TestLdapAuther(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	Convey("When translating ldap user to grafana user", t, func() {
 		var user1 = &m.User{}
 		bus.AddHandlerCtx("test", func(ctx context.Context, cmd *m.UpsertUserCommand) error {
@@ -171,18 +173,26 @@ type mockLdapConn struct {
 func (c *mockLdapConn) Bind(username, password string) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return nil
 }
 func (c *mockLdapConn) Close() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 }
 func (c *mockLdapConn) setSearchResult(result *ldap.SearchResult) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	c.result = result
 }
 func (c *mockLdapConn) Search(*ldap.SearchRequest) (*ldap.SearchResult, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	c.searchCalled = true
@@ -191,9 +201,13 @@ func (c *mockLdapConn) Search(*ldap.SearchRequest) (*ldap.SearchResult, error) {
 func (c *mockLdapConn) StartTLS(*tls.Config) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return nil
 }
 func ldapAutherScenario(desc string, fn scenarioFunc) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	Convey(desc, func() {
@@ -260,6 +274,8 @@ type scenarioContext struct {
 func (sc *scenarioContext) userQueryReturns(user *m.User) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	bus.AddHandler("test", func(query *m.GetUserByAuthInfoQuery) error {
 		if user == nil {
 			return m.ErrUserNotFound
@@ -272,6 +288,8 @@ func (sc *scenarioContext) userQueryReturns(user *m.User) {
 	})
 }
 func (sc *scenarioContext) userOrgsQueryReturns(orgs []*m.UserOrgDTO) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	bus.AddHandler("test", func(query *m.GetUserOrgListQuery) error {

@@ -23,6 +23,8 @@ var (
 func TestDatasourceAsConfig(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	Convey("Testing datasource as configuration", t, func() {
 		fakeRepo = &fakeRepository{}
 		bus.ClearBusHandlers()
@@ -155,12 +157,16 @@ func TestDatasourceAsConfig(t *testing.T) {
 func validateDeleteDatasources(dsCfg *DatasourcesAsConfig) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	So(len(dsCfg.DeleteDatasources), ShouldEqual, 1)
 	deleteDs := dsCfg.DeleteDatasources[0]
 	So(deleteDs.Name, ShouldEqual, "old-graphite3")
 	So(deleteDs.OrgId, ShouldEqual, 2)
 }
 func validateDatasource(dsCfg *DatasourcesAsConfig) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	ds := dsCfg.Datasources[0]
@@ -199,10 +205,14 @@ type fakeRepository struct {
 func mockDelete(cmd *models.DeleteDataSourceByNameCommand) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	fakeRepo.deleted = append(fakeRepo.deleted, cmd)
 	return nil
 }
 func mockUpdate(cmd *models.UpdateDataSourceCommand) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	fakeRepo.updated = append(fakeRepo.updated, cmd)
@@ -211,16 +221,22 @@ func mockUpdate(cmd *models.UpdateDataSourceCommand) error {
 func mockInsert(cmd *models.AddDataSourceCommand) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	fakeRepo.inserted = append(fakeRepo.inserted, cmd)
 	return nil
 }
 func mockGetAll(cmd *models.GetAllDataSourcesQuery) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	cmd.Result = fakeRepo.loadAll
 	return nil
 }
 func mockGet(cmd *models.GetDataSourceByNameQuery) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	for _, v := range fakeRepo.loadAll {

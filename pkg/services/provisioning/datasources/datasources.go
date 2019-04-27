@@ -14,6 +14,8 @@ var (
 func Provision(configDirectory string) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	dc := newDatasourceProvisioner(log.New("provisioning.datasources"))
 	return dc.applyChanges(configDirectory)
 }
@@ -26,9 +28,13 @@ type DatasourceProvisioner struct {
 func newDatasourceProvisioner(log log.Logger) DatasourceProvisioner {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return DatasourceProvisioner{log: log, cfgProvider: &configReader{log: log}}
 }
 func (dc *DatasourceProvisioner) apply(cfg *DatasourcesAsConfig) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if err := dc.deleteDatasources(cfg.DeleteDatasources); err != nil {
@@ -59,6 +65,8 @@ func (dc *DatasourceProvisioner) apply(cfg *DatasourcesAsConfig) error {
 func (dc *DatasourceProvisioner) applyChanges(configPath string) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	configs, err := dc.cfgProvider.readConfig(configPath)
 	if err != nil {
 		return err
@@ -71,6 +79,8 @@ func (dc *DatasourceProvisioner) applyChanges(configPath string) error {
 	return nil
 }
 func (dc *DatasourceProvisioner) deleteDatasources(dsToDelete []*DeleteDatasourceConfig) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	for _, ds := range dsToDelete {

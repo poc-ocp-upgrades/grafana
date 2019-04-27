@@ -10,6 +10,8 @@ import (
 func TestSimpleReducer(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	Convey("Test simple reducer by calculating", t, func() {
 		Convey("sum", func() {
 			result := testReducer("sum", 1, 2, 3)
@@ -121,6 +123,8 @@ func TestSimpleReducer(t *testing.T) {
 	})
 }
 func testReducer(typ string, datapoints ...float64) float64 {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	reducer := NewSimpleReducer(typ)

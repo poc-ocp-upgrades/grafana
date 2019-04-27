@@ -9,6 +9,8 @@ import (
 func TestImageUploaderFactory(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	Convey("Can create image uploader for ", t, func() {
 		Convey("S3ImageUploader config", func() {
 			cfg := setting.NewCfg()

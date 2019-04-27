@@ -28,6 +28,8 @@ type releaseBuilder interface {
 func (p *publisher) doRelease(whatsNewUrl string, releaseNotesUrl string, nightly bool) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	currentRelease, err := p.builder.prepareRelease(p.baseArchiveUrl, whatsNewUrl, releaseNotesUrl, nightly)
 	if err != nil {
 		return err
@@ -38,6 +40,8 @@ func (p *publisher) doRelease(whatsNewUrl string, releaseNotesUrl string, nightl
 	return nil
 }
 func (p *publisher) postRelease(r *release) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	err := p.postRequest("/versions", r, fmt.Sprintf("Create Release %s", r.Version))
@@ -72,14 +76,20 @@ const (
 func (rt ReleaseType) beta() bool {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return rt == BETA
 }
 func (rt ReleaseType) stable() bool {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return rt == STABLE
 }
 func (rt ReleaseType) nightly() bool {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return rt == NIGHTLY
@@ -92,6 +102,8 @@ type buildArtifact struct {
 }
 
 func (t buildArtifact) getUrl(baseArchiveUrl, version string, releaseType ReleaseType) string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	prefix := "-"
@@ -116,6 +128,8 @@ type artifactFilter struct {
 func filterBuildArtifacts(filters []artifactFilter) ([]buildArtifact, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var artifacts []buildArtifact
 	for _, f := range filters {
 		matched := false
@@ -135,14 +149,20 @@ func filterBuildArtifacts(filters []artifactFilter) ([]buildArtifact, error) {
 func newBuild(baseArchiveUrl string, ba buildArtifact, version string, rt ReleaseType, sha256 string) build {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return build{Os: ba.os, Url: ba.getUrl(baseArchiveUrl, version, rt), Sha256: sha256, Arch: ba.arch}
 }
 func (p *publisher) apiUrl(url string) string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return fmt.Sprintf("%s/%s%s", p.apiUri, p.product, url)
 }
 func (p *publisher) postRequest(url string, obj interface{}, desc string) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	jsonBytes, err := json.Marshal(obj)

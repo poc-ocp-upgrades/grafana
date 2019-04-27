@@ -24,6 +24,8 @@ var (
 func TestCreatingNewDashboardFileReader(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	Convey("creating new dashboard file reader", t, func() {
 		cfg := &DashboardsAsConfig{Name: "Default", Type: "file", OrgId: 1, Folder: "", Options: map[string]interface{}{}}
 		Convey("using path parameter", func() {
@@ -59,6 +61,8 @@ func TestCreatingNewDashboardFileReader(t *testing.T) {
 	})
 }
 func TestDashboardFileReader(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	Convey("Dashboard file reader", t, func() {
@@ -160,9 +164,13 @@ type FakeFileInfo struct {
 func (ffi *FakeFileInfo) IsDir() bool {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return ffi.isDirectory
 }
 func (ffi FakeFileInfo) Size() int64 {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return 1
@@ -170,9 +178,13 @@ func (ffi FakeFileInfo) Size() int64 {
 func (ffi FakeFileInfo) Mode() os.FileMode {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return 0777
 }
 func (ffi FakeFileInfo) Name() string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return ffi.name
@@ -180,14 +192,20 @@ func (ffi FakeFileInfo) Name() string {
 func (ffi FakeFileInfo) ModTime() time.Time {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return time.Time{}
 }
 func (ffi FakeFileInfo) Sys() interface{} {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return nil
 }
 func mockDashboardProvisioningService() *fakeDashboardProvisioningService {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	mock := fakeDashboardProvisioningService{}
@@ -206,9 +224,13 @@ type fakeDashboardProvisioningService struct {
 func (s *fakeDashboardProvisioningService) GetProvisionedDashboardData(name string) ([]*models.DashboardProvisioning, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return s.provisioned, nil
 }
 func (s *fakeDashboardProvisioningService) SaveProvisionedDashboard(dto *dashboards.SaveDashboardDTO, provisioning *models.DashboardProvisioning) (*models.Dashboard, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	s.inserted = append(s.inserted, dto)
@@ -218,10 +240,14 @@ func (s *fakeDashboardProvisioningService) SaveProvisionedDashboard(dto *dashboa
 func (s *fakeDashboardProvisioningService) SaveFolderForProvisionedDashboards(dto *dashboards.SaveDashboardDTO) (*models.Dashboard, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	s.inserted = append(s.inserted, dto)
 	return dto.Dashboard, nil
 }
 func mockGetDashboardQuery(cmd *models.GetDashboardQuery) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	for _, d := range fakeService.getDashboard {

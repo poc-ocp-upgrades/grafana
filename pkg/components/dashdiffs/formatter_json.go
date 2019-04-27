@@ -71,6 +71,8 @@ type JSONLine struct {
 func NewJSONFormatter(left interface{}) *JSONFormatter {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	tpl := template.Must(template.New("JSONDiffWrapper").Funcs(diffTplFuncs).Parse(tplJSONDiffWrapper))
 	tpl = template.Must(tpl.New("JSONDiffLine").Funcs(diffTplFuncs).Parse(tplJSONDiffLine))
 	return &JSONFormatter{left: left, Lines: []*JSONLine{}, tpl: tpl, path: []string{}, size: []int{}, lineCount: 0, inArray: []bool{}}
@@ -99,6 +101,8 @@ type AsciiLine struct {
 func (f *JSONFormatter) Format(diff diff.Diff) (result string, err error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if v, ok := f.left.(map[string]interface{}); ok {
 		f.formatObject(v, diff)
 	} else if v, ok := f.left.([]interface{}); ok {
@@ -117,6 +121,8 @@ func (f *JSONFormatter) Format(diff diff.Diff) (result string, err error) {
 func (f *JSONFormatter) formatObject(left map[string]interface{}, df diff.Diff) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	f.addLineWith(ChangeNil, "{")
 	f.push("ROOT", len(left), false)
 	f.processObject(left, df.Deltas())
@@ -126,6 +132,8 @@ func (f *JSONFormatter) formatObject(left map[string]interface{}, df diff.Diff) 
 func (f *JSONFormatter) formatArray(left []interface{}, df diff.Diff) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	f.addLineWith(ChangeNil, "[")
 	f.push("ROOT", len(left), true)
 	f.processArray(left, df.Deltas())
@@ -133,6 +141,8 @@ func (f *JSONFormatter) formatArray(left []interface{}, df diff.Diff) {
 	f.addLineWith(ChangeNil, "]")
 }
 func (f *JSONFormatter) processArray(array []interface{}, deltas []diff.Delta) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	patchedIndex := 0
@@ -155,6 +165,8 @@ func (f *JSONFormatter) processArray(array []interface{}, deltas []diff.Delta) e
 func (f *JSONFormatter) processObject(object map[string]interface{}, deltas []diff.Delta) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	names := sortKeys(object)
 	for _, name := range names {
 		value := object[name]
@@ -170,6 +182,8 @@ func (f *JSONFormatter) processObject(object map[string]interface{}, deltas []di
 	return nil
 }
 func (f *JSONFormatter) processItem(value interface{}, deltas []diff.Delta, position diff.Position) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	matchedDeltas := f.searchDeltas(deltas, position)
@@ -246,6 +260,8 @@ func (f *JSONFormatter) processItem(value interface{}, deltas []diff.Delta, posi
 func (f *JSONFormatter) searchDeltas(deltas []diff.Delta, position diff.Position) (results []diff.Delta) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	results = make([]diff.Delta, 0)
 	for _, delta := range deltas {
 		switch delta.(type) {
@@ -266,11 +282,15 @@ func (f *JSONFormatter) searchDeltas(deltas []diff.Delta, position diff.Position
 func (f *JSONFormatter) push(name string, size int, array bool) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	f.path = append(f.path, name)
 	f.size = append(f.size, size)
 	f.inArray = append(f.inArray, array)
 }
 func (f *JSONFormatter) pop() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	f.path = f.path[0 : len(f.path)-1]
@@ -280,15 +300,21 @@ func (f *JSONFormatter) pop() {
 func (f *JSONFormatter) addLineWith(change ChangeType, value string) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	f.line = &AsciiLine{change: change, indent: len(f.path), buffer: bytes.NewBufferString(value)}
 	f.closeLine()
 }
 func (f *JSONFormatter) newLine(change ChangeType) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	f.line = &AsciiLine{change: change, indent: len(f.path), buffer: bytes.NewBuffer([]byte{})}
 }
 func (f *JSONFormatter) closeLine() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	leftLine := 0
@@ -313,6 +339,8 @@ func (f *JSONFormatter) closeLine() {
 func (f *JSONFormatter) printKey(name string) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if !f.inArray[len(f.inArray)-1] {
 		f.line.key = name
 		fmt.Fprintf(f.line.buffer, `"%s": `, name)
@@ -321,12 +349,16 @@ func (f *JSONFormatter) printKey(name string) {
 func (f *JSONFormatter) printComma() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	f.size[len(f.size)-1]--
 	if f.size[len(f.size)-1] > 0 {
 		f.line.buffer.WriteRune(',')
 	}
 }
 func (f *JSONFormatter) printValue(value interface{}) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	switch value.(type) {
@@ -344,9 +376,13 @@ func (f *JSONFormatter) printValue(value interface{}) {
 func (f *JSONFormatter) print(a string) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	f.line.buffer.WriteString(a)
 }
 func (f *JSONFormatter) printRecursive(name string, value interface{}, change ChangeType) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	switch value.(type) {
@@ -392,6 +428,8 @@ func (f *JSONFormatter) printRecursive(name string, value interface{}, change Ch
 	}
 }
 func sortKeys(m map[string]interface{}) (keys []string) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	keys = make([]string, 0, len(m))

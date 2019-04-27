@@ -78,6 +78,8 @@ type UpdateUserQuotaCmd struct {
 func GetQuotaScopes(target string) ([]QuotaScope, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	scopes := make([]QuotaScope, 0)
 	switch target {
 	case "user":

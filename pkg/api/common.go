@@ -29,6 +29,8 @@ type NormalResponse struct {
 func Wrap(action interface{}) macaron.Handler {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return func(c *m.ReqContext) {
 		var res Response
 		val, err := c.Invoke(action)
@@ -41,6 +43,8 @@ func Wrap(action interface{}) macaron.Handler {
 	}
 }
 func (r *NormalResponse) WriteTo(ctx *m.ReqContext) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if r.err != nil {
@@ -56,9 +60,13 @@ func (r *NormalResponse) WriteTo(ctx *m.ReqContext) {
 func (r *NormalResponse) Cache(ttl string) *NormalResponse {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return r.Header("Cache-Control", "public,max-age="+ttl)
 }
 func (r *NormalResponse) Header(key, value string) *NormalResponse {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	r.header.Set(key, value)
@@ -67,9 +75,13 @@ func (r *NormalResponse) Header(key, value string) *NormalResponse {
 func Empty(status int) *NormalResponse {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return Respond(status, nil)
 }
 func JSON(status int, body interface{}) *NormalResponse {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return Respond(status, body).Header("Content-Type", "application/json")
@@ -77,11 +89,15 @@ func JSON(status int, body interface{}) *NormalResponse {
 func Success(message string) *NormalResponse {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	resp := make(map[string]interface{})
 	resp["message"] = message
 	return JSON(200, resp)
 }
 func Error(status int, message string, err error) *NormalResponse {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	data := make(map[string]interface{})
@@ -107,6 +123,8 @@ func Error(status int, message string, err error) *NormalResponse {
 	return resp
 }
 func Respond(status int, body interface{}) *NormalResponse {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var b []byte

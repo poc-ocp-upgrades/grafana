@@ -9,6 +9,8 @@ import (
 func TestApiKeyGen(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	Convey("When generating new api key", t, func() {
 		result := New(12, "Cool key")
 		So(result.ClientSecret, ShouldNotBeEmpty)

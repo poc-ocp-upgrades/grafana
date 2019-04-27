@@ -9,6 +9,8 @@ import (
 func TestFrontendPlugin(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	Convey("When setting paths based on App on Windows", t, func() {
 		setting.StaticRootPath = "c:\\grafana\\public"
 		fp := &FrontendPluginBase{PluginBase: PluginBase{PluginDir: "c:\\grafana\\public\\app\\plugins\\app\\testdata\\datasources\\datasource", BaseUrl: "fpbase"}}

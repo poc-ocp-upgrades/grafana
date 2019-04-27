@@ -15,6 +15,8 @@ import (
 func TestResponseParser(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	Convey("Elasticsearch response parser test", t, func() {
 		Convey("Simple query and count", func() {
 			targets := map[string]string{"A": `{
@@ -714,6 +716,8 @@ func TestResponseParser(t *testing.T) {
 	})
 }
 func newResponseParserForTest(tsdbQueries map[string]string, responseBody string) (*responseParser, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	from := time.Date(2018, 5, 15, 17, 50, 0, 0, time.UTC)

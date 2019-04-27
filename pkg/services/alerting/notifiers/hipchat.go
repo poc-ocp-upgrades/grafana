@@ -14,6 +14,8 @@ import (
 func init() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	alerting.RegisterNotifier(&alerting.NotifierPlugin{Type: "hipchat", Name: "HipChat", Description: "Sends notifications uto a HipChat Room", Factory: NewHipChatNotifier, OptionsTemplate: `
       <h3 class="page-heading">HipChat settings</h3>
 			      <div class="gf-form max-width-30">
@@ -42,6 +44,8 @@ const (
 func NewHipChatNotifier(model *models.AlertNotification) (alerting.Notifier, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	url := model.Settings.Get("url").MustString()
 	if strings.HasSuffix(url, "/") {
 		url = url[:len(url)-1]
@@ -63,6 +67,8 @@ type HipChatNotifier struct {
 }
 
 func (this *HipChatNotifier) Notify(evalContext *alerting.EvalContext) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	this.log.Info("Executing hipchat notification", "ruleId", evalContext.Rule.Id, "notification", this.Name)

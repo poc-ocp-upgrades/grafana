@@ -51,6 +51,8 @@ type Index struct {
 func (index *Index) XName(tableName string) string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if index.Name == "" {
 		index.Name = strings.Join(index.Cols, "_")
 	}

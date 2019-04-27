@@ -11,6 +11,8 @@ import (
 func TestNotifications(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	Convey("Given the notifications service", t, func() {
 		setting.StaticRootPath = "../../../public/"
 		ns := &NotificationService{}

@@ -10,6 +10,8 @@ import (
 func (hs *HTTPServer) ProxyDataSourceRequest(c *m.ReqContext) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	c.TimeRequest(metrics.M_DataSource_ProxyReq_Timer)
 	dsId := c.ParamsInt64(":id")
 	ds, err := hs.DatasourceCache.GetDatasource(dsId, c.SignedInUser, c.SkipCache)
@@ -31,6 +33,8 @@ func (hs *HTTPServer) ProxyDataSourceRequest(c *m.ReqContext) {
 	proxy.HandleRequest()
 }
 func ensureProxyPathTrailingSlash(originalPath, proxyPath string) string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if len(proxyPath) > 1 {

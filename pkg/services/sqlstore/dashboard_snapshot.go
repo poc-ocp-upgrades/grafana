@@ -10,6 +10,8 @@ import (
 func init() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	bus.AddHandler("sql", CreateDashboardSnapshot)
 	bus.AddHandler("sql", GetDashboardSnapshot)
 	bus.AddHandler("sql", DeleteDashboardSnapshot)
@@ -17,6 +19,8 @@ func init() {
 	bus.AddHandler("sql", DeleteExpiredSnapshots)
 }
 func DeleteExpiredSnapshots(cmd *m.DeleteExpiredSnapshotsCommand) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return inTransaction(func(sess *DBSession) error {
@@ -36,6 +40,8 @@ func DeleteExpiredSnapshots(cmd *m.DeleteExpiredSnapshotsCommand) error {
 func CreateDashboardSnapshot(cmd *m.CreateDashboardSnapshotCommand) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return inTransaction(func(sess *DBSession) error {
 		var expires = time.Now().Add(time.Hour * 24 * 365 * 50)
 		if cmd.Expires > 0 {
@@ -50,6 +56,8 @@ func CreateDashboardSnapshot(cmd *m.CreateDashboardSnapshotCommand) error {
 func DeleteDashboardSnapshot(cmd *m.DeleteDashboardSnapshotCommand) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return inTransaction(func(sess *DBSession) error {
 		var rawSql = "DELETE FROM dashboard_snapshot WHERE delete_key=?"
 		_, err := sess.Exec(rawSql, cmd.DeleteKey)
@@ -57,6 +65,8 @@ func DeleteDashboardSnapshot(cmd *m.DeleteDashboardSnapshotCommand) error {
 	})
 }
 func GetDashboardSnapshot(query *m.GetDashboardSnapshotQuery) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	snapshot := m.DashboardSnapshot{Key: query.Key, DeleteKey: query.DeleteKey}
@@ -70,6 +80,8 @@ func GetDashboardSnapshot(query *m.GetDashboardSnapshotQuery) error {
 	return nil
 }
 func SearchDashboardSnapshots(query *m.GetDashboardSnapshotsQuery) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var snapshots = make(m.DashboardSnapshotsList, 0)

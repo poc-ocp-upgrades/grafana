@@ -9,6 +9,8 @@ import (
 func ValidateOrgPlaylist(c *m.ReqContext) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	id := c.ParamsInt64(":id")
 	query := m.GetPlaylistByIdQuery{Id: id}
 	err := bus.Dispatch(&query)
@@ -37,6 +39,8 @@ func ValidateOrgPlaylist(c *m.ReqContext) {
 func SearchPlaylists(c *m.ReqContext) Response {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	query := c.Query("query")
 	limit := c.QueryInt("limit")
 	if limit == 0 {
@@ -52,6 +56,8 @@ func SearchPlaylists(c *m.ReqContext) Response {
 func GetPlaylist(c *m.ReqContext) Response {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	id := c.ParamsInt64(":id")
 	cmd := m.GetPlaylistByIdQuery{Id: id}
 	if err := bus.Dispatch(&cmd); err != nil {
@@ -62,6 +68,8 @@ func GetPlaylist(c *m.ReqContext) Response {
 	return JSON(200, dto)
 }
 func LoadPlaylistItemDTOs(id int64) ([]m.PlaylistItemDTO, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	playlistitems, err := LoadPlaylistItems(id)
@@ -77,6 +85,8 @@ func LoadPlaylistItemDTOs(id int64) ([]m.PlaylistItemDTO, error) {
 func LoadPlaylistItems(id int64) ([]m.PlaylistItem, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	itemQuery := m.GetPlaylistItemsByIdQuery{PlaylistId: id}
 	if err := bus.Dispatch(&itemQuery); err != nil {
 		return nil, err
@@ -84,6 +94,8 @@ func LoadPlaylistItems(id int64) ([]m.PlaylistItem, error) {
 	return *itemQuery.Result, nil
 }
 func GetPlaylistItems(c *m.ReqContext) Response {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	id := c.ParamsInt64(":id")
@@ -96,6 +108,8 @@ func GetPlaylistItems(c *m.ReqContext) Response {
 func GetPlaylistDashboards(c *m.ReqContext) Response {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	playlistID := c.ParamsInt64(":id")
 	playlists, err := LoadPlaylistDashboards(c.OrgId, c.SignedInUser, playlistID)
 	if err != nil {
@@ -104,6 +118,8 @@ func GetPlaylistDashboards(c *m.ReqContext) Response {
 	return JSON(200, playlists)
 }
 func DeletePlaylist(c *m.ReqContext) Response {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	id := c.ParamsInt64(":id")
@@ -116,6 +132,8 @@ func DeletePlaylist(c *m.ReqContext) Response {
 func CreatePlaylist(c *m.ReqContext, cmd m.CreatePlaylistCommand) Response {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	cmd.OrgId = c.OrgId
 	if err := bus.Dispatch(&cmd); err != nil {
 		return Error(500, "Failed to create playlist", err)
@@ -123,6 +141,8 @@ func CreatePlaylist(c *m.ReqContext, cmd m.CreatePlaylistCommand) Response {
 	return JSON(200, cmd.Result)
 }
 func UpdatePlaylist(c *m.ReqContext, cmd m.UpdatePlaylistCommand) Response {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	cmd.OrgId = c.OrgId

@@ -21,6 +21,8 @@ var (
 func stack(skip int) []byte {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	buf := new(bytes.Buffer)
 	var lines [][]byte
 	var lastFile string
@@ -45,6 +47,8 @@ func stack(skip int) []byte {
 func source(lines [][]byte, n int) []byte {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	n--
 	if n < 0 || n >= len(lines) {
 		return dunno
@@ -52,6 +56,8 @@ func source(lines [][]byte, n int) []byte {
 	return bytes.TrimSpace(lines[n])
 }
 func function(pc uintptr) []byte {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	fn := runtime.FuncForPC(pc)
@@ -69,6 +75,8 @@ func function(pc uintptr) []byte {
 	return name
 }
 func Recovery() macaron.Handler {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return func(c *macaron.Context) {

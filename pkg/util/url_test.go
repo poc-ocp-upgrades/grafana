@@ -9,6 +9,8 @@ import (
 func TestUrl(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	Convey("When joining two urls where right hand side is empty", t, func() {
 		result := JoinUrlFragments("http://localhost:8080", "")
 		So(result, ShouldEqual, "http://localhost:8080")
@@ -39,6 +41,8 @@ func TestUrl(t *testing.T) {
 	})
 }
 func TestNewUrlQueryReader(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	u, _ := url.Parse("http://www.abc.com/foo?bar=baz&bar2=baz2")

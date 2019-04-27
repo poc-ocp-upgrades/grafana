@@ -8,6 +8,8 @@ import (
 func TestParsingTags(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	Convey("Testing parsing a tag pairs into tags", t, func() {
 		Convey("Can parse one empty tag", func() {
 			tags := ParseTagPairs([]string{""})

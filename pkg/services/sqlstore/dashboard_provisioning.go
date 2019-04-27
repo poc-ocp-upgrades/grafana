@@ -8,6 +8,8 @@ import (
 func init() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	bus.AddHandler("sql", GetProvisionedDashboardDataQuery)
 	bus.AddHandler("sql", SaveProvisionedDashboard)
 	bus.AddHandler("sql", GetProvisionedDataByDashboardId)
@@ -23,6 +25,8 @@ type DashboardExtras struct {
 func GetProvisionedDataByDashboardId(cmd *models.IsDashboardProvisionedQuery) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	result := &models.DashboardProvisioning{}
 	exist, err := x.Where("dashboard_id = ?", cmd.DashboardId).Get(result)
 	if err != nil {
@@ -32,6 +36,8 @@ func GetProvisionedDataByDashboardId(cmd *models.IsDashboardProvisionedQuery) er
 	return nil
 }
 func SaveProvisionedDashboard(cmd *models.SaveProvisionedDashboardCommand) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return inTransaction(func(sess *DBSession) error {
@@ -49,6 +55,8 @@ func SaveProvisionedDashboard(cmd *models.SaveProvisionedDashboardCommand) error
 func saveProvionedData(sess *DBSession, cmd *models.DashboardProvisioning, dashboard *models.Dashboard) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	result := &models.DashboardProvisioning{}
 	exist, err := sess.Where("dashboard_id=?", dashboard.Id).Get(result)
 	if err != nil {
@@ -64,6 +72,8 @@ func saveProvionedData(sess *DBSession, cmd *models.DashboardProvisioning, dashb
 	return err
 }
 func GetProvisionedDashboardDataQuery(cmd *models.GetProvisionedDashboardDataQuery) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var result []*models.DashboardProvisioning

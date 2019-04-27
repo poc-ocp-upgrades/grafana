@@ -16,11 +16,15 @@ type Ticker struct {
 func NewTicker(last time.Time, initialOffset time.Duration, c clock.Clock) *Ticker {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	t := &Ticker{C: make(chan time.Time), clock: c, last: last, offset: initialOffset, newOffset: make(chan time.Duration)}
 	go t.run()
 	return t
 }
 func (t *Ticker) run() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	for {

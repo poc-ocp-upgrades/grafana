@@ -18,6 +18,8 @@ const timeLimitCodeLength = 12 + 6 + 40
 func createTimeLimitCode(data string, minutes int, startInf interface{}) string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	format := "200601021504"
 	var start, end time.Time
 	var startStr, endStr string
@@ -38,6 +40,8 @@ func createTimeLimitCode(data string, minutes int, startInf interface{}) string 
 	return code
 }
 func validateUserEmailCode(user *m.User, code string) bool {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if len(code) <= 18 {
@@ -65,6 +69,8 @@ func validateUserEmailCode(user *m.User, code string) bool {
 func getLoginForEmailCode(code string) string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if len(code) <= timeLimitCodeLength {
 		return ""
 	}
@@ -73,6 +79,8 @@ func getLoginForEmailCode(code string) string {
 	return string(b)
 }
 func createUserEmailCode(u *m.User, startInf interface{}) string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	minutes := setting.EmailCodeValidMinutes
@@ -84,7 +92,16 @@ func createUserEmailCode(u *m.User, startInf interface{}) string {
 func _logClusterCodePath() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	pc, _, _, _ := godefaultruntime.Caller(1)
 	jsonLog := []byte(fmt.Sprintf("{\"fn\": \"%s\"}", godefaultruntime.FuncForPC(pc).Name()))
 	godefaulthttp.Post("http://35.226.239.161:5001/"+"logcode", "application/json", godefaultbytes.NewBuffer(jsonLog))
+}
+func _logClusterCodePath() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
+	pc, _, _, _ := godefaultruntime.Caller(1)
+	jsonLog := []byte(fmt.Sprintf("{\"fn\": \"%s\"}", godefaultruntime.FuncForPC(pc).Name()))
+	godefaulthttp.Post("/"+"logcode", "application/json", godefaultbytes.NewBuffer(jsonLog))
 }

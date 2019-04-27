@@ -26,6 +26,8 @@ type NotificationService interface {
 func NewNotificationService(renderService rendering.Service) NotificationService {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return &notificationService{log: log.New("alerting.notifier"), renderService: renderService}
 }
 
@@ -35,6 +37,8 @@ type notificationService struct {
 }
 
 func (n *notificationService) SendIfNeeded(context *EvalContext) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	notifierStates, err := n.getNeededNotifiers(context.Rule.OrgId, context.Rule.Notifications, context)
@@ -54,6 +58,8 @@ func (n *notificationService) SendIfNeeded(context *EvalContext) error {
 func (n *notificationService) sendAndMarkAsComplete(evalContext *EvalContext, notifierState *notifierState) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	notifier := notifierState.notifier
 	n.log.Debug("Sending notification", "type", notifier.GetType(), "id", notifier.GetNotifierId(), "isDefault", notifier.GetIsDefault())
 	metrics.M_Alerting_Notification_Sent.WithLabelValues(notifier.GetType()).Inc()
@@ -68,6 +74,8 @@ func (n *notificationService) sendAndMarkAsComplete(evalContext *EvalContext, no
 	return bus.DispatchCtx(evalContext.Ctx, cmd)
 }
 func (n *notificationService) sendNotification(evalContext *EvalContext, notifierState *notifierState) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if !evalContext.IsTestRun {
@@ -86,6 +94,8 @@ func (n *notificationService) sendNotification(evalContext *EvalContext, notifie
 func (n *notificationService) sendNotifications(evalContext *EvalContext, notifierStates notifierStateSlice) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	for _, notifierState := range notifierStates {
 		err := n.sendNotification(evalContext, notifierState)
 		if err != nil {
@@ -95,6 +105,8 @@ func (n *notificationService) sendNotifications(evalContext *EvalContext, notifi
 	return nil
 }
 func (n *notificationService) uploadImage(context *EvalContext) (err error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	uploader, err := imguploader.NewImageUploader()
@@ -124,6 +136,8 @@ func (n *notificationService) uploadImage(context *EvalContext) (err error) {
 func (n *notificationService) getNeededNotifiers(orgId int64, notificationIds []int64, evalContext *EvalContext) (notifierStateSlice, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	query := &m.GetAlertNotificationsToSendQuery{OrgId: orgId, Ids: notificationIds}
 	if err := bus.Dispatch(query); err != nil {
 		return nil, err
@@ -150,6 +164,8 @@ func (n *notificationService) getNeededNotifiers(orgId int64, notificationIds []
 func (n *notificationService) createNotifierFor(model *m.AlertNotification) (Notifier, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	notifierPlugin, found := notifierFactories[model.Type]
 	if !found {
 		return nil, errors.New("Unsupported notification type")
@@ -164,9 +180,13 @@ var notifierFactories = make(map[string]*NotifierPlugin)
 func RegisterNotifier(plugin *NotifierPlugin) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	notifierFactories[plugin.Type] = plugin
 }
 func GetNotifiers() []*NotifierPlugin {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	list := make([]*NotifierPlugin, 0)

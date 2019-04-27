@@ -13,6 +13,8 @@ import (
 func TestShouldSendAlertNotification(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	tnow := time.Now()
 	tcs := []struct {
 		name		string
@@ -36,6 +38,8 @@ func TestShouldSendAlertNotification(t *testing.T) {
 	}
 }
 func TestBaseNotifier(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	Convey("default constructor for notifiers", t, func() {

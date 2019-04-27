@@ -10,6 +10,8 @@ import (
 func GetAPIKeys(c *m.ReqContext) Response {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	query := m.GetApiKeysQuery{OrgId: c.OrgId}
 	if err := bus.Dispatch(&query); err != nil {
 		return Error(500, "Failed to list api keys", err)
@@ -23,6 +25,8 @@ func GetAPIKeys(c *m.ReqContext) Response {
 func DeleteAPIKey(c *m.ReqContext) Response {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	id := c.ParamsInt64(":id")
 	cmd := &m.DeleteApiKeyCommand{Id: id, OrgId: c.OrgId}
 	err := bus.Dispatch(cmd)
@@ -32,6 +36,8 @@ func DeleteAPIKey(c *m.ReqContext) Response {
 	return Success("API key deleted")
 }
 func AddAPIKey(c *m.ReqContext, cmd m.AddApiKeyCommand) Response {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if !cmd.Role.IsValid() {

@@ -13,6 +13,8 @@ import (
 func init() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	alerting.RegisterNotifier(&alerting.NotifierPlugin{Type: "sensu", Name: "Sensu", Description: "Sends HTTP POST request to a Sensu API", Factory: NewSensuNotifier, OptionsTemplate: `
       <h3 class="page-heading">Sensu settings</h3>
       <div class="gf-form">
@@ -40,6 +42,8 @@ func init() {
 func NewSensuNotifier(model *m.AlertNotification) (alerting.Notifier, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	url := model.Settings.Get("url").MustString()
 	if url == "" {
 		return nil, alerting.ValidationError{Reason: "Could not find url property in settings"}
@@ -58,6 +62,8 @@ type SensuNotifier struct {
 }
 
 func (this *SensuNotifier) Notify(evalContext *alerting.EvalContext) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	this.log.Info("Sending sensu result")

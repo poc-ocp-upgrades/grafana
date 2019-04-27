@@ -10,6 +10,8 @@ import (
 func TestMapTables(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	dpw := NewDatasourcePluginWrapper(log.New("test-logger"), nil)
 	var qr = &datasource.QueryResult{}
 	qr.Tables = append(qr.Tables, &datasource.Table{Columns: []*datasource.TableColumn{}, Rows: nil})
@@ -23,6 +25,8 @@ func TestMapTables(t *testing.T) {
 	}
 }
 func TestMapTable(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	dpw := NewDatasourcePluginWrapper(log.New("test-logger"), nil)
@@ -46,6 +50,8 @@ func TestMapTable(t *testing.T) {
 	}
 }
 func TestMappingRowValue(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	dpw := NewDatasourcePluginWrapper(log.New("test-logger"), nil)

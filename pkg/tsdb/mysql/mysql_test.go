@@ -20,6 +20,8 @@ import (
 func TestMySQL(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	runMySqlTests := false
 	if !(sqlstore.IsTestDbMySql() || runMySqlTests) {
 		t.Skip()
@@ -555,6 +557,8 @@ func TestMySQL(t *testing.T) {
 func InitMySQLTestDB(t *testing.T) *xorm.Engine {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	x, err := xorm.NewEngine(sqlutil.TestDB_Mysql.DriverName, strings.Replace(sqlutil.TestDB_Mysql.ConnStr, "/grafana_tests", "/grafana_ds_tests", 1))
 	if err != nil {
 		t.Fatalf("Failed to init mysql db %v", err)
@@ -564,6 +568,8 @@ func InitMySQLTestDB(t *testing.T) *xorm.Engine {
 	return x
 }
 func genTimeRangeByInterval(from time.Time, duration time.Duration, interval time.Duration) []time.Time {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	durationSec := int64(duration.Seconds())

@@ -10,6 +10,8 @@ import (
 func Sessioner(options *ms.Options, sessionConnMaxLifetime int64) macaron.Handler {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	session.Init(options, sessionConnMaxLifetime)
 	return func(ctx *m.ReqContext) {
 		ctx.Next()

@@ -10,9 +10,13 @@ import (
 func NewTimeRange(from, to string) *TimeRange {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return &TimeRange{From: from, To: to, now: time.Now()}
 }
 func NewFakeTimeRange(from, to string, now time.Time) *TimeRange {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return &TimeRange{From: from, To: to, now: now}
@@ -27,9 +31,13 @@ type TimeRange struct {
 func (tr *TimeRange) GetFromAsMsEpoch() int64 {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return tr.MustGetFrom().UnixNano() / int64(time.Millisecond)
 }
 func (tr *TimeRange) GetFromAsSecondsEpoch() int64 {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return tr.GetFromAsMsEpoch() / 1000
@@ -37,9 +45,13 @@ func (tr *TimeRange) GetFromAsSecondsEpoch() int64 {
 func (tr *TimeRange) GetFromAsTimeUTC() time.Time {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return tr.MustGetFrom().UTC()
 }
 func (tr *TimeRange) GetToAsMsEpoch() int64 {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return tr.MustGetTo().UnixNano() / int64(time.Millisecond)
@@ -47,14 +59,20 @@ func (tr *TimeRange) GetToAsMsEpoch() int64 {
 func (tr *TimeRange) GetToAsSecondsEpoch() int64 {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return tr.GetToAsMsEpoch() / 1000
 }
 func (tr *TimeRange) GetToAsTimeUTC() time.Time {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return tr.MustGetTo().UTC()
 }
 func (tr *TimeRange) MustGetFrom() time.Time {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	res, err := tr.ParseFrom()
@@ -66,6 +84,8 @@ func (tr *TimeRange) MustGetFrom() time.Time {
 func (tr *TimeRange) MustGetTo() time.Time {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	res, err := tr.ParseTo()
 	if err != nil {
 		return time.Unix(0, 0)
@@ -73,6 +93,8 @@ func (tr *TimeRange) MustGetTo() time.Time {
 	return res
 }
 func tryParseUnixMsEpoch(val string) (time.Time, bool) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if val, err := strconv.ParseInt(val, 10, 64); err == nil {
@@ -83,6 +105,8 @@ func tryParseUnixMsEpoch(val string) (time.Time, bool) {
 	return time.Time{}, false
 }
 func (tr *TimeRange) ParseFrom() (time.Time, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if res, ok := tryParseUnixMsEpoch(tr.From); ok {
@@ -96,6 +120,8 @@ func (tr *TimeRange) ParseFrom() (time.Time, error) {
 	return tr.now.Add(diff), nil
 }
 func (tr *TimeRange) ParseTo() (time.Time, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if tr.To == "now" {
@@ -114,6 +140,8 @@ func (tr *TimeRange) ParseTo() (time.Time, error) {
 	return time.Time{}, fmt.Errorf("cannot parse to value %s", tr.To)
 }
 func EpochPrecisionToMs(value float64) float64 {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	s := strconv.FormatFloat(value, 'e', -1, 64)

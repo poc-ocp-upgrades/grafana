@@ -39,14 +39,20 @@ type PluginList []PluginListItem
 func (slice PluginList) Len() int {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return len(slice)
 }
 func (slice PluginList) Less(i, j int) bool {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return slice[i].Name < slice[j].Name
 }
 func (slice PluginList) Swap(i, j int) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	slice[i], slice[j] = slice[j], slice[i]

@@ -13,6 +13,8 @@ var ProvokedError = errors.New("testing error.")
 func TestTransaction(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	ss := InitTestDB(t)
 	Convey("InTransaction asdf asdf", t, func() {
 		cmd := &models.AddApiKeyCommand{Key: "secret-key", Name: "key", OrgId: 1}

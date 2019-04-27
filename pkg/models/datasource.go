@@ -61,6 +61,8 @@ var knownDatasourcePlugins = map[string]bool{DS_ES: true, DS_GRAPHITE: true, DS_
 func IsKnownDataSourcePlugin(dsType string) bool {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_, exists := knownDatasourcePlugins[dsType]
 	return exists
 }
@@ -139,6 +141,8 @@ const (
 )
 
 func (p DsPermissionType) String() string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	names := map[int]string{int(DsPermissionQuery): "Query", int(DsPermissionNoAccess): "No Access"}

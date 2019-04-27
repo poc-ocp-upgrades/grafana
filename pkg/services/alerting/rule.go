@@ -43,6 +43,8 @@ type ValidationError struct {
 func (e ValidationError) Error() string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	extraInfo := e.Reason
 	if e.Alertid != 0 {
 		extraInfo = fmt.Sprintf("%s AlertId: %v", extraInfo, e.Alertid)
@@ -68,6 +70,8 @@ var unitMultiplier = map[string]int{"s": 1, "m": 60, "h": 3600}
 func getTimeDurationStringToSeconds(str string) (int64, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	multiplier := 1
 	matches := ValueFormatRegex.FindAllString(str, 1)
 	if len(matches) <= 0 {
@@ -87,6 +91,8 @@ func getTimeDurationStringToSeconds(str string) (int64, error) {
 	return int64(value * multiplier), nil
 }
 func NewRuleFromDBAlert(ruleDef *m.Alert) (*Rule, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	model := &Rule{}
@@ -138,6 +144,8 @@ type ConditionFactory func(model *simplejson.Json, index int) (Condition, error)
 var conditionFactories = make(map[string]ConditionFactory)
 
 func RegisterCondition(typeName string, factory ConditionFactory) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	conditionFactories[typeName] = factory

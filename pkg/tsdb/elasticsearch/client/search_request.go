@@ -19,10 +19,14 @@ type SearchRequestBuilder struct {
 func NewSearchRequestBuilder(version int, interval tsdb.Interval) *SearchRequestBuilder {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	builder := &SearchRequestBuilder{version: version, interval: interval, sort: make(map[string]interface{}), customProps: make(map[string]interface{}), aggBuilders: make([]AggBuilder, 0)}
 	return builder
 }
 func (b *SearchRequestBuilder) Build() (*SearchRequest, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	sr := SearchRequest{Index: b.index, Interval: b.interval, Size: b.size, Sort: b.sort, CustomProps: b.customProps}
@@ -48,10 +52,14 @@ func (b *SearchRequestBuilder) Build() (*SearchRequest, error) {
 func (b *SearchRequestBuilder) Size(size int) *SearchRequestBuilder {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	b.size = size
 	return b
 }
 func (b *SearchRequestBuilder) SortDesc(field, unmappedType string) *SearchRequestBuilder {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	props := map[string]string{"order": "desc"}
@@ -62,6 +70,8 @@ func (b *SearchRequestBuilder) SortDesc(field, unmappedType string) *SearchReque
 	return b
 }
 func (b *SearchRequestBuilder) AddDocValueField(field string) *SearchRequestBuilder {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if b.version < 5 {
@@ -78,12 +88,16 @@ func (b *SearchRequestBuilder) AddDocValueField(field string) *SearchRequestBuil
 func (b *SearchRequestBuilder) Query() *QueryBuilder {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if b.queryBuilder == nil {
 		b.queryBuilder = NewQueryBuilder()
 	}
 	return b.queryBuilder
 }
 func (b *SearchRequestBuilder) Agg() AggBuilder {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	aggBuilder := newAggBuilder(b.version)
@@ -99,9 +113,13 @@ type MultiSearchRequestBuilder struct {
 func NewMultiSearchRequestBuilder(version int) *MultiSearchRequestBuilder {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return &MultiSearchRequestBuilder{version: version}
 }
 func (m *MultiSearchRequestBuilder) Search(interval tsdb.Interval) *SearchRequestBuilder {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	b := NewSearchRequestBuilder(m.version, interval)
@@ -109,6 +127,8 @@ func (m *MultiSearchRequestBuilder) Search(interval tsdb.Interval) *SearchReques
 	return b
 }
 func (m *MultiSearchRequestBuilder) Build() (*MultiSearchRequest, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	requests := []*SearchRequest{}
@@ -127,9 +147,13 @@ type QueryBuilder struct{ boolQueryBuilder *BoolQueryBuilder }
 func NewQueryBuilder() *QueryBuilder {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return &QueryBuilder{}
 }
 func (b *QueryBuilder) Build() (*Query, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	q := Query{}
@@ -145,6 +169,8 @@ func (b *QueryBuilder) Build() (*Query, error) {
 func (b *QueryBuilder) Bool() *BoolQueryBuilder {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if b.boolQueryBuilder == nil {
 		b.boolQueryBuilder = NewBoolQueryBuilder()
 	}
@@ -156,9 +182,13 @@ type BoolQueryBuilder struct{ filterQueryBuilder *FilterQueryBuilder }
 func NewBoolQueryBuilder() *BoolQueryBuilder {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return &BoolQueryBuilder{}
 }
 func (b *BoolQueryBuilder) Filter() *FilterQueryBuilder {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if b.filterQueryBuilder == nil {
@@ -167,6 +197,8 @@ func (b *BoolQueryBuilder) Filter() *FilterQueryBuilder {
 	return b.filterQueryBuilder
 }
 func (b *BoolQueryBuilder) Build() (*BoolQuery, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	boolQuery := BoolQuery{}
@@ -185,9 +217,13 @@ type FilterQueryBuilder struct{ filters []Filter }
 func NewFilterQueryBuilder() *FilterQueryBuilder {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return &FilterQueryBuilder{filters: make([]Filter, 0)}
 }
 func (b *FilterQueryBuilder) Build() ([]Filter, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return b.filters, nil
@@ -195,10 +231,14 @@ func (b *FilterQueryBuilder) Build() ([]Filter, error) {
 func (b *FilterQueryBuilder) AddDateRangeFilter(timeField, lte, gte, format string) *FilterQueryBuilder {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	b.filters = append(b.filters, &RangeFilter{Key: timeField, Lte: lte, Gte: gte, Format: format})
 	return b
 }
 func (b *FilterQueryBuilder) AddQueryStringFilter(querystring string, analyseWildcard bool) *FilterQueryBuilder {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if len(strings.TrimSpace(querystring)) == 0 {
@@ -227,9 +267,13 @@ type aggBuilderImpl struct {
 func newAggBuilder(version int) *aggBuilderImpl {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return &aggBuilderImpl{aggDefs: make([]*aggDef, 0), version: version}
 }
 func (b *aggBuilderImpl) Build() (AggArray, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	aggs := make(AggArray, 0)
@@ -249,6 +293,8 @@ func (b *aggBuilderImpl) Build() (AggArray, error) {
 func (b *aggBuilderImpl) Histogram(key, field string, fn func(a *HistogramAgg, b AggBuilder)) AggBuilder {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	innerAgg := &HistogramAgg{Field: field}
 	aggDef := newAggDef(key, &aggContainer{Type: "histogram", Aggregation: innerAgg})
 	if fn != nil {
@@ -260,6 +306,8 @@ func (b *aggBuilderImpl) Histogram(key, field string, fn func(a *HistogramAgg, b
 	return b
 }
 func (b *aggBuilderImpl) DateHistogram(key, field string, fn func(a *DateHistogramAgg, b AggBuilder)) AggBuilder {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	innerAgg := &DateHistogramAgg{Field: field}
@@ -276,6 +324,8 @@ func (b *aggBuilderImpl) DateHistogram(key, field string, fn func(a *DateHistogr
 const termsOrderTerm = "_term"
 
 func (b *aggBuilderImpl) Terms(key, field string, fn func(a *TermsAggregation, b AggBuilder)) AggBuilder {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	innerAgg := &TermsAggregation{Field: field, Order: make(map[string]interface{})}
@@ -297,6 +347,8 @@ func (b *aggBuilderImpl) Terms(key, field string, fn func(a *TermsAggregation, b
 func (b *aggBuilderImpl) Filters(key string, fn func(a *FiltersAggregation, b AggBuilder)) AggBuilder {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	innerAgg := &FiltersAggregation{Filters: make(map[string]interface{})}
 	aggDef := newAggDef(key, &aggContainer{Type: "filters", Aggregation: innerAgg})
 	if fn != nil {
@@ -308,6 +360,8 @@ func (b *aggBuilderImpl) Filters(key string, fn func(a *FiltersAggregation, b Ag
 	return b
 }
 func (b *aggBuilderImpl) GeoHashGrid(key, field string, fn func(a *GeoHashGridAggregation, b AggBuilder)) AggBuilder {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	innerAgg := &GeoHashGridAggregation{Field: field, Precision: 5}
@@ -323,6 +377,8 @@ func (b *aggBuilderImpl) GeoHashGrid(key, field string, fn func(a *GeoHashGridAg
 func (b *aggBuilderImpl) Metric(key, metricType, field string, fn func(a *MetricAggregation)) AggBuilder {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	innerAgg := &MetricAggregation{Field: field, Settings: make(map[string]interface{})}
 	aggDef := newAggDef(key, &aggContainer{Type: metricType, Aggregation: innerAgg})
 	if fn != nil {
@@ -332,6 +388,8 @@ func (b *aggBuilderImpl) Metric(key, metricType, field string, fn func(a *Metric
 	return b
 }
 func (b *aggBuilderImpl) Pipeline(key, pipelineType, bucketPath string, fn func(a *PipelineAggregation)) AggBuilder {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	innerAgg := &PipelineAggregation{BucketPath: bucketPath, Settings: make(map[string]interface{})}

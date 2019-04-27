@@ -26,11 +26,15 @@ var oauthLogger = log.New("oauth")
 func GenStateString() string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	rnd := make([]byte, 32)
 	rand.Read(rnd)
 	return base64.URLEncoding.EncodeToString(rnd)
 }
 func OAuthLogin(ctx *m.ReqContext) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if setting.OAuthService == nil {
@@ -140,6 +144,8 @@ func OAuthLogin(ctx *m.ReqContext) {
 	ctx.Redirect(setting.AppSubUrl + "/")
 }
 func redirectWithError(ctx *m.ReqContext, err error, v ...interface{}) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	ctx.Logger.Error(err.Error(), v...)

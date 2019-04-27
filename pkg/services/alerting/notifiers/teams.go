@@ -11,6 +11,8 @@ import (
 func init() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	alerting.RegisterNotifier(&alerting.NotifierPlugin{Type: "teams", Name: "Microsoft Teams", Description: "Sends notifications using Incoming Webhook connector to Microsoft Teams", Factory: NewTeamsNotifier, OptionsTemplate: `
       <h3 class="page-heading">Teams settings</h3>
       <div class="gf-form max-width-30">
@@ -20,6 +22,8 @@ func init() {
     `})
 }
 func NewTeamsNotifier(model *m.AlertNotification) (alerting.Notifier, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	url := model.Settings.Get("url").MustString()
@@ -36,6 +40,8 @@ type TeamsNotifier struct {
 }
 
 func (this *TeamsNotifier) Notify(evalContext *alerting.EvalContext) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	this.log.Info("Executing teams notification", "ruleId", evalContext.Rule.Id, "notification", this.Name)

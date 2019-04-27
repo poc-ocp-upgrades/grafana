@@ -5,6 +5,8 @@ import . "github.com/grafana/grafana/pkg/services/sqlstore/migrator"
 func addApiKeyMigrations(mg *Migrator) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	apiKeyV1 := Table{Name: "api_key", Columns: []*Column{{Name: "id", Type: DB_BigInt, IsPrimaryKey: true, IsAutoIncrement: true}, {Name: "account_id", Type: DB_BigInt, Nullable: false}, {Name: "name", Type: DB_NVarchar, Length: 190, Nullable: false}, {Name: "key", Type: DB_Varchar, Length: 64, Nullable: false}, {Name: "role", Type: DB_NVarchar, Length: 255, Nullable: false}, {Name: "created", Type: DB_DateTime, Nullable: false}, {Name: "updated", Type: DB_DateTime, Nullable: false}}, Indices: []*Index{{Cols: []string{"account_id"}}, {Cols: []string{"key"}, Type: UniqueIndex}, {Cols: []string{"account_id", "name"}, Type: UniqueIndex}}}
 	mg.AddMigration("create api_key table", NewAddTableMigration(apiKeyV1))
 	mg.AddMigration("add index api_key.account_id", NewAddIndexMigration(apiKeyV1, apiKeyV1.Indices[0]))

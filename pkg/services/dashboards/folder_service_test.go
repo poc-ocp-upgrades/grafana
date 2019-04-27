@@ -11,6 +11,8 @@ import (
 func TestFolderService(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	Convey("Folder service tests", t, func() {
 		service := dashboardServiceImpl{orgId: 1, user: &models.SignedInUser{UserId: 1}}
 		Convey("Given user has no permissions", func() {

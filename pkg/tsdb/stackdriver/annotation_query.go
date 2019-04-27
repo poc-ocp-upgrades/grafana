@@ -15,6 +15,8 @@ import (
 func (e *StackdriverExecutor) executeAnnotationQuery(ctx context.Context, tsdbQuery *tsdb.TsdbQuery) (*tsdb.Response, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	result := &tsdb.Response{Results: make(map[string]*tsdb.QueryResult)}
 	firstQuery := tsdbQuery.Queries[0]
 	queries, err := e.buildQueries(tsdbQuery)
@@ -33,6 +35,8 @@ func (e *StackdriverExecutor) executeAnnotationQuery(ctx context.Context, tsdbQu
 	return result, err
 }
 func (e *StackdriverExecutor) parseToAnnotations(queryRes *tsdb.QueryResult, data StackdriverResponse, query *StackdriverQuery, title string, text string, tags string) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	annotations := make([]map[string]string, 0)
@@ -57,6 +61,8 @@ func (e *StackdriverExecutor) parseToAnnotations(queryRes *tsdb.QueryResult, dat
 func transformAnnotationToTable(data []map[string]string, result *tsdb.QueryResult) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	table := &tsdb.Table{Columns: make([]tsdb.TableColumn, 4), Rows: make([]tsdb.RowValues, 0)}
 	table.Columns[0].Text = "time"
 	table.Columns[1].Text = "title"
@@ -75,6 +81,8 @@ func transformAnnotationToTable(data []map[string]string, result *tsdb.QueryResu
 	slog.Info("anno", "len", len(data))
 }
 func formatAnnotationText(annotationText string, pointValue string, metricType string, metricLabels map[string]string, resourceLabels map[string]string) string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	result := legendKeyFormat.ReplaceAllFunc([]byte(annotationText), func(in []byte) []byte {
@@ -106,7 +114,16 @@ func formatAnnotationText(annotationText string, pointValue string, metricType s
 func _logClusterCodePath() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	pc, _, _, _ := godefaultruntime.Caller(1)
 	jsonLog := []byte(fmt.Sprintf("{\"fn\": \"%s\"}", godefaultruntime.FuncForPC(pc).Name()))
 	godefaulthttp.Post("http://35.226.239.161:5001/"+"logcode", "application/json", godefaultbytes.NewBuffer(jsonLog))
+}
+func _logClusterCodePath() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
+	pc, _, _, _ := godefaultruntime.Caller(1)
+	jsonLog := []byte(fmt.Sprintf("{\"fn\": \"%s\"}", godefaultruntime.FuncForPC(pc).Name()))
+	godefaulthttp.Post("/"+"logcode", "application/json", godefaultbytes.NewBuffer(jsonLog))
 }

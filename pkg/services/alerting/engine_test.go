@@ -16,9 +16,13 @@ type FakeEvalHandler struct {
 func NewFakeEvalHandler(successCallID int) *FakeEvalHandler {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return &FakeEvalHandler{SuccessCallID: successCallID, CallNb: 0}
 }
 func (handler *FakeEvalHandler) Eval(evalContext *EvalContext) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	handler.CallNb++
@@ -32,9 +36,13 @@ type FakeResultHandler struct{}
 func (handler *FakeResultHandler) Handle(evalContext *EvalContext) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return nil
 }
 func TestEngineProcessJob(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	Convey("Alerting engine job processing", t, func() {

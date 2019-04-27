@@ -13,6 +13,8 @@ import (
 func TestIntegratedDashboardService(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	Convey("Dashboard service integration tests", t, func() {
 		InitTestDB(t)
 		var testOrgId int64 = 1
@@ -475,6 +477,8 @@ type dashboardPermissionScenarioFunc func(sc *dashboardPermissionScenarioContext
 func dashboardPermissionScenario(desc string, mock *guardian.FakeDashboardGuardian, fn dashboardPermissionScenarioFunc) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	Convey(desc, func() {
 		origNewDashboardGuardian := guardian.New
 		guardian.MockDashboardGuardian(mock)
@@ -488,10 +492,14 @@ func dashboardPermissionScenario(desc string, mock *guardian.FakeDashboardGuardi
 func permissionScenario(desc string, canSave bool, fn dashboardPermissionScenarioFunc) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	mock := &guardian.FakeDashboardGuardian{CanSaveValue: canSave}
 	dashboardPermissionScenario(desc, mock, fn)
 }
 func callSaveWithResult(cmd models.SaveDashboardCommand) *models.Dashboard {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	dto := toSaveDashboardDto(cmd)
@@ -501,11 +509,15 @@ func callSaveWithResult(cmd models.SaveDashboardCommand) *models.Dashboard {
 func callSaveWithError(cmd models.SaveDashboardCommand) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	dto := toSaveDashboardDto(cmd)
 	_, err := dashboards.NewService().SaveDashboard(&dto)
 	return err
 }
 func saveTestDashboard(title string, orgId int64, folderId int64) *models.Dashboard {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	cmd := models.SaveDashboardCommand{OrgId: orgId, FolderId: folderId, IsFolder: false, Dashboard: simplejson.NewFromAny(map[string]interface{}{"id": nil, "title": title})}
@@ -517,6 +529,8 @@ func saveTestDashboard(title string, orgId int64, folderId int64) *models.Dashbo
 func saveTestFolder(title string, orgId int64) *models.Dashboard {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	cmd := models.SaveDashboardCommand{OrgId: orgId, FolderId: 0, IsFolder: true, Dashboard: simplejson.NewFromAny(map[string]interface{}{"id": nil, "title": title})}
 	dto := dashboards.SaveDashboardDTO{OrgId: orgId, Dashboard: cmd.GetDashboardModel(), User: &models.SignedInUser{UserId: 1, OrgRole: models.ROLE_ADMIN}}
 	res, err := dashboards.NewService().SaveDashboard(&dto)
@@ -524,6 +538,8 @@ func saveTestFolder(title string, orgId int64) *models.Dashboard {
 	return res
 }
 func toSaveDashboardDto(cmd models.SaveDashboardCommand) dashboards.SaveDashboardDTO {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	dash := (&cmd).GetDashboardModel()

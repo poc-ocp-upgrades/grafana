@@ -19,9 +19,13 @@ type SocialGoogle struct {
 func (s *SocialGoogle) Type() int {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return int(models.GOOGLE)
 }
 func (s *SocialGoogle) IsEmailAllowed(email string) bool {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return isEmailAllowed(email, s.allowedDomains)
@@ -29,9 +33,13 @@ func (s *SocialGoogle) IsEmailAllowed(email string) bool {
 func (s *SocialGoogle) IsSignupAllowed() bool {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return s.allowSignup
 }
 func (s *SocialGoogle) UserInfo(client *http.Client, token *oauth2.Token) (*BasicUserInfo, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var data struct {

@@ -19,9 +19,13 @@ type AlertTestCommand struct {
 func init() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	bus.AddHandler("alerting", handleAlertTestCommand)
 }
 func handleAlertTestCommand(cmd *AlertTestCommand) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	dash := m.NewDashboardFromJson(cmd.Dashboard)
@@ -43,6 +47,8 @@ func handleAlertTestCommand(cmd *AlertTestCommand) error {
 	return fmt.Errorf("Could not find alert with panel id %d", cmd.PanelId)
 }
 func testAlertRule(rule *Rule) *EvalContext {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	handler := NewEvalHandler()

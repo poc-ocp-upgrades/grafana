@@ -9,6 +9,8 @@ import (
 func MeasureRequestTime() macaron.Handler {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return func(res http.ResponseWriter, req *http.Request, c *m.ReqContext) {
 	}
 }

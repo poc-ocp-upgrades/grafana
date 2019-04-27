@@ -16,6 +16,8 @@ const (
 func TestDataSourcesProxy(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	Convey("Given a user is logged in", t, func() {
 		loggedInUserScenario("When calling GET on", "/api/datasources/", func(sc *scenarioContext) {
 			bus.AddHandler("test", func(query *models.GetDataSourcesQuery) error {

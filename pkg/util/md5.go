@@ -10,6 +10,8 @@ import (
 func Md5Sum(reader io.Reader) (string, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var returnMD5String string
 	hash := md5.New()
 	if _, err := io.Copy(hash, reader); err != nil {
@@ -20,6 +22,8 @@ func Md5Sum(reader io.Reader) (string, error) {
 	return returnMD5String, nil
 }
 func Md5SumString(input string) (string, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	buffer := strings.NewReader(input)

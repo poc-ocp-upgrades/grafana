@@ -8,6 +8,8 @@ import (
 func GetPluginSettings(orgId int64) (map[string]*m.PluginSettingInfoDTO, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	query := m.GetPluginSettingsQuery{OrgId: orgId}
 	if err := bus.Dispatch(&query); err != nil {
 		return nil, err
@@ -35,6 +37,8 @@ func GetPluginSettings(orgId int64) (map[string]*m.PluginSettingInfoDTO, error) 
 	return pluginMap, nil
 }
 func GetEnabledPlugins(orgId int64) (*EnabledPlugins, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	enabledPlugins := NewEnabledPlugins()

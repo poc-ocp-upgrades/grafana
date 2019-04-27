@@ -12,6 +12,8 @@ import (
 func TestDataSourceCache(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	Convey("When caching a datasource proxy", t, func() {
 		clearCache()
 		ds := DataSource{Id: 1, Url: "http://k8s:8001", Type: "Kubernetes"}
@@ -109,6 +111,8 @@ func TestDataSourceCache(t *testing.T) {
 	})
 }
 func clearCache() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	ptc.Lock()

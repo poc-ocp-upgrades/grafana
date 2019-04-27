@@ -10,6 +10,8 @@ import (
 func init() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	bus.AddHandler("sql", GetOrgById)
 	bus.AddHandler("sql", CreateOrg)
 	bus.AddHandler("sql", UpdateOrg)
@@ -19,6 +21,8 @@ func init() {
 	bus.AddHandler("sql", DeleteOrg)
 }
 func SearchOrgs(query *m.SearchOrgsQuery) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	query.Result = make([]*m.OrgDTO, 0)
@@ -37,6 +41,8 @@ func SearchOrgs(query *m.SearchOrgsQuery) error {
 func GetOrgById(query *m.GetOrgByIdQuery) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var org m.Org
 	exists, err := x.Id(query.Id).Get(&org)
 	if err != nil {
@@ -49,6 +55,8 @@ func GetOrgById(query *m.GetOrgByIdQuery) error {
 	return nil
 }
 func GetOrgByName(query *m.GetOrgByNameQuery) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var org m.Org
@@ -65,6 +73,8 @@ func GetOrgByName(query *m.GetOrgByNameQuery) error {
 func isOrgNameTaken(name string, existingId int64, sess *DBSession) (bool, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var org m.Org
 	exists, err := sess.Where("name=?", name).Get(&org)
 	if err != nil {
@@ -76,6 +86,8 @@ func isOrgNameTaken(name string, existingId int64, sess *DBSession) (bool, error
 	return false, nil
 }
 func CreateOrg(cmd *m.CreateOrgCommand) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return inTransaction(func(sess *DBSession) error {
@@ -96,6 +108,8 @@ func CreateOrg(cmd *m.CreateOrgCommand) error {
 	})
 }
 func UpdateOrg(cmd *m.UpdateOrgCommand) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return inTransaction(func(sess *DBSession) error {
@@ -119,6 +133,8 @@ func UpdateOrg(cmd *m.UpdateOrgCommand) error {
 func UpdateOrgAddress(cmd *m.UpdateOrgAddressCommand) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return inTransaction(func(sess *DBSession) error {
 		org := m.Org{Address1: cmd.Address1, Address2: cmd.Address2, City: cmd.City, ZipCode: cmd.ZipCode, State: cmd.State, Country: cmd.Country, Updated: time.Now()}
 		if _, err := sess.ID(cmd.OrgId).Update(&org); err != nil {
@@ -129,6 +145,8 @@ func UpdateOrgAddress(cmd *m.UpdateOrgAddressCommand) error {
 	})
 }
 func DeleteOrg(cmd *m.DeleteOrgCommand) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return inTransaction(func(sess *DBSession) error {

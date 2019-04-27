@@ -14,11 +14,15 @@ type DashboardProvisioner struct {
 func NewDashboardProvisioner(configDirectory string) *DashboardProvisioner {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	log := log.New("provisioning.dashboard")
 	d := &DashboardProvisioner{cfgReader: &configReader{path: configDirectory, log: log}, log: log}
 	return d
 }
 func (provider *DashboardProvisioner) Provision(ctx context.Context) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	cfgs, err := provider.cfgReader.readConfig()

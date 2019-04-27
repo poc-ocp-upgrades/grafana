@@ -13,6 +13,8 @@ import (
 func init() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	bus.AddHandler("sql", SaveDashboard)
 	bus.AddHandler("sql", GetDashboard)
 	bus.AddHandler("sql", GetDashboards)
@@ -33,11 +35,15 @@ var generateNewUid func() string = util.GenerateShortUid
 func SaveDashboard(cmd *m.SaveDashboardCommand) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return inTransaction(func(sess *DBSession) error {
 		return saveDashboard(sess, cmd)
 	})
 }
 func saveDashboard(sess *DBSession, cmd *m.SaveDashboardCommand) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	dash := cmd.GetDashboardModel()
@@ -123,6 +129,8 @@ func saveDashboard(sess *DBSession, cmd *m.SaveDashboardCommand) error {
 func generateNewDashboardUid(sess *DBSession, orgId int64) (string, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	for i := 0; i < 3; i++ {
 		uid := generateNewUid()
 		exists, err := sess.Where("org_id=? AND uid=?", orgId, uid).Get(&m.Dashboard{})
@@ -136,6 +144,8 @@ func generateNewDashboardUid(sess *DBSession, orgId int64) (string, error) {
 	return "", m.ErrDashboardFailedGenerateUniqueUid
 }
 func GetDashboard(query *m.GetDashboardQuery) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	dashboard := m.Dashboard{Slug: query.Slug, OrgId: query.OrgId, Id: query.Id, Uid: query.Uid}
@@ -167,6 +177,8 @@ type DashboardSearchProjection struct {
 func findDashboards(query *search.FindPersistedDashboardsQuery) ([]DashboardSearchProjection, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	limit := query.Limit
 	if limit == 0 {
 		limit = 1000
@@ -195,6 +207,8 @@ func findDashboards(query *search.FindPersistedDashboardsQuery) ([]DashboardSear
 func SearchDashboards(query *search.FindPersistedDashboardsQuery) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	res, err := findDashboards(query)
 	if err != nil {
 		return err
@@ -203,6 +217,8 @@ func SearchDashboards(query *search.FindPersistedDashboardsQuery) error {
 	return nil
 }
 func getHitType(item DashboardSearchProjection) search.HitType {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var hitType search.HitType
@@ -214,6 +230,8 @@ func getHitType(item DashboardSearchProjection) search.HitType {
 	return hitType
 }
 func makeQueryResult(query *search.FindPersistedDashboardsQuery, res []DashboardSearchProjection) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	query.Result = make([]*search.Hit, 0)
@@ -236,6 +254,8 @@ func makeQueryResult(query *search.FindPersistedDashboardsQuery, res []Dashboard
 func GetDashboardTags(query *m.GetDashboardTagsQuery) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	sql := `SELECT
 					  COUNT(*) as count,
 						term
@@ -250,6 +270,8 @@ func GetDashboardTags(query *m.GetDashboardTagsQuery) error {
 	return err
 }
 func DeleteDashboard(cmd *m.DeleteDashboardCommand) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return inTransaction(func(sess *DBSession) error {
@@ -290,6 +312,8 @@ func DeleteDashboard(cmd *m.DeleteDashboardCommand) error {
 func GetDashboards(query *m.GetDashboardsQuery) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if len(query.DashboardIds) == 0 {
 		return m.ErrCommandValidationFailed
 	}
@@ -299,6 +323,8 @@ func GetDashboards(query *m.GetDashboardsQuery) error {
 	return err
 }
 func GetDashboardPermissionsForUser(query *m.GetDashboardPermissionsForUserQuery) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if len(query.DashboardIds) == 0 {
@@ -354,6 +380,8 @@ func GetDashboardPermissionsForUser(query *m.GetDashboardPermissionsForUserQuery
 func GetDashboardsByPluginId(query *m.GetDashboardsByPluginIdQuery) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var dashboards = make([]*m.Dashboard, 0)
 	whereExpr := "org_id=? AND plugin_id=? AND is_folder=" + dialect.BooleanStr(false)
 	err := x.Where(whereExpr, query.OrgId, query.PluginId).Find(&dashboards)
@@ -364,6 +392,8 @@ func GetDashboardsByPluginId(query *m.GetDashboardsByPluginIdQuery) error {
 type DashboardSlugDTO struct{ Slug string }
 
 func GetDashboardSlugById(query *m.GetDashboardSlugByIdQuery) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var rawSql = `SELECT slug from dashboard WHERE Id=?`
@@ -380,6 +410,8 @@ func GetDashboardSlugById(query *m.GetDashboardSlugByIdQuery) error {
 func GetDashboardsBySlug(query *m.GetDashboardsBySlugQuery) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var dashboards []*m.Dashboard
 	if err := x.Where("org_id=? AND slug=?", query.OrgId, query.Slug).Find(&dashboards); err != nil {
 		return err
@@ -388,6 +420,8 @@ func GetDashboardsBySlug(query *m.GetDashboardsBySlugQuery) error {
 	return nil
 }
 func GetDashboardUIDById(query *m.GetDashboardRefByIdQuery) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var rawSql = `SELECT uid, slug from dashboard WHERE Id=?`
@@ -402,6 +436,8 @@ func GetDashboardUIDById(query *m.GetDashboardRefByIdQuery) error {
 	return nil
 }
 func getExistingDashboardByIdOrUidForUpdate(sess *DBSession, cmd *m.ValidateDashboardBeforeSaveCommand) (err error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	dash := cmd.Dashboard
@@ -473,6 +509,8 @@ func getExistingDashboardByIdOrUidForUpdate(sess *DBSession, cmd *m.ValidateDash
 func getExistingDashboardByTitleAndFolder(sess *DBSession, cmd *m.ValidateDashboardBeforeSaveCommand) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	dash := cmd.Dashboard
 	var existing m.Dashboard
 	exists, err := sess.Where("org_id=? AND slug=? AND (is_folder=? OR folder_id=?)", dash.OrgId, dash.Slug, dialect.BooleanStr(true), dash.FolderId).Get(&existing)
@@ -502,6 +540,8 @@ func getExistingDashboardByTitleAndFolder(sess *DBSession, cmd *m.ValidateDashbo
 func ValidateDashboardBeforeSave(cmd *m.ValidateDashboardBeforeSaveCommand) (err error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	cmd.Result = &m.ValidateDashboardBeforeSaveResult{}
 	return inTransaction(func(sess *DBSession) error {
 		if err = getExistingDashboardByIdOrUidForUpdate(sess, cmd); err != nil {
@@ -514,6 +554,8 @@ func ValidateDashboardBeforeSave(cmd *m.ValidateDashboardBeforeSaveCommand) (err
 	})
 }
 func HasEditPermissionInFolders(query *m.HasEditPermissionInFoldersQuery) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if query.SignedInUser.HasRole(m.ROLE_EDITOR) {

@@ -17,6 +17,8 @@ var (
 func init() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	alerting.RegisterNotifier(&alerting.NotifierPlugin{Type: "threema", Name: "Threema Gateway", Description: "Sends notifications to Threema using the Threema Gateway", Factory: NewThreemaNotifier, OptionsTemplate: `
       <h3 class="page-heading">Threema Gateway settings</h3>
       <p>
@@ -73,6 +75,8 @@ type ThreemaNotifier struct {
 func NewThreemaNotifier(model *m.AlertNotification) (alerting.Notifier, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if model.Settings == nil {
 		return nil, alerting.ValidationError{Reason: "No Settings Supplied"}
 	}
@@ -100,6 +104,8 @@ func NewThreemaNotifier(model *m.AlertNotification) (alerting.Notifier, error) {
 	return &ThreemaNotifier{NotifierBase: NewNotifierBase(model), GatewayID: gatewayID, RecipientID: recipientID, APISecret: apiSecret, log: log.New("alerting.notifier.threema")}, nil
 }
 func (notifier *ThreemaNotifier) Notify(evalContext *alerting.EvalContext) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	notifier.log.Info("Sending alert notification from", "threema_id", notifier.GatewayID)

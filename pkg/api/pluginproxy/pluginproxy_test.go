@@ -13,6 +13,8 @@ import (
 func TestPluginProxy(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	Convey("When getting proxy headers", t, func() {
 		route := &plugins.AppPluginRoute{Headers: []plugins.AppPluginRouteHeader{{Name: "x-header", Content: "my secret {{.SecureJsonData.key}}"}}}
 		setting.SecretKey = "password"

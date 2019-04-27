@@ -25,9 +25,13 @@ type streamSubscription struct {
 func newHub() *hub {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return &hub{connections: make(map[*connection]bool), streams: make(map[string]map[*connection]bool), register: make(chan *connection), unregister: make(chan *connection), streamChannel: make(chan *dtos.StreamMessage), subChannel: make(chan *streamSubscription), log: log.New("stream.hub")}
 }
 func (h *hub) run(ctx context.Context) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	for {

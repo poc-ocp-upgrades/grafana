@@ -33,6 +33,8 @@ import (
 func init() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	registry.Register(&registry.Descriptor{Name: "HTTPServer", Instance: &HTTPServer{}, InitPriority: registry.High})
 }
 
@@ -54,6 +56,8 @@ type HTTPServer struct {
 func (hs *HTTPServer) Init() error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	hs.log = log.New("http.server")
 	hs.streamManager = live.NewStreamManager()
 	hs.macaron = hs.newMacaron()
@@ -61,6 +65,8 @@ func (hs *HTTPServer) Init() error {
 	return nil
 }
 func (hs *HTTPServer) Run(ctx context.Context) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var err error
@@ -111,6 +117,8 @@ func (hs *HTTPServer) Run(ctx context.Context) error {
 func (hs *HTTPServer) listenAndServeTLS(certfile, keyfile string) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if certfile == "" {
 		return fmt.Errorf("cert_file cannot be empty when using HTTPS")
 	}
@@ -131,6 +139,8 @@ func (hs *HTTPServer) listenAndServeTLS(certfile, keyfile string) error {
 func (hs *HTTPServer) newMacaron() *macaron.Macaron {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	macaron.Env = setting.Env
 	m := macaron.New()
 	m.SetAutoHead(true)
@@ -139,12 +149,16 @@ func (hs *HTTPServer) newMacaron() *macaron.Macaron {
 func (hs *HTTPServer) applyRoutes() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	hs.addMiddlewaresAndStaticRoutes()
 	hs.RouteRegister.Register(hs.macaron)
 	hs.initAppPluginRoutes(hs.macaron)
 	hs.macaron.NotFound(hs.NotFoundHandler)
 }
 func (hs *HTTPServer) addMiddlewaresAndStaticRoutes() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	m := hs.macaron
@@ -179,6 +193,8 @@ func (hs *HTTPServer) addMiddlewaresAndStaticRoutes() {
 func (hs *HTTPServer) metricsEndpoint(ctx *macaron.Context) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if !hs.Cfg.MetricsEndpointEnabled {
 		return
 	}
@@ -192,6 +208,8 @@ func (hs *HTTPServer) metricsEndpoint(ctx *macaron.Context) {
 	promhttp.HandlerFor(prometheus.DefaultGatherer, promhttp.HandlerOpts{}).ServeHTTP(ctx.Resp, ctx.Req.Request)
 }
 func (hs *HTTPServer) healthHandler(ctx *macaron.Context) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	notHeadOrGet := ctx.Req.Method != http.MethodGet && ctx.Req.Method != http.MethodHead
@@ -216,6 +234,8 @@ func (hs *HTTPServer) healthHandler(ctx *macaron.Context) {
 func (hs *HTTPServer) mapStatic(m *macaron.Macaron, rootDir string, dir string, prefix string) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	headers := func(c *macaron.Context) {
 		c.Resp.Header().Set("Cache-Control", "public, max-age=3600")
 	}
@@ -232,6 +252,8 @@ func (hs *HTTPServer) mapStatic(m *macaron.Macaron, rootDir string, dir string, 
 	m.Use(httpstatic.Static(path.Join(rootDir, dir), httpstatic.StaticOptions{SkipLogging: true, Prefix: prefix, AddHeaders: headers}))
 }
 func (hs *HTTPServer) metricsEndpointBasicAuthEnabled() bool {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return hs.Cfg.MetricsEndpointBasicAuthUsername != "" && hs.Cfg.MetricsEndpointBasicAuthPassword != ""

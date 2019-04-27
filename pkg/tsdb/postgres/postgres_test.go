@@ -21,6 +21,8 @@ import (
 func TestPostgres(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	runPostgresTests := false
 	if !(sqlstore.IsTestDbPostgres() || runPostgresTests) {
 		t.Skip()
@@ -513,6 +515,8 @@ func TestPostgres(t *testing.T) {
 func InitPostgresTestDB(t *testing.T) *xorm.Engine {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	x, err := xorm.NewEngine(sqlutil.TestDB_Postgres.DriverName, strings.Replace(sqlutil.TestDB_Postgres.ConnStr, "dbname=grafanatest", "dbname=grafanadstest", 1))
 	if err != nil {
 		t.Fatalf("Failed to init postgres db %v", err)
@@ -522,6 +526,8 @@ func InitPostgresTestDB(t *testing.T) *xorm.Engine {
 	return x
 }
 func genTimeRangeByInterval(from time.Time, duration time.Duration, interval time.Duration) []time.Time {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	durationSec := int64(duration.Seconds())

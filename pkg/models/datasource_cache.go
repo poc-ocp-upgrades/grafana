@@ -24,6 +24,8 @@ var ptc = proxyTransportCache{cache: make(map[int64]cachedTransport)}
 func (ds *DataSource) GetHttpClient() (*http.Client, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	transport, err := ds.GetHttpTransport()
 	if err != nil {
 		return nil, err
@@ -31,6 +33,8 @@ func (ds *DataSource) GetHttpClient() (*http.Client, error) {
 	return &http.Client{Timeout: 30 * time.Second, Transport: transport}, nil
 }
 func (ds *DataSource) GetHttpTransport() (*http.Transport, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	ptc.Lock()

@@ -13,6 +13,8 @@ import (
 func TestPrometheus(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	Convey("Prometheus", t, func() {
 		dsInfo := &models.DataSource{JsonData: simplejson.New()}
 		Convey("converting metric name", func() {

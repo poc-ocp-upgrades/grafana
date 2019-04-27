@@ -12,6 +12,8 @@ import (
 func TestAccountDataAccess(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	Convey("Testing Account DB Access", t, func() {
 		InitTestDB(t)
 		Convey("Given single org mode", func() {
@@ -198,6 +200,8 @@ func TestAccountDataAccess(t *testing.T) {
 	})
 }
 func testHelperUpdateDashboardAcl(dashboardId int64, items ...m.DashboardAcl) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	cmd := m.UpdateDashboardAclCommand{DashboardId: dashboardId}

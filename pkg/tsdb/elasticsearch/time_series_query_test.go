@@ -13,6 +13,8 @@ import (
 func TestExecuteTimeSeriesQuery(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	from := time.Date(2018, 5, 15, 17, 50, 0, 0, time.UTC)
 	to := time.Date(2018, 5, 15, 17, 55, 0, 0, time.UTC)
 	fromStr := fmt.Sprintf("%d", from.UnixNano()/int64(time.Millisecond))
@@ -457,9 +459,13 @@ type fakeClient struct {
 func newFakeClient(version int) *fakeClient {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return &fakeClient{version: version, timeField: "@timestamp", multisearchRequests: make([]*es.MultiSearchRequest, 0), multiSearchResponse: &es.MultiSearchResponse{}}
 }
 func (c *fakeClient) GetVersion() int {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return c.version
@@ -467,14 +473,20 @@ func (c *fakeClient) GetVersion() int {
 func (c *fakeClient) GetTimeField() string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return c.timeField
 }
 func (c *fakeClient) GetMinInterval(queryInterval string) (time.Duration, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return 15 * time.Second, nil
 }
 func (c *fakeClient) ExecuteMultisearch(r *es.MultiSearchRequest) (*es.MultiSearchResponse, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	c.multisearchRequests = append(c.multisearchRequests, r)
@@ -483,10 +495,14 @@ func (c *fakeClient) ExecuteMultisearch(r *es.MultiSearchRequest) (*es.MultiSear
 func (c *fakeClient) MultiSearch() *es.MultiSearchRequestBuilder {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	c.builder = es.NewMultiSearchRequestBuilder(c.version)
 	return c.builder
 }
 func newTsdbQuery(body string) (*tsdb.TsdbQuery, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	json, err := simplejson.NewJson([]byte(body))
@@ -496,6 +512,8 @@ func newTsdbQuery(body string) (*tsdb.TsdbQuery, error) {
 	return &tsdb.TsdbQuery{Queries: []*tsdb.Query{{Model: json}}}, nil
 }
 func executeTsdbQuery(c es.Client, body string, from, to time.Time, minInterval time.Duration) (*tsdb.Response, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	json, err := simplejson.NewJson([]byte(body))
@@ -509,6 +527,8 @@ func executeTsdbQuery(c es.Client, body string, from, to time.Time, minInterval 
 	return query.execute()
 }
 func TestTimeSeriesQueryParser(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	Convey("Test time series query parser", t, func() {

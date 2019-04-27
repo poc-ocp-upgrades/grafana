@@ -12,6 +12,8 @@ import (
 func TestAnnotationsApiEndpoint(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	Convey("Given an annotation without a dashboard id", t, func() {
 		cmd := dtos.PostAnnotationsCmd{Time: 1000, Text: "annotation text", Tags: []string{"tag1", "tag2"}, IsRegion: false}
 		updateCmd := dtos.UpdateAnnotationsCmd{Time: 1000, Text: "annotation text", Tags: []string{"tag1", "tag2"}, IsRegion: false}
@@ -148,9 +150,13 @@ type fakeAnnotationsRepo struct{}
 func (repo *fakeAnnotationsRepo) Delete(params *annotations.DeleteParams) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return nil
 }
 func (repo *fakeAnnotationsRepo) Save(item *annotations.Item) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	item.Id = 1
@@ -159,9 +165,13 @@ func (repo *fakeAnnotationsRepo) Save(item *annotations.Item) error {
 func (repo *fakeAnnotationsRepo) Update(item *annotations.Item) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return nil
 }
 func (repo *fakeAnnotationsRepo) Find(query *annotations.ItemQuery) ([]*annotations.ItemDTO, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	annotations := []*annotations.ItemDTO{{Id: 1}}
@@ -171,6 +181,8 @@ func (repo *fakeAnnotationsRepo) Find(query *annotations.ItemQuery) ([]*annotati
 var fakeAnnoRepo *fakeAnnotationsRepo
 
 func postAnnotationScenario(desc string, url string, routePattern string, role m.RoleType, cmd dtos.PostAnnotationsCmd, fn scenarioFunc) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	Convey(desc+" "+url, func() {
@@ -192,6 +204,8 @@ func postAnnotationScenario(desc string, url string, routePattern string, role m
 func putAnnotationScenario(desc string, url string, routePattern string, role m.RoleType, cmd dtos.UpdateAnnotationsCmd, fn scenarioFunc) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	Convey(desc+" "+url, func() {
 		defer bus.ClearBusHandlers()
 		sc := setupScenarioContext(url)
@@ -209,6 +223,8 @@ func putAnnotationScenario(desc string, url string, routePattern string, role m.
 	})
 }
 func deleteAnnotationsScenario(desc string, url string, routePattern string, role m.RoleType, cmd dtos.DeleteAnnotationsCmd, fn scenarioFunc) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	Convey(desc+" "+url, func() {

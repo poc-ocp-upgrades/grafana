@@ -9,6 +9,8 @@ import (
 func TestDashboardAclModel(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	Convey("When printing a PermissionType", t, func() {
 		view := PERMISSION_VIEW
 		printed := fmt.Sprint(view)

@@ -38,6 +38,8 @@ const ContextSessionName = "db-session"
 func init() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	registry.Register(&registry.Descriptor{Name: "SqlStore", Instance: &SqlStore{}, InitPriority: registry.High})
 }
 
@@ -55,9 +57,13 @@ type SqlStore struct {
 func (ss *SqlStore) NewSession() *DBSession {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return &DBSession{Session: ss.engine.NewSession()}
 }
 func (ss *SqlStore) WithDbSession(ctx context.Context, callback dbTransactionFunc) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	sess, err := startSession(ctx, ss.engine, false)
@@ -69,9 +75,13 @@ func (ss *SqlStore) WithDbSession(ctx context.Context, callback dbTransactionFun
 func (ss *SqlStore) WithTransactionalDbSession(ctx context.Context, callback dbTransactionFunc) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return ss.inTransactionWithRetryCtx(ctx, callback, 0)
 }
 func (ss *SqlStore) inTransactionWithRetryCtx(ctx context.Context, callback dbTransactionFunc, retry int) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	sess, err := startSession(ctx, ss.engine, true)
@@ -106,6 +116,8 @@ func (ss *SqlStore) inTransactionWithRetryCtx(ctx context.Context, callback dbTr
 func (ss *SqlStore) Init() error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	ss.log = log.New("sqlstore")
 	ss.readConfig()
 	engine, err := ss.getEngine()
@@ -138,6 +150,8 @@ func (ss *SqlStore) Init() error {
 func (ss *SqlStore) ensureAdminUser() error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	systemUserCountQuery := m.GetSystemUserCountStatsQuery{}
 	err := ss.InTransaction(context.Background(), func(ctx context.Context) error {
 		err := bus.DispatchCtx(ctx, &systemUserCountQuery)
@@ -161,6 +175,8 @@ func (ss *SqlStore) ensureAdminUser() error {
 	return err
 }
 func (ss *SqlStore) buildConnectionString() (string, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	cnnstr := ss.dbCfg.ConnectionString
@@ -212,6 +228,8 @@ func (ss *SqlStore) buildConnectionString() (string, error) {
 func (ss *SqlStore) getEngine() (*xorm.Engine, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	connectionString, err := ss.buildConnectionString()
 	if err != nil {
 		return nil, err
@@ -235,6 +253,8 @@ func (ss *SqlStore) getEngine() (*xorm.Engine, error) {
 	return engine, nil
 }
 func (ss *SqlStore) readConfig() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	sec := ss.Cfg.Raw.Section("database")
@@ -271,6 +291,8 @@ func (ss *SqlStore) readConfig() {
 	ss.dbCfg.Path = sec.Key("path").MustString("data/grafana.db")
 }
 func InitTestDB(t *testing.T) *SqlStore {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	t.Helper()
@@ -312,12 +334,16 @@ func InitTestDB(t *testing.T) *SqlStore {
 func IsTestDbMySql() bool {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if db, present := os.LookupEnv("GRAFANA_TEST_DB"); present {
 		return db == migrator.MYSQL
 	}
 	return false
 }
 func IsTestDbPostgres() bool {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if db, present := os.LookupEnv("GRAFANA_TEST_DB"); present {

@@ -11,6 +11,8 @@ import (
 func TestTeamApiEndpoint(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	Convey("Given two teams", t, func() {
 		mockResult := models.SearchTeamQueryResult{Teams: []*models.TeamDTO{{Name: "team1"}, {Name: "team2"}}, TotalCount: 2}
 		Convey("When searching with no parameters", func() {

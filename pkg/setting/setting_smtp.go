@@ -18,6 +18,8 @@ type SmtpSettings struct {
 func (cfg *Cfg) readSmtpSettings() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	sec := cfg.Raw.Section("smtp")
 	cfg.Smtp.Enabled = sec.Key("enabled").MustBool(false)
 	cfg.Smtp.Host = sec.Key("host").String()

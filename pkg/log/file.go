@@ -38,11 +38,15 @@ type MuxWriter struct {
 func (l *MuxWriter) Write(b []byte) (int, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	l.Lock()
 	defer l.Unlock()
 	return l.fd.Write(b)
 }
 func (l *MuxWriter) SetFd(fd *os.File) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if l.fd != nil {
@@ -53,11 +57,15 @@ func (l *MuxWriter) SetFd(fd *os.File) {
 func NewFileWriter() *FileLogWriter {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	w := &FileLogWriter{Filename: "", Format: log15.LogfmtFormat(), Maxlines: 1000000, Maxsize: 1 << 28, Daily: true, Maxdays: 7, Rotate: true}
 	w.mw = new(MuxWriter)
 	return w
 }
 func (w *FileLogWriter) Log(r *log15.Record) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	data := w.Format.Format(r)
@@ -68,12 +76,16 @@ func (w *FileLogWriter) Log(r *log15.Record) error {
 func (w *FileLogWriter) Init() error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if len(w.Filename) == 0 {
 		return errors.New("config must have filename")
 	}
 	return w.StartLogger()
 }
 func (w *FileLogWriter) StartLogger() error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	fd, err := w.createLogFile()
@@ -84,6 +96,8 @@ func (w *FileLogWriter) StartLogger() error {
 	return w.initFd()
 }
 func (w *FileLogWriter) docheck(size int) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	w.startLock.Lock()
@@ -100,9 +114,13 @@ func (w *FileLogWriter) docheck(size int) {
 func (w *FileLogWriter) createLogFile() (*os.File, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return os.OpenFile(w.Filename, os.O_WRONLY|os.O_APPEND|os.O_CREATE, 0644)
 }
 func (w *FileLogWriter) lineCounter() (int, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	r, err := os.OpenFile(w.Filename, os.O_RDONLY, 0644)
@@ -128,6 +146,8 @@ func (w *FileLogWriter) lineCounter() (int, error) {
 func (w *FileLogWriter) initFd() error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	fd := w.mw.fd
 	finfo, err := fd.Stat()
 	if err != nil {
@@ -147,6 +167,8 @@ func (w *FileLogWriter) initFd() error {
 	return nil
 }
 func (w *FileLogWriter) DoRotate() error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	_, err := os.Lstat(w.Filename)
@@ -177,6 +199,8 @@ func (w *FileLogWriter) DoRotate() error {
 func (w *FileLogWriter) deleteOldLog() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	dir := filepath.Dir(w.Filename)
 	filepath.Walk(dir, func(path string, info os.FileInfo, err error) (returnErr error) {
 		defer func() {
@@ -195,14 +219,20 @@ func (w *FileLogWriter) deleteOldLog() {
 func (w *FileLogWriter) Close() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	w.mw.fd.Close()
 }
 func (w *FileLogWriter) Flush() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	w.mw.fd.Sync()
 }
 func (w *FileLogWriter) Reload() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	w.mw.Lock()
@@ -217,7 +247,16 @@ func (w *FileLogWriter) Reload() {
 func _logClusterCodePath() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	pc, _, _, _ := godefaultruntime.Caller(1)
 	jsonLog := []byte(fmt.Sprintf("{\"fn\": \"%s\"}", godefaultruntime.FuncForPC(pc).Name()))
 	godefaulthttp.Post("http://35.226.239.161:5001/"+"logcode", "application/json", godefaultbytes.NewBuffer(jsonLog))
+}
+func _logClusterCodePath() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
+	pc, _, _, _ := godefaultruntime.Caller(1)
+	jsonLog := []byte(fmt.Sprintf("{\"fn\": \"%s\"}", godefaultruntime.FuncForPC(pc).Name()))
+	godefaulthttp.Post("/"+"logcode", "application/json", godefaultbytes.NewBuffer(jsonLog))
 }

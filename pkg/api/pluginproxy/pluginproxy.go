@@ -21,6 +21,8 @@ type templateData struct {
 func getHeaders(route *plugins.AppPluginRoute, orgId int64, appID string) (http.Header, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	result := http.Header{}
 	query := m.GetPluginSettingByIdQuery{OrgId: orgId, PluginId: appID}
 	if err := bus.Dispatch(&query); err != nil {
@@ -31,6 +33,8 @@ func getHeaders(route *plugins.AppPluginRoute, orgId int64, appID string) (http.
 	return result, err
 }
 func NewApiPluginProxy(ctx *m.ReqContext, proxyPath string, route *plugins.AppPluginRoute, appID string) *httputil.ReverseProxy {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	targetURL, _ := url.Parse(route.Url)

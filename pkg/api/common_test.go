@@ -15,9 +15,13 @@ import (
 func loggedInUserScenario(desc string, url string, fn scenarioFunc) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	loggedInUserScenarioWithRole(desc, "GET", url, url, m.ROLE_EDITOR, fn)
 }
 func loggedInUserScenarioWithRole(desc string, method string, url string, routePattern string, role m.RoleType, fn scenarioFunc) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	Convey(desc+" "+url, func() {
@@ -45,6 +49,8 @@ func loggedInUserScenarioWithRole(desc string, method string, url string, routeP
 func anonymousUserScenario(desc string, method string, url string, routePattern string, fn scenarioFunc) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	Convey(desc+" "+url, func() {
 		defer bus.ClearBusHandlers()
 		sc := setupScenarioContext(url)
@@ -67,6 +73,8 @@ func anonymousUserScenario(desc string, method string, url string, routePattern 
 func (sc *scenarioContext) fakeReq(method, url string) *scenarioContext {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	sc.resp = httptest.NewRecorder()
 	req, err := http.NewRequest(method, url, nil)
 	So(err, ShouldBeNil)
@@ -74,6 +82,8 @@ func (sc *scenarioContext) fakeReq(method, url string) *scenarioContext {
 	return sc
 }
 func (sc *scenarioContext) fakeReqWithParams(method, url string, queryParams map[string]string) *scenarioContext {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	sc.resp = httptest.NewRecorder()
@@ -101,6 +111,8 @@ type scenarioContext struct {
 func (sc *scenarioContext) exec() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	sc.m.ServeHTTP(sc.resp, sc.req)
 }
 
@@ -108,6 +120,8 @@ type scenarioFunc func(c *scenarioContext)
 type handlerFunc func(c *m.ReqContext) Response
 
 func setupScenarioContext(url string) *scenarioContext {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	sc := &scenarioContext{url: url}

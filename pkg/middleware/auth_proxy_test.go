@@ -14,6 +14,8 @@ import (
 func TestAuthProxyWithLdapEnabled(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	Convey("When calling sync grafana user with ldap user", t, func() {
 		setting.LdapEnabled = true
 		setting.AuthProxyLdapSyncTtl = 60
@@ -59,6 +61,8 @@ type mockSession struct{ value map[interface{}]interface{} }
 func newMockSession() mockSession {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	session := mockSession{}
 	session.value = make(map[interface{}]interface{})
 	return session
@@ -66,9 +70,13 @@ func newMockSession() mockSession {
 func (s *mockSession) Start(c *macaron.Context) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return nil
 }
 func (s *mockSession) Set(k interface{}, v interface{}) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	s.value[k] = v
@@ -77,9 +85,13 @@ func (s *mockSession) Set(k interface{}, v interface{}) error {
 func (s *mockSession) Get(k interface{}) interface{} {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return s.value[k]
 }
 func (s *mockSession) Delete(k interface{}) interface{} {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	delete(s.value, k)
@@ -88,9 +100,13 @@ func (s *mockSession) Delete(k interface{}) interface{} {
 func (s *mockSession) ID() string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return ""
 }
 func (s *mockSession) Release() error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return nil
@@ -98,9 +114,13 @@ func (s *mockSession) Release() error {
 func (s *mockSession) Destory(c *macaron.Context) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return nil
 }
 func (s *mockSession) RegenerateId(c *macaron.Context) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return nil
@@ -111,15 +131,21 @@ type mockLdapAuthenticator struct{ syncUserCalled bool }
 func (a *mockLdapAuthenticator) Login(query *m.LoginUserQuery) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return nil
 }
 func (a *mockLdapAuthenticator) SyncUser(query *m.LoginUserQuery) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	a.syncUserCalled = true
 	return nil
 }
 func (a *mockLdapAuthenticator) GetGrafanaUserFor(ctx *m.ReqContext, ldapUser *login.LdapUserInfo) (*m.User, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return nil, nil

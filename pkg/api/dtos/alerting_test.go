@@ -8,6 +8,8 @@ import (
 func TestFormatShort(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	tcs := []struct {
 		interval	time.Duration
 		expected	string

@@ -11,6 +11,8 @@ import (
 func TestThreemaNotifier(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	Convey("Threema notifier tests", t, func() {
 		Convey("Parsing alert notification from settings", func() {
 			Convey("empty settings should return error", func() {

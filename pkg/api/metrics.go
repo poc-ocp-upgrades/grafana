@@ -14,6 +14,8 @@ import (
 func (hs *HTTPServer) QueryMetrics(c *m.ReqContext, reqDto dtos.MetricRequest) Response {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	timeRange := tsdb.NewTimeRange(reqDto.From, reqDto.To)
 	if len(reqDto.Queries) == 0 {
 		return Error(400, "No queries found in query", nil)
@@ -50,6 +52,8 @@ func (hs *HTTPServer) QueryMetrics(c *m.ReqContext, reqDto dtos.MetricRequest) R
 func GetTestDataScenarios(c *m.ReqContext) Response {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	result := make([]interface{}, 0)
 	for _, scenario := range testdata.ScenarioRegistry {
 		result = append(result, map[string]interface{}{"id": scenario.Id, "name": scenario.Name, "description": scenario.Description, "stringInput": scenario.StringInput})
@@ -59,10 +63,14 @@ func GetTestDataScenarios(c *m.ReqContext) Response {
 func GenerateError(c *m.ReqContext) Response {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var array []string
 	return JSON(200, array[20])
 }
 func GenerateSQLTestData(c *m.ReqContext) Response {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if err := bus.Dispatch(&m.InsertSqlTestDataCommand{}); err != nil {
@@ -71,6 +79,8 @@ func GenerateSQLTestData(c *m.ReqContext) Response {
 	return JSON(200, &util.DynMap{"message": "OK"})
 }
 func GetTestDataRandomWalk(c *m.ReqContext) Response {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	from := c.Query("from")

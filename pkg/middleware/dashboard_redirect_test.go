@@ -12,6 +12,8 @@ import (
 func TestMiddlewareDashboardRedirect(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	Convey("Given the dashboard redirect middleware", t, func() {
 		bus.ClearBusHandlers()
 		redirectFromLegacyDashboardUrl := RedirectFromLegacyDashboardURL()

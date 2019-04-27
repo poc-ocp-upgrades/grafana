@@ -12,6 +12,8 @@ import (
 func TestBasicAuthenticatedRequest(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	expectedUser := "prometheus"
 	expectedPass := "password"
 	Convey("Given a valid set of basic auth credentials", t, func() {
@@ -34,6 +36,8 @@ func TestBasicAuthenticatedRequest(t *testing.T) {
 	})
 }
 func encodeBasicAuthCredentials(user, pass string) string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	creds := fmt.Sprintf("%s:%s", user, pass)

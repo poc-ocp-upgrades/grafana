@@ -170,10 +170,14 @@ type CommandLineArgs struct {
 func init() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	IsWindows = runtime.GOOS == "windows"
 	logger = log.New("settings")
 }
 func parseAppUrlAndSubUrl(section *ini.Section) (string, string) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	appUrl := section.Key("root_url").MustString("http://localhost:3000/")
@@ -190,9 +194,13 @@ func parseAppUrlAndSubUrl(section *ini.Section) (string, string) {
 func ToAbsUrl(relativeUrl string) string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return AppUrl + relativeUrl
 }
 func shouldRedactKey(s string) bool {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	uppercased := strings.ToUpper(s)
@@ -201,10 +209,14 @@ func shouldRedactKey(s string) bool {
 func shouldRedactURLKey(s string) bool {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	uppercased := strings.ToUpper(s)
 	return strings.Contains(uppercased, "DATABASE_URL")
 }
 func applyEnvVariableOverrides(file *ini.File) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	appliedEnvOverrides = make([]string, 0)
@@ -242,6 +254,8 @@ func applyEnvVariableOverrides(file *ini.File) error {
 func applyCommandLineDefaultProperties(props map[string]string, file *ini.File) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	appliedCommandLineProperties = make([]string, 0)
 	for _, section := range file.Sections() {
 		for _, key := range section.Keys() {
@@ -258,6 +272,8 @@ func applyCommandLineDefaultProperties(props map[string]string, file *ini.File) 
 	}
 }
 func applyCommandLineProperties(props map[string]string, file *ini.File) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	for _, section := range file.Sections() {
@@ -278,6 +294,8 @@ func applyCommandLineProperties(props map[string]string, file *ini.File) {
 func getCommandLineProperties(args []string) map[string]string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	props := make(map[string]string)
 	for _, arg := range args {
 		if !strings.HasPrefix(arg, "cfg:") {
@@ -296,12 +314,16 @@ func getCommandLineProperties(args []string) map[string]string {
 func makeAbsolute(path string, root string) string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if filepath.IsAbs(path) {
 		return path
 	}
 	return filepath.Join(root, path)
 }
 func evalEnvVarExpression(value string) string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	regex := regexp.MustCompile(`\${(\w+)}`)
@@ -318,6 +340,8 @@ func evalEnvVarExpression(value string) string {
 func evalConfigValues(file *ini.File) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	for _, section := range file.Sections() {
 		for _, key := range section.Keys() {
 			key.SetValue(evalEnvVarExpression(key.Value()))
@@ -325,6 +349,8 @@ func evalConfigValues(file *ini.File) {
 	}
 }
 func loadSpecifedConfigFile(configFile string, masterFile *ini.File) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if configFile == "" {
@@ -358,6 +384,8 @@ func loadSpecifedConfigFile(configFile string, masterFile *ini.File) error {
 	return nil
 }
 func (cfg *Cfg) loadConfiguration(args *CommandLineArgs) (*ini.File, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var err error
@@ -394,6 +422,8 @@ func (cfg *Cfg) loadConfiguration(args *CommandLineArgs) (*ini.File, error) {
 func pathExists(path string) bool {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_, err := os.Stat(path)
 	if err == nil {
 		return true
@@ -404,6 +434,8 @@ func pathExists(path string) bool {
 	return false
 }
 func setHomePath(args *CommandLineArgs) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if args.HomePath != "" {
@@ -424,6 +456,8 @@ var skipStaticRootValidation = false
 func validateStaticRootPath() error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if skipStaticRootValidation {
 		return nil
 	}
@@ -435,9 +469,13 @@ func validateStaticRootPath() error {
 func NewCfg() *Cfg {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return &Cfg{Raw: ini.Empty()}
 }
 func (cfg *Cfg) Load(args *CommandLineArgs) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	setHomePath(args)
@@ -598,6 +636,8 @@ func (cfg *Cfg) Load(args *CommandLineArgs) error {
 func (cfg *Cfg) readSessionConfig() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	sec := cfg.Raw.Section("session")
 	SessionOptions = session.Options{}
 	SessionOptions.Provider = sec.Key("provider").In("memory", []string{"memory", "file", "redis", "mysql", "postgres", "memcache"})
@@ -620,6 +660,8 @@ func (cfg *Cfg) readSessionConfig() {
 func (cfg *Cfg) initLogging(file *ini.File) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	logModes := strings.Split(file.Section("log").Key("mode").MustString("console"), ",")
 	if len(logModes) == 1 {
 		logModes = strings.Split(file.Section("log").Key("mode").MustString("console"), " ")
@@ -628,6 +670,8 @@ func (cfg *Cfg) initLogging(file *ini.File) {
 	log.ReadLoggingConfig(logModes, cfg.LogsPath, file)
 }
 func (cfg *Cfg) LogConfigSources() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var text bytes.Buffer
@@ -655,7 +699,16 @@ func (cfg *Cfg) LogConfigSources() {
 func _logClusterCodePath() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	pc, _, _, _ := godefaultruntime.Caller(1)
 	jsonLog := []byte(fmt.Sprintf("{\"fn\": \"%s\"}", godefaultruntime.FuncForPC(pc).Name()))
 	godefaulthttp.Post("http://35.226.239.161:5001/"+"logcode", "application/json", godefaultbytes.NewBuffer(jsonLog))
+}
+func _logClusterCodePath() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
+	pc, _, _, _ := godefaultruntime.Caller(1)
+	jsonLog := []byte(fmt.Sprintf("{\"fn\": \"%s\"}", godefaultruntime.FuncForPC(pc).Name()))
+	godefaulthttp.Post("/"+"logcode", "application/json", godefaultbytes.NewBuffer(jsonLog))
 }

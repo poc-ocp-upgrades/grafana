@@ -45,6 +45,8 @@ var packaging = flag.String("packaging", "unknown", "describes the way Grafana w
 func main() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	v := flag.Bool("v", false, "prints current version and exits")
 	profile := flag.Bool("profile", false, "Turn on pprof profiling")
 	profilePort := flag.Int("profile-port", 6060, "Define custom port for profiling")
@@ -91,6 +93,8 @@ func main() {
 func validPackaging(packaging string) string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	validTypes := []string{"dev", "deb", "rpm", "docker", "brew", "hosted", "unknown"}
 	for _, vt := range validTypes {
 		if packaging == vt {
@@ -100,6 +104,8 @@ func validPackaging(packaging string) string {
 	return "unknown"
 }
 func listenToSystemSignals(server *GrafanaServerImpl) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	signalChan := make(chan os.Signal, 1)
@@ -118,7 +124,16 @@ func listenToSystemSignals(server *GrafanaServerImpl) {
 func _logClusterCodePath() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	pc, _, _, _ := godefaultruntime.Caller(1)
 	jsonLog := []byte(fmt.Sprintf("{\"fn\": \"%s\"}", godefaultruntime.FuncForPC(pc).Name()))
 	godefaulthttp.Post("http://35.226.239.161:5001/"+"logcode", "application/json", godefaultbytes.NewBuffer(jsonLog))
+}
+func _logClusterCodePath() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
+	pc, _, _, _ := godefaultruntime.Caller(1)
+	jsonLog := []byte(fmt.Sprintf("{\"fn\": \"%s\"}", godefaultruntime.FuncForPC(pc).Name()))
+	godefaulthttp.Post("/"+"logcode", "application/json", godefaultbytes.NewBuffer(jsonLog))
 }

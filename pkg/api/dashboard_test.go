@@ -17,6 +17,8 @@ import (
 func TestDashboardApiEndpoint(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	Convey("Given a dashboard with a parent folder which does not have an acl", t, func() {
 		fakeDash := m.NewDashboard("Child dash")
 		fakeDash.Id = 1
@@ -566,6 +568,8 @@ func TestDashboardApiEndpoint(t *testing.T) {
 func GetDashboardShouldReturn200(sc *scenarioContext) dtos.DashboardFullWithMeta {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	CallGetDashboard(sc)
 	So(sc.resp.Code, ShouldEqual, 200)
 	dash := dtos.DashboardFullWithMeta{}
@@ -576,10 +580,14 @@ func GetDashboardShouldReturn200(sc *scenarioContext) dtos.DashboardFullWithMeta
 func CallGetDashboard(sc *scenarioContext) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	sc.handlerFunc = GetDashboard
 	sc.fakeReqWithParams("GET", sc.url, map[string]string{}).exec()
 }
 func CallGetDashboardVersion(sc *scenarioContext) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	bus.AddHandler("test", func(query *m.GetDashboardVersionQuery) error {
@@ -592,6 +600,8 @@ func CallGetDashboardVersion(sc *scenarioContext) {
 func CallGetDashboardVersions(sc *scenarioContext) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	bus.AddHandler("test", func(query *m.GetDashboardVersionsQuery) error {
 		query.Result = []*m.DashboardVersionDTO{}
 		return nil
@@ -600,6 +610,8 @@ func CallGetDashboardVersions(sc *scenarioContext) {
 	sc.fakeReqWithParams("GET", sc.url, map[string]string{}).exec()
 }
 func CallDeleteDashboard(sc *scenarioContext) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	bus.AddHandler("test", func(cmd *m.DeleteDashboardCommand) error {
@@ -611,6 +623,8 @@ func CallDeleteDashboard(sc *scenarioContext) {
 func CallDeleteDashboardByUID(sc *scenarioContext) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	bus.AddHandler("test", func(cmd *m.DeleteDashboardCommand) error {
 		return nil
 	})
@@ -620,15 +634,21 @@ func CallDeleteDashboardByUID(sc *scenarioContext) {
 func CallPostDashboard(sc *scenarioContext) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	sc.fakeReqWithParams("POST", sc.url, map[string]string{}).exec()
 }
 func CallPostDashboardShouldReturnSuccess(sc *scenarioContext) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	CallPostDashboard(sc)
 	So(sc.resp.Code, ShouldEqual, 200)
 }
 func postDashboardScenario(desc string, url string, routePattern string, mock *dashboards.FakeDashboardService, cmd m.SaveDashboardCommand, fn scenarioFunc) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	Convey(desc+" "+url, func() {
@@ -651,6 +671,8 @@ func postDashboardScenario(desc string, url string, routePattern string, mock *d
 func postDiffScenario(desc string, url string, routePattern string, cmd dtos.CalculateDiffOptions, role m.RoleType, fn scenarioFunc) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	Convey(desc+" "+url, func() {
 		defer bus.ClearBusHandlers()
 		sc := setupScenarioContext(url)
@@ -665,6 +687,8 @@ func postDiffScenario(desc string, url string, routePattern string, cmd dtos.Cal
 	})
 }
 func (sc *scenarioContext) ToJSON() *simplejson.Json {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var result *simplejson.Json

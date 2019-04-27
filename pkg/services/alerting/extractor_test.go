@@ -13,6 +13,8 @@ import (
 func TestAlertRuleExtraction(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	Convey("Parsing alert rules  from dashboard json", t, func() {
 		RegisterCondition("query", func(model *simplejson.Json, index int) (Condition, error) {
 			return &FakeCondition{}, nil

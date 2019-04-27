@@ -12,6 +12,8 @@ import (
 func RequestMetrics(handler string) macaron.Handler {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return func(res http.ResponseWriter, req *http.Request, c *macaron.Context) {
 		rw := res.(macaron.ResponseWriter)
 		now := time.Now()
@@ -34,6 +36,8 @@ func RequestMetrics(handler string) macaron.Handler {
 func countApiRequests(status int) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	switch status {
 	case 200:
 		metrics.M_Api_Status.WithLabelValues("200").Inc()
@@ -46,6 +50,8 @@ func countApiRequests(status int) {
 	}
 }
 func countPageRequests(status int) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	switch status {
@@ -62,6 +68,8 @@ func countPageRequests(status int) {
 func countProxyRequests(status int) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	switch status {
 	case 200:
 		metrics.M_Proxy_Status.WithLabelValues("200").Inc()
@@ -74,6 +82,8 @@ func countProxyRequests(status int) {
 	}
 }
 func sanitizeMethod(m string) string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	switch m {
@@ -98,6 +108,8 @@ func sanitizeMethod(m string) string {
 	}
 }
 func sanitizeCode(s int) string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	switch s {

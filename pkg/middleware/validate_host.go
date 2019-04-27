@@ -10,6 +10,8 @@ import (
 func ValidateHostHeader(domain string) macaron.Handler {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return func(c *m.ReqContext) {
 		if c.IsRenderCall {
 			return

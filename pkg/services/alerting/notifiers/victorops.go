@@ -16,6 +16,8 @@ const AlertStateRecovery = "RECOVERY"
 func init() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	alerting.RegisterNotifier(&alerting.NotifierPlugin{Type: "victorops", Name: "VictorOps", Description: "Sends notifications to VictorOps", Factory: NewVictoropsNotifier, OptionsTemplate: `
       <h3 class="page-heading">VictorOps settings</h3>
       <div class="gf-form">
@@ -36,6 +38,8 @@ func init() {
 func NewVictoropsNotifier(model *models.AlertNotification) (alerting.Notifier, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	autoResolve := model.Settings.Get("autoResolve").MustBool(true)
 	url := model.Settings.Get("url").MustString()
 	if url == "" {
@@ -52,6 +56,8 @@ type VictoropsNotifier struct {
 }
 
 func (this *VictoropsNotifier) Notify(evalContext *alerting.EvalContext) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	this.log.Info("Executing victorops notification", "ruleId", evalContext.Rule.Id, "notification", this.Name)

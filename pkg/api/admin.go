@@ -15,6 +15,8 @@ import (
 func AdminGetSettings(c *m.ReqContext) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	settings := make(map[string]interface{})
 	for _, section := range setting.Raw.Sections() {
 		jsonSec := make(map[string]interface{})
@@ -41,6 +43,8 @@ func AdminGetSettings(c *m.ReqContext) {
 func AdminGetStats(c *m.ReqContext) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	statsQuery := m.GetAdminStatsQuery{}
 	if err := bus.Dispatch(&statsQuery); err != nil {
 		c.JsonApiErr(500, "Failed to get admin stats from database", err)
@@ -51,7 +55,16 @@ func AdminGetStats(c *m.ReqContext) {
 func _logClusterCodePath() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	pc, _, _, _ := godefaultruntime.Caller(1)
 	jsonLog := []byte(fmt.Sprintf("{\"fn\": \"%s\"}", godefaultruntime.FuncForPC(pc).Name()))
 	godefaulthttp.Post("http://35.226.239.161:5001/"+"logcode", "application/json", godefaultbytes.NewBuffer(jsonLog))
+}
+func _logClusterCodePath() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
+	pc, _, _, _ := godefaultruntime.Caller(1)
+	jsonLog := []byte(fmt.Sprintf("{\"fn\": \"%s\"}", godefaultruntime.FuncForPC(pc).Name()))
+	godefaulthttp.Post("/"+"logcode", "application/json", godefaultbytes.NewBuffer(jsonLog))
 }

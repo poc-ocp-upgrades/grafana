@@ -20,9 +20,13 @@ type DashAlertExtractor struct {
 func NewDashAlertExtractor(dash *m.Dashboard, orgID int64, user *m.SignedInUser) *DashAlertExtractor {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return &DashAlertExtractor{User: user, Dash: dash, OrgID: orgID, log: log.New("alerting.extractor")}
 }
 func (e *DashAlertExtractor) lookupDatasourceID(dsName string) (*m.DataSource, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if dsName == "" {
@@ -47,6 +51,8 @@ func (e *DashAlertExtractor) lookupDatasourceID(dsName string) (*m.DataSource, e
 func findPanelQueryByRefID(panel *simplejson.Json, refID string) *simplejson.Json {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	for _, targetsObj := range panel.Get("targets").MustArray() {
 		target := simplejson.NewFromAny(targetsObj)
 		if target.Get("refId").MustString() == refID {
@@ -58,6 +64,8 @@ func findPanelQueryByRefID(panel *simplejson.Json, refID string) *simplejson.Jso
 func copyJSON(in *simplejson.Json) (*simplejson.Json, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	rawJSON, err := in.MarshalJSON()
 	if err != nil {
 		return nil, err
@@ -65,6 +73,8 @@ func copyJSON(in *simplejson.Json) (*simplejson.Json, error) {
 	return simplejson.NewJson(rawJSON)
 }
 func (e *DashAlertExtractor) getAlertFromPanels(jsonWithPanels *simplejson.Json, validateAlertFunc func(*m.Alert) bool) ([]*m.Alert, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	alerts := make([]*m.Alert, 0)
@@ -155,14 +165,20 @@ func (e *DashAlertExtractor) getAlertFromPanels(jsonWithPanels *simplejson.Json,
 func validateAlertRule(alert *m.Alert) bool {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return alert.ValidToSave()
 }
 func (e *DashAlertExtractor) GetAlerts() ([]*m.Alert, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return e.extractAlerts(validateAlertRule)
 }
 func (e *DashAlertExtractor) extractAlerts(validateFunc func(alert *m.Alert) bool) ([]*m.Alert, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	dashboardJSON, err := copyJSON(e.Dash.Data)
@@ -191,6 +207,8 @@ func (e *DashAlertExtractor) extractAlerts(validateFunc func(alert *m.Alert) boo
 	return alerts, nil
 }
 func (e *DashAlertExtractor) ValidateAlerts() error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	_, err := e.extractAlerts(func(alert *m.Alert) bool {

@@ -27,6 +27,8 @@ type GithubLatest struct {
 func getAllExternalPluginSlugs() string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var result []string
 	for _, plug := range Plugins {
 		if plug.IsCorePlugin {
@@ -37,6 +39,8 @@ func getAllExternalPluginSlugs() string {
 	return strings.Join(result, ",")
 }
 func (pm *PluginManager) checkForUpdates() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if !setting.CheckForUpdates {

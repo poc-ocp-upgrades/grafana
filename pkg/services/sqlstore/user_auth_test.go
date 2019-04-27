@@ -11,6 +11,8 @@ import (
 func TestUserAuth(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	InitTestDB(t)
 	Convey("Given 5 users", t, func() {
 		var err error

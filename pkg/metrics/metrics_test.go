@@ -20,6 +20,8 @@ import (
 func TestMetrics(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	Convey("Test send usage stats", t, func() {
 		var getSystemStatsQuery *models.GetSystemStatsQuery
 		bus.AddHandler("test", func(query *models.GetSystemStatsQuery) error {
@@ -143,6 +145,8 @@ func TestMetrics(t *testing.T) {
 	})
 }
 func waitTimeout(wg *sync.WaitGroup, timeout time.Duration) bool {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	c := make(chan struct{})

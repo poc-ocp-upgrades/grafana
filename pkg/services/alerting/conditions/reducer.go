@@ -15,6 +15,8 @@ type SimpleReducer struct{ Type string }
 func (s *SimpleReducer) Reduce(series *tsdb.TimeSeries) null.Float {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if len(series.Points) == 0 {
 		return null.FloatFromPtr(nil)
 	}
@@ -148,6 +150,8 @@ func (s *SimpleReducer) Reduce(series *tsdb.TimeSeries) null.Float {
 	return null.FloatFrom(value)
 }
 func NewSimpleReducer(typ string) *SimpleReducer {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return &SimpleReducer{Type: typ}

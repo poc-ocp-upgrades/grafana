@@ -15,6 +15,8 @@ var (
 func TestDashboardsAsConfig(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	Convey("Dashboards as configuration", t, func() {
 		logger := log.New("test-logger")
 		Convey("Can read config file version 1 format", func() {
@@ -48,6 +50,8 @@ func TestDashboardsAsConfig(t *testing.T) {
 	})
 }
 func validateDashboardAsConfig(t *testing.T, cfg []*DashboardsAsConfig) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	t.Helper()

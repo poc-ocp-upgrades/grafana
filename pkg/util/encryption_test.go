@@ -8,6 +8,8 @@ import (
 func TestEncryption(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	Convey("When getting encryption key", t, func() {
 		key := encryptionKeyToBytes("secret", "salt")
 		So(len(key), ShouldEqual, 32)

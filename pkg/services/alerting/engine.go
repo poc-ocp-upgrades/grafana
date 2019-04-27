@@ -29,9 +29,13 @@ type AlertingService struct {
 func init() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	registry.RegisterService(&AlertingService{})
 }
 func NewEngine() *AlertingService {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	e := &AlertingService{}
@@ -41,9 +45,13 @@ func NewEngine() *AlertingService {
 func (e *AlertingService) IsDisabled() bool {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return !setting.AlertingEnabled || !setting.ExecuteAlerts
 }
 func (e *AlertingService) Init() error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	e.ticker = NewTicker(time.Now(), time.Second*0, clock.New())
@@ -58,6 +66,8 @@ func (e *AlertingService) Init() error {
 func (e *AlertingService) Run(ctx context.Context) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	alertGroup, ctx := errgroup.WithContext(ctx)
 	alertGroup.Go(func() error {
 		return e.alertingTicker(ctx)
@@ -69,6 +79,8 @@ func (e *AlertingService) Run(ctx context.Context) error {
 	return err
 }
 func (e *AlertingService) alertingTicker(grafanaCtx context.Context) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	defer func() {
@@ -93,6 +105,8 @@ func (e *AlertingService) alertingTicker(grafanaCtx context.Context) error {
 func (e *AlertingService) runJobDispatcher(grafanaCtx context.Context) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	dispatcherGroup, alertCtx := errgroup.WithContext(grafanaCtx)
 	for {
 		select {
@@ -113,6 +127,8 @@ var (
 )
 
 func (e *AlertingService) processJobWithRetry(grafanaCtx context.Context, job *Job) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	defer func() {
@@ -145,6 +161,8 @@ func (e *AlertingService) processJobWithRetry(grafanaCtx context.Context, job *J
 func (e *AlertingService) endJob(err error, cancelChan chan context.CancelFunc, job *Job) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	job.Running = false
 	close(cancelChan)
 	for cancelFn := range cancelChan {
@@ -153,6 +171,8 @@ func (e *AlertingService) endJob(err error, cancelChan chan context.CancelFunc, 
 	return err
 }
 func (e *AlertingService) processJob(attemptID int, attemptChan chan int, cancelChan chan context.CancelFunc, job *Job) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	defer func() {

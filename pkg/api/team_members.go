@@ -11,6 +11,8 @@ import (
 func GetTeamMembers(c *m.ReqContext) Response {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	query := m.GetTeamMembersQuery{OrgId: c.OrgId, TeamId: c.ParamsInt64(":teamId")}
 	if err := bus.Dispatch(&query); err != nil {
 		return Error(500, "Failed to get Team Members", err)
@@ -27,6 +29,8 @@ func GetTeamMembers(c *m.ReqContext) Response {
 func AddTeamMember(c *m.ReqContext, cmd m.AddTeamMemberCommand) Response {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	cmd.TeamId = c.ParamsInt64(":teamId")
 	cmd.OrgId = c.OrgId
 	if err := bus.Dispatch(&cmd); err != nil {
@@ -41,6 +45,8 @@ func AddTeamMember(c *m.ReqContext, cmd m.AddTeamMemberCommand) Response {
 	return JSON(200, &util.DynMap{"message": "Member added to Team"})
 }
 func RemoveTeamMember(c *m.ReqContext) Response {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if err := bus.Dispatch(&m.RemoveTeamMemberCommand{OrgId: c.OrgId, TeamId: c.ParamsInt64(":teamId"), UserId: c.ParamsInt64(":userId")}); err != nil {

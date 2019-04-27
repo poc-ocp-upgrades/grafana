@@ -27,9 +27,13 @@ type GCSUploader struct {
 func NewGCSUploader(keyFile, bucket, path string) *GCSUploader {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return &GCSUploader{keyFile: keyFile, bucket: bucket, path: path, log: log.New("gcsuploader")}
 }
 func (u *GCSUploader) Upload(ctx context.Context, imageDiskPath string) (string, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	fileName := util.GetRandomString(20) + ".png"
@@ -53,6 +57,8 @@ func (u *GCSUploader) Upload(ctx context.Context, imageDiskPath string) (string,
 	return fmt.Sprintf("https://storage.googleapis.com/%s/%s", u.bucket, key), nil
 }
 func (u *GCSUploader) uploadFile(client *http.Client, imageDiskPath, key string) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	u.log.Debug("Opening image file ", imageDiskPath)

@@ -13,6 +13,8 @@ import (
 func TestECSCredProvider(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	Convey("Running in an ECS container task", t, func() {
 		defer os.Clearenv()
 		os.Setenv("AWS_CONTAINER_CREDENTIALS_RELATIVE_URI", "/abc/123")
@@ -26,6 +28,8 @@ func TestECSCredProvider(t *testing.T) {
 	})
 }
 func TestDefaultEC2RoleProvider(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	Convey("Running outside an ECS container task", t, func() {

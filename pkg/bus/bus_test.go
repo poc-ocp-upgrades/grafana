@@ -15,6 +15,8 @@ type testQuery struct {
 func TestDispatchCtxCanUseNormalHandlers(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	bus := New()
 	handlerWithCtxCallCount := 0
 	handlerCallCount := 0
@@ -48,6 +50,8 @@ func TestDispatchCtxCanUseNormalHandlers(t *testing.T) {
 func TestQueryHandlerReturnsError(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	bus := New()
 	bus.AddHandler(func(query *testQuery) error {
 		return errors.New("handler error")
@@ -60,6 +64,8 @@ func TestQueryHandlerReturnsError(t *testing.T) {
 	}
 }
 func TestQueryHandlerReturn(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	bus := New()
@@ -76,6 +82,8 @@ func TestQueryHandlerReturn(t *testing.T) {
 	}
 }
 func TestEventListeners(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	bus := New()

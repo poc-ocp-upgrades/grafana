@@ -9,6 +9,8 @@ import (
 func GetOrgQuotas(c *m.ReqContext) Response {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if !setting.Quota.Enabled {
 		return Error(404, "Quotas not enabled", nil)
 	}
@@ -19,6 +21,8 @@ func GetOrgQuotas(c *m.ReqContext) Response {
 	return JSON(200, query.Result)
 }
 func UpdateOrgQuota(c *m.ReqContext, cmd m.UpdateOrgQuotaCmd) Response {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if !setting.Quota.Enabled {
@@ -37,6 +41,8 @@ func UpdateOrgQuota(c *m.ReqContext, cmd m.UpdateOrgQuotaCmd) Response {
 func GetUserQuotas(c *m.ReqContext) Response {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if !setting.Quota.Enabled {
 		return Error(404, "Quotas not enabled", nil)
 	}
@@ -47,6 +53,8 @@ func GetUserQuotas(c *m.ReqContext) Response {
 	return JSON(200, query.Result)
 }
 func UpdateUserQuota(c *m.ReqContext, cmd m.UpdateUserQuotaCmd) Response {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if !setting.Quota.Enabled {

@@ -9,6 +9,8 @@ import (
 func TestTimeRange(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	Convey("Time range", t, func() {
 		now := time.Now()
 		Convey("Can parse 5m, now", func() {

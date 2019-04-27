@@ -14,6 +14,8 @@ const saltLength = 8
 func Decrypt(payload []byte, secret string) ([]byte, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	salt := payload[:saltLength]
 	key := encryptionKeyToBytes(secret, string(salt))
 	block, err := aes.NewCipher(key)
@@ -33,6 +35,8 @@ func Decrypt(payload []byte, secret string) ([]byte, error) {
 func Encrypt(payload []byte, secret string) ([]byte, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	salt := GetRandomString(saltLength)
 	key := encryptionKeyToBytes(secret, salt)
 	block, err := aes.NewCipher(key)
@@ -50,6 +54,8 @@ func Encrypt(payload []byte, secret string) ([]byte, error) {
 	return ciphertext, nil
 }
 func encryptionKeyToBytes(secret, salt string) []byte {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return PBKDF2([]byte(secret), []byte(salt), 10000, 32, sha256.New)

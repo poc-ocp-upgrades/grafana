@@ -20,6 +20,8 @@ var filters map[string]log15.Lvl
 func init() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	loggersToClose = make([]DisposableHandler, 0)
 	loggersToReload = make([]ReloadableHandler, 0)
 	Root = log15.Root()
@@ -28,10 +30,14 @@ func init() {
 func New(logger string, ctx ...interface{}) Logger {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	params := append([]interface{}{"logger", logger}, ctx...)
 	return Root.New(params...)
 }
 func Trace(format string, v ...interface{}) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var message string
@@ -45,6 +51,8 @@ func Trace(format string, v ...interface{}) {
 func Debug(format string, v ...interface{}) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var message string
 	if len(v) > 0 {
 		message = fmt.Sprintf(format, v...)
@@ -56,9 +64,13 @@ func Debug(format string, v ...interface{}) {
 func Debug2(message string, v ...interface{}) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	Root.Debug(message, v...)
 }
 func Info(format string, v ...interface{}) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var message string
@@ -72,9 +84,13 @@ func Info(format string, v ...interface{}) {
 func Info2(message string, v ...interface{}) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	Root.Info(message, v...)
 }
 func Warn(format string, v ...interface{}) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var message string
@@ -88,9 +104,13 @@ func Warn(format string, v ...interface{}) {
 func Warn2(message string, v ...interface{}) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	Root.Warn(message, v...)
 }
 func Error(skip int, format string, v ...interface{}) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	Root.Error(fmt.Sprintf(format, v...))
@@ -98,9 +118,13 @@ func Error(skip int, format string, v ...interface{}) {
 func Error2(message string, v ...interface{}) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	Root.Error(message, v...)
 }
 func Critical(skip int, format string, v ...interface{}) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	Root.Crit(fmt.Sprintf(format, v...))
@@ -108,11 +132,15 @@ func Critical(skip int, format string, v ...interface{}) {
 func Fatal(skip int, format string, v ...interface{}) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	Root.Crit(fmt.Sprintf(format, v...))
 	Close()
 	os.Exit(1)
 }
 func Close() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	for _, logger := range loggersToClose {
@@ -123,11 +151,15 @@ func Close() {
 func Reload() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	for _, logger := range loggersToReload {
 		logger.Reload()
 	}
 }
 func GetLogLevelFor(name string) Lvl {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if level, ok := filters[name]; ok {
@@ -152,12 +184,16 @@ var logLevels = map[string]log15.Lvl{"trace": log15.LvlDebug, "debug": log15.Lvl
 func getLogLevelFromConfig(key string, defaultName string, cfg *ini.File) (string, log15.Lvl) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	levelName := cfg.Section(key).Key("level").MustString(defaultName)
 	levelName = strings.ToLower(levelName)
 	level := getLogLevelFromString(levelName)
 	return levelName, level
 }
 func getLogLevelFromString(levelName string) log15.Lvl {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	level, ok := logLevels[levelName]
@@ -170,6 +206,8 @@ func getLogLevelFromString(levelName string) log15.Lvl {
 func getFilters(filterStrArray []string) map[string]log15.Lvl {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	filterMap := make(map[string]log15.Lvl)
 	for _, filterStr := range filterStrArray {
 		parts := strings.Split(filterStr, ":")
@@ -180,6 +218,8 @@ func getFilters(filterStrArray []string) map[string]log15.Lvl {
 	return filterMap
 }
 func getLogFormat(format string) log15.Format {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	switch format {
@@ -197,6 +237,8 @@ func getLogFormat(format string) log15.Format {
 	}
 }
 func ReadLoggingConfig(modes []string, logsPath string, cfg *ini.File) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	Close()
@@ -249,6 +291,8 @@ func ReadLoggingConfig(modes []string, logsPath string, cfg *ini.File) {
 func LogFilterHandler(maxLevel log15.Lvl, filters map[string]log15.Lvl, h log15.Handler) log15.Handler {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return log15.FilterHandler(func(r *log15.Record) (pass bool) {
 		if len(filters) > 0 {
 			for i := 0; i < len(r.Ctx); i += 2 {
@@ -267,6 +311,8 @@ func LogFilterHandler(maxLevel log15.Lvl, filters map[string]log15.Lvl, h log15.
 	}, h)
 }
 func Stack(skip int) string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	call := stack.Caller(skip)

@@ -9,6 +9,8 @@ import (
 func upgradeCommand(c CommandLine) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	pluginsDir := c.PluginDirectory()
 	pluginName := c.Args().First()
 	localPlugin, err := s.ReadPlugin(pluginsDir, pluginName)

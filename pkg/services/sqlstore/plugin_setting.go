@@ -11,12 +11,16 @@ import (
 func init() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	bus.AddHandler("sql", GetPluginSettings)
 	bus.AddHandler("sql", GetPluginSettingById)
 	bus.AddHandler("sql", UpdatePluginSetting)
 	bus.AddHandler("sql", UpdatePluginSettingVersion)
 }
 func GetPluginSettings(query *m.GetPluginSettingsQuery) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	sql := `SELECT org_id, plugin_id, enabled, pinned, plugin_version
@@ -33,6 +37,8 @@ func GetPluginSettings(query *m.GetPluginSettingsQuery) error {
 func GetPluginSettingById(query *m.GetPluginSettingByIdQuery) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	pluginSetting := m.PluginSetting{OrgId: query.OrgId, PluginId: query.PluginId}
 	has, err := x.Get(&pluginSetting)
 	if err != nil {
@@ -44,6 +50,8 @@ func GetPluginSettingById(query *m.GetPluginSettingByIdQuery) error {
 	return nil
 }
 func UpdatePluginSetting(cmd *m.UpdatePluginSettingCmd) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return inTransaction(func(sess *DBSession) error {
@@ -80,6 +88,8 @@ func UpdatePluginSetting(cmd *m.UpdatePluginSettingCmd) error {
 	})
 }
 func UpdatePluginSettingVersion(cmd *m.UpdatePluginSettingVersionCmd) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return inTransaction(func(sess *DBSession) error {

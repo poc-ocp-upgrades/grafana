@@ -9,6 +9,8 @@ import (
 func TestSimplejson(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var ok bool
 	var err error
 	js, err := NewJson([]byte(`{
@@ -99,6 +101,8 @@ func TestSimplejson(t *testing.T) {
 func TestStdlibInterfaces(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	val := new(struct {
 		Name	string	`json:"name"`
 		Params	*Json	`json:"params"`
@@ -121,6 +125,8 @@ func TestStdlibInterfaces(t *testing.T) {
 func TestSet(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	js, err := NewJson([]byte(`{}`))
 	assert.Equal(t, nil, err)
 	js.Set("baz", "bing")
@@ -129,6 +135,8 @@ func TestSet(t *testing.T) {
 	assert.Equal(t, "bing", s)
 }
 func TestReplace(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	js, err := NewJson([]byte(`{}`))
@@ -142,6 +150,8 @@ func TestReplace(t *testing.T) {
 func TestSetPath(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	js, err := NewJson([]byte(`{}`))
 	assert.Equal(t, nil, err)
 	js.SetPath([]string{"foo", "bar"}, "baz")
@@ -150,6 +160,8 @@ func TestSetPath(t *testing.T) {
 	assert.Equal(t, "baz", s)
 }
 func TestSetPathNoPath(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	js, err := NewJson([]byte(`{"some":"data","some_number":1.0,"some_bool":false}`))
@@ -166,6 +178,8 @@ func TestSetPathNoPath(t *testing.T) {
 func TestPathWillAugmentExisting(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	js, err := NewJson([]byte(`{"this":{"a":"aa","b":"bb","c":"cc"}}`))
 	assert.Equal(t, nil, err)
 	js.SetPath([]string{"this", "d"}, "dd")
@@ -180,6 +194,8 @@ func TestPathWillAugmentExisting(t *testing.T) {
 	}
 }
 func TestPathWillOverwriteExisting(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	js, err := NewJson([]byte(`{"this":{"a":0.1,"b":"bb","c":"cc"}}`))

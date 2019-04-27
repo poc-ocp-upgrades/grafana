@@ -48,12 +48,16 @@ type BasicFormatter struct {
 func NewBasicFormatter(left interface{}) *BasicFormatter {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	tpl := template.Must(template.New("block").Funcs(tplFuncMap).Parse(tplBlock))
 	tpl = template.Must(tpl.New("change").Funcs(tplFuncMap).Parse(tplChange))
 	tpl = template.Must(tpl.New("summary").Funcs(tplFuncMap).Parse(tplSummary))
 	return &BasicFormatter{jsonDiff: NewJSONFormatter(left), tpl: tpl}
 }
 func (b *BasicFormatter) Format(d diff.Diff) ([]byte, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	_, err := b.jsonDiff.Format(d)
@@ -70,6 +74,8 @@ func (b *BasicFormatter) Format(d diff.Diff) ([]byte, error) {
 	return buf.Bytes(), nil
 }
 func (b *BasicDiff) Basic(lines []*JSONLine) []*BasicBlock {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	blocks := make([]*BasicBlock, 0)
@@ -132,9 +138,13 @@ func (b *BasicDiff) Basic(lines []*JSONLine) []*BasicBlock {
 func (b *BasicDiff) returnToTopLevelKey(line *JSONLine) bool {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return b.LastIndent == 2 && line.Indent == 1 && line.Change == ChangeNil
 }
 func (b *BasicDiff) handleTopLevelChange(line *JSONLine) (*BasicBlock, bool) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	switch line.Change {
@@ -157,6 +167,8 @@ func (b *BasicDiff) handleTopLevelChange(line *JSONLine) (*BasicBlock, bool) {
 	return nil, false
 }
 func (b *BasicDiff) isSingleLineChange(line *JSONLine) bool {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return line.Key != "" && line.Val != nil && !b.writing

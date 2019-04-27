@@ -8,6 +8,8 @@ import (
 func TestMiddlewareAuth(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	Convey("Given the grafana middleware", t, func() {
 		reqSignIn := Auth(&AuthOptions{ReqSignedIn: true})
 		middlewareScenario("ReqSignIn true and unauthenticated request", func(sc *scenarioContext) {

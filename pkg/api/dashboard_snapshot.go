@@ -14,9 +14,13 @@ import (
 func GetSharingOptions(c *m.ReqContext) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	c.JSON(200, util.DynMap{"externalSnapshotURL": setting.ExternalSnapshotUrl, "externalSnapshotName": setting.ExternalSnapshotName, "externalEnabled": setting.ExternalEnabled})
 }
 func CreateDashboardSnapshot(c *m.ReqContext, cmd m.CreateDashboardSnapshotCommand) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if cmd.Name == "" {
@@ -46,6 +50,8 @@ func CreateDashboardSnapshot(c *m.ReqContext, cmd m.CreateDashboardSnapshotComma
 func GetDashboardSnapshot(c *m.ReqContext) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	key := c.Params(":key")
 	query := &m.GetDashboardSnapshotQuery{Key: key}
 	err := bus.Dispatch(query)
@@ -66,6 +72,8 @@ func GetDashboardSnapshot(c *m.ReqContext) {
 func DeleteDashboardSnapshotByDeleteKey(c *m.ReqContext) Response {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	key := c.Params(":deleteKey")
 	query := &m.GetDashboardSnapshotQuery{DeleteKey: key}
 	err := bus.Dispatch(query)
@@ -79,6 +87,8 @@ func DeleteDashboardSnapshotByDeleteKey(c *m.ReqContext) Response {
 	return JSON(200, util.DynMap{"message": "Snapshot deleted. It might take an hour before it's cleared from any CDN caches."})
 }
 func DeleteDashboardSnapshot(c *m.ReqContext) Response {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	key := c.Params(":key")
@@ -107,6 +117,8 @@ func DeleteDashboardSnapshot(c *m.ReqContext) Response {
 	return JSON(200, util.DynMap{"message": "Snapshot deleted. It might take an hour before it's cleared from any CDN caches."})
 }
 func SearchDashboardSnapshots(c *m.ReqContext) Response {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	query := c.Query("query")

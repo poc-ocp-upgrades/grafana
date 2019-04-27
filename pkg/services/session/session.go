@@ -28,6 +28,8 @@ var sessionConnMaxLifetime int64
 func init() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	StartSessionGC = func() {
 		sessionManager.GC()
 		sessionLogger.Debug("Session GC")
@@ -38,6 +40,8 @@ func init() {
 	}
 }
 func Init(options *ms.Options, connMaxLifetime int64) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var err error
@@ -51,6 +55,8 @@ func Init(options *ms.Options, connMaxLifetime int64) {
 	time.AfterFunc(time.Duration(rndSeconds)*time.Second, StartSessionGC)
 }
 func prepareOptions(opt *ms.Options) *ms.Options {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if len(opt.Provider) == 0 {
@@ -79,6 +85,8 @@ func prepareOptions(opt *ms.Options) *ms.Options {
 func GetSession() SessionStore {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return &SessionWrapper{manager: sessionManager}
 }
 
@@ -100,6 +108,8 @@ type SessionWrapper struct {
 func (s *SessionWrapper) Start(c *macaron.Context) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	defer func() error {
 		if err := recover(); err != nil {
 			var retryErr error
@@ -115,11 +125,15 @@ func (s *SessionWrapper) Start(c *macaron.Context) error {
 func (s *SessionWrapper) RegenerateId(c *macaron.Context) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var err error
 	s.session, err = s.manager.RegenerateId(c)
 	return err
 }
 func (s *SessionWrapper) Set(k interface{}, v interface{}) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if s.session != nil {
@@ -130,12 +144,16 @@ func (s *SessionWrapper) Set(k interface{}, v interface{}) error {
 func (s *SessionWrapper) Get(k interface{}) interface{} {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if s.session != nil {
 		return s.session.Get(k)
 	}
 	return nil
 }
 func (s *SessionWrapper) Delete(k interface{}) interface{} {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if s.session != nil {
@@ -146,6 +164,8 @@ func (s *SessionWrapper) Delete(k interface{}) interface{} {
 func (s *SessionWrapper) ID() string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if s.session != nil {
 		return s.session.ID()
 	}
@@ -154,12 +174,16 @@ func (s *SessionWrapper) ID() string {
 func (s *SessionWrapper) Release() error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if s.session != nil {
 		return s.session.Release()
 	}
 	return nil
 }
 func (s *SessionWrapper) Destory(c *macaron.Context) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if s.session != nil {

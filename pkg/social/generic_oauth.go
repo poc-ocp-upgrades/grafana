@@ -25,9 +25,13 @@ type SocialGenericOAuth struct {
 func (s *SocialGenericOAuth) Type() int {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return int(models.GENERIC)
 }
 func (s *SocialGenericOAuth) IsEmailAllowed(email string) bool {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return isEmailAllowed(email, s.allowedDomains)
@@ -35,9 +39,13 @@ func (s *SocialGenericOAuth) IsEmailAllowed(email string) bool {
 func (s *SocialGenericOAuth) IsSignupAllowed() bool {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return s.allowSignup
 }
 func (s *SocialGenericOAuth) IsTeamMember(client *http.Client) bool {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if len(s.teamIds) == 0 {
@@ -59,6 +67,8 @@ func (s *SocialGenericOAuth) IsTeamMember(client *http.Client) bool {
 func (s *SocialGenericOAuth) IsOrganizationMember(client *http.Client) bool {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if len(s.allowedOrganizations) == 0 {
 		return true
 	}
@@ -76,6 +86,8 @@ func (s *SocialGenericOAuth) IsOrganizationMember(client *http.Client) bool {
 	return false
 }
 func (s *SocialGenericOAuth) FetchPrivateEmail(client *http.Client) (string, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	type Record struct {
@@ -113,6 +125,8 @@ func (s *SocialGenericOAuth) FetchPrivateEmail(client *http.Client) (string, err
 func (s *SocialGenericOAuth) FetchTeamMemberships(client *http.Client) ([]int, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	type Record struct {
 		Id int `json:"id"`
 	}
@@ -132,6 +146,8 @@ func (s *SocialGenericOAuth) FetchTeamMemberships(client *http.Client) ([]int, e
 	return ids, nil
 }
 func (s *SocialGenericOAuth) FetchOrganizations(client *http.Client) ([]string, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	type Record struct {
@@ -164,6 +180,8 @@ type UserInfoJson struct {
 }
 
 func (s *SocialGenericOAuth) UserInfo(client *http.Client, token *oauth2.Token) (*BasicUserInfo, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var data UserInfoJson
@@ -199,6 +217,8 @@ func (s *SocialGenericOAuth) UserInfo(client *http.Client, token *oauth2.Token) 
 func (s *SocialGenericOAuth) extractToken(data *UserInfoJson, token *oauth2.Token) bool {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	idToken := token.Extra("id_token")
 	if idToken == nil {
 		s.log.Debug("No id_token found", "token", token)
@@ -231,6 +251,8 @@ func (s *SocialGenericOAuth) extractToken(data *UserInfoJson, token *oauth2.Toke
 func (s *SocialGenericOAuth) extractEmail(data *UserInfoJson) string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if data.Email != "" {
 		return data.Email
 	}
@@ -249,6 +271,8 @@ func (s *SocialGenericOAuth) extractEmail(data *UserInfoJson) string {
 func (s *SocialGenericOAuth) extractLogin(data *UserInfoJson, email string) string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if data.Login != "" {
 		return data.Login
 	}
@@ -258,6 +282,8 @@ func (s *SocialGenericOAuth) extractLogin(data *UserInfoJson, email string) stri
 	return email
 }
 func (s *SocialGenericOAuth) extractName(data *UserInfoJson) string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if data.Name != "" {

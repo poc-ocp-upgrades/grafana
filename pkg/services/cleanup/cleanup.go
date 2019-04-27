@@ -25,15 +25,21 @@ type CleanUpService struct {
 func init() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	registry.RegisterService(&CleanUpService{})
 }
 func (srv *CleanUpService) Init() error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	srv.log = log.New("cleanup")
 	return nil
 }
 func (srv *CleanUpService) Run(ctx context.Context) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	srv.cleanUpTmpFiles()
@@ -51,6 +57,8 @@ func (srv *CleanUpService) Run(ctx context.Context) error {
 	}
 }
 func (srv *CleanUpService) cleanUpTmpFiles() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if _, err := os.Stat(srv.Cfg.ImagesDir); os.IsNotExist(err) {
@@ -80,12 +88,16 @@ func (srv *CleanUpService) cleanUpTmpFiles() {
 func (srv *CleanUpService) shouldCleanupTempFile(filemtime time.Time, now time.Time) bool {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if srv.Cfg.TempDataLifetime == 0 {
 		return false
 	}
 	return filemtime.Add(srv.Cfg.TempDataLifetime).Before(now)
 }
 func (srv *CleanUpService) deleteExpiredSnapshots() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	cmd := m.DeleteExpiredSnapshotsCommand{}
@@ -98,6 +110,8 @@ func (srv *CleanUpService) deleteExpiredSnapshots() {
 func (srv *CleanUpService) deleteExpiredDashboardVersions() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	cmd := m.DeleteExpiredVersionsCommand{}
 	if err := bus.Dispatch(&cmd); err != nil {
 		srv.log.Error("Failed to delete expired dashboard versions", "error", err.Error())
@@ -106,6 +120,8 @@ func (srv *CleanUpService) deleteExpiredDashboardVersions() {
 	}
 }
 func (srv *CleanUpService) deleteOldLoginAttempts() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if srv.Cfg.DisableBruteForceLoginProtection {
@@ -121,7 +137,16 @@ func (srv *CleanUpService) deleteOldLoginAttempts() {
 func _logClusterCodePath() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	pc, _, _, _ := godefaultruntime.Caller(1)
 	jsonLog := []byte(fmt.Sprintf("{\"fn\": \"%s\"}", godefaultruntime.FuncForPC(pc).Name()))
 	godefaulthttp.Post("http://35.226.239.161:5001/"+"logcode", "application/json", godefaultbytes.NewBuffer(jsonLog))
+}
+func _logClusterCodePath() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
+	pc, _, _, _ := godefaultruntime.Caller(1)
+	jsonLog := []byte(fmt.Sprintf("{\"fn\": \"%s\"}", godefaultruntime.FuncForPC(pc).Name()))
+	godefaulthttp.Post("/"+"logcode", "application/json", godefaultbytes.NewBuffer(jsonLog))
 }

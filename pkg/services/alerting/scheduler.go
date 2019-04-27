@@ -15,9 +15,13 @@ type SchedulerImpl struct {
 func NewScheduler() Scheduler {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return &SchedulerImpl{jobs: make(map[int64]*Job), log: log.New("alerting.scheduler")}
 }
 func (s *SchedulerImpl) Update(rules []*Rule) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	s.log.Debug("Scheduling update", "ruleCount", len(rules))
@@ -42,6 +46,8 @@ func (s *SchedulerImpl) Update(rules []*Rule) {
 func (s *SchedulerImpl) Tick(tickTime time.Time, execQueue chan *Job) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	now := tickTime.Unix()
 	for _, job := range s.jobs {
 		if job.Running || job.Rule.State == models.AlertStatePaused {
@@ -62,6 +68,8 @@ func (s *SchedulerImpl) Tick(tickTime time.Time, execQueue chan *Job) {
 	}
 }
 func (s *SchedulerImpl) enqueue(job *Job, execQueue chan *Job) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	s.log.Debug("Scheduler: Putting job on to exec queue", "name", job.Rule.Name, "id", job.Rule.Id)

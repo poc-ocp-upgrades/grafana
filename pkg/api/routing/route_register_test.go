@@ -12,16 +12,22 @@ type fakeRouter struct{ route []route }
 func (fr *fakeRouter) Handle(method, pattern string, handlers []macaron.Handler) *macaron.Route {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	fr.route = append(fr.route, route{pattern: pattern, method: method, handlers: handlers})
 	return &macaron.Route{}
 }
 func (fr *fakeRouter) Get(pattern string, handlers ...macaron.Handler) *macaron.Route {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	fr.route = append(fr.route, route{pattern: pattern, method: http.MethodGet, handlers: handlers})
 	return &macaron.Route{}
 }
 func emptyHandlers(n int) []macaron.Handler {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var res []macaron.Handler
@@ -33,9 +39,13 @@ func emptyHandlers(n int) []macaron.Handler {
 func emptyHandler(name string) macaron.Handler {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return struct{ name string }{name: name}
 }
 func TestRouteSimpleRegister(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	testTable := []route{{method: "DELETE", pattern: "/admin", handlers: emptyHandlers(2)}, {method: "GET", pattern: "/down", handlers: emptyHandlers(3)}}
@@ -62,6 +72,8 @@ func TestRouteSimpleRegister(t *testing.T) {
 	}
 }
 func TestRouteGroupedRegister(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	testTable := []route{{method: "DELETE", pattern: "/admin", handlers: emptyHandlers(1)}, {method: "GET", pattern: "/down", handlers: emptyHandlers(2)}, {method: "POST", pattern: "/user", handlers: emptyHandlers(1)}, {method: "PUT", pattern: "/user/friends", handlers: emptyHandlers(1)}, {method: "DELETE", pattern: "/user/admin", handlers: emptyHandlers(2)}, {method: "GET", pattern: "/user/admin/all", handlers: emptyHandlers(4)}}
@@ -94,6 +106,8 @@ func TestRouteGroupedRegister(t *testing.T) {
 	}
 }
 func TestRouteGroupInserting(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	testTable := []route{{method: http.MethodGet, pattern: "/api/", handlers: emptyHandlers(1)}, {method: http.MethodPost, pattern: "/api/group/endpoint", handlers: emptyHandlers(1)}, {method: http.MethodGet, pattern: "/api/group/inserted", handlers: emptyHandlers(1)}, {method: http.MethodDelete, pattern: "/api/inserted-endpoint", handlers: emptyHandlers(1)}}
@@ -130,6 +144,8 @@ func TestRouteGroupInserting(t *testing.T) {
 func TestDuplicateRoutShouldPanic(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	defer func() {
 		if recover() != "cannot add duplicate route" {
 			t.Errorf("Should cause panic if duplicate routes are added ")
@@ -144,6 +160,8 @@ func TestDuplicateRoutShouldPanic(t *testing.T) {
 	rr.Register(fr)
 }
 func TestNamedMiddlewareRouteRegister(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	testTable := []route{{method: "DELETE", pattern: "/admin", handlers: emptyHandlers(2)}, {method: "GET", pattern: "/down", handlers: emptyHandlers(3)}, {method: "POST", pattern: "/user", handlers: emptyHandlers(2)}, {method: "PUT", pattern: "/user/friends", handlers: emptyHandlers(2)}, {method: "DELETE", pattern: "/user/admin", handlers: emptyHandlers(3)}, {method: "GET", pattern: "/user/admin/all", handlers: emptyHandlers(5)}}

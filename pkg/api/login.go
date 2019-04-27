@@ -19,6 +19,8 @@ const (
 func (hs *HTTPServer) LoginView(c *m.ReqContext) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	viewData, err := hs.setIndexViewData(c)
 	if err != nil {
 		c.Handle(500, "Failed to get settings", err)
@@ -53,6 +55,8 @@ func (hs *HTTPServer) LoginView(c *m.ReqContext) {
 func tryOAuthAutoLogin(c *m.ReqContext) bool {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if !setting.OAuthAutoLogin {
 		return false
 	}
@@ -70,6 +74,8 @@ func tryOAuthAutoLogin(c *m.ReqContext) bool {
 	return false
 }
 func tryLoginUsingRememberCookie(c *m.ReqContext) bool {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	uname := c.GetCookie(setting.CookieUserName)
@@ -105,6 +111,8 @@ func tryLoginUsingRememberCookie(c *m.ReqContext) bool {
 func LoginAPIPing(c *m.ReqContext) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if !tryLoginUsingRememberCookie(c) {
 		c.JsonApiErr(401, "Unauthorized", nil)
 		return
@@ -112,6 +120,8 @@ func LoginAPIPing(c *m.ReqContext) {
 	c.JsonOK("Logged in")
 }
 func LoginPost(c *m.ReqContext, cmd dtos.LoginCommand) Response {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if setting.DisableLoginForm {
@@ -137,6 +147,8 @@ func LoginPost(c *m.ReqContext, cmd dtos.LoginCommand) Response {
 func loginUserWithUser(user *m.User, c *m.ReqContext) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if user == nil {
 		log.Error(3, "User login with nil user")
 	}
@@ -150,6 +162,8 @@ func loginUserWithUser(user *m.User, c *m.ReqContext) {
 	c.Session.Set(session.SESS_KEY_USERID, user.Id)
 }
 func Logout(c *m.ReqContext) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	c.SetCookie(setting.CookieUserName, "", -1, setting.AppSubUrl+"/")

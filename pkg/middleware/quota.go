@@ -10,6 +10,8 @@ import (
 func Quota(target string) macaron.Handler {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return func(c *m.ReqContext) {
 		limitReached, err := quota.QuotaReached(c, target)
 		if err != nil {

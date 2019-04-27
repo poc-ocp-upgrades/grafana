@@ -12,9 +12,13 @@ type FakeCondition struct{}
 func (f *FakeCondition) Eval(context *EvalContext) (*ConditionResult, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return &ConditionResult{}, nil
 }
 func TestAlertRuleFrequencyParsing(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	tcs := []struct {
@@ -34,6 +38,8 @@ func TestAlertRuleFrequencyParsing(t *testing.T) {
 	}
 }
 func TestAlertRuleModel(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	Convey("Testing alert rule", t, func() {

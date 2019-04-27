@@ -9,6 +9,8 @@ import (
 func TestHTTPServer(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	Convey("Given a HTTPServer", t, func() {
 		ts := &HTTPServer{Cfg: setting.NewCfg()}
 		Convey("Given that basic auth on the metrics endpoint is enabled", func() {

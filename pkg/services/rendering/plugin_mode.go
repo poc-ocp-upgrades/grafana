@@ -14,6 +14,8 @@ import (
 func (rs *RenderingService) startPlugin(ctx context.Context) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	cmd := plugins.ComposePluginStartCommmand("plugin_start")
 	fullpath := path.Join(rs.pluginInfo.PluginDir, cmd)
 	var handshakeConfig = plugin.HandshakeConfig{ProtocolVersion: 1, MagicCookieKey: "grafana_plugin_type", MagicCookieValue: "renderer"}
@@ -33,6 +35,8 @@ func (rs *RenderingService) startPlugin(ctx context.Context) error {
 func (rs *RenderingService) watchAndRestartPlugin(ctx context.Context) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	ticker := time.NewTicker(time.Second * 1)
 	for {
 		select {
@@ -50,6 +54,8 @@ func (rs *RenderingService) watchAndRestartPlugin(ctx context.Context) error {
 	}
 }
 func (rs *RenderingService) renderViaPlugin(ctx context.Context, opts Opts) (*RenderResult, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	pngPath := rs.getFilePathForNewImage()

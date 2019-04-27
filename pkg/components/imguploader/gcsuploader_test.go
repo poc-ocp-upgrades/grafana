@@ -10,6 +10,8 @@ import (
 func TestUploadToGCS(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	SkipConvey("[Integration test] for external_image_store.gcs", t, func() {
 		cfg := setting.NewCfg()
 		cfg.Load(&setting.CommandLineArgs{HomePath: "../../../"})

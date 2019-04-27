@@ -25,9 +25,13 @@ type GlobalQuota struct {
 func (q *OrgQuota) ToMap() map[string]int64 {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return quotaToMap(*q)
 }
 func (q *UserQuota) ToMap() map[string]int64 {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return quotaToMap(*q)
@@ -35,9 +39,13 @@ func (q *UserQuota) ToMap() map[string]int64 {
 func (q *GlobalQuota) ToMap() map[string]int64 {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return quotaToMap(*q)
 }
 func quotaToMap(q interface{}) map[string]int64 {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	qMap := make(map[string]int64)
@@ -66,6 +74,8 @@ type QuotaSettings struct {
 }
 
 func (cfg *Cfg) readQuotaSettings() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	quota := cfg.Raw.Section("quota")

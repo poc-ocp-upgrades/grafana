@@ -15,6 +15,8 @@ import (
 func TestRecoveryMiddleware(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	setting.ERR_TEMPLATE_NAME = "error-template"
 	Convey("Given an api route that panics", t, func() {
 		apiURL := "/api/whatever"
@@ -41,9 +43,13 @@ func TestRecoveryMiddleware(t *testing.T) {
 func PanicHandler(c *m.ReqContext) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	panic("Handler has panicked")
 }
 func recoveryScenario(desc string, url string, fn scenarioFunc) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	Convey(desc, func() {

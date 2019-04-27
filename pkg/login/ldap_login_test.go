@@ -10,6 +10,8 @@ import (
 func TestLdapLogin(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	Convey("Login using ldap", t, func() {
 		Convey("Given ldap enabled and a server configured", func() {
 			setting.LdapEnabled = true
@@ -79,6 +81,8 @@ func TestLdapLogin(t *testing.T) {
 func mockLdapAuthenticator(valid bool) *mockLdapAuther {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	mock := &mockLdapAuther{validLogin: valid}
 	NewLdapAuthenticator = func(server *LdapServerConf) ILdapAuther {
 		return mock
@@ -94,6 +98,8 @@ type mockLdapAuther struct {
 func (a *mockLdapAuther) Login(query *m.LoginUserQuery) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	a.loginCalled = true
 	if !a.validLogin {
 		return ErrInvalidCredentials
@@ -103,9 +109,13 @@ func (a *mockLdapAuther) Login(query *m.LoginUserQuery) error {
 func (a *mockLdapAuther) SyncUser(query *m.LoginUserQuery) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return nil
 }
 func (a *mockLdapAuther) GetGrafanaUserFor(ctx *m.ReqContext, ldapUser *LdapUserInfo) (*m.User, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return nil, nil
@@ -120,6 +130,8 @@ type ldapLoginScenarioFunc func(c *ldapLoginScenarioContext)
 func ldapLoginScenario(desc string, fn ldapLoginScenarioFunc) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	Convey(desc, func() {
 		origNewLdapAuthenticator := NewLdapAuthenticator
 		sc := &ldapLoginScenarioContext{loginUserQuery: &m.LoginUserQuery{Username: "user", Password: "pwd", IpAddress: "192.168.1.1:56433"}, ldapAuthenticatorMock: &mockLdapAuther{}}
@@ -130,6 +142,8 @@ func ldapLoginScenario(desc string, fn ldapLoginScenarioFunc) {
 	})
 }
 func (sc *ldapLoginScenarioContext) withLoginResult(valid bool) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	sc.ldapAuthenticatorMock = mockLdapAuthenticator(valid)

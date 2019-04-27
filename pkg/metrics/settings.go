@@ -13,6 +13,8 @@ import (
 func (im *InternalMetricsService) readSettings() error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var section, err = im.Cfg.Raw.GetSection("metrics")
 	if err != nil {
 		return fmt.Errorf("Unable to find metrics config section %v", err)
@@ -25,6 +27,8 @@ func (im *InternalMetricsService) readSettings() error {
 	return nil
 }
 func (im *InternalMetricsService) parseGraphiteSettings() error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	graphiteSection, err := im.Cfg.Raw.GetSection("metrics.graphite")

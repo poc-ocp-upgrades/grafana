@@ -13,6 +13,8 @@ import (
 func (hs *HTTPServer) getFrontendSettingsMap(c *m.ReqContext) (map[string]interface{}, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	orgDataSources := make([]*m.DataSource, 0)
 	if c.OrgId != 0 {
 		query := m.GetDataSourcesQuery{OrgId: c.OrgId}
@@ -107,6 +109,8 @@ func (hs *HTTPServer) getFrontendSettingsMap(c *m.ReqContext) (map[string]interf
 func getPanelSort(id string) int {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	sort := 100
 	switch id {
 	case "graph":
@@ -127,6 +131,8 @@ func getPanelSort(id string) int {
 	return sort
 }
 func (hs *HTTPServer) GetFrontendSettings(c *m.ReqContext) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	settings, err := hs.getFrontendSettingsMap(c)

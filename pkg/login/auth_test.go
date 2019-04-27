@@ -10,6 +10,8 @@ import (
 func TestAuthenticateUser(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	Convey("Authenticate user", t, func() {
 		authScenario("When a user authenticates without setting a password", func(sc *authScenarioContext) {
 			mockLoginAttemptValidation(nil, sc)
@@ -152,12 +154,16 @@ type authScenarioFunc func(sc *authScenarioContext)
 func mockLoginUsingGrafanaDB(err error, sc *authScenarioContext) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	loginUsingGrafanaDB = func(query *m.LoginUserQuery) error {
 		sc.grafanaLoginWasCalled = true
 		return err
 	}
 }
 func mockLoginUsingLdap(enabled bool, err error, sc *authScenarioContext) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	loginUsingLdap = func(query *m.LoginUserQuery) (bool, error) {
@@ -168,6 +174,8 @@ func mockLoginUsingLdap(enabled bool, err error, sc *authScenarioContext) {
 func mockLoginAttemptValidation(err error, sc *authScenarioContext) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	validateLoginAttempts = func(username string) error {
 		sc.loginAttemptValidationWasCalled = true
 		return err
@@ -176,11 +184,15 @@ func mockLoginAttemptValidation(err error, sc *authScenarioContext) {
 func mockSaveInvalidLoginAttempt(sc *authScenarioContext) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	saveInvalidLoginAttempt = func(query *m.LoginUserQuery) {
 		sc.saveInvalidLoginAttemptWasCalled = true
 	}
 }
 func authScenario(desc string, fn authScenarioFunc) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	Convey(desc, func() {

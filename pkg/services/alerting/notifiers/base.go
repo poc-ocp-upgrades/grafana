@@ -27,6 +27,8 @@ type NotifierBase struct {
 func NewNotifierBase(model *models.AlertNotification) NotifierBase {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	uploadImage := true
 	value, exist := model.Settings.CheckGet("uploadImage")
 	if exist {
@@ -35,6 +37,8 @@ func NewNotifierBase(model *models.AlertNotification) NotifierBase {
 	return NotifierBase{Id: model.Id, Name: model.Name, IsDeault: model.IsDefault, Type: model.Type, UploadImage: uploadImage, SendReminder: model.SendReminder, DisableResolveMessage: model.DisableResolveMessage, Frequency: model.Frequency, log: log.New("alerting.notifier." + model.Name)}
 }
 func (n *NotifierBase) ShouldNotify(ctx context.Context, context *alerting.EvalContext, notiferState *models.AlertNotificationState) bool {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if context.PrevAlertState == context.Rule.State && !n.SendReminder {
@@ -75,9 +79,13 @@ func (n *NotifierBase) ShouldNotify(ctx context.Context, context *alerting.EvalC
 func (n *NotifierBase) GetType() string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return n.Type
 }
 func (n *NotifierBase) NeedsImage() bool {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return n.UploadImage
@@ -85,9 +93,13 @@ func (n *NotifierBase) NeedsImage() bool {
 func (n *NotifierBase) GetNotifierId() int64 {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return n.Id
 }
 func (n *NotifierBase) GetIsDefault() bool {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return n.IsDeault
@@ -95,14 +107,20 @@ func (n *NotifierBase) GetIsDefault() bool {
 func (n *NotifierBase) GetSendReminder() bool {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return n.SendReminder
 }
 func (n *NotifierBase) GetDisableResolveMessage() bool {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return n.DisableResolveMessage
 }
 func (n *NotifierBase) GetFrequency() time.Duration {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return n.Frequency

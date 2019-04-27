@@ -5,6 +5,8 @@ import . "github.com/grafana/grafana/pkg/services/sqlstore/migrator"
 func addLoginAttemptMigrations(mg *Migrator) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	loginAttemptV1 := Table{Name: "login_attempt", Columns: []*Column{{Name: "id", Type: DB_BigInt, IsPrimaryKey: true, IsAutoIncrement: true}, {Name: "username", Type: DB_NVarchar, Length: 190, Nullable: false}, {Name: "ip_address", Type: DB_NVarchar, Length: 30, Nullable: false}, {Name: "created", Type: DB_DateTime, Nullable: false}}, Indices: []*Index{{Cols: []string{"username"}}}}
 	mg.AddMigration("create login attempt table", NewAddTableMigration(loginAttemptV1))
 	mg.AddMigration("add index login_attempt.username", NewAddIndexMigration(loginAttemptV1, loginAttemptV1.Indices[0]))

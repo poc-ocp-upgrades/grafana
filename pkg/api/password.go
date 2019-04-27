@@ -10,6 +10,8 @@ import (
 func SendResetPasswordEmail(c *m.ReqContext, form dtos.SendResetPasswordEmailForm) Response {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	userQuery := m.GetUserByLoginQuery{LoginOrEmail: form.UserOrEmail}
 	if err := bus.Dispatch(&userQuery); err != nil {
 		c.Logger.Info("Requested password reset for user that was not found", "user", userQuery.LoginOrEmail)
@@ -22,6 +24,8 @@ func SendResetPasswordEmail(c *m.ReqContext, form dtos.SendResetPasswordEmailFor
 	return Success("Email sent")
 }
 func ResetPassword(c *m.ReqContext, form dtos.ResetUserPasswordForm) Response {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	query := m.ValidateResetPasswordCodeQuery{Code: form.Code}

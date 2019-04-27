@@ -14,6 +14,8 @@ type SqlBuilder struct {
 func (sb *SqlBuilder) Write(sql string, params ...interface{}) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	sb.sql.WriteString(sql)
 	if len(params) > 0 {
 		sb.params = append(sb.params, params...)
@@ -22,14 +24,20 @@ func (sb *SqlBuilder) Write(sql string, params ...interface{}) {
 func (sb *SqlBuilder) GetSqlString() string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return sb.sql.String()
 }
 func (sb *SqlBuilder) AddParams(params ...interface{}) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	sb.params = append(sb.params, params...)
 }
 func (sb *SqlBuilder) writeDashboardPermissionFilter(user *m.SignedInUser, permission m.PermissionType) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if user.OrgRole == m.ROLE_ADMIN {

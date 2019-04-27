@@ -5,6 +5,8 @@ import . "github.com/grafana/grafana/pkg/services/sqlstore/migrator"
 func addDataSourceMigration(mg *Migrator) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var tableV1 = Table{Name: "data_source", Columns: []*Column{{Name: "id", Type: DB_BigInt, IsPrimaryKey: true, IsAutoIncrement: true}, {Name: "account_id", Type: DB_BigInt, Nullable: false}, {Name: "version", Type: DB_Int, Nullable: false}, {Name: "type", Type: DB_NVarchar, Length: 255, Nullable: false}, {Name: "name", Type: DB_NVarchar, Length: 190, Nullable: false}, {Name: "access", Type: DB_NVarchar, Length: 255, Nullable: false}, {Name: "url", Type: DB_NVarchar, Length: 255, Nullable: false}, {Name: "password", Type: DB_NVarchar, Length: 255, Nullable: true}, {Name: "user", Type: DB_NVarchar, Length: 255, Nullable: true}, {Name: "database", Type: DB_NVarchar, Length: 255, Nullable: true}, {Name: "basic_auth", Type: DB_Bool, Nullable: false}, {Name: "basic_auth_user", Type: DB_NVarchar, Length: 255, Nullable: true}, {Name: "basic_auth_password", Type: DB_NVarchar, Length: 255, Nullable: true}, {Name: "is_default", Type: DB_Bool, Nullable: false}, {Name: "created", Type: DB_DateTime, Nullable: false}, {Name: "updated", Type: DB_DateTime, Nullable: false}}, Indices: []*Index{{Cols: []string{"account_id"}}, {Cols: []string{"account_id", "name"}, Type: UniqueIndex}}}
 	mg.AddMigration("create data_source table", NewAddTableMigration(tableV1))
 	mg.AddMigration("add index data_source.account_id", NewAddIndexMigration(tableV1, tableV1.Indices[0]))

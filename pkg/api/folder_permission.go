@@ -12,6 +12,8 @@ import (
 func GetFolderPermissionList(c *m.ReqContext) Response {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	s := dashboards.NewFolderService(c.OrgId, c.SignedInUser)
 	folder, err := s.GetFolderByUID(c.Params(":uid"))
 	if err != nil {
@@ -39,6 +41,8 @@ func GetFolderPermissionList(c *m.ReqContext) Response {
 	return JSON(200, acl)
 }
 func UpdateFolderPermissions(c *m.ReqContext, apiCmd dtos.UpdateDashboardAclCommand) Response {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	s := dashboards.NewFolderService(c.OrgId, c.SignedInUser)

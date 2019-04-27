@@ -12,6 +12,8 @@ import (
 func TestDashboardSnapshotApiEndpoint(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	Convey("Given a single snapshot", t, func() {
 		jsonModel, _ := simplejson.NewJson([]byte(`{"id":100}`))
 		mockSnapshotResult := &m.DashboardSnapshot{Id: 1, Dashboard: jsonModel, Expires: time.Now().Add(time.Duration(1000) * time.Second), UserId: 999999}

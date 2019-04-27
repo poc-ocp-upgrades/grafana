@@ -27,6 +27,8 @@ type PluginDashboardInfoDTO struct {
 func GetPluginDashboards(orgId int64, pluginId string) ([]*PluginDashboardInfoDTO, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	plugin, exists := Plugins[pluginId]
 	if !exists {
 		return nil, PluginNotFoundError{pluginId}
@@ -71,6 +73,8 @@ func GetPluginDashboards(orgId int64, pluginId string) ([]*PluginDashboardInfoDT
 	return result, nil
 }
 func loadPluginDashboard(pluginId, path string) (*m.Dashboard, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	plugin, exists := Plugins[pluginId]

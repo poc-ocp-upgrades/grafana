@@ -10,6 +10,8 @@ import (
 func TestInterval(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	Convey("Default interval ", t, func() {
 		cfg := setting.NewCfg()
 		cfg.Load(&setting.CommandLineArgs{HomePath: "../../"})

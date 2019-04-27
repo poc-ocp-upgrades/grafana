@@ -10,6 +10,8 @@ import (
 func TestEmailCodes(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	Convey("When generating code", t, func() {
 		setting.EmailCodeValidMinutes = 120
 		user := &m.User{Id: 10, Email: "t@a.com", Login: "asd", Password: "1", Rands: "2"}

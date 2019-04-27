@@ -13,9 +13,13 @@ import (
 func GetSignUpOptions(c *m.ReqContext) Response {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return JSON(200, util.DynMap{"verifyEmailEnabled": setting.VerifyEmailEnabled, "autoAssignOrg": setting.AutoAssignOrg})
 }
 func SignUp(c *m.ReqContext, form dtos.SignUpForm) Response {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if !setting.AllowUserSignUp {
@@ -40,6 +44,8 @@ func SignUp(c *m.ReqContext, form dtos.SignUpForm) Response {
 	return JSON(200, util.DynMap{"status": "SignUpCreated"})
 }
 func SignUpStep2(c *m.ReqContext, form dtos.SignUpStep2Form) Response {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if !setting.AllowUserSignUp {
@@ -80,6 +86,8 @@ func SignUpStep2(c *m.ReqContext, form dtos.SignUpStep2Form) Response {
 	return JSON(200, apiResponse)
 }
 func verifyUserSignUpEmail(email string, code string) (bool, Response) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	query := m.GetTempUserByCodeQuery{Code: code}

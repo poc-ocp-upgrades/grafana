@@ -20,6 +20,8 @@ type QueryDefinition struct {
 func init() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	renders = make(map[string]QueryDefinition)
 	renders["field"] = QueryDefinition{Renderer: fieldRenderer}
 	renders["spread"] = QueryDefinition{Renderer: functionRenderer}
@@ -55,12 +57,16 @@ func init() {
 func fieldRenderer(query *Query, queryContext *tsdb.TsdbQuery, part *QueryPart, innerExpr string) string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if part.Params[0] == "*" {
 		return "*"
 	}
 	return fmt.Sprintf(`"%s"`, part.Params[0])
 }
 func functionRenderer(query *Query, queryContext *tsdb.TsdbQuery, part *QueryPart, innerExpr string) string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	for i, param := range part.Params {
@@ -77,9 +83,13 @@ func functionRenderer(query *Query, queryContext *tsdb.TsdbQuery, part *QueryPar
 func suffixRenderer(query *Query, queryContext *tsdb.TsdbQuery, part *QueryPart, innerExpr string) string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return fmt.Sprintf("%s %s", innerExpr, part.Params[0])
 }
 func aliasRenderer(query *Query, queryContext *tsdb.TsdbQuery, part *QueryPart, innerExpr string) string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return fmt.Sprintf(`%s AS "%s"`, innerExpr, part.Params[0])
@@ -87,9 +97,13 @@ func aliasRenderer(query *Query, queryContext *tsdb.TsdbQuery, part *QueryPart, 
 func (r QueryDefinition) Render(query *Query, queryContext *tsdb.TsdbQuery, part *QueryPart, innerExpr string) string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return r.Renderer(query, queryContext, part, innerExpr)
 }
 func NewQueryPart(typ string, params []string) (*QueryPart, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	def, exist := renders[typ]
@@ -106,6 +120,8 @@ type QueryPart struct {
 }
 
 func (qp *QueryPart) Render(query *Query, queryContext *tsdb.TsdbQuery, expr string) string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return qp.Def.Renderer(query, queryContext, qp, expr)

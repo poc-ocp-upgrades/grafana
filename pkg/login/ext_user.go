@@ -10,9 +10,13 @@ import (
 func init() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	bus.AddHandler("auth", UpsertUser)
 }
 func UpsertUser(cmd *m.UpsertUserCommand) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	extUser := cmd.ExternalUser
@@ -69,6 +73,8 @@ func UpsertUser(cmd *m.UpsertUserCommand) error {
 func createUser(extUser *m.ExternalUserInfo) (*m.User, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	cmd := &m.CreateUserCommand{Login: extUser.Login, Email: extUser.Email, Name: extUser.Name, SkipOrgSetup: len(extUser.OrgRoles) > 0}
 	if err := bus.Dispatch(cmd); err != nil {
 		return nil, err
@@ -76,6 +82,8 @@ func createUser(extUser *m.ExternalUserInfo) (*m.User, error) {
 	return &cmd.Result, nil
 }
 func updateUser(user *m.User, extUser *m.ExternalUserInfo) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	updateCmd := &m.UpdateUserCommand{UserId: user.Id}
@@ -102,6 +110,8 @@ func updateUser(user *m.User, extUser *m.ExternalUserInfo) error {
 	return bus.Dispatch(updateCmd)
 }
 func syncOrgRoles(user *m.User, extUser *m.ExternalUserInfo) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if len(extUser.OrgRoles) == 0 {

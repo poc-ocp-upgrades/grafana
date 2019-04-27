@@ -20,6 +20,8 @@ type SysLogHandler struct {
 func NewSyslog(sec *ini.Section, format log15.Format) *SysLogHandler {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	handler := &SysLogHandler{Format: log15.LogfmtFormat()}
 	handler.Format = format
 	handler.Network = sec.Key("network").MustString("")
@@ -35,6 +37,8 @@ func NewSyslog(sec *ini.Section, format log15.Format) *SysLogHandler {
 func (sw *SysLogHandler) Init() error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	prio, err := parseFacility(sw.Facility)
 	if err != nil {
 		return err
@@ -47,6 +51,8 @@ func (sw *SysLogHandler) Init() error {
 	return nil
 }
 func (sw *SysLogHandler) Log(r *log15.Record) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var err error
@@ -70,12 +76,16 @@ func (sw *SysLogHandler) Log(r *log15.Record) error {
 func (sw *SysLogHandler) Close() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	sw.syslog.Close()
 }
 
 var facilities = map[string]syslog.Priority{"user": syslog.LOG_USER, "daemon": syslog.LOG_DAEMON, "local0": syslog.LOG_LOCAL0, "local1": syslog.LOG_LOCAL1, "local2": syslog.LOG_LOCAL2, "local3": syslog.LOG_LOCAL3, "local4": syslog.LOG_LOCAL4, "local5": syslog.LOG_LOCAL5, "local6": syslog.LOG_LOCAL6, "local7": syslog.LOG_LOCAL7}
 
 func parseFacility(facility string) (syslog.Priority, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	prio, ok := facilities[facility]

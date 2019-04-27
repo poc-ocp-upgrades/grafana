@@ -33,6 +33,8 @@ type notifierStateSlice []*notifierState
 func (notifiers notifierStateSlice) ShouldUploadImage() bool {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	for _, ns := range notifiers {
 		if ns.notifier.NeedsImage() {
 			return true

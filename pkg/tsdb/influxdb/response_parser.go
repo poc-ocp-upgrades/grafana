@@ -19,9 +19,13 @@ var (
 func init() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	legendFormat = regexp.MustCompile(`\[\[(\w+?)*\]\]*|\$\s*(\w+?)*`)
 }
 func (rp *ResponseParser) Parse(response *Response, query *Query) *tsdb.QueryResult {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	queryRes := tsdb.NewQueryResult()
@@ -31,6 +35,8 @@ func (rp *ResponseParser) Parse(response *Response, query *Query) *tsdb.QueryRes
 	return queryRes
 }
 func (rp *ResponseParser) transformRows(rows []Row, queryResult *tsdb.QueryResult, query *Query) tsdb.TimeSeriesSlice {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var result tsdb.TimeSeriesSlice
@@ -52,6 +58,8 @@ func (rp *ResponseParser) transformRows(rows []Row, queryResult *tsdb.QueryResul
 	return result
 }
 func (rp *ResponseParser) formatSerieName(row Row, column string, query *Query) string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if query.Alias == "" {
@@ -88,6 +96,8 @@ func (rp *ResponseParser) formatSerieName(row Row, column string, query *Query) 
 func (rp *ResponseParser) buildSerieNameFromQuery(row Row, column string) string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var tags []string
 	for k, v := range row.Tags {
 		tags = append(tags, fmt.Sprintf("%s: %s", k, v))
@@ -101,6 +111,8 @@ func (rp *ResponseParser) buildSerieNameFromQuery(row Row, column string) string
 func (rp *ResponseParser) parseTimepoint(valuePair []interface{}, valuePosition int) (tsdb.TimePoint, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var value null.Float = rp.parseValue(valuePair[valuePosition])
 	timestampNumber, _ := valuePair[0].(json.Number)
 	timestamp, err := timestampNumber.Float64()
@@ -110,6 +122,8 @@ func (rp *ResponseParser) parseTimepoint(valuePair []interface{}, valuePosition 
 	return tsdb.NewTimePoint(value, timestamp), nil
 }
 func (rp *ResponseParser) parseValue(value interface{}) null.Float {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	number, ok := value.(json.Number)

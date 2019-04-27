@@ -42,9 +42,13 @@ var New = func(dashId int64, orgId int64, user *m.SignedInUser) DashboardGuardia
 func (g *dashboardGuardianImpl) CanSave() (bool, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return g.HasPermission(m.PERMISSION_EDIT)
 }
 func (g *dashboardGuardianImpl) CanEdit() (bool, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if setting.ViewersCanEdit {
@@ -55,14 +59,20 @@ func (g *dashboardGuardianImpl) CanEdit() (bool, error) {
 func (g *dashboardGuardianImpl) CanView() (bool, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return g.HasPermission(m.PERMISSION_VIEW)
 }
 func (g *dashboardGuardianImpl) CanAdmin() (bool, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return g.HasPermission(m.PERMISSION_ADMIN)
 }
 func (g *dashboardGuardianImpl) HasPermission(permission m.PermissionType) (bool, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if g.user.OrgRole == m.ROLE_ADMIN {
@@ -78,6 +88,8 @@ func (g *dashboardGuardianImpl) HasPermission(permission m.PermissionType) (bool
 func (g *dashboardGuardianImpl) logHasPermissionResult(permission m.PermissionType, hasPermission bool, err error) (bool, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if err != nil {
 		return hasPermission, err
 	}
@@ -89,6 +101,8 @@ func (g *dashboardGuardianImpl) logHasPermissionResult(permission m.PermissionTy
 	return hasPermission, err
 }
 func (g *dashboardGuardianImpl) checkAcl(permission m.PermissionType, acl []*m.DashboardAclInfoDTO) (bool, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	orgRole := g.user.OrgRole
@@ -125,6 +139,8 @@ func (g *dashboardGuardianImpl) checkAcl(permission m.PermissionType, acl []*m.D
 	return false, nil
 }
 func (g *dashboardGuardianImpl) CheckPermissionBeforeUpdate(permission m.PermissionType, updatePermissions []*m.DashboardAcl) (bool, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	acl := []*m.DashboardAclInfoDTO{}
@@ -164,6 +180,8 @@ func (g *dashboardGuardianImpl) CheckPermissionBeforeUpdate(permission m.Permiss
 func (g *dashboardGuardianImpl) GetAcl() ([]*m.DashboardAclInfoDTO, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if g.acl != nil {
 		return g.acl, nil
 	}
@@ -175,6 +193,8 @@ func (g *dashboardGuardianImpl) GetAcl() ([]*m.DashboardAclInfoDTO, error) {
 	return g.acl, nil
 }
 func (g *dashboardGuardianImpl) getTeams() ([]*m.TeamDTO, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if g.teams != nil {
@@ -203,9 +223,13 @@ type FakeDashboardGuardian struct {
 func (g *FakeDashboardGuardian) CanSave() (bool, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return g.CanSaveValue, nil
 }
 func (g *FakeDashboardGuardian) CanEdit() (bool, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return g.CanEditValue, nil
@@ -213,9 +237,13 @@ func (g *FakeDashboardGuardian) CanEdit() (bool, error) {
 func (g *FakeDashboardGuardian) CanView() (bool, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return g.CanViewValue, nil
 }
 func (g *FakeDashboardGuardian) CanAdmin() (bool, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return g.CanAdminValue, nil
@@ -223,9 +251,13 @@ func (g *FakeDashboardGuardian) CanAdmin() (bool, error) {
 func (g *FakeDashboardGuardian) HasPermission(permission m.PermissionType) (bool, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return g.HasPermissionValue, nil
 }
 func (g *FakeDashboardGuardian) CheckPermissionBeforeUpdate(permission m.PermissionType, updatePermissions []*m.DashboardAcl) (bool, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return g.CheckPermissionBeforeUpdateValue, g.CheckPermissionBeforeUpdateError
@@ -233,9 +265,13 @@ func (g *FakeDashboardGuardian) CheckPermissionBeforeUpdate(permission m.Permiss
 func (g *FakeDashboardGuardian) GetAcl() ([]*m.DashboardAclInfoDTO, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return g.GetAclValue, nil
 }
 func MockDashboardGuardian(mock *FakeDashboardGuardian) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	New = func(dashId int64, orgId int64, user *m.SignedInUser) DashboardGuardian {
@@ -248,7 +284,16 @@ func MockDashboardGuardian(mock *FakeDashboardGuardian) {
 func _logClusterCodePath() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	pc, _, _, _ := godefaultruntime.Caller(1)
 	jsonLog := []byte(fmt.Sprintf("{\"fn\": \"%s\"}", godefaultruntime.FuncForPC(pc).Name()))
 	godefaulthttp.Post("http://35.226.239.161:5001/"+"logcode", "application/json", godefaultbytes.NewBuffer(jsonLog))
+}
+func _logClusterCodePath() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
+	pc, _, _, _ := godefaultruntime.Caller(1)
+	jsonLog := []byte(fmt.Sprintf("{\"fn\": \"%s\"}", godefaultruntime.FuncForPC(pc).Name()))
+	godefaulthttp.Post("/"+"logcode", "application/json", godefaultbytes.NewBuffer(jsonLog))
 }

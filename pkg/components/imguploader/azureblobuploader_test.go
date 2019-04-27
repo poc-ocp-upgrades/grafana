@@ -10,6 +10,8 @@ import (
 func TestUploadToAzureBlob(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	SkipConvey("[Integration test] for external_image_store.azure_blob", t, func() {
 		cfg := setting.NewCfg()
 		err := cfg.Load(&setting.CommandLineArgs{HomePath: "../../../"})

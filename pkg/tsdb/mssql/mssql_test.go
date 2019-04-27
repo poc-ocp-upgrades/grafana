@@ -21,6 +21,8 @@ var serverIP = "localhost"
 func TestMSSQL(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	SkipConvey("MSSQL", t, func() {
 		x := InitMSSQLTestDB(t)
 		origXormEngine := tsdb.NewXormEngine
@@ -645,6 +647,8 @@ func TestMSSQL(t *testing.T) {
 func InitMSSQLTestDB(t *testing.T) *xorm.Engine {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	x, err := xorm.NewEngine(sqlutil.TestDB_Mssql.DriverName, strings.Replace(sqlutil.TestDB_Mssql.ConnStr, "localhost", serverIP, 1))
 	if err != nil {
 		t.Fatalf("Failed to init mssql db %v", err)
@@ -654,6 +658,8 @@ func InitMSSQLTestDB(t *testing.T) *xorm.Engine {
 	return x
 }
 func genTimeRangeByInterval(from time.Time, duration time.Duration, interval time.Duration) []time.Time {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	durationSec := int64(duration.Seconds())

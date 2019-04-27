@@ -29,6 +29,8 @@ type scenarioFunc func(c *scenarioContext)
 func orgRoleScenario(desc string, t *testing.T, role m.RoleType, fn scenarioFunc) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	user := &m.SignedInUser{UserId: userID, OrgId: orgID, OrgRole: role}
 	guard := New(dashboardID, orgID, user)
 	sc := &scenarioContext{t: t, orgRoleScenario: desc, givenUser: user, givenDashboardID: dashboardID, g: guard}
@@ -39,6 +41,8 @@ func orgRoleScenario(desc string, t *testing.T, role m.RoleType, fn scenarioFunc
 func apiKeyScenario(desc string, t *testing.T, role m.RoleType, fn scenarioFunc) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	user := &m.SignedInUser{UserId: 0, OrgId: orgID, OrgRole: role, ApiKeyId: 10}
 	guard := New(dashboardID, orgID, user)
 	sc := &scenarioContext{t: t, orgRoleScenario: desc, givenUser: user, givenDashboardID: dashboardID, g: guard}
@@ -47,6 +51,8 @@ func apiKeyScenario(desc string, t *testing.T, role m.RoleType, fn scenarioFunc)
 	})
 }
 func permissionScenario(desc string, dashboardID int64, sc *scenarioContext, permissions []*m.DashboardAclInfoDTO, fn scenarioFunc) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	bus.ClearBusHandlers()
@@ -98,6 +104,8 @@ const (
 func (p permissionType) String() string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	names := map[uint8]string{uint8(USER): "user", uint8(TEAM): "team", uint8(EDITOR): "editor role", uint8(VIEWER): "viewer role"}
 	return names[uint8(p)]
 }
@@ -118,9 +126,13 @@ const (
 func (flag permissionFlags) canAdmin() bool {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return flag&CAN_ADMIN != 0
 }
 func (flag permissionFlags) canEdit() bool {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return flag&CAN_EDIT != 0
@@ -128,9 +140,13 @@ func (flag permissionFlags) canEdit() bool {
 func (flag permissionFlags) canSave() bool {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return flag&CAN_SAVE != 0
 }
 func (flag permissionFlags) canView() bool {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return flag&CAN_VIEW != 0
@@ -138,9 +154,13 @@ func (flag permissionFlags) canView() bool {
 func (flag permissionFlags) noAccess() bool {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return flag&(CAN_ADMIN|CAN_EDIT|CAN_SAVE|CAN_VIEW) == 0
 }
 func (f permissionFlags) String() string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	r := []string{}
@@ -164,9 +184,13 @@ func (f permissionFlags) String() string {
 func (sc *scenarioContext) reportSuccess() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	So(true, ShouldBeTrue)
 }
 func (sc *scenarioContext) reportFailure(desc string, expected interface{}, actual interface{}) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var buf bytes.Buffer
@@ -205,9 +229,13 @@ func (sc *scenarioContext) reportFailure(desc string, expected interface{}, actu
 func newCustomUserPermission(dashboardID int64, userID int64, permission m.PermissionType) *m.DashboardAcl {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return &m.DashboardAcl{OrgId: orgID, DashboardId: dashboardID, UserId: userID, Permission: permission}
 }
 func newDefaultUserPermission(dashboardID int64, permission m.PermissionType) *m.DashboardAcl {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return newCustomUserPermission(dashboardID, userID, permission)
@@ -215,9 +243,13 @@ func newDefaultUserPermission(dashboardID int64, permission m.PermissionType) *m
 func newCustomTeamPermission(dashboardID int64, teamID int64, permission m.PermissionType) *m.DashboardAcl {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return &m.DashboardAcl{OrgId: orgID, DashboardId: dashboardID, TeamId: teamID, Permission: permission}
 }
 func newDefaultTeamPermission(dashboardID int64, permission m.PermissionType) *m.DashboardAcl {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return newCustomTeamPermission(dashboardID, teamID, permission)
@@ -225,9 +257,13 @@ func newDefaultTeamPermission(dashboardID int64, permission m.PermissionType) *m
 func newAdminRolePermission(dashboardID int64, permission m.PermissionType) *m.DashboardAcl {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return &m.DashboardAcl{OrgId: orgID, DashboardId: dashboardID, Role: &adminRole, Permission: permission}
 }
 func newEditorRolePermission(dashboardID int64, permission m.PermissionType) *m.DashboardAcl {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return &m.DashboardAcl{OrgId: orgID, DashboardId: dashboardID, Role: &editorRole, Permission: permission}
@@ -235,9 +271,13 @@ func newEditorRolePermission(dashboardID int64, permission m.PermissionType) *m.
 func newViewerRolePermission(dashboardID int64, permission m.PermissionType) *m.DashboardAcl {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return &m.DashboardAcl{OrgId: orgID, DashboardId: dashboardID, Role: &viewerRole, Permission: permission}
 }
 func toDto(acl *m.DashboardAcl) *m.DashboardAclInfoDTO {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return &m.DashboardAclInfoDTO{OrgId: acl.OrgId, DashboardId: acl.DashboardId, UserId: acl.UserId, TeamId: acl.TeamId, Role: acl.Role, Permission: acl.Permission, PermissionName: acl.Permission.String()}

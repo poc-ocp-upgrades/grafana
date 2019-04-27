@@ -17,6 +17,8 @@ import (
 func ApplyRoute(ctx context.Context, req *http.Request, proxyPath string, route *plugins.AppPluginRoute, ds *m.DataSource) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	proxyPath = strings.TrimPrefix(proxyPath, route.Path)
 	data := templateData{JsonData: ds.JsonData.Interface().(map[string]interface{}), SecureJsonData: ds.SecureJsonData.Decrypt()}
 	interpolatedURL, err := interpolateString(route.Url, data)
@@ -70,6 +72,8 @@ func ApplyRoute(ctx context.Context, req *http.Request, proxyPath string, route 
 func interpolateString(text string, data templateData) (string, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	t, err := template.New("content").Parse(text)
 	if err != nil {
 		return "", fmt.Errorf("could not parse template %s", text)
@@ -82,6 +86,8 @@ func interpolateString(text string, data templateData) (string, error) {
 	return contentBuf.String(), nil
 }
 func addHeaders(reqHeaders *http.Header, route *plugins.AppPluginRoute, data templateData) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	for _, header := range route.Headers {

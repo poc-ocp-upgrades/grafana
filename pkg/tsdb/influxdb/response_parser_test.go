@@ -10,6 +10,8 @@ import (
 func TestInfluxdbResponseParser(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	Convey("Influxdb response parser", t, func() {
 		Convey("Response parser", func() {
 			parser := &ResponseParser{}

@@ -28,6 +28,8 @@ var validateLsCommand = func(pluginDir string) error {
 func lsCommand(c CommandLine) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	pluginDir := c.PluginDirectory()
 	if err := validateLsCommand(pluginDir); err != nil {
 		return err

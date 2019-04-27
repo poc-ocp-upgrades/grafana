@@ -36,6 +36,8 @@ type Error struct{ s string }
 func (e *Error) Error() string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return e.s
 }
 
@@ -50,6 +52,8 @@ var (
 )
 
 func NewOAuthService() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	setting.OAuthService = &setting.OAuther{}

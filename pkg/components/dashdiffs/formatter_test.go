@@ -9,6 +9,8 @@ import (
 func TestDiff(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	const (
 		leftJSON	= `{
 			"key": "value",

@@ -15,9 +15,13 @@ type XormLogger struct {
 func NewXormLogger(level glog.Lvl, grafanaLog glog.Logger) *XormLogger {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return &XormLogger{grafanaLog: grafanaLog, level: level, showSQL: true}
 }
 func (s *XormLogger) Error(v ...interface{}) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if s.level <= glog.LvlError {
@@ -27,11 +31,15 @@ func (s *XormLogger) Error(v ...interface{}) {
 func (s *XormLogger) Errorf(format string, v ...interface{}) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if s.level <= glog.LvlError {
 		s.grafanaLog.Error(fmt.Sprintf(format, v...))
 	}
 }
 func (s *XormLogger) Debug(v ...interface{}) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if s.level <= glog.LvlDebug {
@@ -41,11 +49,15 @@ func (s *XormLogger) Debug(v ...interface{}) {
 func (s *XormLogger) Debugf(format string, v ...interface{}) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if s.level <= glog.LvlDebug {
 		s.grafanaLog.Debug(fmt.Sprintf(format, v...))
 	}
 }
 func (s *XormLogger) Info(v ...interface{}) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if s.level <= glog.LvlInfo {
@@ -55,11 +67,15 @@ func (s *XormLogger) Info(v ...interface{}) {
 func (s *XormLogger) Infof(format string, v ...interface{}) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if s.level <= glog.LvlInfo {
 		s.grafanaLog.Info(fmt.Sprintf(format, v...))
 	}
 }
 func (s *XormLogger) Warn(v ...interface{}) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if s.level <= glog.LvlWarn {
@@ -69,11 +85,15 @@ func (s *XormLogger) Warn(v ...interface{}) {
 func (s *XormLogger) Warnf(format string, v ...interface{}) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if s.level <= glog.LvlWarn {
 		s.grafanaLog.Warn(fmt.Sprintf(format, v...))
 	}
 }
 func (s *XormLogger) Level() core.LogLevel {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	switch s.level {
@@ -92,8 +112,12 @@ func (s *XormLogger) Level() core.LogLevel {
 func (s *XormLogger) SetLevel(l core.LogLevel) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 }
 func (s *XormLogger) ShowSQL(show ...bool) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	s.grafanaLog.Error("ShowSQL", "show", "show")
@@ -104,6 +128,8 @@ func (s *XormLogger) ShowSQL(show ...bool) {
 	s.showSQL = show[0]
 }
 func (s *XormLogger) IsShowSQL() bool {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return s.showSQL

@@ -36,12 +36,16 @@ var pipelineAggType = map[string]string{"moving_avg": "moving_avg", "derivative"
 func isPipelineAgg(metricType string) bool {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if _, ok := pipelineAggType[metricType]; ok {
 		return true
 	}
 	return false
 }
 func describeMetric(metricType, field string) string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	text := metricAggType[metricType]

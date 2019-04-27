@@ -21,6 +21,8 @@ import (
 func validateInput(c CommandLine, pluginFolder string) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	arg := c.Args().First()
 	if arg == "" {
 		return errors.New("please specify plugin to install")
@@ -44,6 +46,8 @@ func validateInput(c CommandLine, pluginFolder string) error {
 func installCommand(c CommandLine) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	pluginFolder := c.PluginDirectory()
 	if err := validateInput(c, pluginFolder); err != nil {
 		return err
@@ -53,6 +57,8 @@ func installCommand(c CommandLine) error {
 	return InstallPlugin(pluginToInstall, version, c)
 }
 func InstallPlugin(pluginName, version string, c CommandLine) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	pluginFolder := c.PluginDirectory()
@@ -90,6 +96,8 @@ func InstallPlugin(pluginName, version string, c CommandLine) error {
 func SelectVersion(plugin m.Plugin, version string) (m.Version, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if version == "" {
 		return plugin.Versions[0], nil
 	}
@@ -103,6 +111,8 @@ func SelectVersion(plugin m.Plugin, version string) (m.Version, error) {
 func RemoveGitBuildFromName(pluginName, filename string) string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	r := regexp.MustCompile("^[a-zA-Z0-9_.-]*/")
 	return r.ReplaceAllString(filename, pluginName+"/")
 }
@@ -111,6 +121,8 @@ var retryCount = 0
 var permissionsDeniedMessage = "Could not create %s. Permission denied. Make sure you have write access to plugindir"
 
 func downloadFile(pluginName, filePath, url string) (err error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	defer func() {
@@ -166,6 +178,8 @@ func downloadFile(pluginName, filePath, url string) (err error) {
 	return nil
 }
 func PermissionsError(err error) bool {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return err != nil && strings.Contains(err.Error(), "permission denied")

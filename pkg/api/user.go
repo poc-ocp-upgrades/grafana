@@ -11,14 +11,20 @@ import (
 func GetSignedInUser(c *m.ReqContext) Response {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return getUserUserProfile(c.UserId)
 }
 func GetUserByID(c *m.ReqContext) Response {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return getUserUserProfile(c.ParamsInt64(":id"))
 }
 func getUserUserProfile(userID int64) Response {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	query := m.GetUserProfileQuery{UserId: userID}
@@ -31,6 +37,8 @@ func getUserUserProfile(userID int64) Response {
 	return JSON(200, query.Result)
 }
 func GetUserByLoginOrEmail(c *m.ReqContext) Response {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	query := m.GetUserByLoginQuery{LoginOrEmail: c.Query("loginOrEmail")}
@@ -47,6 +55,8 @@ func GetUserByLoginOrEmail(c *m.ReqContext) Response {
 func UpdateSignedInUser(c *m.ReqContext, cmd m.UpdateUserCommand) Response {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if setting.AuthProxyEnabled {
 		if setting.AuthProxyHeaderProperty == "email" && cmd.Email != c.Email {
 			return Error(400, "Not allowed to change email when auth proxy is using email property", nil)
@@ -61,10 +71,14 @@ func UpdateSignedInUser(c *m.ReqContext, cmd m.UpdateUserCommand) Response {
 func UpdateUser(c *m.ReqContext, cmd m.UpdateUserCommand) Response {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	cmd.UserId = c.ParamsInt64(":id")
 	return handleUpdateUser(cmd)
 }
 func UpdateUserActiveOrg(c *m.ReqContext) Response {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	userID := c.ParamsInt64(":id")
@@ -81,6 +95,8 @@ func UpdateUserActiveOrg(c *m.ReqContext) Response {
 func handleUpdateUser(cmd m.UpdateUserCommand) Response {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if len(cmd.Login) == 0 {
 		cmd.Login = cmd.Email
 		if len(cmd.Login) == 0 {
@@ -95,9 +111,13 @@ func handleUpdateUser(cmd m.UpdateUserCommand) Response {
 func GetSignedInUserOrgList(c *m.ReqContext) Response {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return getUserOrgList(c.UserId)
 }
 func GetSignedInUserTeamList(c *m.ReqContext) Response {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return getUserTeamList(c.OrgId, c.UserId)
@@ -105,9 +125,13 @@ func GetSignedInUserTeamList(c *m.ReqContext) Response {
 func GetUserTeams(c *m.ReqContext) Response {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return getUserTeamList(c.OrgId, c.ParamsInt64(":id"))
 }
 func getUserTeamList(userID int64, orgID int64) Response {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	query := m.GetTeamsByUserQuery{OrgId: orgID, UserId: userID}
@@ -122,9 +146,13 @@ func getUserTeamList(userID int64, orgID int64) Response {
 func GetUserOrgList(c *m.ReqContext) Response {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return getUserOrgList(c.ParamsInt64(":id"))
 }
 func getUserOrgList(userID int64) Response {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	query := m.GetUserOrgListQuery{UserId: userID}
@@ -134,6 +162,8 @@ func getUserOrgList(userID int64) Response {
 	return JSON(200, query.Result)
 }
 func validateUsingOrg(userID int64, orgID int64) bool {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	query := m.GetUserOrgListQuery{UserId: userID}
@@ -151,6 +181,8 @@ func validateUsingOrg(userID int64, orgID int64) bool {
 func UserSetUsingOrg(c *m.ReqContext) Response {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	orgID := c.ParamsInt64(":id")
 	if !validateUsingOrg(c.UserId, orgID) {
 		return Error(401, "Not a valid organization", nil)
@@ -164,6 +196,8 @@ func UserSetUsingOrg(c *m.ReqContext) Response {
 func (hs *HTTPServer) ChangeActiveOrgAndRedirectToHome(c *m.ReqContext) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	orgID := c.ParamsInt64(":id")
 	if !validateUsingOrg(c.UserId, orgID) {
 		hs.NotFoundHandler(c)
@@ -175,6 +209,8 @@ func (hs *HTTPServer) ChangeActiveOrgAndRedirectToHome(c *m.ReqContext) {
 	c.Redirect(setting.AppSubUrl + "/")
 }
 func ChangeUserPassword(c *m.ReqContext, cmd m.ChangeUserPasswordCommand) Response {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if setting.LdapEnabled || setting.AuthProxyEnabled {
@@ -202,6 +238,8 @@ func ChangeUserPassword(c *m.ReqContext, cmd m.ChangeUserPasswordCommand) Respon
 func SearchUsers(c *m.ReqContext) Response {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	query, err := searchUser(c)
 	if err != nil {
 		return Error(500, "Failed to fetch users", err)
@@ -211,6 +249,8 @@ func SearchUsers(c *m.ReqContext) Response {
 func SearchUsersWithPaging(c *m.ReqContext) Response {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	query, err := searchUser(c)
 	if err != nil {
 		return Error(500, "Failed to fetch users", err)
@@ -218,6 +258,8 @@ func SearchUsersWithPaging(c *m.ReqContext) Response {
 	return JSON(200, query.Result)
 }
 func searchUser(c *m.ReqContext) (*m.SearchUsersQuery, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	perPage := c.QueryInt("perpage")
@@ -243,6 +285,8 @@ func searchUser(c *m.ReqContext) (*m.SearchUsersQuery, error) {
 func SetHelpFlag(c *m.ReqContext) Response {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	flag := c.ParamsInt64(":id")
 	bitmask := &c.HelpFlags1
 	bitmask.AddFlag(m.HelpFlags1(flag))
@@ -253,6 +297,8 @@ func SetHelpFlag(c *m.ReqContext) Response {
 	return JSON(200, &util.DynMap{"message": "Help flag set", "helpFlags1": cmd.HelpFlags1})
 }
 func ClearHelpFlags(c *m.ReqContext) Response {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	cmd := m.SetUserHelpFlagCommand{UserId: c.UserId, HelpFlags1: m.HelpFlags1(0)}

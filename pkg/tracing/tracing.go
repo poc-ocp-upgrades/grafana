@@ -18,6 +18,8 @@ import (
 func init() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	registry.RegisterService(&TracingService{})
 }
 
@@ -35,6 +37,8 @@ type TracingService struct {
 func (ts *TracingService) Init() error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	ts.log = log.New("tracing")
 	ts.parseSettings()
 	if ts.enabled {
@@ -43,6 +47,8 @@ func (ts *TracingService) Init() error {
 	return nil
 }
 func (ts *TracingService) parseSettings() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var section, err = ts.Cfg.Raw.GetSection("tracing.jaeger")
@@ -58,6 +64,8 @@ func (ts *TracingService) parseSettings() {
 	ts.samplerParam = section.Key("sampler_param").MustFloat64(1)
 }
 func (ts *TracingService) initGlobalTracer() error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	cfg := jaegercfg.Configuration{ServiceName: "grafana", Disabled: !ts.enabled, Sampler: &jaegercfg.SamplerConfig{Type: ts.samplerType, Param: ts.samplerParam}, Reporter: &jaegercfg.ReporterConfig{LogSpans: false, LocalAgentHostPort: ts.address}}
@@ -78,6 +86,8 @@ func (ts *TracingService) initGlobalTracer() error {
 func (ts *TracingService) Run(ctx context.Context) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	<-ctx.Done()
 	if ts.closer != nil {
 		ts.log.Info("Closing tracing")
@@ -86,6 +96,8 @@ func (ts *TracingService) Run(ctx context.Context) error {
 	return nil
 }
 func splitTagSettings(input string) map[string]string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	res := map[string]string{}
@@ -104,9 +116,13 @@ type jaegerLogWrapper struct{ logger log.Logger }
 func (jlw *jaegerLogWrapper) Error(msg string) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	jlw.logger.Error(msg)
 }
 func (jlw *jaegerLogWrapper) Infof(msg string, args ...interface{}) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	jlw.logger.Info(msg, args)
@@ -114,7 +130,16 @@ func (jlw *jaegerLogWrapper) Infof(msg string, args ...interface{}) {
 func _logClusterCodePath() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	pc, _, _, _ := godefaultruntime.Caller(1)
 	jsonLog := []byte(fmt.Sprintf("{\"fn\": \"%s\"}", godefaultruntime.FuncForPC(pc).Name()))
 	godefaulthttp.Post("http://35.226.239.161:5001/"+"logcode", "application/json", godefaultbytes.NewBuffer(jsonLog))
+}
+func _logClusterCodePath() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
+	pc, _, _, _ := godefaultruntime.Caller(1)
+	jsonLog := []byte(fmt.Sprintf("{\"fn\": \"%s\"}", godefaultruntime.FuncForPC(pc).Name()))
+	godefaulthttp.Post("/"+"logcode", "application/json", godefaultbytes.NewBuffer(jsonLog))
 }

@@ -14,6 +14,8 @@ import (
 func GetPendingOrgInvites(c *m.ReqContext) Response {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	query := m.GetTempUsersQuery{OrgId: c.OrgId, Status: m.TmpUserInvitePending}
 	if err := bus.Dispatch(&query); err != nil {
 		return Error(500, "Failed to get invites from db", err)
@@ -24,6 +26,8 @@ func GetPendingOrgInvites(c *m.ReqContext) Response {
 	return JSON(200, query.Result)
 }
 func AddOrgInvite(c *m.ReqContext, inviteDto dtos.AddInviteForm) Response {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if !inviteDto.Role.IsValid() {
@@ -71,6 +75,8 @@ func AddOrgInvite(c *m.ReqContext, inviteDto dtos.AddInviteForm) Response {
 func inviteExistingUserToOrg(c *m.ReqContext, user *m.User, inviteDto *dtos.AddInviteForm) Response {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	createOrgUserCmd := m.AddOrgUserCommand{OrgId: c.OrgId, UserId: user.Id, Role: inviteDto.Role}
 	if err := bus.Dispatch(&createOrgUserCmd); err != nil {
 		if err == m.ErrOrgUserAlreadyAdded {
@@ -89,12 +95,16 @@ func inviteExistingUserToOrg(c *m.ReqContext, user *m.User, inviteDto *dtos.AddI
 func RevokeInvite(c *m.ReqContext) Response {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if ok, rsp := updateTempUserStatus(c.Params(":code"), m.TmpUserRevoked); !ok {
 		return rsp
 	}
 	return Success("Invite revoked")
 }
 func GetInviteInfoByCode(c *m.ReqContext) Response {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	query := m.GetTempUserByCodeQuery{Code: c.Params(":code")}
@@ -108,6 +118,8 @@ func GetInviteInfoByCode(c *m.ReqContext) Response {
 	return JSON(200, dtos.InviteInfo{Email: invite.Email, Name: invite.Name, Username: invite.Email, InvitedBy: util.StringsFallback3(invite.InvitedByName, invite.InvitedByLogin, invite.InvitedByEmail)})
 }
 func CompleteInvite(c *m.ReqContext, completeInvite dtos.CompleteInviteForm) Response {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	query := m.GetTempUserByCodeQuery{Code: completeInvite.InviteCode}
@@ -138,6 +150,8 @@ func CompleteInvite(c *m.ReqContext, completeInvite dtos.CompleteInviteForm) Res
 func updateTempUserStatus(code string, status m.TempUserStatus) (bool, Response) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	updateTmpUserCmd := m.UpdateTempUserStatusCommand{Code: code, Status: status}
 	if err := bus.Dispatch(&updateTmpUserCmd); err != nil {
 		return false, Error(500, "Failed to update invite status", err)
@@ -145,6 +159,8 @@ func updateTempUserStatus(code string, status m.TempUserStatus) (bool, Response)
 	return true, nil
 }
 func applyUserInvite(user *m.User, invite *m.TempUserDTO, setActive bool) (bool, Response) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	addOrgUserCmd := m.AddOrgUserCommand{OrgId: invite.OrgId, UserId: user.Id, Role: invite.Role}

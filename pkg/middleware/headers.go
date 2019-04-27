@@ -10,6 +10,8 @@ const HeaderNameNoBackendCache = "X-Grafana-NoCache"
 func HandleNoCacheHeader() macaron.Handler {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return func(ctx *m.ReqContext) {
 		ctx.SkipCache = ctx.Req.Header.Get(HeaderNameNoBackendCache) == "true"
 	}

@@ -16,6 +16,8 @@ import (
 func TestCloudWatch(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	Convey("CloudWatch", t, func() {
 		Convey("executeQuery", func() {
 			e := &CloudWatchExecutor{DataSource: &models.DataSource{JsonData: simplejson.New()}}

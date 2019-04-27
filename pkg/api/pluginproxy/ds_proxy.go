@@ -40,15 +40,21 @@ type httpClient interface {
 func NewDataSourceProxy(ds *m.DataSource, plugin *plugins.DataSourcePlugin, ctx *m.ReqContext, proxyPath string) *DataSourceProxy {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	targetURL, _ := url.Parse(ds.Url)
 	return &DataSourceProxy{ds: ds, plugin: plugin, ctx: ctx, proxyPath: proxyPath, targetUrl: targetURL}
 }
 func newHTTPClient() httpClient {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return &http.Client{Timeout: time.Second * 30, Transport: &http.Transport{Proxy: http.ProxyFromEnvironment}}
 }
 func (proxy *DataSourceProxy) HandleRequest() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if err := proxy.validateRequest(); err != nil {
@@ -79,6 +85,8 @@ func (proxy *DataSourceProxy) HandleRequest() {
 func (proxy *DataSourceProxy) addTraceFromHeaderValue(span opentracing.Span, headerName string, tagName string) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	panelId := proxy.ctx.Req.Header.Get(headerName)
 	dashId, err := strconv.Atoi(panelId)
 	if err == nil {
@@ -86,6 +94,8 @@ func (proxy *DataSourceProxy) addTraceFromHeaderValue(span opentracing.Span, hea
 	}
 }
 func (proxy *DataSourceProxy) useCustomHeaders(req *http.Request) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	decryptSdj := proxy.ds.SecureJsonData.Decrypt()
@@ -108,6 +118,8 @@ func (proxy *DataSourceProxy) useCustomHeaders(req *http.Request) {
 	}
 }
 func (proxy *DataSourceProxy) getDirector() func(req *http.Request) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return func(req *http.Request) {
@@ -185,6 +197,8 @@ func (proxy *DataSourceProxy) getDirector() func(req *http.Request) {
 func (proxy *DataSourceProxy) validateRequest() error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if !checkWhiteList(proxy.ctx, proxy.targetUrl.Host) {
 		return errors.New("Target url is not a valid target")
 	}
@@ -231,6 +245,8 @@ func (proxy *DataSourceProxy) validateRequest() error {
 func (proxy *DataSourceProxy) logRequest() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if !setting.DataProxyLogging {
 		return
 	}
@@ -245,6 +261,8 @@ func (proxy *DataSourceProxy) logRequest() {
 	logger.Info("Proxying incoming request", "userid", proxy.ctx.UserId, "orgid", proxy.ctx.OrgId, "username", proxy.ctx.Login, "datasource", proxy.ds.Type, "uri", proxy.ctx.Req.RequestURI, "method", proxy.ctx.Req.Request.Method, "body", body)
 }
 func checkWhiteList(c *m.ReqContext, host string) bool {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if host != "" && len(setting.DataProxyWhiteList) > 0 {

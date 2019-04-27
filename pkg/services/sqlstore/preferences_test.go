@@ -10,6 +10,8 @@ import (
 func TestPreferencesDataAccess(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	Convey("Testing preferences data access", t, func() {
 		InitTestDB(t)
 		Convey("GetPreferencesWithDefaults with no saved preferences should return defaults", func() {

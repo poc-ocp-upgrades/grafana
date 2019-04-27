@@ -8,9 +8,13 @@ import (
 func init() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	bus.AddEventListener(handlePluginStateChanged)
 }
 func (pm *PluginManager) updateAppDashboards() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	pm.log.Debug("Looking for App Dashboard Updates")
@@ -33,6 +37,8 @@ func (pm *PluginManager) updateAppDashboards() {
 func autoUpdateAppDashboard(pluginDashInfo *PluginDashboardInfoDTO, orgId int64) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	dash, err := loadPluginDashboard(pluginDashInfo.PluginId, pluginDashInfo.Path)
 	if err != nil {
 		return err
@@ -42,6 +48,8 @@ func autoUpdateAppDashboard(pluginDashInfo *PluginDashboardInfoDTO, orgId int64)
 	return bus.Dispatch(&updateCmd)
 }
 func syncPluginDashboards(pluginDef *PluginBase, orgId int64) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	plog.Info("Syncing plugin dashboards to DB", "pluginId", pluginDef.Id)
@@ -79,6 +87,8 @@ func syncPluginDashboards(pluginDef *PluginBase, orgId int64) {
 	}
 }
 func handlePluginStateChanged(event *m.PluginStateChangedEvent) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	plog.Info("Plugin state changed", "pluginId", event.PluginId, "enabled", event.Enabled)

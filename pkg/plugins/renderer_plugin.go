@@ -10,6 +10,8 @@ type RendererPlugin struct {
 func (r *RendererPlugin) Load(decoder *json.Decoder, pluginDir string) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if err := decoder.Decode(&r); err != nil {
 		return err
 	}

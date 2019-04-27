@@ -10,6 +10,8 @@ import (
 func TestCleanUpTmpFiles(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	Convey("Cleanup service tests", t, func() {
 		cfg := setting.Cfg{}
 		cfg.TempDataLifetime, _ = time.ParseDuration("24h")

@@ -22,10 +22,14 @@ type SearchBuilder struct {
 func NewSearchBuilder(signedInUser *m.SignedInUser, limit int, permission m.PermissionType) *SearchBuilder {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	searchBuilder := &SearchBuilder{signedInUser: signedInUser, limit: limit, permission: permission}
 	return searchBuilder
 }
 func (sb *SearchBuilder) WithTags(tags []string) *SearchBuilder {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if len(tags) > 0 {
@@ -36,10 +40,14 @@ func (sb *SearchBuilder) WithTags(tags []string) *SearchBuilder {
 func (sb *SearchBuilder) IsStarred() *SearchBuilder {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	sb.isStarred = true
 	return sb
 }
 func (sb *SearchBuilder) WithDashboardIdsIn(ids []int64) *SearchBuilder {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if len(ids) > 0 {
@@ -50,10 +58,14 @@ func (sb *SearchBuilder) WithDashboardIdsIn(ids []int64) *SearchBuilder {
 func (sb *SearchBuilder) WithTitle(title string) *SearchBuilder {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	sb.whereTitle = title
 	return sb
 }
 func (sb *SearchBuilder) WithType(queryType string) *SearchBuilder {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if len(queryType) > 0 && queryType == "dash-folder" {
@@ -67,10 +79,14 @@ func (sb *SearchBuilder) WithType(queryType string) *SearchBuilder {
 func (sb *SearchBuilder) WithFolderIds(folderIds []int64) *SearchBuilder {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	sb.whereFolderIds = folderIds
 	return sb
 }
 func (sb *SearchBuilder) ToSql() (string, []interface{}) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	sb.params = make([]interface{}, 0)
@@ -89,6 +105,8 @@ func (sb *SearchBuilder) ToSql() (string, []interface{}) {
 func (sb *SearchBuilder) buildSelect() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	sb.sql.WriteString(`SELECT
 			dashboard.id,
 			dashboard.uid,
@@ -103,6 +121,8 @@ func (sb *SearchBuilder) buildSelect() {
 		FROM `)
 }
 func (sb *SearchBuilder) buildTagQuery() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	sb.sql.WriteString(`(
@@ -128,6 +148,8 @@ func (sb *SearchBuilder) buildTagQuery() {
 func (sb *SearchBuilder) buildMainQuery() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	sb.sql.WriteString(`( SELECT dashboard.id FROM dashboard `)
 	if sb.isStarred {
 		sb.sql.WriteString(" INNER JOIN star on star.dashboard_id = dashboard.id")
@@ -137,6 +159,8 @@ func (sb *SearchBuilder) buildMainQuery() {
 	sb.sql.WriteString(` ORDER BY dashboard.title` + dialect.Limit(int64(sb.limit)) + `) as ids INNER JOIN dashboard on ids.id = dashboard.id `)
 }
 func (sb *SearchBuilder) buildSearchWhereClause() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	sb.sql.WriteString(` dashboard.org_id=?`)

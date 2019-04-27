@@ -37,6 +37,8 @@ type DataSourcePlugin struct {
 func (p *DataSourcePlugin) Load(decoder *json.Decoder, pluginDir string) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if err := decoder.Decode(&p); err != nil {
 		return err
 	}
@@ -59,6 +61,8 @@ var handshakeConfig = plugin.HandshakeConfig{ProtocolVersion: 1, MagicCookieKey:
 func (p *DataSourcePlugin) startBackendPlugin(ctx context.Context, log log.Logger) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	p.log = log.New("plugin-id", p.Id)
 	err := p.spawnSubProcess()
 	if err == nil {
@@ -67,6 +71,8 @@ func (p *DataSourcePlugin) startBackendPlugin(ctx context.Context, log log.Logge
 	return err
 }
 func (p *DataSourcePlugin) spawnSubProcess() error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	cmd := ComposePluginStartCommmand(p.Executable)
@@ -89,6 +95,8 @@ func (p *DataSourcePlugin) spawnSubProcess() error {
 func (p *DataSourcePlugin) restartKilledProcess(ctx context.Context) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	ticker := time.NewTicker(time.Second * 1)
 	for {
 		select {
@@ -106,6 +114,8 @@ func (p *DataSourcePlugin) restartKilledProcess(ctx context.Context) error {
 	}
 }
 func (p *DataSourcePlugin) Kill() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if p.client != nil {

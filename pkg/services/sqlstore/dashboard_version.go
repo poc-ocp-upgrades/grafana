@@ -10,11 +10,15 @@ import (
 func init() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	bus.AddHandler("sql", GetDashboardVersion)
 	bus.AddHandler("sql", GetDashboardVersions)
 	bus.AddHandler("sql", DeleteExpiredVersions)
 }
 func GetDashboardVersion(query *m.GetDashboardVersionQuery) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	version := m.DashboardVersion{}
@@ -30,6 +34,8 @@ func GetDashboardVersion(query *m.GetDashboardVersionQuery) error {
 	return nil
 }
 func GetDashboardVersions(query *m.GetDashboardVersionsQuery) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if query.Limit == 0 {
@@ -56,6 +62,8 @@ func GetDashboardVersions(query *m.GetDashboardVersionsQuery) error {
 const MAX_VERSIONS_TO_DELETE = 100
 
 func DeleteExpiredVersions(cmd *m.DeleteExpiredVersionsCommand) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return inTransaction(func(sess *DBSession) error {

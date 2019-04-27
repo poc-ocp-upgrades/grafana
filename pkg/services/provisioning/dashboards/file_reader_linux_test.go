@@ -13,6 +13,8 @@ var (
 func TestProvsionedSymlinkedFolder(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	cfg := &DashboardsAsConfig{Name: "Default", Type: "file", OrgId: 1, Folder: "", Options: map[string]interface{}{"path": symlinkedFolder}}
 	reader, err := NewDashboardFileReader(cfg, log.New("test-logger"))
 	if err != nil {

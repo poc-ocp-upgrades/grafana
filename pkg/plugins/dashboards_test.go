@@ -13,6 +13,8 @@ import (
 func TestPluginDashboards(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	Convey("When asking plugin dashboard info", t, func() {
 		setting.Raw = ini.Empty()
 		sec, _ := setting.Raw.NewSection("plugin.test-app")

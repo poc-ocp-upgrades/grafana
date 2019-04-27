@@ -28,6 +28,8 @@ var netClient = &http.Client{Timeout: time.Second * 30, Transport: netTransport}
 func (ns *NotificationService) sendWebRequestSync(ctx context.Context, webhook *Webhook) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	ns.log.Debug("Sending webhook", "url", webhook.Url, "http method", webhook.HttpMethod)
 	if webhook.HttpMethod == "" {
 		webhook.HttpMethod = http.MethodPost

@@ -5,6 +5,8 @@ import . "github.com/grafana/grafana/pkg/services/sqlstore/migrator"
 func addPlaylistMigrations(mg *Migrator) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	mg.AddMigration("Drop old table playlist table", NewDropTableMigration("playlist"))
 	mg.AddMigration("Drop old table playlist_item table", NewDropTableMigration("playlist_item"))
 	playlistV2 := Table{Name: "playlist", Columns: []*Column{{Name: "id", Type: DB_BigInt, IsPrimaryKey: true, IsAutoIncrement: true}, {Name: "name", Type: DB_NVarchar, Length: 255, Nullable: false}, {Name: "interval", Type: DB_NVarchar, Length: 255, Nullable: false}, {Name: "org_id", Type: DB_BigInt, Nullable: false}}}

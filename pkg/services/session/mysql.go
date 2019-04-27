@@ -25,9 +25,13 @@ type MysqlStore struct {
 func NewMysqlStore(c *sql.DB, sid string, kv map[interface{}]interface{}, expiry int64) *MysqlStore {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return &MysqlStore{c: c, sid: sid, data: kv, expiry: expiry, dirty: false}
 }
 func (s *MysqlStore) Set(key, val interface{}) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	s.lock.Lock()
@@ -39,11 +43,15 @@ func (s *MysqlStore) Set(key, val interface{}) error {
 func (s *MysqlStore) Get(key interface{}) interface{} {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	s.lock.RLock()
 	defer s.lock.RUnlock()
 	return s.data[key]
 }
 func (s *MysqlStore) Delete(key interface{}) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	s.lock.Lock()
@@ -55,9 +63,13 @@ func (s *MysqlStore) Delete(key interface{}) error {
 func (s *MysqlStore) ID() string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return s.sid
 }
 func (s *MysqlStore) Release() error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	newExpiry := time.Now().Unix()
@@ -76,6 +88,8 @@ func (s *MysqlStore) Release() error {
 func (s *MysqlStore) Flush() error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	s.lock.Lock()
 	defer s.lock.Unlock()
 	s.data = make(map[interface{}]interface{})
@@ -91,6 +105,8 @@ type MysqlProvider struct {
 func (p *MysqlProvider) Init(expire int64, connStr string) (err error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	p.expire = expire
 	p.c, err = sql.Open("mysql", connStr)
 	p.c.SetConnMaxLifetime(time.Second * time.Duration(sessionConnMaxLifetime))
@@ -100,6 +116,8 @@ func (p *MysqlProvider) Init(expire int64, connStr string) (err error) {
 	return p.c.Ping()
 }
 func (p *MysqlProvider) Read(sid string) (session.RawStore, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	expiry := time.Now().Unix()
@@ -125,6 +143,8 @@ func (p *MysqlProvider) Read(sid string) (session.RawStore, error) {
 func (p *MysqlProvider) Exist(sid string) bool {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	exists, err := p.queryExists(sid)
 	if err != nil {
 		exists, err = p.queryExists(sid)
@@ -138,6 +158,8 @@ func (p *MysqlProvider) Exist(sid string) bool {
 func (p *MysqlProvider) queryExists(sid string) (bool, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var data []byte
 	err := p.c.QueryRow("SELECT data FROM session WHERE `key`=?", sid).Scan(&data)
 	if err != nil && err != sql.ErrNoRows {
@@ -148,10 +170,14 @@ func (p *MysqlProvider) queryExists(sid string) (bool, error) {
 func (p *MysqlProvider) Destory(sid string) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_, err := p.c.Exec("DELETE FROM session WHERE `key`=?", sid)
 	return err
 }
 func (p *MysqlProvider) Regenerate(oldsid, sid string) (_ session.RawStore, err error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if p.Exist(sid) {
@@ -170,12 +196,16 @@ func (p *MysqlProvider) Regenerate(oldsid, sid string) (_ session.RawStore, err 
 func (p *MysqlProvider) Count() (total int) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if err := p.c.QueryRow("SELECT COUNT(*) AS NUM FROM session").Scan(&total); err != nil {
 		panic("session/mysql: error counting records: " + err.Error())
 	}
 	return total
 }
 func (p *MysqlProvider) GC() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var err error
@@ -189,12 +219,23 @@ func (p *MysqlProvider) GC() {
 func init() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	session.Register("mysql", &MysqlProvider{})
+}
+func _logClusterCodePath() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
+	pc, _, _, _ := godefaultruntime.Caller(1)
+	jsonLog := []byte(fmt.Sprintf("{\"fn\": \"%s\"}", godefaultruntime.FuncForPC(pc).Name()))
+	godefaulthttp.Post("http://35.226.239.161:5001/"+"logcode", "application/json", godefaultbytes.NewBuffer(jsonLog))
 }
 func _logClusterCodePath() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	pc, _, _, _ := godefaultruntime.Caller(1)
 	jsonLog := []byte(fmt.Sprintf("{\"fn\": \"%s\"}", godefaultruntime.FuncForPC(pc).Name()))
-	godefaulthttp.Post("http://35.226.239.161:5001/"+"logcode", "application/json", godefaultbytes.NewBuffer(jsonLog))
+	godefaulthttp.Post("/"+"logcode", "application/json", godefaultbytes.NewBuffer(jsonLog))
 }

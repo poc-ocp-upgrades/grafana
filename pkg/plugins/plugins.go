@@ -40,9 +40,13 @@ type PluginManager struct{ log log.Logger }
 func init() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	registry.RegisterService(&PluginManager{})
 }
 func (pm *PluginManager) Init() error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	pm.log = log.New("plugins")
@@ -80,6 +84,8 @@ func (pm *PluginManager) Init() error {
 func (pm *PluginManager) startBackendPlugins(ctx context.Context) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	for _, ds := range DataSources {
 		if ds.Backend {
 			if err := ds.startBackendPlugin(ctx, plog); err != nil {
@@ -90,6 +96,8 @@ func (pm *PluginManager) startBackendPlugins(ctx context.Context) error {
 	return nil
 }
 func (pm *PluginManager) Run(ctx context.Context) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	pm.startBackendPlugins(ctx)
@@ -113,6 +121,8 @@ func (pm *PluginManager) Run(ctx context.Context) error {
 func checkPluginPaths() error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	for _, section := range setting.Raw.Sections() {
 		if strings.HasPrefix(section.Name(), "plugin.") {
 			path := section.Key("path").String()
@@ -124,6 +134,8 @@ func checkPluginPaths() error {
 	return nil
 }
 func scan(pluginDir string) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	scanner := &PluginScanner{pluginPath: pluginDir}
@@ -139,6 +151,8 @@ func scan(pluginDir string) error {
 	return nil
 }
 func (scanner *PluginScanner) walker(currentPath string, f os.FileInfo, err error) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if err != nil {
@@ -160,6 +174,8 @@ func (scanner *PluginScanner) walker(currentPath string, f os.FileInfo, err erro
 	return nil
 }
 func (scanner *PluginScanner) loadPluginJson(pluginJsonFilePath string) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	currentDir := filepath.Dir(pluginJsonFilePath)
@@ -186,6 +202,8 @@ func (scanner *PluginScanner) loadPluginJson(pluginJsonFilePath string) error {
 	return loader.Load(jsonParser, currentDir)
 }
 func GetPluginMarkdown(pluginId string, name string) ([]byte, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	plug, exists := Plugins[pluginId]

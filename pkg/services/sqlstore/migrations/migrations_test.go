@@ -11,6 +11,8 @@ import (
 func TestMigrations(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	testDBs := []sqlutil.TestDB{sqlutil.TestDB_Sqlite3}
 	for _, testDB := range testDBs {
 		sql := `select count(*) as count from migration_log`

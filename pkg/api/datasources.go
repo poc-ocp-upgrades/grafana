@@ -12,6 +12,8 @@ import (
 func GetDataSources(c *m.ReqContext) Response {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	query := m.GetDataSourcesQuery{OrgId: c.OrgId}
 	if err := bus.Dispatch(&query); err != nil {
 		return Error(500, "Failed to query datasources", err)
@@ -32,6 +34,8 @@ func GetDataSources(c *m.ReqContext) Response {
 func GetDataSourceById(c *m.ReqContext) Response {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	query := m.GetDataSourceByIdQuery{Id: c.ParamsInt64(":id"), OrgId: c.OrgId}
 	if err := bus.Dispatch(&query); err != nil {
 		if err == m.ErrDataSourceNotFound {
@@ -44,6 +48,8 @@ func GetDataSourceById(c *m.ReqContext) Response {
 	return JSON(200, &dtos)
 }
 func DeleteDataSourceById(c *m.ReqContext) Response {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	id := c.ParamsInt64(":id")
@@ -65,6 +71,8 @@ func DeleteDataSourceById(c *m.ReqContext) Response {
 	return Success("Data source deleted")
 }
 func DeleteDataSourceByName(c *m.ReqContext) Response {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	name := c.Params(":name")
@@ -91,6 +99,8 @@ func DeleteDataSourceByName(c *m.ReqContext) Response {
 func AddDataSource(c *m.ReqContext, cmd m.AddDataSourceCommand) Response {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	cmd.OrgId = c.OrgId
 	if err := bus.Dispatch(&cmd); err != nil {
 		if err == m.ErrDataSourceNameExists {
@@ -102,6 +112,8 @@ func AddDataSource(c *m.ReqContext, cmd m.AddDataSourceCommand) Response {
 	return JSON(200, util.DynMap{"message": "Datasource added", "id": cmd.Result.Id, "name": cmd.Result.Name, "datasource": ds})
 }
 func UpdateDataSource(c *m.ReqContext, cmd m.UpdateDataSourceCommand) Response {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	cmd.OrgId = c.OrgId
@@ -130,6 +142,8 @@ func UpdateDataSource(c *m.ReqContext, cmd m.UpdateDataSourceCommand) Response {
 func fillWithSecureJSONData(cmd *m.UpdateDataSourceCommand) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if len(cmd.SecureJsonData) == 0 {
 		return nil
 	}
@@ -151,6 +165,8 @@ func fillWithSecureJSONData(cmd *m.UpdateDataSourceCommand) error {
 func getRawDataSourceById(id int64, orgID int64) (*m.DataSource, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	query := m.GetDataSourceByIdQuery{Id: id, OrgId: orgID}
 	if err := bus.Dispatch(&query); err != nil {
 		return nil, err
@@ -158,6 +174,8 @@ func getRawDataSourceById(id int64, orgID int64) (*m.DataSource, error) {
 	return query.Result, nil
 }
 func GetDataSourceByName(c *m.ReqContext) Response {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	query := m.GetDataSourceByNameQuery{Name: c.Params(":name"), OrgId: c.OrgId}
@@ -174,6 +192,8 @@ func GetDataSourceByName(c *m.ReqContext) Response {
 func GetDataSourceIdByName(c *m.ReqContext) Response {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	query := m.GetDataSourceByNameQuery{Name: c.Params(":name"), OrgId: c.OrgId}
 	if err := bus.Dispatch(&query); err != nil {
 		if err == m.ErrDataSourceNotFound {
@@ -186,6 +206,8 @@ func GetDataSourceIdByName(c *m.ReqContext) Response {
 	return JSON(200, &dtos)
 }
 func convertModelToDtos(ds *m.DataSource) dtos.DataSource {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	dto := dtos.DataSource{Id: ds.Id, OrgId: ds.OrgId, Name: ds.Name, Url: ds.Url, Type: ds.Type, Access: ds.Access, Password: ds.Password, Database: ds.Database, User: ds.User, BasicAuth: ds.BasicAuth, BasicAuthUser: ds.BasicAuthUser, BasicAuthPassword: ds.BasicAuthPassword, WithCredentials: ds.WithCredentials, IsDefault: ds.IsDefault, JsonData: ds.JsonData, SecureJsonFields: map[string]bool{}, Version: ds.Version, ReadOnly: ds.ReadOnly}

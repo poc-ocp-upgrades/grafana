@@ -9,6 +9,8 @@ import (
 func validateVersionInput(c CommandLine) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	arg := c.Args().First()
 	if arg == "" {
 		return errors.New("please specify plugin to list versions for")
@@ -16,6 +18,8 @@ func validateVersionInput(c CommandLine) error {
 	return nil
 }
 func listversionsCommand(c CommandLine) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if err := validateVersionInput(c); err != nil {

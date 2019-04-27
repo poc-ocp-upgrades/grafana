@@ -32,6 +32,8 @@ type EvalContext struct {
 func NewEvalContext(alertCtx context.Context, rule *Rule) *EvalContext {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return &EvalContext{Ctx: alertCtx, StartTime: time.Now(), Rule: rule, Logs: make([]*ResultLogEntry, 0), EvalMatches: make([]*EvalMatch, 0), log: log.New("alerting.evalContext"), PrevAlertState: rule.State}
 }
 
@@ -42,6 +44,8 @@ type StateDescription struct {
 }
 
 func (c *EvalContext) GetStateModel() *StateDescription {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	switch c.Rule.State {
@@ -60,9 +64,13 @@ func (c *EvalContext) GetStateModel() *StateDescription {
 func (c *EvalContext) ShouldUpdateAlertState() bool {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return c.Rule.State != c.PrevAlertState
 }
 func (a *EvalContext) GetDurationMs() float64 {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return float64(a.EndTime.Nanosecond()-a.StartTime.Nanosecond()) / float64(1000000)
@@ -70,9 +78,13 @@ func (a *EvalContext) GetDurationMs() float64 {
 func (c *EvalContext) GetNotificationTitle() string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return "[" + c.GetStateModel().Text + "] " + c.Rule.Name
 }
 func (c *EvalContext) GetDashboardUID() (*m.DashboardRef, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if c.dashboardRef != nil {
@@ -91,6 +103,8 @@ const urlFormat = "%s?fullscreen=true&edit=true&tab=alert&panelId=%d&orgId=%d"
 func (c *EvalContext) GetRuleUrl() (string, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if c.IsTestRun {
 		return setting.AppUrl, nil
 	}
@@ -101,6 +115,8 @@ func (c *EvalContext) GetRuleUrl() (string, error) {
 	return fmt.Sprintf(urlFormat, m.GetFullDashboardUrl(ref.Uid, ref.Slug), c.Rule.PanelId, c.Rule.OrgId), nil
 }
 func (c *EvalContext) GetNewState() m.AlertStateType {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	ns := getNewStateInternal(c)
@@ -117,6 +133,8 @@ func (c *EvalContext) GetNewState() m.AlertStateType {
 	return m.AlertStatePending
 }
 func getNewStateInternal(c *EvalContext) m.AlertStateType {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if c.Error != nil {

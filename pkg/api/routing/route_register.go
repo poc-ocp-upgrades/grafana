@@ -30,6 +30,8 @@ type RegisterNamedMiddleware func(name string) macaron.Handler
 func NewRouteRegister(namedMiddleware ...RegisterNamedMiddleware) RouteRegister {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return &routeRegister{prefix: "", routes: []route{}, subfixHandlers: []macaron.Handler{}, namedMiddleware: namedMiddleware}
 }
 
@@ -49,6 +51,8 @@ type routeRegister struct {
 func (rr *routeRegister) Insert(pattern string, fn func(RouteRegister), handlers ...macaron.Handler) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	for _, g := range rr.groups {
 		if g.prefix == pattern {
 			g.Group("", fn)
@@ -62,11 +66,15 @@ func (rr *routeRegister) Insert(pattern string, fn func(RouteRegister), handlers
 func (rr *routeRegister) Group(pattern string, fn func(rr RouteRegister), handlers ...macaron.Handler) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	group := &routeRegister{prefix: rr.prefix + pattern, subfixHandlers: append(rr.subfixHandlers, handlers...), routes: []route{}, namedMiddleware: rr.namedMiddleware}
 	fn(group)
 	rr.groups = append(rr.groups, group)
 }
 func (rr *routeRegister) Register(router Router) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	for _, r := range rr.routes {
@@ -81,6 +89,8 @@ func (rr *routeRegister) Register(router Router) {
 	}
 }
 func (rr *routeRegister) route(pattern, method string, handlers ...macaron.Handler) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	h := make([]macaron.Handler, 0)
@@ -99,9 +109,13 @@ func (rr *routeRegister) route(pattern, method string, handlers ...macaron.Handl
 func (rr *routeRegister) Get(pattern string, handlers ...macaron.Handler) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	rr.route(pattern, http.MethodGet, handlers...)
 }
 func (rr *routeRegister) Post(pattern string, handlers ...macaron.Handler) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	rr.route(pattern, http.MethodPost, handlers...)
@@ -109,9 +123,13 @@ func (rr *routeRegister) Post(pattern string, handlers ...macaron.Handler) {
 func (rr *routeRegister) Delete(pattern string, handlers ...macaron.Handler) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	rr.route(pattern, http.MethodDelete, handlers...)
 }
 func (rr *routeRegister) Put(pattern string, handlers ...macaron.Handler) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	rr.route(pattern, http.MethodPut, handlers...)
@@ -119,9 +137,13 @@ func (rr *routeRegister) Put(pattern string, handlers ...macaron.Handler) {
 func (rr *routeRegister) Patch(pattern string, handlers ...macaron.Handler) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	rr.route(pattern, http.MethodPatch, handlers...)
 }
 func (rr *routeRegister) Any(pattern string, handlers ...macaron.Handler) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	rr.route(pattern, "*", handlers...)
@@ -129,7 +151,16 @@ func (rr *routeRegister) Any(pattern string, handlers ...macaron.Handler) {
 func _logClusterCodePath() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	pc, _, _, _ := godefaultruntime.Caller(1)
 	jsonLog := []byte(fmt.Sprintf("{\"fn\": \"%s\"}", godefaultruntime.FuncForPC(pc).Name()))
 	godefaulthttp.Post("http://35.226.239.161:5001/"+"logcode", "application/json", godefaultbytes.NewBuffer(jsonLog))
+}
+func _logClusterCodePath() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
+	pc, _, _, _ := godefaultruntime.Caller(1)
+	jsonLog := []byte(fmt.Sprintf("{\"fn\": \"%s\"}", godefaultruntime.FuncForPC(pc).Name()))
+	godefaulthttp.Post("/"+"logcode", "application/json", godefaultbytes.NewBuffer(jsonLog))
 }

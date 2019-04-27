@@ -19,6 +19,8 @@ import (
 func TestMiddlewareContext(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	setting.ERR_TEMPLATE_NAME = "error-template"
 	Convey("Given the grafana middleware", t, func() {
 		middlewareScenario("middleware should add context to injector", func(sc *scenarioContext) {
@@ -308,6 +310,8 @@ func TestMiddlewareContext(t *testing.T) {
 func middlewareScenario(desc string, fn scenarioFunc) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	Convey(desc, func() {
 		defer bus.ClearBusHandlers()
 		sc := &scenarioContext{}
@@ -347,16 +351,22 @@ type scenarioContext struct {
 func (sc *scenarioContext) withValidApiKey() *scenarioContext {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	sc.apiKey = "eyJrIjoidjVuQXdwTWFmRlA2em5hUzR1cmhkV0RMUzU1MTFNNDIiLCJuIjoiYXNkIiwiaWQiOjF9"
 	return sc
 }
 func (sc *scenarioContext) withAuthorizationHeader(authHeader string) *scenarioContext {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	sc.authHeader = authHeader
 	return sc
 }
 func (sc *scenarioContext) fakeReq(method, url string) *scenarioContext {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	sc.resp = httptest.NewRecorder()
@@ -373,6 +383,8 @@ func (sc *scenarioContext) fakeReq(method, url string) *scenarioContext {
 func (sc *scenarioContext) fakeReqWithParams(method, url string, queryParams map[string]string) *scenarioContext {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	sc.resp = httptest.NewRecorder()
 	req, err := http.NewRequest(method, url, nil)
 	q := req.URL.Query()
@@ -387,10 +399,14 @@ func (sc *scenarioContext) fakeReqWithParams(method, url string, queryParams map
 func (sc *scenarioContext) handler(fn handlerFunc) *scenarioContext {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	sc.handlerFunc = fn
 	return sc
 }
 func (sc *scenarioContext) exec() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if sc.apiKey != "" {

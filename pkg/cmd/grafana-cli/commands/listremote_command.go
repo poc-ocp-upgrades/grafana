@@ -8,6 +8,8 @@ import (
 func listremoteCommand(c CommandLine) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	plugin, err := s.ListAllPlugins(c.RepoDirectory())
 	if err != nil {
 		return err

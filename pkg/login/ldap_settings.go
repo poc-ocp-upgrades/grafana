@@ -51,6 +51,8 @@ var ldapLogger log.Logger = log.New("ldap")
 func loadLdapConfig() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if !setting.LdapEnabled {
 		return
 	}
@@ -75,6 +77,8 @@ func loadLdapConfig() {
 	}
 }
 func assertNotEmptyCfg(val interface{}, propName string) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	switch v := val.(type) {

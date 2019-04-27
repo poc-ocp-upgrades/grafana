@@ -15,6 +15,8 @@ import (
 func (ns *NotificationService) send(msg *Message) (int, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	dialer, err := ns.createDialer()
 	if err != nil {
 		return 0, err
@@ -35,6 +37,8 @@ func (ns *NotificationService) send(msg *Message) (int, error) {
 	return len(msg.To), nil
 }
 func (ns *NotificationService) createDialer() (*gomail.Dialer, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	host, port, err := net.SplitHostPort(ns.Cfg.Smtp.Host)
@@ -63,6 +67,8 @@ func (ns *NotificationService) createDialer() (*gomail.Dialer, error) {
 	return d, nil
 }
 func (ns *NotificationService) buildEmailMessage(cmd *m.SendEmailCommand) (*Message, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if !ns.Cfg.Smtp.Enabled {

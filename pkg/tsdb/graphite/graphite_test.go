@@ -8,6 +8,8 @@ import (
 func TestGraphiteFunctions(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	Convey("Testing Graphite Functions", t, func() {
 		Convey("formatting time range for now", func() {
 			timeRange := formatTimeRange("now")

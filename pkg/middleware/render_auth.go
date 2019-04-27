@@ -13,6 +13,8 @@ var renderKeys map[string]*m.SignedInUser = make(map[string]*m.SignedInUser)
 func initContextWithRenderAuth(ctx *m.ReqContext) bool {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	key := ctx.GetCookie("renderKey")
 	if key == "" {
 		return false
@@ -33,6 +35,8 @@ func initContextWithRenderAuth(ctx *m.ReqContext) bool {
 func AddRenderAuthKey(orgId int64, userId int64, orgRole m.RoleType) string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	renderKeysLock.Lock()
 	key := util.GetRandomString(32)
 	renderKeys[key] = &m.SignedInUser{OrgId: orgId, OrgRole: orgRole, UserId: userId}
@@ -40,6 +44,8 @@ func AddRenderAuthKey(orgId int64, userId int64, orgRole m.RoleType) string {
 	return key
 }
 func RemoveRenderAuthKey(key string) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	renderKeysLock.Lock()

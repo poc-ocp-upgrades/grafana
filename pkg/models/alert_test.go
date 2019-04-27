@@ -9,6 +9,8 @@ import (
 func TestAlertingModelTest(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	Convey("Testing Alerting model", t, func() {
 		json1, _ := simplejson.NewJson([]byte(`{ "field": "value" }`))
 		json2, _ := simplejson.NewJson([]byte(`{ "field": "value" }`))

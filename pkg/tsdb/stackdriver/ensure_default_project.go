@@ -9,6 +9,8 @@ import (
 func (e *StackdriverExecutor) ensureDefaultProject(ctx context.Context, tsdbQuery *tsdb.TsdbQuery) (*tsdb.Response, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	queryResult := &tsdb.QueryResult{Meta: simplejson.New(), RefId: tsdbQuery.Queries[0].RefId}
 	result := &tsdb.Response{Results: make(map[string]*tsdb.QueryResult)}
 	defaultProject, err := e.getDefaultProject(ctx)

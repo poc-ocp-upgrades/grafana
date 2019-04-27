@@ -18,6 +18,8 @@ type SearchRequest struct {
 func (r *SearchRequest) MarshalJSON() ([]byte, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	root := make(map[string]interface{})
 	root["size"] = r.Size
 	if len(r.Sort) > 0 {
@@ -55,9 +57,13 @@ type BoolQuery struct{ Filters []Filter }
 func NewBoolQuery() *BoolQuery {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return &BoolQuery{Filters: make([]Filter, 0)}
 }
 func (q *BoolQuery) MarshalJSON() ([]byte, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	root := make(map[string]interface{})
@@ -81,6 +87,8 @@ type QueryStringFilter struct {
 func (f *QueryStringFilter) MarshalJSON() ([]byte, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	root := map[string]interface{}{"query_string": map[string]interface{}{"query": f.Query, "analyze_wildcard": f.AnalyzeWildcard}}
 	return json.Marshal(root)
 }
@@ -96,6 +104,8 @@ type RangeFilter struct {
 const DateFormatEpochMS = "epoch_millis"
 
 func (f *RangeFilter) MarshalJSON() ([]byte, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	root := map[string]map[string]map[string]interface{}{"range": {f.Key: {"lte": f.Lte, "gte": f.Gte}}}
@@ -114,6 +124,8 @@ type Agg struct {
 func (a *Agg) MarshalJSON() ([]byte, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	root := map[string]interface{}{a.Key: a.Aggregation}
 	return json.Marshal(root)
 }
@@ -121,6 +133,8 @@ func (a *Agg) MarshalJSON() ([]byte, error) {
 type AggArray []*Agg
 
 func (a AggArray) MarshalJSON() ([]byte, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	aggsMap := make(map[string]Aggregation)
@@ -139,6 +153,8 @@ type aggContainer struct {
 func (a *aggContainer) MarshalJSON() ([]byte, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	root := map[string]interface{}{a.Type: a.Aggregation}
 	if len(a.Aggs) > 0 {
 		root["aggs"] = a.Aggs
@@ -153,6 +169,8 @@ type aggDef struct {
 }
 
 func newAggDef(key string, aggregation *aggContainer) *aggDef {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return &aggDef{key: key, aggregation: aggregation, builders: make([]AggBuilder, 0)}
@@ -198,6 +216,8 @@ type MetricAggregation struct {
 func (a *MetricAggregation) MarshalJSON() ([]byte, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	root := map[string]interface{}{"field": a.Field}
 	for k, v := range a.Settings {
 		if k != "" && v != nil {
@@ -213,6 +233,8 @@ type PipelineAggregation struct {
 }
 
 func (a *PipelineAggregation) MarshalJSON() ([]byte, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	root := map[string]interface{}{"buckets_path": a.BucketPath}

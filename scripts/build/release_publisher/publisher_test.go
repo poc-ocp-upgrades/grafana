@@ -5,6 +5,8 @@ import "testing"
 func TestPreparingReleaseFromRemote(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	cases := []struct {
 		version		string
 		expectedVersion	string
@@ -50,9 +52,13 @@ type mockHttpGetter struct{}
 func (mockHttpGetter) getContents(url string) (string, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return url, nil
 }
 func TestPreparingReleaseFromLocal(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	whatsNewUrl := "https://whatsnews.foo/"
@@ -101,6 +107,8 @@ func TestPreparingReleaseFromLocal(t *testing.T) {
 	}
 }
 func TestFilterBuildArtifacts(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	buildArtifacts, _ := filterBuildArtifacts([]artifactFilter{{os: "deb", arch: "amd64"}, {os: "rhel", arch: "amd64"}, {os: "linux", arch: "amd64"}, {os: "win", arch: "amd64"}})

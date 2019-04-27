@@ -38,6 +38,8 @@ import (
 func NewGrafanaServer() *GrafanaServerImpl {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	rootCtx, shutdownFn := context.WithCancel(context.Background())
 	childRoutines, childCtx := errgroup.WithContext(rootCtx)
 	return &GrafanaServerImpl{context: childCtx, shutdownFn: shutdownFn, childRoutines: childRoutines, log: log.New("server"), cfg: setting.NewCfg()}
@@ -56,6 +58,8 @@ type GrafanaServerImpl struct {
 }
 
 func (g *GrafanaServerImpl) Run() error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	g.loadConfiguration()
@@ -113,6 +117,8 @@ func (g *GrafanaServerImpl) Run() error {
 func (g *GrafanaServerImpl) loadConfiguration() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	err := g.cfg.Load(&setting.CommandLineArgs{Config: *configFile, HomePath: *homePath, Args: flag.Args()})
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Failed to start grafana. error: %s\n", err.Error())
@@ -124,6 +130,8 @@ func (g *GrafanaServerImpl) loadConfiguration() {
 func (g *GrafanaServerImpl) Shutdown(reason string) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	g.log.Info("Shutdown started", "reason", reason)
 	g.shutdownReason = reason
 	g.shutdownInProgress = true
@@ -131,6 +139,8 @@ func (g *GrafanaServerImpl) Shutdown(reason string) {
 	g.childRoutines.Wait()
 }
 func (g *GrafanaServerImpl) Exit(reason error) int {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	code := 1
@@ -142,6 +152,8 @@ func (g *GrafanaServerImpl) Exit(reason error) int {
 	return code
 }
 func (g *GrafanaServerImpl) writePIDFile() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if *pidFile == "" {
@@ -160,6 +172,8 @@ func (g *GrafanaServerImpl) writePIDFile() {
 	g.log.Info("Writing PID file", "path", *pidFile, "pid", pid)
 }
 func sendSystemdNotification(state string) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	notifySocket := os.Getenv("NOTIFY_SOCKET")

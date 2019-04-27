@@ -27,6 +27,8 @@ type MigrationLog struct {
 func NewMigrator(engine *xorm.Engine) *Migrator {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	mg := &Migrator{}
 	mg.x = engine
 	mg.Logger = log.New("migrator")
@@ -37,15 +39,21 @@ func NewMigrator(engine *xorm.Engine) *Migrator {
 func (mg *Migrator) MigrationsCount() int {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return len(mg.migrations)
 }
 func (mg *Migrator) AddMigration(id string, m Migration) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	m.SetId(id)
 	mg.migrations = append(mg.migrations, m)
 }
 func (mg *Migrator) GetMigrationLog() (map[string]MigrationLog, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	logMap := make(map[string]MigrationLog)
@@ -69,6 +77,8 @@ func (mg *Migrator) GetMigrationLog() (map[string]MigrationLog, error) {
 	return logMap, nil
 }
 func (mg *Migrator) Start() error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	mg.Logger.Info("Starting DB migration")
@@ -106,6 +116,8 @@ func (mg *Migrator) Start() error {
 func (mg *Migrator) exec(m Migration, sess *xorm.Session) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	mg.Logger.Info("Executing migration", "id", m.Id())
 	condition := m.GetCondition()
 	if condition != nil {
@@ -132,6 +144,8 @@ func (mg *Migrator) exec(m Migration, sess *xorm.Session) error {
 type dbTransactionFunc func(sess *xorm.Session) error
 
 func (mg *Migrator) inTransaction(callback dbTransactionFunc) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var err error

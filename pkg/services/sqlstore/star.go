@@ -8,12 +8,16 @@ import (
 func init() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	bus.AddHandler("sql", StarDashboard)
 	bus.AddHandler("sql", UnstarDashboard)
 	bus.AddHandler("sql", GetUserStars)
 	bus.AddHandler("sql", IsStarredByUser)
 }
 func IsStarredByUser(query *m.IsStarredByUserQuery) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	rawSql := "SELECT 1 from star where user_id=? and dashboard_id=?"
@@ -30,6 +34,8 @@ func IsStarredByUser(query *m.IsStarredByUserQuery) error {
 func StarDashboard(cmd *m.StarDashboardCommand) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if cmd.DashboardId == 0 || cmd.UserId == 0 {
 		return m.ErrCommandValidationFailed
 	}
@@ -42,6 +48,8 @@ func StarDashboard(cmd *m.StarDashboardCommand) error {
 func UnstarDashboard(cmd *m.UnstarDashboardCommand) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if cmd.DashboardId == 0 || cmd.UserId == 0 {
 		return m.ErrCommandValidationFailed
 	}
@@ -52,6 +60,8 @@ func UnstarDashboard(cmd *m.UnstarDashboardCommand) error {
 	})
 }
 func GetUserStars(query *m.GetUserStarsQuery) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var stars = make([]m.Star, 0)

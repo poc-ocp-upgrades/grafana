@@ -10,6 +10,8 @@ import (
 func init() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	bus.AddHandler("sql", GetApiKeys)
 	bus.AddHandler("sql", GetApiKeyById)
 	bus.AddHandler("sql", GetApiKeyByName)
@@ -19,11 +21,15 @@ func init() {
 func GetApiKeys(query *m.GetApiKeysQuery) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	sess := x.Limit(100, 0).Where("org_id=?", query.OrgId).Asc("name")
 	query.Result = make([]*m.ApiKey, 0)
 	return sess.Find(&query.Result)
 }
 func DeleteApiKeyCtx(ctx context.Context, cmd *m.DeleteApiKeyCommand) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return withDbSession(ctx, func(sess *DBSession) error {
@@ -33,6 +39,8 @@ func DeleteApiKeyCtx(ctx context.Context, cmd *m.DeleteApiKeyCommand) error {
 	})
 }
 func AddApiKey(cmd *m.AddApiKeyCommand) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return inTransaction(func(sess *DBSession) error {
@@ -47,6 +55,8 @@ func AddApiKey(cmd *m.AddApiKeyCommand) error {
 func GetApiKeyById(query *m.GetApiKeyByIdQuery) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var apikey m.ApiKey
 	has, err := x.Id(query.ApiKeyId).Get(&apikey)
 	if err != nil {
@@ -58,6 +68,8 @@ func GetApiKeyById(query *m.GetApiKeyByIdQuery) error {
 	return nil
 }
 func GetApiKeyByName(query *m.GetApiKeyByNameQuery) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var apikey m.ApiKey

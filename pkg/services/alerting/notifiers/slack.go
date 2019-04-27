@@ -18,6 +18,8 @@ import (
 func init() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	alerting.RegisterNotifier(&alerting.NotifierPlugin{Type: "slack", Name: "Slack", Description: "Sends notifications to Slack via Slack Webhooks", Factory: NewSlackNotifier, OptionsTemplate: `
       <h3 class="page-heading">Slack settings</h3>
       <div class="gf-form max-width-30">
@@ -95,6 +97,8 @@ func init() {
 func NewSlackNotifier(model *m.AlertNotification) (alerting.Notifier, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	url := model.Settings.Get("url").MustString()
 	if url == "" {
 		return nil, alerting.ValidationError{Reason: "Could not find url property in settings"}
@@ -123,6 +127,8 @@ type SlackNotifier struct {
 }
 
 func (this *SlackNotifier) Notify(evalContext *alerting.EvalContext) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	this.log.Info("Executing slack notification", "ruleId", evalContext.Rule.Id, "notification", this.Name)
@@ -180,6 +186,8 @@ func (this *SlackNotifier) Notify(evalContext *alerting.EvalContext) error {
 func SlackFileUpload(evalContext *alerting.EvalContext, log log.Logger, url string, recipient string, token string) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if evalContext.ImageOnDiskPath == "" {
 		evalContext.ImageOnDiskPath = filepath.Join(setting.HomePath, "public/img/mixed_styles.png")
 	}
@@ -199,6 +207,8 @@ func SlackFileUpload(evalContext *alerting.EvalContext, log log.Logger, url stri
 	return nil
 }
 func GenerateSlackBody(file string, token string, recipient string) (map[string]string, bytes.Buffer, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var b bytes.Buffer

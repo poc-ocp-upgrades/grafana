@@ -12,11 +12,15 @@ var getTimeNow = time.Now
 func init() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	bus.AddHandler("sql", CreateLoginAttempt)
 	bus.AddHandler("sql", DeleteOldLoginAttempts)
 	bus.AddHandler("sql", GetUserLoginAttemptCount)
 }
 func CreateLoginAttempt(cmd *m.CreateLoginAttemptCommand) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return inTransaction(func(sess *DBSession) error {
@@ -29,6 +33,8 @@ func CreateLoginAttempt(cmd *m.CreateLoginAttemptCommand) error {
 	})
 }
 func DeleteOldLoginAttempts(cmd *m.DeleteOldLoginAttemptsCommand) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return inTransaction(func(sess *DBSession) error {
@@ -54,6 +60,8 @@ func DeleteOldLoginAttempts(cmd *m.DeleteOldLoginAttemptsCommand) error {
 func GetUserLoginAttemptCount(query *m.GetUserLoginAttemptCountQuery) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	loginAttempt := new(m.LoginAttempt)
 	total, err := x.Where("username = ?", query.Username).And("created >= ?", query.Since.Unix()).Count(loginAttempt)
 	if err != nil {
@@ -63,6 +71,8 @@ func GetUserLoginAttemptCount(query *m.GetUserLoginAttemptCountQuery) error {
 	return nil
 }
 func toInt64(i interface{}) int64 {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	switch i.(type) {

@@ -14,6 +14,8 @@ const AdminUserId = 1
 func resetPasswordCommand(c CommandLine) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	newPassword := c.Args().First()
 	password := models.Password(newPassword)
 	if password.IsWeak() {

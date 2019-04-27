@@ -11,9 +11,13 @@ type Assert struct{ T *testing.T }
 func NewAssert(t *testing.T) *Assert {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return &Assert{T: t}
 }
 func (assert *Assert) True(value bool, message string) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	if !value {
@@ -21,6 +25,8 @@ func (assert *Assert) True(value bool, message string) {
 	}
 }
 func TestFirst(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	assert := NewAssert(t)
@@ -126,6 +132,8 @@ func TestFirst(t *testing.T) {
 func TestSecond(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	json := `
   {
    "data": [
@@ -203,6 +211,8 @@ func TestSecond(t *testing.T) {
 func TestErrors(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	json := `
   {
     "string": "hello",
@@ -241,6 +251,8 @@ func TestErrors(t *testing.T) {
 	}
 }
 func TestWriting(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	Convey("When writing", t, func() {

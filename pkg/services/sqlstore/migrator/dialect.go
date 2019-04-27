@@ -43,6 +43,8 @@ type Dialect interface {
 func NewDialect(engine *xorm.Engine) Dialect {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	name := engine.DriverName()
 	switch name {
 	case MYSQL:
@@ -64,9 +66,13 @@ type BaseDialect struct {
 func (d *BaseDialect) DriverName() string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return d.driverName
 }
 func (b *BaseDialect) ShowCreateNull() bool {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return true
@@ -74,9 +80,13 @@ func (b *BaseDialect) ShowCreateNull() bool {
 func (b *BaseDialect) AndStr() string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return "AND"
 }
 func (b *BaseDialect) LikeStr() string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return "LIKE"
@@ -84,9 +94,13 @@ func (b *BaseDialect) LikeStr() string {
 func (b *BaseDialect) OrStr() string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return "OR"
 }
 func (b *BaseDialect) EqStr() string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return "="
@@ -94,14 +108,20 @@ func (b *BaseDialect) EqStr() string {
 func (b *BaseDialect) Default(col *Column) string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return col.Default
 }
 func (db *BaseDialect) DateTimeFunc(value string) string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return value
 }
 func (b *BaseDialect) CreateTableSql(table *Table) string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	sql := "CREATE TABLE IF NOT EXISTS "
@@ -133,9 +153,13 @@ func (b *BaseDialect) CreateTableSql(table *Table) string {
 func (db *BaseDialect) AddColumnSql(tableName string, col *Column) string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return fmt.Sprintf("alter table %s ADD COLUMN %s", db.dialect.Quote(tableName), col.StringNoPk(db.dialect))
 }
 func (db *BaseDialect) CreateIndexSql(tableName string, index *Index) string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	quote := db.dialect.Quote
@@ -153,6 +177,8 @@ func (db *BaseDialect) CreateIndexSql(tableName string, index *Index) string {
 func (db *BaseDialect) QuoteColList(cols []string) string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var sourceColsSql = ""
 	for _, col := range cols {
 		sourceColsSql += db.dialect.Quote(col)
@@ -163,6 +189,8 @@ func (db *BaseDialect) QuoteColList(cols []string) string {
 func (db *BaseDialect) CopyTableData(sourceTable string, targetTable string, sourceCols []string, targetCols []string) string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	sourceColsSql := db.QuoteColList(sourceCols)
 	targetColsSql := db.QuoteColList(targetCols)
 	quote := db.dialect.Quote
@@ -171,16 +199,22 @@ func (db *BaseDialect) CopyTableData(sourceTable string, targetTable string, sou
 func (db *BaseDialect) DropTable(tableName string) string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	quote := db.dialect.Quote
 	return fmt.Sprintf("DROP TABLE IF EXISTS %s", quote(tableName))
 }
 func (db *BaseDialect) RenameTable(oldName string, newName string) string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	quote := db.dialect.Quote
 	return fmt.Sprintf("ALTER TABLE %s RENAME TO %s", quote(oldName), quote(newName))
 }
 func (db *BaseDialect) DropIndexSql(tableName string, index *Index) string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	quote := db.dialect.Quote
@@ -190,9 +224,13 @@ func (db *BaseDialect) DropIndexSql(tableName string, index *Index) string {
 func (db *BaseDialect) UpdateTableSql(tableName string, columns []*Column) string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return "-- NOT REQUIRED"
 }
 func (db *BaseDialect) ColString(col *Column) string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	sql := db.dialect.Quote(col.Name) + " "
@@ -218,6 +256,8 @@ func (db *BaseDialect) ColString(col *Column) string {
 func (db *BaseDialect) ColStringNoPk(col *Column) string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	sql := db.dialect.Quote(col.Name) + " "
 	sql += db.dialect.SqlType(col) + " "
 	if db.dialect.ShowCreateNull() {
@@ -235,9 +275,13 @@ func (db *BaseDialect) ColStringNoPk(col *Column) string {
 func (db *BaseDialect) Limit(limit int64) string {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return fmt.Sprintf(" LIMIT %d", limit)
 }
 func (db *BaseDialect) LimitOffset(limit int64, offset int64) string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return fmt.Sprintf(" LIMIT %d OFFSET %d", limit, offset)
@@ -245,9 +289,13 @@ func (db *BaseDialect) LimitOffset(limit int64, offset int64) string {
 func (db *BaseDialect) PreInsertId(table string, sess *xorm.Session) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return nil
 }
 func (db *BaseDialect) PostInsertId(table string, sess *xorm.Session) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return nil
@@ -255,9 +303,13 @@ func (db *BaseDialect) PostInsertId(table string, sess *xorm.Session) error {
 func (db *BaseDialect) CleanDB() error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return nil
 }
 func (db *BaseDialect) NoOpSql() string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return "SELECT 0;"

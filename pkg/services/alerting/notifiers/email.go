@@ -13,6 +13,8 @@ import (
 func init() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	alerting.RegisterNotifier(&alerting.NotifierPlugin{Type: "email", Name: "Email", Description: "Sends notifications using Grafana server configured SMTP settings", Factory: NewEmailNotifier, OptionsTemplate: `
       <h3 class="page-heading">Email addresses</h3>
       <div class="gf-form">
@@ -33,6 +35,8 @@ type EmailNotifier struct {
 func NewEmailNotifier(model *m.AlertNotification) (alerting.Notifier, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	addressesString := model.Settings.Get("addresses").MustString()
 	if addressesString == "" {
 		return nil, alerting.ValidationError{Reason: "Could not find addresses in settings"}
@@ -47,6 +51,8 @@ func NewEmailNotifier(model *m.AlertNotification) (alerting.Notifier, error) {
 	return &EmailNotifier{NotifierBase: NewNotifierBase(model), Addresses: addresses, log: log.New("alerting.notifier.email")}, nil
 }
 func (this *EmailNotifier) Notify(evalContext *alerting.EvalContext) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	this.log.Info("Sending alert notification to", "addresses", this.Addresses)

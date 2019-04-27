@@ -5,6 +5,8 @@ import . "github.com/grafana/grafana/pkg/services/sqlstore/migrator"
 func addDashboardVersionMigration(mg *Migrator) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	dashboardVersionV1 := Table{Name: "dashboard_version", Columns: []*Column{{Name: "id", Type: DB_BigInt, IsPrimaryKey: true, IsAutoIncrement: true}, {Name: "dashboard_id", Type: DB_BigInt}, {Name: "parent_version", Type: DB_Int, Nullable: false}, {Name: "restored_from", Type: DB_Int, Nullable: false}, {Name: "version", Type: DB_Int, Nullable: false}, {Name: "created", Type: DB_DateTime, Nullable: false}, {Name: "created_by", Type: DB_BigInt, Nullable: false}, {Name: "message", Type: DB_Text, Nullable: false}, {Name: "data", Type: DB_Text, Nullable: false}}, Indices: []*Index{{Cols: []string{"dashboard_id"}}, {Cols: []string{"dashboard_id", "version"}, Type: UniqueIndex}}}
 	mg.AddMigration("create dashboard_version table v1", NewAddTableMigration(dashboardVersionV1))
 	mg.AddMigration("add index dashboard_version.dashboard_id", NewAddIndexMigration(dashboardVersionV1, dashboardVersionV1.Indices[0]))

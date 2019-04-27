@@ -15,6 +15,8 @@ const PUSHOVER_ENDPOINT = "https://api.pushover.net/1/messages.json"
 func init() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	alerting.RegisterNotifier(&alerting.NotifierPlugin{Type: "pushover", Name: "Pushover", Description: "Sends HTTP POST request to the Pushover API", Factory: NewPushoverNotifier, OptionsTemplate: `
       <h3 class="page-heading">Pushover settings</h3>
       <div class="gf-form">
@@ -80,6 +82,8 @@ func init() {
 func NewPushoverNotifier(model *m.AlertNotification) (alerting.Notifier, error) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	userKey := model.Settings.Get("userKey").MustString()
 	apiToken := model.Settings.Get("apiToken").MustString()
 	device := model.Settings.Get("device").MustString()
@@ -109,6 +113,8 @@ type PushoverNotifier struct {
 }
 
 func (this *PushoverNotifier) Notify(evalContext *alerting.EvalContext) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	ruleUrl, err := evalContext.GetRuleUrl()

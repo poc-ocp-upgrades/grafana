@@ -12,6 +12,8 @@ import (
 func TestDashboardSnapshotDBAccess(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	Convey("Testing DashboardSnapshot data access", t, func() {
 		InitTestDB(t)
 		Convey("Given saved snapshot", func() {
@@ -70,6 +72,8 @@ func TestDashboardSnapshotDBAccess(t *testing.T) {
 func TestDeleteExpiredSnapshots(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	sqlstore := InitTestDB(t)
 	Convey("Testing dashboard snapshots clean up", t, func() {
 		setting.SnapShotRemoveExpired = true
@@ -92,6 +96,8 @@ func TestDeleteExpiredSnapshots(t *testing.T) {
 	})
 }
 func createTestSnapshot(sqlstore *SqlStore, key string, expires int64) *m.DashboardSnapshot {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	cmd := m.CreateDashboardSnapshotCommand{Key: key, DeleteKey: "delete" + key, Dashboard: simplejson.NewFromAny(map[string]interface{}{"hello": "mupp"}), UserId: 1000, OrgId: 1, Expires: expires}

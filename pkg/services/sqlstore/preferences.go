@@ -11,11 +11,15 @@ import (
 func init() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	bus.AddHandler("sql", GetPreferences)
 	bus.AddHandler("sql", GetPreferencesWithDefaults)
 	bus.AddHandler("sql", SavePreferences)
 }
 func GetPreferencesWithDefaults(query *m.GetPreferencesWithDefaultsQuery) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	params := make([]interface{}, 0)
@@ -54,6 +58,8 @@ func GetPreferencesWithDefaults(query *m.GetPreferencesWithDefaultsQuery) error 
 func GetPreferences(query *m.GetPreferencesQuery) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var prefs m.Preferences
 	exists, err := x.Where("org_id=? AND user_id=? AND team_id=?", query.OrgId, query.UserId, query.TeamId).Get(&prefs)
 	if err != nil {
@@ -67,6 +73,8 @@ func GetPreferences(query *m.GetPreferencesQuery) error {
 	return nil
 }
 func SavePreferences(cmd *m.SavePreferencesCommand) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return inTransaction(func(sess *DBSession) error {

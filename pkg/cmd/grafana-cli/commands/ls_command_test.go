@@ -11,6 +11,8 @@ import (
 func TestMissingPath(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var org = validateLsCommand
 	Convey("ls command", t, func() {
 		validateLsCommand = org

@@ -9,6 +9,8 @@ import (
 func init() {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	bus.AddHandler("sql", CreateTempUser)
 	bus.AddHandler("sql", GetTempUsersQuery)
 	bus.AddHandler("sql", UpdateTempUserStatus)
@@ -18,6 +20,8 @@ func init() {
 func UpdateTempUserStatus(cmd *m.UpdateTempUserStatusCommand) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return inTransaction(func(sess *DBSession) error {
 		var rawSql = "UPDATE temp_user SET status=? WHERE code=?"
 		_, err := sess.Exec(rawSql, string(cmd.Status), cmd.Code)
@@ -25,6 +29,8 @@ func UpdateTempUserStatus(cmd *m.UpdateTempUserStatusCommand) error {
 	})
 }
 func CreateTempUser(cmd *m.CreateTempUserCommand) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	return inTransaction(func(sess *DBSession) error {
@@ -39,6 +45,8 @@ func CreateTempUser(cmd *m.CreateTempUserCommand) error {
 func UpdateTempUserWithEmailSent(cmd *m.UpdateTempUserWithEmailSentCommand) error {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return inTransaction(func(sess *DBSession) error {
 		user := &m.TempUser{EmailSent: true, EmailSentOn: time.Now()}
 		_, err := sess.Where("code = ?", cmd.Code).Cols("email_sent", "email_sent_on").Update(user)
@@ -46,6 +54,8 @@ func UpdateTempUserWithEmailSent(cmd *m.UpdateTempUserWithEmailSentCommand) erro
 	})
 }
 func GetTempUsersQuery(query *m.GetTempUsersQuery) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	rawSql := `SELECT
@@ -81,6 +91,8 @@ func GetTempUsersQuery(query *m.GetTempUsersQuery) error {
 	return err
 }
 func GetTempUserByCode(query *m.GetTempUserByCodeQuery) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	_logClusterCodePath()
 	defer _logClusterCodePath()
 	var rawSql = `SELECT

@@ -11,6 +11,8 @@ import (
 func TestQuotaCommandsAndQueries(t *testing.T) {
 	_logClusterCodePath()
 	defer _logClusterCodePath()
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	Convey("Testing Qutoa commands & queries", t, func() {
 		InitTestDB(t)
 		userId := int64(1)
