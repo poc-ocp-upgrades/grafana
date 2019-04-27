@@ -3,19 +3,21 @@ package util
 import (
 	"testing"
 	"time"
-
 	. "github.com/smartystreets/goconvey/convey"
 )
 
 func TestStringsUtil(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	Convey("Falling back until none empty string", t, func() {
 		So(StringsFallback2("1", "2"), ShouldEqual, "1")
 		So(StringsFallback2("", "2"), ShouldEqual, "2")
 		So(StringsFallback3("", "", "3"), ShouldEqual, "3")
 	})
 }
-
 func TestSplitString(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	Convey("Splits strings correctly", t, func() {
 		So(SplitString(""), ShouldResemble, []string{})
 		So(SplitString("test"), ShouldResemble, []string{"test"})
@@ -25,8 +27,9 @@ func TestSplitString(t *testing.T) {
 		So(SplitString("test1 , test2 test3"), ShouldResemble, []string{"test1", "test2", "test3"})
 	})
 }
-
 func TestDateAge(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	Convey("GetAgeString", t, func() {
 		So(GetAgeString(time.Time{}), ShouldEqual, "?")
 		So(GetAgeString(time.Now().Add(-time.Second*2)), ShouldEqual, "< 1m")

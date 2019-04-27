@@ -3,29 +3,22 @@ package models
 import (
 	"testing"
 	"time"
-
 	. "github.com/smartystreets/goconvey/convey"
-
 	"github.com/grafana/grafana/pkg/components/simplejson"
 	"github.com/grafana/grafana/pkg/setting"
 	"github.com/grafana/grafana/pkg/util"
 )
 
 func TestDataSourceCache(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	Convey("When caching a datasource proxy", t, func() {
 		clearCache()
-		ds := DataSource{
-			Id:   1,
-			Url:  "http://k8s:8001",
-			Type: "Kubernetes",
-		}
-
+		ds := DataSource{Id: 1, Url: "http://k8s:8001", Type: "Kubernetes"}
 		t1, err := ds.GetHttpTransport()
 		So(err, ShouldBeNil)
-
 		t2, err := ds.GetHttpTransport()
 		So(err, ShouldBeNil)
-
 		Convey("Should be using the cached proxy", func() {
 			So(t2, ShouldEqual, t1)
 		})
@@ -39,27 +32,16 @@ func TestDataSourceCache(t *testing.T) {
 			So(t1.TLSClientConfig.RootCAs, ShouldBeNil)
 		})
 	})
-
 	Convey("When caching a datasource proxy then updating it", t, func() {
 		clearCache()
 		setting.SecretKey = "password"
-
 		json := simplejson.New()
 		json.Set("tlsAuthWithCACert", true)
-
 		tlsCaCert, err := util.Encrypt([]byte(caCert), "password")
 		So(err, ShouldBeNil)
-		ds := DataSource{
-			Id:             1,
-			Url:            "http://k8s:8001",
-			Type:           "Kubernetes",
-			SecureJsonData: map[string][]byte{"tlsCACert": tlsCaCert},
-			Updated:        time.Now().Add(-2 * time.Minute),
-		}
-
+		ds := DataSource{Id: 1, Url: "http://k8s:8001", Type: "Kubernetes", SecureJsonData: map[string][]byte{"tlsCACert": tlsCaCert}, Updated: time.Now().Add(-2 * time.Minute)}
 		t1, err := ds.GetHttpTransport()
 		So(err, ShouldBeNil)
-
 		Convey("Should verify TLS by default", func() {
 			So(t1.TLSClientConfig.InsecureSkipVerify, ShouldEqual, false)
 		})
@@ -69,45 +51,27 @@ func TestDataSourceCache(t *testing.T) {
 		Convey("Should have no user-supplied TLS CA configured", func() {
 			So(t1.TLSClientConfig.RootCAs, ShouldBeNil)
 		})
-
 		ds.JsonData = nil
 		ds.SecureJsonData = map[string][]byte{}
 		ds.Updated = time.Now()
-
 		t2, err := ds.GetHttpTransport()
 		So(err, ShouldBeNil)
-
 		Convey("Should have no user-supplied TLS CA configured after the update", func() {
 			So(t2.TLSClientConfig.RootCAs, ShouldBeNil)
 		})
 	})
-
 	Convey("When caching a datasource proxy with TLS client authentication enabled", t, func() {
 		clearCache()
 		setting.SecretKey = "password"
-
 		json := simplejson.New()
 		json.Set("tlsAuth", true)
-
 		tlsClientCert, err := util.Encrypt([]byte(clientCert), "password")
 		So(err, ShouldBeNil)
 		tlsClientKey, err := util.Encrypt([]byte(clientKey), "password")
 		So(err, ShouldBeNil)
-
-		ds := DataSource{
-			Id:       1,
-			Url:      "http://k8s:8001",
-			Type:     "Kubernetes",
-			JsonData: json,
-			SecureJsonData: map[string][]byte{
-				"tlsClientCert": tlsClientCert,
-				"tlsClientKey":  tlsClientKey,
-			},
-		}
-
+		ds := DataSource{Id: 1, Url: "http://k8s:8001", Type: "Kubernetes", JsonData: json, SecureJsonData: map[string][]byte{"tlsClientCert": tlsClientCert, "tlsClientKey": tlsClientKey}}
 		tr, err := ds.GetHttpTransport()
 		So(err, ShouldBeNil)
-
 		Convey("Should verify TLS by default", func() {
 			So(tr.TLSClientConfig.InsecureSkipVerify, ShouldEqual, false)
 		})
@@ -115,28 +79,16 @@ func TestDataSourceCache(t *testing.T) {
 			So(len(tr.TLSClientConfig.Certificates), ShouldEqual, 1)
 		})
 	})
-
 	Convey("When caching a datasource proxy with a user-supplied TLS CA", t, func() {
 		clearCache()
 		setting.SecretKey = "password"
-
 		json := simplejson.New()
 		json.Set("tlsAuthWithCACert", true)
-
 		tlsCaCert, err := util.Encrypt([]byte(caCert), "password")
 		So(err, ShouldBeNil)
-
-		ds := DataSource{
-			Id:             1,
-			Url:            "http://k8s:8001",
-			Type:           "Kubernetes",
-			JsonData:       json,
-			SecureJsonData: map[string][]byte{"tlsCACert": tlsCaCert},
-		}
-
+		ds := DataSource{Id: 1, Url: "http://k8s:8001", Type: "Kubernetes", JsonData: json, SecureJsonData: map[string][]byte{"tlsCACert": tlsCaCert}}
 		tr, err := ds.GetHttpTransport()
 		So(err, ShouldBeNil)
-
 		Convey("Should verify TLS by default", func() {
 			So(tr.TLSClientConfig.InsecureSkipVerify, ShouldEqual, false)
 		})
@@ -144,33 +96,23 @@ func TestDataSourceCache(t *testing.T) {
 			So(len(tr.TLSClientConfig.RootCAs.Subjects()), ShouldEqual, 1)
 		})
 	})
-
 	Convey("When caching a datasource proxy when user skips TLS verification", t, func() {
 		clearCache()
-
 		json := simplejson.New()
 		json.Set("tlsSkipVerify", true)
-
-		ds := DataSource{
-			Id:       1,
-			Url:      "http://k8s:8001",
-			Type:     "Kubernetes",
-			JsonData: json,
-		}
-
+		ds := DataSource{Id: 1, Url: "http://k8s:8001", Type: "Kubernetes", JsonData: json}
 		tr, err := ds.GetHttpTransport()
 		So(err, ShouldBeNil)
-
 		Convey("Should skip TLS verification", func() {
 			So(tr.TLSClientConfig.InsecureSkipVerify, ShouldEqual, true)
 		})
 	})
 }
-
 func clearCache() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	ptc.Lock()
 	defer ptc.Unlock()
-
 	ptc.cache = make(map[int64]cachedTransport)
 }
 
@@ -193,7 +135,6 @@ MHuiWLGewHXPvxfG6UoUx1te65IhifVcJGFZDQwfEmhBflfCmtAJlZEsgTLlBBCh
 FHoXIyGOdq1chmRVocdGBCF8fUoGIbuF14r53rpvcbEKtKnnP8+96luKAZLq0a4n
 3lb92xM=
 -----END CERTIFICATE-----`
-
 const clientCert string = `
 -----BEGIN CERTIFICATE-----
 MIICsjCCAZoCCQCcd8sOfstQLzANBgkqhkiG9w0BAQsFADAXMRUwEwYDVQQDDAxj
@@ -212,7 +153,6 @@ AU6WWoaAIEhhbWQfth/Diz3mivl1ARB+YqiWca2mjRPLTPcKJEURDVddQ423el0Q
 58Hwz+m+HdqHxi24b/1J/VKYbISG4huOQCdLzeNXgvwFlGPUmHSnnKo1/KbQDAR5
 llG/Sw5+FquFuChaA6l5KWy7F3bQyA==
 -----END CERTIFICATE-----`
-
 const clientKey string = `-----BEGIN RSA PRIVATE KEY-----
 MIIEpQIBAAKCAQEA4yWJpbI0RQkozfu9YKXlsa5veUyJzJECoZDJj+rEP3IoozYV
 u5xVyZaaDm+9OpBWXmuVD5zsYjw4Pqm2YWXxrbpygSSLtsWvxuSlLIFIRzmnbttn

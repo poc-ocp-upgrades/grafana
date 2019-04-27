@@ -2,11 +2,8 @@ package datasources
 
 import (
 	"errors"
-
 	"github.com/grafana/grafana/pkg/bus"
-
 	"github.com/grafana/grafana/pkg/log"
-
 	"github.com/grafana/grafana/pkg/models"
 )
 
@@ -15,34 +12,34 @@ var (
 )
 
 func Provision(configDirectory string) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	dc := newDatasourceProvisioner(log.New("provisioning.datasources"))
 	return dc.applyChanges(configDirectory)
 }
 
 type DatasourceProvisioner struct {
-	log         log.Logger
-	cfgProvider *configReader
+	log		log.Logger
+	cfgProvider	*configReader
 }
 
 func newDatasourceProvisioner(log log.Logger) DatasourceProvisioner {
-	return DatasourceProvisioner{
-		log:         log,
-		cfgProvider: &configReader{log: log},
-	}
+	_logClusterCodePath()
+	defer _logClusterCodePath()
+	return DatasourceProvisioner{log: log, cfgProvider: &configReader{log: log}}
 }
-
 func (dc *DatasourceProvisioner) apply(cfg *DatasourcesAsConfig) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if err := dc.deleteDatasources(cfg.DeleteDatasources); err != nil {
 		return err
 	}
-
 	for _, ds := range cfg.Datasources {
 		cmd := &models.GetDataSourceByNameQuery{OrgId: ds.OrgId, Name: ds.Name}
 		err := bus.Dispatch(cmd)
 		if err != nil && err != models.ErrDataSourceNotFound {
 			return err
 		}
-
 		if err == models.ErrDataSourceNotFound {
 			dc.log.Info("inserting datasource from configuration ", "name", ds.Name)
 			insertCmd := createInsertCommand(ds)
@@ -57,36 +54,33 @@ func (dc *DatasourceProvisioner) apply(cfg *DatasourcesAsConfig) error {
 			}
 		}
 	}
-
 	return nil
 }
-
 func (dc *DatasourceProvisioner) applyChanges(configPath string) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	configs, err := dc.cfgProvider.readConfig(configPath)
 	if err != nil {
 		return err
 	}
-
 	for _, cfg := range configs {
 		if err := dc.apply(cfg); err != nil {
 			return err
 		}
 	}
-
 	return nil
 }
-
 func (dc *DatasourceProvisioner) deleteDatasources(dsToDelete []*DeleteDatasourceConfig) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	for _, ds := range dsToDelete {
 		cmd := &models.DeleteDataSourceByNameCommand{OrgId: ds.OrgId, Name: ds.Name}
 		if err := bus.Dispatch(cmd); err != nil {
 			return err
 		}
-
 		if cmd.DeletedDatasourcesCount > 0 {
 			dc.log.Info("deleted datasource based on configuration", "name", ds.Name)
 		}
 	}
-
 	return nil
 }

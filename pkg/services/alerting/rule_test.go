@@ -2,7 +2,6 @@ package alerting
 
 import (
 	"testing"
-
 	"github.com/grafana/grafana/pkg/components/simplejson"
 	m "github.com/grafana/grafana/pkg/models"
 	. "github.com/smartystreets/goconvey/convey"
@@ -11,51 +10,40 @@ import (
 type FakeCondition struct{}
 
 func (f *FakeCondition) Eval(context *EvalContext) (*ConditionResult, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return &ConditionResult{}, nil
 }
-
 func TestAlertRuleFrequencyParsing(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	tcs := []struct {
-		input  string
-		err    error
-		result int64
-	}{
-		{input: "10s", result: 10},
-		{input: "10m", result: 600},
-		{input: "1h", result: 3600},
-		{input: "1o", result: 1},
-		{input: "0s", err: ErrFrequencyCannotBeZeroOrLess},
-		{input: "0m", err: ErrFrequencyCannotBeZeroOrLess},
-		{input: "0h", err: ErrFrequencyCannotBeZeroOrLess},
-		{input: "0", err: ErrFrequencyCannotBeZeroOrLess},
-		{input: "-1s", err: ErrFrequencyCouldNotBeParsed},
-	}
-
+		input	string
+		err	error
+		result	int64
+	}{{input: "10s", result: 10}, {input: "10m", result: 600}, {input: "1h", result: 3600}, {input: "1o", result: 1}, {input: "0s", err: ErrFrequencyCannotBeZeroOrLess}, {input: "0m", err: ErrFrequencyCannotBeZeroOrLess}, {input: "0h", err: ErrFrequencyCannotBeZeroOrLess}, {input: "0", err: ErrFrequencyCannotBeZeroOrLess}, {input: "-1s", err: ErrFrequencyCouldNotBeParsed}}
 	for _, tc := range tcs {
 		r, err := getTimeDurationStringToSeconds(tc.input)
 		if err != tc.err {
 			t.Errorf("expected error: '%v' got: '%v'", tc.err, err)
 			return
 		}
-
 		if r != tc.result {
 			t.Errorf("expected result: %d got %d", tc.result, r)
 		}
 	}
 }
-
 func TestAlertRuleModel(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	Convey("Testing alert rule", t, func() {
-
 		RegisterCondition("test", func(model *simplejson.Json, index int) (Condition, error) {
 			return &FakeCondition{}, nil
 		})
-
 		Convey("should return err for empty string", func() {
 			_, err := getTimeDurationStringToSeconds("")
 			So(err, ShouldNotBeNil)
 		})
-
 		Convey("can construct alert rule model", func() {
 			json := `
 			{
@@ -77,29 +65,16 @@ func TestAlertRuleModel(t *testing.T) {
 				]
 			}
 			`
-
 			alertJSON, jsonErr := simplejson.NewJson([]byte(json))
 			So(jsonErr, ShouldBeNil)
-
-			alert := &m.Alert{
-				Id:          1,
-				OrgId:       1,
-				DashboardId: 1,
-				PanelId:     1,
-
-				Settings: alertJSON,
-			}
-
+			alert := &m.Alert{Id: 1, OrgId: 1, DashboardId: 1, PanelId: 1, Settings: alertJSON}
 			alertRule, err := NewRuleFromDBAlert(alert)
 			So(err, ShouldBeNil)
-
 			So(len(alertRule.Conditions), ShouldEqual, 1)
-
 			Convey("Can read notifications", func() {
 				So(len(alertRule.Notifications), ShouldEqual, 2)
 			})
 		})
-
 		Convey("can construct alert rule model with invalid frequency", func() {
 			json := `
 			{
@@ -111,20 +86,9 @@ func TestAlertRuleModel(t *testing.T) {
         		"conditions": [ { "type": "test", "prop": 123 } ],
         		"notifications": []
 			}`
-
 			alertJSON, jsonErr := simplejson.NewJson([]byte(json))
 			So(jsonErr, ShouldBeNil)
-
-			alert := &m.Alert{
-				Id:          1,
-				OrgId:       1,
-				DashboardId: 1,
-				PanelId:     1,
-				Frequency:   0,
-
-				Settings: alertJSON,
-			}
-
+			alert := &m.Alert{Id: 1, OrgId: 1, DashboardId: 1, PanelId: 1, Frequency: 0, Settings: alertJSON}
 			alertRule, err := NewRuleFromDBAlert(alert)
 			So(err, ShouldBeNil)
 			So(alertRule.Frequency, ShouldEqual, 60)

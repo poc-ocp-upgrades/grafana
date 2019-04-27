@@ -5,25 +5,23 @@ import (
 	"strconv"
 	"strings"
 	"time"
-
 	"github.com/grafana/grafana/pkg/metrics"
 	"gopkg.in/macaron.v1"
 )
 
 func RequestMetrics(handler string) macaron.Handler {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return func(res http.ResponseWriter, req *http.Request, c *macaron.Context) {
 		rw := res.(macaron.ResponseWriter)
 		now := time.Now()
 		c.Next()
-
 		status := rw.Status()
-
 		code := sanitizeCode(status)
 		method := sanitizeMethod(req.Method)
 		metrics.M_Http_Request_Total.WithLabelValues(handler, code, method).Inc()
 		duration := time.Since(now).Nanoseconds() / int64(time.Millisecond)
 		metrics.M_Http_Request_Summary.WithLabelValues(handler, code, method).Observe(float64(duration))
-
 		if strings.HasPrefix(req.RequestURI, "/api/datasources/proxy") {
 			countProxyRequests(status)
 		} else if strings.HasPrefix(req.RequestURI, "/api/") {
@@ -33,8 +31,9 @@ func RequestMetrics(handler string) macaron.Handler {
 		}
 	}
 }
-
 func countApiRequests(status int) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	switch status {
 	case 200:
 		metrics.M_Api_Status.WithLabelValues("200").Inc()
@@ -46,8 +45,9 @@ func countApiRequests(status int) {
 		metrics.M_Api_Status.WithLabelValues("unknown").Inc()
 	}
 }
-
 func countPageRequests(status int) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	switch status {
 	case 200:
 		metrics.M_Page_Status.WithLabelValues("200").Inc()
@@ -59,8 +59,9 @@ func countPageRequests(status int) {
 		metrics.M_Page_Status.WithLabelValues("unknown").Inc()
 	}
 }
-
 func countProxyRequests(status int) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	switch status {
 	case 200:
 		metrics.M_Proxy_Status.WithLabelValues("200").Inc()
@@ -72,8 +73,9 @@ func countProxyRequests(status int) {
 		metrics.M_Proxy_Status.WithLabelValues("unknown").Inc()
 	}
 }
-
 func sanitizeMethod(m string) string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	switch m {
 	case "GET", "get":
 		return "get"
@@ -95,17 +97,14 @@ func sanitizeMethod(m string) string {
 		return strings.ToLower(m)
 	}
 }
-
-// If the wrapped http.Handler has not set a status code, i.e. the value is
-// currently 0, santizeCode will return 200, for consistency with behavior in
-// the stdlib.
 func sanitizeCode(s int) string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	switch s {
 	case 100:
 		return "100"
 	case 101:
 		return "101"
-
 	case 200, 0:
 		return "200"
 	case 201:
@@ -120,7 +119,6 @@ func sanitizeCode(s int) string {
 		return "205"
 	case 206:
 		return "206"
-
 	case 300:
 		return "300"
 	case 301:
@@ -133,7 +131,6 @@ func sanitizeCode(s int) string {
 		return "305"
 	case 307:
 		return "307"
-
 	case 400:
 		return "400"
 	case 401:
@@ -172,7 +169,6 @@ func sanitizeCode(s int) string {
 		return "417"
 	case 418:
 		return "418"
-
 	case 500:
 		return "500"
 	case 501:
@@ -185,7 +181,6 @@ func sanitizeCode(s int) string {
 		return "504"
 	case 505:
 		return "505"
-
 	case 428:
 		return "428"
 	case 429:
@@ -194,7 +189,6 @@ func sanitizeCode(s int) string {
 		return "431"
 	case 511:
 		return "511"
-
 	default:
 		return strconv.Itoa(s)
 	}

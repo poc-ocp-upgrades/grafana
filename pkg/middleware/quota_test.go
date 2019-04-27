@@ -2,7 +2,6 @@ package middleware
 
 import (
 	"testing"
-
 	"github.com/grafana/grafana/pkg/bus"
 	m "github.com/grafana/grafana/pkg/models"
 	"github.com/grafana/grafana/pkg/services/session"
@@ -11,41 +10,17 @@ import (
 )
 
 func TestMiddlewareQuota(t *testing.T) {
-
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	Convey("Given the grafana quota middleware", t, func() {
 		session.GetSessionCount = func() int {
 			return 4
 		}
-
 		setting.AnonymousEnabled = false
-		setting.Quota = setting.QuotaSettings{
-			Enabled: true,
-			Org: &setting.OrgQuota{
-				User:       5,
-				Dashboard:  5,
-				DataSource: 5,
-				ApiKey:     5,
-			},
-			User: &setting.UserQuota{
-				Org: 5,
-			},
-			Global: &setting.GlobalQuota{
-				Org:        5,
-				User:       5,
-				Dashboard:  5,
-				DataSource: 5,
-				ApiKey:     5,
-				Session:    5,
-			},
-		}
-
+		setting.Quota = setting.QuotaSettings{Enabled: true, Org: &setting.OrgQuota{User: 5, Dashboard: 5, DataSource: 5, ApiKey: 5}, User: &setting.UserQuota{Org: 5}, Global: &setting.GlobalQuota{Org: 5, User: 5, Dashboard: 5, DataSource: 5, ApiKey: 5, Session: 5}}
 		middlewareScenario("with user not logged in", func(sc *scenarioContext) {
 			bus.AddHandler("globalQuota", func(query *m.GetGlobalQuotaByTargetQuery) error {
-				query.Result = &m.GlobalQuotaDTO{
-					Target: query.Target,
-					Limit:  query.Default,
-					Used:   4,
-				}
+				query.Result = &m.GlobalQuotaDTO{Target: query.Target, Limit: query.Default, Used: 4}
 				return nil
 			})
 			Convey("global quota not reached", func() {
@@ -72,39 +47,24 @@ func TestMiddlewareQuota(t *testing.T) {
 				So(sc.resp.Code, ShouldEqual, 403)
 			})
 		})
-
 		middlewareScenario("with user logged in", func(sc *scenarioContext) {
-			// log us in, so we have a user_id and org_id in the context
 			sc.fakeReq("GET", "/").handler(func(c *m.ReqContext) {
 				c.Session.Set(session.SESS_KEY_USERID, int64(12))
 			}).exec()
-
 			bus.AddHandler("test", func(query *m.GetSignedInUserQuery) error {
 				query.Result = &m.SignedInUser{OrgId: 2, UserId: 12}
 				return nil
 			})
 			bus.AddHandler("globalQuota", func(query *m.GetGlobalQuotaByTargetQuery) error {
-				query.Result = &m.GlobalQuotaDTO{
-					Target: query.Target,
-					Limit:  query.Default,
-					Used:   4,
-				}
+				query.Result = &m.GlobalQuotaDTO{Target: query.Target, Limit: query.Default, Used: 4}
 				return nil
 			})
 			bus.AddHandler("userQuota", func(query *m.GetUserQuotaByTargetQuery) error {
-				query.Result = &m.UserQuotaDTO{
-					Target: query.Target,
-					Limit:  query.Default,
-					Used:   4,
-				}
+				query.Result = &m.UserQuotaDTO{Target: query.Target, Limit: query.Default, Used: 4}
 				return nil
 			})
 			bus.AddHandler("orgQuota", func(query *m.GetOrgQuotaByTargetQuery) error {
-				query.Result = &m.OrgQuotaDTO{
-					Target: query.Target,
-					Limit:  query.Default,
-					Used:   4,
-				}
+				query.Result = &m.OrgQuotaDTO{Target: query.Target, Limit: query.Default, Used: 4}
 				return nil
 			})
 			Convey("global datasource quota reached", func() {
@@ -144,8 +104,6 @@ func TestMiddlewareQuota(t *testing.T) {
 				sc.fakeReq("GET", "/dashboard").exec()
 				So(sc.resp.Code, ShouldEqual, 200)
 			})
-
 		})
-
 	})
 }

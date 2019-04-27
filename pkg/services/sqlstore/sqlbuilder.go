@@ -3,45 +3,43 @@ package sqlstore
 import (
 	"bytes"
 	"strings"
-
 	m "github.com/grafana/grafana/pkg/models"
 )
 
 type SqlBuilder struct {
-	sql    bytes.Buffer
-	params []interface{}
+	sql	bytes.Buffer
+	params	[]interface{}
 }
 
 func (sb *SqlBuilder) Write(sql string, params ...interface{}) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	sb.sql.WriteString(sql)
-
 	if len(params) > 0 {
 		sb.params = append(sb.params, params...)
 	}
 }
-
 func (sb *SqlBuilder) GetSqlString() string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return sb.sql.String()
 }
-
 func (sb *SqlBuilder) AddParams(params ...interface{}) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	sb.params = append(sb.params, params...)
 }
-
 func (sb *SqlBuilder) writeDashboardPermissionFilter(user *m.SignedInUser, permission m.PermissionType) {
-
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if user.OrgRole == m.ROLE_ADMIN {
 		return
 	}
-
 	okRoles := []interface{}{user.OrgRole}
-
 	if user.OrgRole == m.ROLE_EDITOR {
 		okRoles = append(okRoles, m.ROLE_VIEWER)
 	}
-
 	falseStr := dialect.BooleanStr(false)
-
 	sb.sql.WriteString(` AND
 	(
 		dashboard.id IN (
@@ -69,7 +67,6 @@ func (sb *SqlBuilder) writeDashboardPermissionFilter(user *m.SignedInUser, permi
 				)
 		)
 	)`)
-
 	sb.params = append(sb.params, user.OrgId, permission, user.UserId, user.UserId)
 	sb.params = append(sb.params, okRoles...)
 }

@@ -14,5 +14,7 @@ var (
 )
 
 func IsEmail(str string) bool {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return regexEmail.MatchString(strings.ToLower(str))
 }

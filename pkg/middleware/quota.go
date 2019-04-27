@@ -2,14 +2,14 @@ package middleware
 
 import (
 	"fmt"
-
 	"gopkg.in/macaron.v1"
-
 	m "github.com/grafana/grafana/pkg/models"
 	"github.com/grafana/grafana/pkg/services/quota"
 )
 
 func Quota(target string) macaron.Handler {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return func(c *m.ReqContext) {
 		limitReached, err := quota.QuotaReached(c, target)
 		if err != nil {

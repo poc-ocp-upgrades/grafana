@@ -1,5 +1,3 @@
-// +build go1.1
-
 package simplejson
 
 import (
@@ -11,24 +9,25 @@ import (
 	"strconv"
 )
 
-// Implements the json.Unmarshaler interface.
 func (j *Json) UnmarshalJSON(p []byte) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	dec := json.NewDecoder(bytes.NewBuffer(p))
 	dec.UseNumber()
 	return dec.Decode(&j.data)
 }
-
-// NewFromReader returns a *Json by decoding from an io.Reader
 func NewFromReader(r io.Reader) (*Json, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	j := new(Json)
 	dec := json.NewDecoder(r)
 	dec.UseNumber()
 	err := dec.Decode(&j.data)
 	return j, err
 }
-
-// Float64 coerces into a float64
 func (j *Json) Float64() (float64, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	switch j.data.(type) {
 	case json.Number:
 		return j.data.(json.Number).Float64()
@@ -41,9 +40,9 @@ func (j *Json) Float64() (float64, error) {
 	}
 	return 0, errors.New("invalid value type")
 }
-
-// Int coerces into an int
 func (j *Json) Int() (int, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	switch j.data.(type) {
 	case json.Number:
 		i, err := j.data.(json.Number).Int64()
@@ -57,9 +56,9 @@ func (j *Json) Int() (int, error) {
 	}
 	return 0, errors.New("invalid value type")
 }
-
-// Int64 coerces into an int64
 func (j *Json) Int64() (int64, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	switch j.data.(type) {
 	case json.Number:
 		return j.data.(json.Number).Int64()
@@ -72,9 +71,9 @@ func (j *Json) Int64() (int64, error) {
 	}
 	return 0, errors.New("invalid value type")
 }
-
-// Uint64 coerces into an uint64
 func (j *Json) Uint64() (uint64, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	switch j.data.(type) {
 	case json.Number:
 		return strconv.ParseUint(j.data.(json.Number).String(), 10, 64)

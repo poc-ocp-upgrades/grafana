@@ -4,10 +4,8 @@ import (
 	"context"
 	"testing"
 	"time"
-
 	"github.com/grafana/grafana/pkg/models"
 	"github.com/grafana/grafana/pkg/tsdb"
-
 	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/service/cloudwatch"
 	"github.com/grafana/grafana/pkg/components/null"
@@ -16,26 +14,20 @@ import (
 )
 
 func TestCloudWatch(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	Convey("CloudWatch", t, func() {
-
 		Convey("executeQuery", func() {
-			e := &CloudWatchExecutor{
-				DataSource: &models.DataSource{
-					JsonData: simplejson.New(),
-				},
-			}
-
+			e := &CloudWatchExecutor{DataSource: &models.DataSource{JsonData: simplejson.New()}}
 			Convey("End time before start time should result in error", func() {
 				_, err := e.executeQuery(context.Background(), &CloudWatchQuery{}, &tsdb.TsdbQuery{TimeRange: tsdb.NewTimeRange("now-1h", "now-2h")})
 				So(err.Error(), ShouldEqual, "Invalid time range: Start time must be before end time")
 			})
-
 			Convey("End time equals start time should result in error", func() {
 				_, err := e.executeQuery(context.Background(), &CloudWatchQuery{}, &tsdb.TsdbQuery{TimeRange: tsdb.NewTimeRange("now-1h", "now-1h")})
 				So(err.Error(), ShouldEqual, "Invalid time range: Start time must be before end time")
 			})
 		})
-
 		Convey("can parse cloudwatch json model", func() {
 			json := `
 				{
@@ -59,7 +51,6 @@ func TestCloudWatch(t *testing.T) {
 			`
 			modelJson, err := simplejson.NewJson([]byte(json))
 			So(err, ShouldBeNil)
-
 			res, err := parseQuery(modelJson)
 			So(err, ShouldBeNil)
 			So(res.Region, ShouldEqual, "us-east-1")
@@ -79,44 +70,10 @@ func TestCloudWatch(t *testing.T) {
 			So(res.Period, ShouldEqual, 60)
 			So(res.Alias, ShouldEqual, "{{metric}}_{{stat}}")
 		})
-
 		Convey("can parse cloudwatch response", func() {
 			timestamp := time.Unix(0, 0)
-			resp := &cloudwatch.GetMetricStatisticsOutput{
-				Label: aws.String("TargetResponseTime"),
-				Datapoints: []*cloudwatch.Datapoint{
-					{
-						Timestamp: aws.Time(timestamp),
-						Average:   aws.Float64(10.0),
-						Maximum:   aws.Float64(20.0),
-						ExtendedStatistics: map[string]*float64{
-							"p50.00": aws.Float64(30.0),
-							"p90.00": aws.Float64(40.0),
-						},
-						Unit: aws.String("Seconds"),
-					},
-				},
-			}
-			query := &CloudWatchQuery{
-				Region:     "us-east-1",
-				Namespace:  "AWS/ApplicationELB",
-				MetricName: "TargetResponseTime",
-				Dimensions: []*cloudwatch.Dimension{
-					{
-						Name:  aws.String("LoadBalancer"),
-						Value: aws.String("lb"),
-					},
-					{
-						Name:  aws.String("TargetGroup"),
-						Value: aws.String("tg"),
-					},
-				},
-				Statistics:         []*string{aws.String("Average"), aws.String("Maximum")},
-				ExtendedStatistics: []*string{aws.String("p50.00"), aws.String("p90.00")},
-				Period:             60,
-				Alias:              "{{namespace}}_{{metric}}_{{stat}}",
-			}
-
+			resp := &cloudwatch.GetMetricStatisticsOutput{Label: aws.String("TargetResponseTime"), Datapoints: []*cloudwatch.Datapoint{{Timestamp: aws.Time(timestamp), Average: aws.Float64(10.0), Maximum: aws.Float64(20.0), ExtendedStatistics: map[string]*float64{"p50.00": aws.Float64(30.0), "p90.00": aws.Float64(40.0)}, Unit: aws.String("Seconds")}}}
+			query := &CloudWatchQuery{Region: "us-east-1", Namespace: "AWS/ApplicationELB", MetricName: "TargetResponseTime", Dimensions: []*cloudwatch.Dimension{{Name: aws.String("LoadBalancer"), Value: aws.String("lb")}, {Name: aws.String("TargetGroup"), Value: aws.String("tg")}}, Statistics: []*string{aws.String("Average"), aws.String("Maximum")}, ExtendedStatistics: []*string{aws.String("p50.00"), aws.String("p90.00")}, Period: 60, Alias: "{{namespace}}_{{metric}}_{{stat}}"}
 			queryRes, err := parseResponse(resp, query)
 			So(err, ShouldBeNil)
 			So(queryRes.Series[0].Name, ShouldEqual, "AWS/ApplicationELB_TargetResponseTime_Average")
@@ -128,64 +85,10 @@ func TestCloudWatch(t *testing.T) {
 			So(queryRes.Series[3].Points[0][0].String(), ShouldEqual, null.FloatFrom(40.0).String())
 			So(queryRes.Meta.Get("unit").MustString(), ShouldEqual, "s")
 		})
-
 		Convey("terminate gap of data points", func() {
 			timestamp := time.Unix(0, 0)
-			resp := &cloudwatch.GetMetricStatisticsOutput{
-				Label: aws.String("TargetResponseTime"),
-				Datapoints: []*cloudwatch.Datapoint{
-					{
-						Timestamp: aws.Time(timestamp),
-						Average:   aws.Float64(10.0),
-						Maximum:   aws.Float64(20.0),
-						ExtendedStatistics: map[string]*float64{
-							"p50.00": aws.Float64(30.0),
-							"p90.00": aws.Float64(40.0),
-						},
-						Unit: aws.String("Seconds"),
-					},
-					{
-						Timestamp: aws.Time(timestamp.Add(60 * time.Second)),
-						Average:   aws.Float64(20.0),
-						Maximum:   aws.Float64(30.0),
-						ExtendedStatistics: map[string]*float64{
-							"p50.00": aws.Float64(40.0),
-							"p90.00": aws.Float64(50.0),
-						},
-						Unit: aws.String("Seconds"),
-					},
-					{
-						Timestamp: aws.Time(timestamp.Add(180 * time.Second)),
-						Average:   aws.Float64(30.0),
-						Maximum:   aws.Float64(40.0),
-						ExtendedStatistics: map[string]*float64{
-							"p50.00": aws.Float64(50.0),
-							"p90.00": aws.Float64(60.0),
-						},
-						Unit: aws.String("Seconds"),
-					},
-				},
-			}
-			query := &CloudWatchQuery{
-				Region:     "us-east-1",
-				Namespace:  "AWS/ApplicationELB",
-				MetricName: "TargetResponseTime",
-				Dimensions: []*cloudwatch.Dimension{
-					{
-						Name:  aws.String("LoadBalancer"),
-						Value: aws.String("lb"),
-					},
-					{
-						Name:  aws.String("TargetGroup"),
-						Value: aws.String("tg"),
-					},
-				},
-				Statistics:         []*string{aws.String("Average"), aws.String("Maximum")},
-				ExtendedStatistics: []*string{aws.String("p50.00"), aws.String("p90.00")},
-				Period:             60,
-				Alias:              "{{namespace}}_{{metric}}_{{stat}}",
-			}
-
+			resp := &cloudwatch.GetMetricStatisticsOutput{Label: aws.String("TargetResponseTime"), Datapoints: []*cloudwatch.Datapoint{{Timestamp: aws.Time(timestamp), Average: aws.Float64(10.0), Maximum: aws.Float64(20.0), ExtendedStatistics: map[string]*float64{"p50.00": aws.Float64(30.0), "p90.00": aws.Float64(40.0)}, Unit: aws.String("Seconds")}, {Timestamp: aws.Time(timestamp.Add(60 * time.Second)), Average: aws.Float64(20.0), Maximum: aws.Float64(30.0), ExtendedStatistics: map[string]*float64{"p50.00": aws.Float64(40.0), "p90.00": aws.Float64(50.0)}, Unit: aws.String("Seconds")}, {Timestamp: aws.Time(timestamp.Add(180 * time.Second)), Average: aws.Float64(30.0), Maximum: aws.Float64(40.0), ExtendedStatistics: map[string]*float64{"p50.00": aws.Float64(50.0), "p90.00": aws.Float64(60.0)}, Unit: aws.String("Seconds")}}}
+			query := &CloudWatchQuery{Region: "us-east-1", Namespace: "AWS/ApplicationELB", MetricName: "TargetResponseTime", Dimensions: []*cloudwatch.Dimension{{Name: aws.String("LoadBalancer"), Value: aws.String("lb")}, {Name: aws.String("TargetGroup"), Value: aws.String("tg")}}, Statistics: []*string{aws.String("Average"), aws.String("Maximum")}, ExtendedStatistics: []*string{aws.String("p50.00"), aws.String("p90.00")}, Period: 60, Alias: "{{namespace}}_{{metric}}_{{stat}}"}
 			queryRes, err := parseResponse(resp, query)
 			So(err, ShouldBeNil)
 			So(queryRes.Series[0].Points[0][0].String(), ShouldEqual, null.FloatFrom(10.0).String())

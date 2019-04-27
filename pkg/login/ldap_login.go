@@ -9,7 +9,6 @@ var loginUsingLdap = func(query *m.LoginUserQuery) (bool, error) {
 	if !setting.LdapEnabled {
 		return false, nil
 	}
-
 	for _, server := range LdapCfg.Servers {
 		author := NewLdapAuthenticator(server)
 		err := author.Login(query)
@@ -17,6 +16,5 @@ var loginUsingLdap = func(query *m.LoginUserQuery) (bool, error) {
 			return true, err
 		}
 	}
-
 	return true, ErrInvalidCredentials
 }

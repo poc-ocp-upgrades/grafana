@@ -2,46 +2,32 @@ package notifiers
 
 import (
 	"testing"
-
 	"github.com/grafana/grafana/pkg/components/simplejson"
 	m "github.com/grafana/grafana/pkg/models"
 	. "github.com/smartystreets/goconvey/convey"
 )
 
 func TestSlackNotifier(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	Convey("Slack notifier tests", t, func() {
-
 		Convey("Parsing alert notification from settings", func() {
 			Convey("empty settings should return error", func() {
 				json := `{ }`
-
 				settingsJSON, _ := simplejson.NewJson([]byte(json))
-				model := &m.AlertNotification{
-					Name:     "ops",
-					Type:     "slack",
-					Settings: settingsJSON,
-				}
-
+				model := &m.AlertNotification{Name: "ops", Type: "slack", Settings: settingsJSON}
 				_, err := NewSlackNotifier(model)
 				So(err, ShouldNotBeNil)
 			})
-
 			Convey("from settings", func() {
 				json := `
 				{
           "url": "http://google.com"
 				}`
-
 				settingsJSON, _ := simplejson.NewJson([]byte(json))
-				model := &m.AlertNotification{
-					Name:     "ops",
-					Type:     "slack",
-					Settings: settingsJSON,
-				}
-
+				model := &m.AlertNotification{Name: "ops", Type: "slack", Settings: settingsJSON}
 				not, err := NewSlackNotifier(model)
 				slackNotifier := not.(*SlackNotifier)
-
 				So(err, ShouldBeNil)
 				So(slackNotifier.Name, ShouldEqual, "ops")
 				So(slackNotifier.Type, ShouldEqual, "slack")
@@ -53,7 +39,6 @@ func TestSlackNotifier(t *testing.T) {
 				So(slackNotifier.Mention, ShouldEqual, "")
 				So(slackNotifier.Token, ShouldEqual, "")
 			})
-
 			Convey("from settings with Recipient, Username, IconEmoji, IconUrl, Mention, and Token", func() {
 				json := `
 				{
@@ -65,17 +50,10 @@ func TestSlackNotifier(t *testing.T) {
           "mention": "@carl",
           "token": "xoxb-XXXXXXXX-XXXXXXXX-XXXXXXXXXX"
 				}`
-
 				settingsJSON, _ := simplejson.NewJson([]byte(json))
-				model := &m.AlertNotification{
-					Name:     "ops",
-					Type:     "slack",
-					Settings: settingsJSON,
-				}
-
+				model := &m.AlertNotification{Name: "ops", Type: "slack", Settings: settingsJSON}
 				not, err := NewSlackNotifier(model)
 				slackNotifier := not.(*SlackNotifier)
-
 				So(err, ShouldBeNil)
 				So(slackNotifier.Name, ShouldEqual, "ops")
 				So(slackNotifier.Type, ShouldEqual, "slack")

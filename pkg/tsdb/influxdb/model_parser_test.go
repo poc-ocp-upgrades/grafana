@@ -3,20 +3,17 @@ package influxdb
 import (
 	"testing"
 	"time"
-
 	"github.com/grafana/grafana/pkg/components/simplejson"
 	"github.com/grafana/grafana/pkg/models"
 	. "github.com/smartystreets/goconvey/convey"
 )
 
 func TestInfluxdbQueryParser(t *testing.T) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	Convey("Influxdb query parser", t, func() {
-
 		parser := &InfluxdbQueryParser{}
-		dsInfo := &models.DataSource{
-			JsonData: simplejson.New(),
-		}
-
+		dsInfo := &models.DataSource{JsonData: simplejson.New()}
 		Convey("can parse influxdb json model", func() {
 			json := `
         {
@@ -109,7 +106,6 @@ func TestInfluxdbQueryParser(t *testing.T) {
 			dsInfo.JsonData.Set("timeInterval", ">20s")
 			modelJson, err := simplejson.NewJson([]byte(json))
 			So(err, ShouldBeNil)
-
 			res, err := parser.Parse(modelJson, dsInfo)
 			So(err, ShouldBeNil)
 			So(len(res.GroupBy), ShouldEqual, 3)
@@ -118,7 +114,6 @@ func TestInfluxdbQueryParser(t *testing.T) {
 			So(res.Interval, ShouldEqual, time.Second*20)
 			So(res.Alias, ShouldEqual, "serie alias")
 		})
-
 		Convey("can part raw query json model", func() {
 			json := `
       {
@@ -163,10 +158,8 @@ func TestInfluxdbQueryParser(t *testing.T) {
         ]
       }
       `
-
 			modelJson, err := simplejson.NewJson([]byte(json))
 			So(err, ShouldBeNil)
-
 			res, err := parser.Parse(modelJson, dsInfo)
 			So(err, ShouldBeNil)
 			So(res.RawQuery, ShouldEqual, "RawDummieQuery")

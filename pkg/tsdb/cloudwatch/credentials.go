@@ -6,7 +6,6 @@ import (
 	"strings"
 	"sync"
 	"time"
-
 	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/aws/credentials"
 	"github.com/aws/aws-sdk-go/aws/credentials/ec2rolecreds"
@@ -19,52 +18,38 @@ import (
 )
 
 type cache struct {
-	credential *credentials.Credentials
-	expiration *time.Time
+	credential	*credentials.Credentials
+	expiration	*time.Time
 }
 
 var awsCredentialCache = make(map[string]cache)
 var credentialCacheLock sync.RWMutex
 
 func GetCredentials(dsInfo *DatasourceInfo) (*credentials.Credentials, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	cacheKey := dsInfo.AccessKey + ":" + dsInfo.Profile + ":" + dsInfo.AssumeRoleArn
 	credentialCacheLock.RLock()
 	if _, ok := awsCredentialCache[cacheKey]; ok {
-		if awsCredentialCache[cacheKey].expiration != nil &&
-			(*awsCredentialCache[cacheKey].expiration).After(time.Now().UTC()) {
+		if awsCredentialCache[cacheKey].expiration != nil && (*awsCredentialCache[cacheKey].expiration).After(time.Now().UTC()) {
 			result := awsCredentialCache[cacheKey].credential
 			credentialCacheLock.RUnlock()
 			return result, nil
 		}
 	}
 	credentialCacheLock.RUnlock()
-
 	accessKeyId := ""
 	secretAccessKey := ""
 	sessionToken := ""
 	var expiration *time.Time = nil
 	if dsInfo.AuthType == "arn" && strings.Index(dsInfo.AssumeRoleArn, "arn:aws:iam:") == 0 {
-		params := &sts.AssumeRoleInput{
-			RoleArn:         aws.String(dsInfo.AssumeRoleArn),
-			RoleSessionName: aws.String("GrafanaSession"),
-			DurationSeconds: aws.Int64(900),
-		}
-
+		params := &sts.AssumeRoleInput{RoleArn: aws.String(dsInfo.AssumeRoleArn), RoleSessionName: aws.String("GrafanaSession"), DurationSeconds: aws.Int64(900)}
 		stsSess, err := session.NewSession()
 		if err != nil {
 			return nil, err
 		}
-		stsCreds := credentials.NewChainCredentials(
-			[]credentials.Provider{
-				&credentials.EnvProvider{},
-				&credentials.SharedCredentialsProvider{Filename: "", Profile: dsInfo.Profile},
-				remoteCredProvider(stsSess),
-			})
-		stsConfig := &aws.Config{
-			Region:      aws.String(dsInfo.Region),
-			Credentials: stsCreds,
-		}
-
+		stsCreds := credentials.NewChainCredentials([]credentials.Provider{&credentials.EnvProvider{}, &credentials.SharedCredentialsProvider{Filename: "", Profile: dsInfo.Profile}, remoteCredProvider(stsSess)})
+		stsConfig := &aws.Config{Region: aws.String(dsInfo.Region), Credentials: stsCreds}
 		sess, err := session.NewSession(stsConfig)
 		if err != nil {
 			return nil, err
@@ -85,67 +70,46 @@ func GetCredentials(dsInfo *DatasourceInfo) (*credentials.Credentials, error) {
 		e := now.Add(5 * time.Minute)
 		expiration = &e
 	}
-
 	sess, err := session.NewSession()
 	if err != nil {
 		return nil, err
 	}
-	creds := credentials.NewChainCredentials(
-		[]credentials.Provider{
-			&credentials.StaticProvider{Value: credentials.Value{
-				AccessKeyID:     accessKeyId,
-				SecretAccessKey: secretAccessKey,
-				SessionToken:    sessionToken,
-			}},
-			&credentials.EnvProvider{},
-			&credentials.StaticProvider{Value: credentials.Value{
-				AccessKeyID:     dsInfo.AccessKey,
-				SecretAccessKey: dsInfo.SecretKey,
-			}},
-			&credentials.SharedCredentialsProvider{Filename: "", Profile: dsInfo.Profile},
-			remoteCredProvider(sess),
-		})
-
+	creds := credentials.NewChainCredentials([]credentials.Provider{&credentials.StaticProvider{Value: credentials.Value{AccessKeyID: accessKeyId, SecretAccessKey: secretAccessKey, SessionToken: sessionToken}}, &credentials.EnvProvider{}, &credentials.StaticProvider{Value: credentials.Value{AccessKeyID: dsInfo.AccessKey, SecretAccessKey: dsInfo.SecretKey}}, &credentials.SharedCredentialsProvider{Filename: "", Profile: dsInfo.Profile}, remoteCredProvider(sess)})
 	credentialCacheLock.Lock()
-	awsCredentialCache[cacheKey] = cache{
-		credential: creds,
-		expiration: expiration,
-	}
+	awsCredentialCache[cacheKey] = cache{credential: creds, expiration: expiration}
 	credentialCacheLock.Unlock()
-
 	return creds, nil
 }
-
 func remoteCredProvider(sess *session.Session) credentials.Provider {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	ecsCredURI := os.Getenv("AWS_CONTAINER_CREDENTIALS_RELATIVE_URI")
-
 	if len(ecsCredURI) > 0 {
 		return ecsCredProvider(sess, ecsCredURI)
 	}
 	return ec2RoleProvider(sess)
 }
-
 func ecsCredProvider(sess *session.Session, uri string) credentials.Provider {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	const host = `169.254.170.2`
-
 	d := defaults.Get()
-	return endpointcreds.NewProviderClient(
-		*d.Config,
-		d.Handlers,
-		fmt.Sprintf("http://%s%s", host, uri),
-		func(p *endpointcreds.Provider) { p.ExpiryWindow = 5 * time.Minute })
+	return endpointcreds.NewProviderClient(*d.Config, d.Handlers, fmt.Sprintf("http://%s%s", host, uri), func(p *endpointcreds.Provider) {
+		p.ExpiryWindow = 5 * time.Minute
+	})
 }
-
 func ec2RoleProvider(sess *session.Session) credentials.Provider {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return &ec2rolecreds.EC2RoleProvider{Client: ec2metadata.New(sess), ExpiryWindow: 5 * time.Minute}
 }
-
 func (e *CloudWatchExecutor) getDsInfo(region string) *DatasourceInfo {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	defaultRegion := e.DataSource.JsonData.Get("defaultRegion").MustString()
 	if region == "default" {
 		region = defaultRegion
 	}
-
 	authType := e.DataSource.JsonData.Get("authType").MustString()
 	assumeRoleArn := e.DataSource.JsonData.Get("assumeRoleArn").MustString()
 	accessKey := ""
@@ -158,44 +122,31 @@ func (e *CloudWatchExecutor) getDsInfo(region string) *DatasourceInfo {
 			secretKey = value
 		}
 	}
-
-	datasourceInfo := &DatasourceInfo{
-		Region:        region,
-		Profile:       e.DataSource.Database,
-		AuthType:      authType,
-		AssumeRoleArn: assumeRoleArn,
-		AccessKey:     accessKey,
-		SecretKey:     secretKey,
-	}
-
+	datasourceInfo := &DatasourceInfo{Region: region, Profile: e.DataSource.Database, AuthType: authType, AssumeRoleArn: assumeRoleArn, AccessKey: accessKey, SecretKey: secretKey}
 	return datasourceInfo
 }
-
 func (e *CloudWatchExecutor) getAwsConfig(dsInfo *DatasourceInfo) (*aws.Config, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	creds, err := GetCredentials(dsInfo)
 	if err != nil {
 		return nil, err
 	}
-
-	cfg := &aws.Config{
-		Region:      aws.String(dsInfo.Region),
-		Credentials: creds,
-	}
+	cfg := &aws.Config{Region: aws.String(dsInfo.Region), Credentials: creds}
 	return cfg, nil
 }
-
 func (e *CloudWatchExecutor) getClient(region string) (*cloudwatch.CloudWatch, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	datasourceInfo := e.getDsInfo(region)
 	cfg, err := e.getAwsConfig(datasourceInfo)
 	if err != nil {
 		return nil, err
 	}
-
 	sess, err := session.NewSession(cfg)
 	if err != nil {
 		return nil, err
 	}
-
 	client := cloudwatch.New(sess, cfg)
 	return client, nil
 }
