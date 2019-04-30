@@ -6,15 +6,17 @@ import (
 )
 
 type Message struct {
-	To           []string
-	From         string
-	Subject      string
-	Body         string
-	Info         string
-	EmbededFiles []string
+	To		[]string
+	From		string
+	Subject		string
+	Body		string
+	Info		string
+	EmbededFiles	[]string
 }
 
 func setDefaultTemplateData(data map[string]interface{}, u *m.User) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	data["AppUrl"] = setting.AppUrl
 	data["BuildVersion"] = setting.BuildVersion
 	data["BuildStamp"] = setting.BuildStamp

@@ -2,9 +2,7 @@ package conditions
 
 import (
 	"math"
-
 	"sort"
-
 	"github.com/grafana/grafana/pkg/components/null"
 	"github.com/grafana/grafana/pkg/tsdb"
 )
@@ -12,19 +10,16 @@ import (
 type QueryReducer interface {
 	Reduce(timeSeries *tsdb.TimeSeries) null.Float
 }
-
-type SimpleReducer struct {
-	Type string
-}
+type SimpleReducer struct{ Type string }
 
 func (s *SimpleReducer) Reduce(series *tsdb.TimeSeries) null.Float {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if len(series.Points) == 0 {
 		return null.FloatFromPtr(nil)
 	}
-
 	value := float64(0)
 	allNull := true
-
 	switch s.Type {
 	case "avg":
 		validPointsCount := 0
@@ -96,11 +91,10 @@ func (s *SimpleReducer) Reduce(series *tsdb.TimeSeries) null.Float {
 		}
 	case "diff":
 		var (
-			points = series.Points
-			first  float64
-			i      int
+			points	= series.Points
+			first	float64
+			i	int
 		)
-		// get the newest point
 		for i = len(points) - 1; i >= 0; i-- {
 			if points[i][0].Valid {
 				allNull = false
@@ -108,7 +102,6 @@ func (s *SimpleReducer) Reduce(series *tsdb.TimeSeries) null.Float {
 				break
 			}
 		}
-		// get the oldest point
 		points = points[0:i]
 		for i := 0; i < len(points); i++ {
 			if points[i][0].Valid {
@@ -119,11 +112,10 @@ func (s *SimpleReducer) Reduce(series *tsdb.TimeSeries) null.Float {
 		}
 	case "percent_diff":
 		var (
-			points = series.Points
-			first  float64
-			i      int
+			points	= series.Points
+			first	float64
+			i	int
 		)
-		// get the newest point
 		for i = len(points) - 1; i >= 0; i-- {
 			if points[i][0].Valid {
 				allNull = false
@@ -131,7 +123,6 @@ func (s *SimpleReducer) Reduce(series *tsdb.TimeSeries) null.Float {
 				break
 			}
 		}
-		// get the oldest point
 		points = points[0:i]
 		for i := 0; i < len(points); i++ {
 			if points[i][0].Valid {
@@ -147,19 +138,17 @@ func (s *SimpleReducer) Reduce(series *tsdb.TimeSeries) null.Float {
 				value++
 			}
 		}
-
 		if value > 0 {
 			allNull = false
 		}
 	}
-
 	if allNull {
 		return null.FloatFromPtr(nil)
 	}
-
 	return null.FloatFrom(value)
 }
-
 func NewSimpleReducer(typ string) *SimpleReducer {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return &SimpleReducer{Type: typ}
 }

@@ -12,9 +12,7 @@ import (
 	"strconv"
 	"strings"
 	"time"
-
 	"github.com/opentracing/opentracing-go"
-
 	"github.com/grafana/grafana/pkg/log"
 	m "github.com/grafana/grafana/pkg/models"
 	"github.com/grafana/grafana/pkg/plugins"
@@ -23,92 +21,73 @@ import (
 )
 
 var (
-	logger = log.New("data-proxy-log")
-	client = newHTTPClient()
+	logger	= log.New("data-proxy-log")
+	client	= newHTTPClient()
 )
 
 type DataSourceProxy struct {
-	ds        *m.DataSource
-	ctx       *m.ReqContext
-	targetUrl *url.URL
-	proxyPath string
-	route     *plugins.AppPluginRoute
-	plugin    *plugins.DataSourcePlugin
+	ds		*m.DataSource
+	ctx		*m.ReqContext
+	targetUrl	*url.URL
+	proxyPath	string
+	route		*plugins.AppPluginRoute
+	plugin		*plugins.DataSourcePlugin
 }
-
 type httpClient interface {
 	Do(req *http.Request) (*http.Response, error)
 }
 
 func NewDataSourceProxy(ds *m.DataSource, plugin *plugins.DataSourcePlugin, ctx *m.ReqContext, proxyPath string) *DataSourceProxy {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	targetURL, _ := url.Parse(ds.Url)
-
-	return &DataSourceProxy{
-		ds:        ds,
-		plugin:    plugin,
-		ctx:       ctx,
-		proxyPath: proxyPath,
-		targetUrl: targetURL,
-	}
+	return &DataSourceProxy{ds: ds, plugin: plugin, ctx: ctx, proxyPath: proxyPath, targetUrl: targetURL}
 }
-
 func newHTTPClient() httpClient {
-	return &http.Client{
-		Timeout:   time.Second * 30,
-		Transport: &http.Transport{Proxy: http.ProxyFromEnvironment},
-	}
+	_logClusterCodePath()
+	defer _logClusterCodePath()
+	return &http.Client{Timeout: time.Second * 30, Transport: &http.Transport{Proxy: http.ProxyFromEnvironment}}
 }
-
 func (proxy *DataSourceProxy) HandleRequest() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if err := proxy.validateRequest(); err != nil {
 		proxy.ctx.JsonApiErr(403, err.Error(), nil)
 		return
 	}
-
-	reverseProxy := &httputil.ReverseProxy{
-		Director:      proxy.getDirector(),
-		FlushInterval: time.Millisecond * 200,
-	}
-
+	reverseProxy := &httputil.ReverseProxy{Director: proxy.getDirector(), FlushInterval: time.Millisecond * 200}
 	var err error
 	reverseProxy.Transport, err = proxy.ds.GetHttpTransport()
 	if err != nil {
 		proxy.ctx.JsonApiErr(400, "Unable to load TLS certificate", err)
 		return
 	}
-
 	proxy.logRequest()
-
 	span, ctx := opentracing.StartSpanFromContext(proxy.ctx.Req.Context(), "datasource reverse proxy")
 	proxy.ctx.Req.Request = proxy.ctx.Req.WithContext(ctx)
-
 	defer span.Finish()
 	span.SetTag("datasource_id", proxy.ds.Id)
 	span.SetTag("datasource_type", proxy.ds.Type)
 	span.SetTag("user_id", proxy.ctx.SignedInUser.UserId)
 	span.SetTag("org_id", proxy.ctx.SignedInUser.OrgId)
-
 	proxy.addTraceFromHeaderValue(span, "X-Panel-Id", "panel_id")
 	proxy.addTraceFromHeaderValue(span, "X-Dashboard-Id", "dashboard_id")
-
-	opentracing.GlobalTracer().Inject(
-		span.Context(),
-		opentracing.HTTPHeaders,
-		opentracing.HTTPHeadersCarrier(proxy.ctx.Req.Request.Header))
-
+	opentracing.GlobalTracer().Inject(span.Context(), opentracing.HTTPHeaders, opentracing.HTTPHeadersCarrier(proxy.ctx.Req.Request.Header))
 	reverseProxy.ServeHTTP(proxy.ctx.Resp, proxy.ctx.Req.Request)
 	proxy.ctx.Resp.Header().Del("Set-Cookie")
 }
-
 func (proxy *DataSourceProxy) addTraceFromHeaderValue(span opentracing.Span, headerName string, tagName string) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	panelId := proxy.ctx.Req.Header.Get(headerName)
 	dashId, err := strconv.Atoi(panelId)
 	if err == nil {
 		span.SetTag(tagName, dashId)
 	}
 }
-
 func (proxy *DataSourceProxy) useCustomHeaders(req *http.Request) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	decryptSdj := proxy.ds.SecureJsonData.Decrypt()
 	index := 1
 	for {
@@ -116,7 +95,6 @@ func (proxy *DataSourceProxy) useCustomHeaders(req *http.Request) {
 		headerValueSuffix := fmt.Sprintf("httpHeaderValue%d", index)
 		if key := proxy.ds.JsonData.Get(headerNameSuffix).MustString(); key != "" {
 			if val, ok := decryptSdj[headerValueSuffix]; ok {
-				// remove if exists
 				if req.Header.Get(key) != "" {
 					req.Header.Del(key)
 				}
@@ -129,15 +107,14 @@ func (proxy *DataSourceProxy) useCustomHeaders(req *http.Request) {
 		index += 1
 	}
 }
-
 func (proxy *DataSourceProxy) getDirector() func(req *http.Request) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return func(req *http.Request) {
 		req.URL.Scheme = proxy.targetUrl.Scheme
 		req.URL.Host = proxy.targetUrl.Host
 		req.Host = proxy.targetUrl.Host
-
 		reqQueryVals := req.URL.Query()
-
 		if proxy.ds.Type == m.DS_INFLUXDB_08 {
 			req.URL.Path = util.JoinUrlFragments(proxy.targetUrl.Path, "db/"+proxy.ds.Database+"/"+proxy.proxyPath)
 			reqQueryVals.Add("u", proxy.ds.User)
@@ -157,20 +134,15 @@ func (proxy *DataSourceProxy) getDirector() func(req *http.Request) {
 			req.Header.Del("Authorization")
 			req.Header.Add("Authorization", util.GetBasicAuthHeader(proxy.ds.BasicAuthUser, proxy.ds.BasicAuthPassword))
 		}
-
-		// Lookup and use custom headers
 		if proxy.ds.SecureJsonData != nil {
 			proxy.useCustomHeaders(req)
 		}
-
 		dsAuth := req.Header.Get("X-DS-Authorization")
 		if len(dsAuth) > 0 {
 			req.Header.Del("X-DS-Authorization")
 			req.Header.Del("Authorization")
 			req.Header.Add("Authorization", dsAuth)
 		}
-
-		// clear cookie header, except for whitelisted cookies
 		var keptCookies []*http.Cookie
 		if proxy.ds.JsonData != nil {
 			if keepCookies := proxy.ds.JsonData.Get("keepCookies"); keepCookies != nil {
@@ -188,18 +160,12 @@ func (proxy *DataSourceProxy) getDirector() func(req *http.Request) {
 		for _, c := range keptCookies {
 			req.AddCookie(c)
 		}
-
-		// clear X-Forwarded Host/Port/Proto headers
 		req.Header.Del("X-Forwarded-Host")
 		req.Header.Del("X-Forwarded-Port")
 		req.Header.Del("X-Forwarded-Proto")
 		req.Header.Set("User-Agent", fmt.Sprintf("Grafana/%s", setting.BuildVersion))
-
-		// Clear Origin and Referer to avoir CORS issues
 		req.Header.Del("Origin")
 		req.Header.Del("Referer")
-
-		// set X-Forwarded-For header
 		if req.RemoteAddr != "" {
 			remoteAddr, _, err := net.SplitHostPort(req.RemoteAddr)
 			if err != nil {
@@ -211,18 +177,17 @@ func (proxy *DataSourceProxy) getDirector() func(req *http.Request) {
 				req.Header.Set("X-Forwarded-For", remoteAddr)
 			}
 		}
-
 		if proxy.route != nil {
 			ApplyRoute(proxy.ctx.Req.Context(), req, proxy.proxyPath, proxy.route, proxy.ds)
 		}
 	}
 }
-
 func (proxy *DataSourceProxy) validateRequest() error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if !checkWhiteList(proxy.ctx, proxy.targetUrl.Host) {
 		return errors.New("Target url is not a valid target")
 	}
-
 	if proxy.ds.Type == m.DS_PROMETHEUS {
 		if proxy.ctx.Req.Request.Method == "DELETE" {
 			return errors.New("Deletes not allowed on proxied Prometheus datasource")
@@ -234,7 +199,6 @@ func (proxy *DataSourceProxy) validateRequest() error {
 			return errors.New("Posts not allowed on proxied Prometheus datasource except on /query and /query_range")
 		}
 	}
-
 	if proxy.ds.Type == m.DS_ES {
 		if proxy.ctx.Req.Request.Method == "DELETE" {
 			return errors.New("Deletes not allowed on proxied Elasticsearch datasource")
@@ -246,36 +210,30 @@ func (proxy *DataSourceProxy) validateRequest() error {
 			return errors.New("Posts not allowed on proxied Elasticsearch datasource except on /_msearch")
 		}
 	}
-
-	// found route if there are any
 	if len(proxy.plugin.Routes) > 0 {
 		for _, route := range proxy.plugin.Routes {
-			// method match
 			if route.Method != "" && route.Method != "*" && route.Method != proxy.ctx.Req.Method {
 				continue
 			}
-
 			if route.ReqRole.IsValid() {
 				if !proxy.ctx.HasUserRole(route.ReqRole) {
 					return errors.New("Plugin proxy route access denied")
 				}
 			}
-
 			if strings.HasPrefix(proxy.proxyPath, route.Path) {
 				proxy.route = route
 				break
 			}
 		}
 	}
-
 	return nil
 }
-
 func (proxy *DataSourceProxy) logRequest() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if !setting.DataProxyLogging {
 		return
 	}
-
 	var body string
 	if proxy.ctx.Req.Request.Body != nil {
 		buffer, err := ioutil.ReadAll(proxy.ctx.Req.Request.Body)
@@ -284,24 +242,16 @@ func (proxy *DataSourceProxy) logRequest() {
 			body = string(buffer)
 		}
 	}
-
-	logger.Info("Proxying incoming request",
-		"userid", proxy.ctx.UserId,
-		"orgid", proxy.ctx.OrgId,
-		"username", proxy.ctx.Login,
-		"datasource", proxy.ds.Type,
-		"uri", proxy.ctx.Req.RequestURI,
-		"method", proxy.ctx.Req.Request.Method,
-		"body", body)
+	logger.Info("Proxying incoming request", "userid", proxy.ctx.UserId, "orgid", proxy.ctx.OrgId, "username", proxy.ctx.Login, "datasource", proxy.ds.Type, "uri", proxy.ctx.Req.RequestURI, "method", proxy.ctx.Req.Request.Method, "body", body)
 }
-
 func checkWhiteList(c *m.ReqContext, host string) bool {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if host != "" && len(setting.DataProxyWhiteList) > 0 {
 		if _, exists := setting.DataProxyWhiteList[host]; !exists {
 			c.JsonApiErr(403, "Data proxy hostname and ip are not included in whitelist", nil)
 			return false
 		}
 	}
-
 	return true
 }

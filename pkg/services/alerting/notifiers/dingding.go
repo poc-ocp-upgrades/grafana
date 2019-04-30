@@ -9,58 +9,48 @@ import (
 )
 
 func init() {
-	alerting.RegisterNotifier(&alerting.NotifierPlugin{
-		Type:        "dingding",
-		Name:        "DingDing",
-		Description: "Sends HTTP POST request to DingDing",
-		Factory:     NewDingDingNotifier,
-		OptionsTemplate: `
+	_logClusterCodePath()
+	defer _logClusterCodePath()
+	alerting.RegisterNotifier(&alerting.NotifierPlugin{Type: "dingding", Name: "DingDing", Description: "Sends HTTP POST request to DingDing", Factory: NewDingDingNotifier, OptionsTemplate: `
       <h3 class="page-heading">DingDing settings</h3>
       <div class="gf-form">
         <span class="gf-form-label width-10">Url</span>
         <input type="text" required class="gf-form-input max-width-26" ng-model="ctrl.model.settings.url" placeholder="https://oapi.dingtalk.com/robot/send?access_token=xxxxxxxxx"></input>
       </div>
-    `,
-	})
-
+    `})
 }
-
 func NewDingDingNotifier(model *m.AlertNotification) (alerting.Notifier, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	url := model.Settings.Get("url").MustString()
 	if url == "" {
 		return nil, alerting.ValidationError{Reason: "Could not find url property in settings"}
 	}
-
-	return &DingDingNotifier{
-		NotifierBase: NewNotifierBase(model),
-		Url:          url,
-		log:          log.New("alerting.notifier.dingding"),
-	}, nil
+	return &DingDingNotifier{NotifierBase: NewNotifierBase(model), Url: url, log: log.New("alerting.notifier.dingding")}, nil
 }
 
 type DingDingNotifier struct {
 	NotifierBase
-	Url string
-	log log.Logger
+	Url	string
+	log	log.Logger
 }
 
 func (this *DingDingNotifier) Notify(evalContext *alerting.EvalContext) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	this.log.Info("Sending dingding")
-
 	messageUrl, err := evalContext.GetRuleUrl()
 	if err != nil {
 		this.log.Error("Failed to get messageUrl", "error", err, "dingding", this.Name)
 		messageUrl = ""
 	}
 	this.log.Info("messageUrl:" + messageUrl)
-
 	message := evalContext.Rule.Message
 	picUrl := evalContext.ImagePublicUrl
 	title := evalContext.GetNotificationTitle()
 	if message == "" {
 		message = title
 	}
-
 	bodyJSON, err := simplejson.NewJson([]byte(`{
 		"msgtype": "link",
 		"link": {
@@ -70,25 +60,17 @@ func (this *DingDingNotifier) Notify(evalContext *alerting.EvalContext) error {
 			"messageUrl": "` + messageUrl + `"
 		}
 	}`))
-
 	if err != nil {
 		this.log.Error("Failed to create Json data", "error", err, "dingding", this.Name)
 	}
-
 	body, err := bodyJSON.MarshalJSON()
 	if err != nil {
 		return err
 	}
-
-	cmd := &m.SendWebhookSync{
-		Url:  this.Url,
-		Body: string(body),
-	}
-
+	cmd := &m.SendWebhookSync{Url: this.Url, Body: string(body)}
 	if err := bus.DispatchCtx(evalContext.Ctx, cmd); err != nil {
 		this.log.Error("Failed to send DingDing", "error", err, "dingding", this.Name)
 		return err
 	}
-
 	return nil
 }

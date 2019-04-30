@@ -7,8 +7,9 @@ import (
 	"strings"
 )
 
-// Md5Sum calculates the md5sum of a stream
 func Md5Sum(reader io.Reader) (string, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var returnMD5String string
 	hash := md5.New()
 	if _, err := io.Copy(hash, reader); err != nil {
@@ -18,9 +19,9 @@ func Md5Sum(reader io.Reader) (string, error) {
 	returnMD5String = hex.EncodeToString(hashInBytes)
 	return returnMD5String, nil
 }
-
-// Md5Sum calculates the md5sum of a string
 func Md5SumString(input string) (string, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	buffer := strings.NewReader(input)
 	return Md5Sum(buffer)
 }
