@@ -12,7 +12,6 @@ import (
 	"path"
 	"regexp"
 	"strings"
-
 	"github.com/fatih/color"
 	"github.com/grafana/grafana/pkg/cmd/grafana-cli/logger"
 	m "github.com/grafana/grafana/pkg/cmd/grafana-cli/models"
@@ -20,16 +19,16 @@ import (
 )
 
 func validateInput(c CommandLine, pluginFolder string) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	arg := c.Args().First()
 	if arg == "" {
 		return errors.New("please specify plugin to install")
 	}
-
 	pluginsDir := c.PluginDirectory()
 	if pluginsDir == "" {
 		return errors.New("missing pluginsDir flag")
 	}
-
 	fileInfo, err := os.Stat(pluginsDir)
 	if err != nil {
 		if err = os.MkdirAll(pluginsDir, os.ModePerm); err != nil {
@@ -37,27 +36,25 @@ func validateInput(c CommandLine, pluginFolder string) error {
 		}
 		return nil
 	}
-
 	if !fileInfo.IsDir() {
 		return errors.New("path is not a directory")
 	}
-
 	return nil
 }
-
 func installCommand(c CommandLine) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	pluginFolder := c.PluginDirectory()
 	if err := validateInput(c, pluginFolder); err != nil {
 		return err
 	}
-
 	pluginToInstall := c.Args().First()
 	version := c.Args().Get(1)
-
 	return InstallPlugin(pluginToInstall, version, c)
 }
-
 func InstallPlugin(pluginName, version string, c CommandLine) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	pluginFolder := c.PluginDirectory()
 	downloadURL := c.PluginURL()
 	if downloadURL == "" {
@@ -65,57 +62,47 @@ func InstallPlugin(pluginName, version string, c CommandLine) error {
 		if err != nil {
 			return err
 		}
-
 		v, err := SelectVersion(plugin, version)
 		if err != nil {
 			return err
 		}
-
 		if version == "" {
 			version = v.Version
 		}
-		downloadURL = fmt.Sprintf("%s/%s/versions/%s/download",
-			c.GlobalString("repo"),
-			pluginName,
-			version)
+		downloadURL = fmt.Sprintf("%s/%s/versions/%s/download", c.GlobalString("repo"), pluginName, version)
 	}
-
 	logger.Infof("installing %v @ %v\n", pluginName, version)
 	logger.Infof("from url: %v\n", downloadURL)
 	logger.Infof("into: %v\n", pluginFolder)
 	logger.Info("\n")
-
 	err := downloadFile(pluginName, pluginFolder, downloadURL)
 	if err != nil {
 		return err
 	}
-
 	logger.Infof("%s Installed %s successfully \n", color.GreenString("✔"), pluginName)
-
 	res, _ := s.ReadPlugin(pluginFolder, pluginName)
 	for _, v := range res.Dependencies.Plugins {
 		InstallPlugin(v.Id, "", c)
 		logger.Infof("Installed dependency: %v ✔\n", v.Id)
 	}
-
 	return err
 }
-
 func SelectVersion(plugin m.Plugin, version string) (m.Version, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	if version == "" {
 		return plugin.Versions[0], nil
 	}
-
 	for _, v := range plugin.Versions {
 		if v.Version == version {
 			return v, nil
 		}
 	}
-
 	return m.Version{}, errors.New("Could not find the version you're looking for")
 }
-
 func RemoveGitBuildFromName(pluginName, filename string) string {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	r := regexp.MustCompile("^[a-zA-Z0-9_.-]*/")
 	return r.ReplaceAllString(filename, pluginName+"/")
 }
@@ -124,6 +111,8 @@ var retryCount = 0
 var permissionsDeniedMessage = "Could not create %s. Permission denied. Make sure you have write access to plugindir"
 
 func downloadFile(pluginName, filePath, url string) (err error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	defer func() {
 		if r := recover(); r != nil {
 			retryCount++
@@ -140,25 +129,21 @@ func downloadFile(pluginName, filePath, url string) (err error) {
 			}
 		}
 	}()
-
 	resp, err := http.Get(url)
 	if err != nil {
 		return err
 	}
 	defer resp.Body.Close()
-
 	body, err := ioutil.ReadAll(resp.Body)
 	if err != nil {
 		return err
 	}
-
 	r, err := zip.NewReader(bytes.NewReader(body), int64(len(body)))
 	if err != nil {
 		return err
 	}
 	for _, zf := range r.File {
 		newFile := path.Join(filePath, RemoveGitBuildFromName(pluginName, zf.Name))
-
 		if zf.FileInfo().IsDir() {
 			err := os.Mkdir(newFile, 0777)
 			if PermissionsError(err) {
@@ -169,21 +154,19 @@ func downloadFile(pluginName, filePath, url string) (err error) {
 			if PermissionsError(err) {
 				return fmt.Errorf(permissionsDeniedMessage, newFile)
 			}
-
 			src, err := zf.Open()
 			if err != nil {
 				logger.Errorf("Failed to extract file: %v", err)
 			}
-
 			io.Copy(dst, src)
 			dst.Close()
 			src.Close()
 		}
 	}
-
 	return nil
 }
-
 func PermissionsError(err error) bool {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return err != nil && strings.Contains(err.Error(), "permission denied")
 }

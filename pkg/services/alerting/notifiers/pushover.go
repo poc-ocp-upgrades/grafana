@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"net/url"
 	"strconv"
-
 	"github.com/grafana/grafana/pkg/bus"
 	"github.com/grafana/grafana/pkg/log"
 	m "github.com/grafana/grafana/pkg/models"
@@ -14,12 +13,9 @@ import (
 const PUSHOVER_ENDPOINT = "https://api.pushover.net/1/messages.json"
 
 func init() {
-	alerting.RegisterNotifier(&alerting.NotifierPlugin{
-		Type:        "pushover",
-		Name:        "Pushover",
-		Description: "Sends HTTP POST request to the Pushover API",
-		Factory:     NewPushoverNotifier,
-		OptionsTemplate: `
+	_logClusterCodePath()
+	defer _logClusterCodePath()
+	alerting.RegisterNotifier(&alerting.NotifierPlugin{Type: "pushover", Name: "Pushover", Description: "Sends HTTP POST request to the Pushover API", Factory: NewPushoverNotifier, OptionsTemplate: `
       <h3 class="page-heading">Pushover settings</h3>
       <div class="gf-form">
         <span class="gf-form-label width-10">API Token</span>
@@ -79,11 +75,11 @@ func init() {
           'none'
         ]" ng-init="ctrl.model.settings.sound=ctrl.model.settings.sound||'default'"></select>
       </div>
-    `,
-	})
+    `})
 }
-
 func NewPushoverNotifier(model *m.AlertNotification) (alerting.Notifier, error) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	userKey := model.Settings.Get("userKey").MustString()
 	apiToken := model.Settings.Get("apiToken").MustString()
 	device := model.Settings.Get("device").MustString()
@@ -91,45 +87,35 @@ func NewPushoverNotifier(model *m.AlertNotification) (alerting.Notifier, error) 
 	retry, _ := strconv.Atoi(model.Settings.Get("retry").MustString())
 	expire, _ := strconv.Atoi(model.Settings.Get("expire").MustString())
 	sound := model.Settings.Get("sound").MustString()
-
 	if userKey == "" {
 		return nil, alerting.ValidationError{Reason: "User key not given"}
 	}
 	if apiToken == "" {
 		return nil, alerting.ValidationError{Reason: "API token not given"}
 	}
-	return &PushoverNotifier{
-		NotifierBase: NewNotifierBase(model),
-		UserKey:      userKey,
-		ApiToken:     apiToken,
-		Priority:     priority,
-		Retry:        retry,
-		Expire:       expire,
-		Device:       device,
-		Sound:        sound,
-		log:          log.New("alerting.notifier.pushover"),
-	}, nil
+	return &PushoverNotifier{NotifierBase: NewNotifierBase(model), UserKey: userKey, ApiToken: apiToken, Priority: priority, Retry: retry, Expire: expire, Device: device, Sound: sound, log: log.New("alerting.notifier.pushover")}, nil
 }
 
 type PushoverNotifier struct {
 	NotifierBase
-	UserKey  string
-	ApiToken string
-	Priority int
-	Retry    int
-	Expire   int
-	Device   string
-	Sound    string
-	log      log.Logger
+	UserKey		string
+	ApiToken	string
+	Priority	int
+	Retry		int
+	Expire		int
+	Device		string
+	Sound		string
+	log			log.Logger
 }
 
 func (this *PushoverNotifier) Notify(evalContext *alerting.EvalContext) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	ruleUrl, err := evalContext.GetRuleUrl()
 	if err != nil {
 		this.log.Error("Failed get rule link", "error", err)
 		return err
 	}
-
 	message := evalContext.Rule.Message
 	for idx, evt := range evalContext.EvalMatches {
 		message += fmt.Sprintf("\n<b>%s</b>: %v", evt.Metric, evt.Value)
@@ -146,7 +132,6 @@ func (this *PushoverNotifier) Notify(evalContext *alerting.EvalContext) error {
 	if message == "" {
 		message = "Notification message missing (Set a notification message to replace this text.)"
 	}
-
 	q := url.Values{}
 	q.Add("user", this.UserKey)
 	q.Add("token", this.ApiToken)
@@ -166,18 +151,10 @@ func (this *PushoverNotifier) Notify(evalContext *alerting.EvalContext) error {
 	q.Add("url_title", "Show dashboard with alert")
 	q.Add("message", message)
 	q.Add("html", "1")
-
-	cmd := &m.SendWebhookSync{
-		Url:        PUSHOVER_ENDPOINT,
-		HttpMethod: "POST",
-		HttpHeader: map[string]string{"Content-Type": "application/x-www-form-urlencoded"},
-		Body:       q.Encode(),
-	}
-
+	cmd := &m.SendWebhookSync{Url: PUSHOVER_ENDPOINT, HttpMethod: "POST", HttpHeader: map[string]string{"Content-Type": "application/x-www-form-urlencoded"}, Body: q.Encode()}
 	if err := bus.DispatchCtx(evalContext.Ctx, cmd); err != nil {
 		this.log.Error("Failed to send pushover notification", "error", err, "webhook", this.Name)
 		return err
 	}
-
 	return nil
 }

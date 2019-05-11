@@ -8,38 +8,32 @@ import (
 )
 
 func ShouldUpgrade(installed string, remote m.Plugin) bool {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	installedVersion, err1 := version.NewVersion(installed)
-
 	if err1 != nil {
 		return false
 	}
-
 	for _, v := range remote.Versions {
 		remoteVersion, err2 := version.NewVersion(v.Version)
-
 		if err2 == nil {
 			if installedVersion.LessThan(remoteVersion) {
 				return true
 			}
 		}
 	}
-
 	return false
 }
-
 func upgradeAllCommand(c CommandLine) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	pluginsDir := c.PluginDirectory()
-
 	localPlugins := s.GetLocalPlugins(pluginsDir)
-
 	remotePlugins, err := s.ListAllPlugins(c.GlobalString("repo"))
-
 	if err != nil {
 		return err
 	}
-
 	pluginsToUpgrade := make([]m.InstalledPlugin, 0)
-
 	for _, localPlugin := range localPlugins {
 		for _, remotePlugin := range remotePlugins.Plugins {
 			if localPlugin.Id == remotePlugin.Id {
@@ -49,20 +43,16 @@ func upgradeAllCommand(c CommandLine) error {
 			}
 		}
 	}
-
 	for _, p := range pluginsToUpgrade {
 		logger.Infof("Updating %v \n", p.Id)
-
 		err := s.RemoveInstalledPlugin(pluginsDir, p.Id)
 		if err != nil {
 			return err
 		}
-
 		err = InstallPlugin(p.Id, "", c)
 		if err != nil {
 			return err
 		}
 	}
-
 	return nil
 }

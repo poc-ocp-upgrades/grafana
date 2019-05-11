@@ -9,13 +9,9 @@ import (
 )
 
 func AdminCreateUser(c *m.ReqContext, form dtos.AdminCreateUserForm) {
-	cmd := m.CreateUserCommand{
-		Login:    form.Login,
-		Email:    form.Email,
-		Password: form.Password,
-		Name:     form.Name,
-	}
-
+	_logClusterCodePath()
+	defer _logClusterCodePath()
+	cmd := m.CreateUserCommand{Login: form.Login, Email: form.Email, Password: form.Password, Name: form.Name}
 	if len(cmd.Login) == 0 {
 		cmd.Login = cmd.Email
 		if len(cmd.Login) == 0 {
@@ -23,84 +19,59 @@ func AdminCreateUser(c *m.ReqContext, form dtos.AdminCreateUserForm) {
 			return
 		}
 	}
-
 	if len(cmd.Password) < 4 {
 		c.JsonApiErr(400, "Password is missing or too short", nil)
 		return
 	}
-
 	if err := bus.Dispatch(&cmd); err != nil {
 		c.JsonApiErr(500, "failed to create user", err)
 		return
 	}
-
 	metrics.M_Api_Admin_User_Create.Inc()
-
 	user := cmd.Result
-
-	result := m.UserIdDTO{
-		Message: "User created",
-		Id:      user.Id,
-	}
-
+	result := m.UserIdDTO{Message: "User created", Id: user.Id}
 	c.JSON(200, result)
 }
-
 func AdminUpdateUserPassword(c *m.ReqContext, form dtos.AdminUpdateUserPasswordForm) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	userID := c.ParamsInt64(":id")
-
 	if len(form.Password) < 4 {
 		c.JsonApiErr(400, "New password too short", nil)
 		return
 	}
-
 	userQuery := m.GetUserByIdQuery{Id: userID}
-
 	if err := bus.Dispatch(&userQuery); err != nil {
 		c.JsonApiErr(500, "Could not read user from database", err)
 		return
 	}
-
 	passwordHashed := util.EncodePassword(form.Password, userQuery.Result.Salt)
-
-	cmd := m.ChangeUserPasswordCommand{
-		UserId:      userID,
-		NewPassword: passwordHashed,
-	}
-
+	cmd := m.ChangeUserPasswordCommand{UserId: userID, NewPassword: passwordHashed}
 	if err := bus.Dispatch(&cmd); err != nil {
 		c.JsonApiErr(500, "Failed to update user password", err)
 		return
 	}
-
 	c.JsonOK("User password updated")
 }
-
 func AdminUpdateUserPermissions(c *m.ReqContext, form dtos.AdminUpdateUserPermissionsForm) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	userID := c.ParamsInt64(":id")
-
-	cmd := m.UpdateUserPermissionsCommand{
-		UserId:         userID,
-		IsGrafanaAdmin: form.IsGrafanaAdmin,
-	}
-
+	cmd := m.UpdateUserPermissionsCommand{UserId: userID, IsGrafanaAdmin: form.IsGrafanaAdmin}
 	if err := bus.Dispatch(&cmd); err != nil {
 		c.JsonApiErr(500, "Failed to update user permissions", err)
 		return
 	}
-
 	c.JsonOK("User permissions updated")
 }
-
 func AdminDeleteUser(c *m.ReqContext) {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	userID := c.ParamsInt64(":id")
-
 	cmd := m.DeleteUserCommand{UserId: userID}
-
 	if err := bus.Dispatch(&cmd); err != nil {
 		c.JsonApiErr(500, "Failed to delete user", err)
 		return
 	}
-
 	c.JsonOK("User deleted")
 }

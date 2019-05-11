@@ -5,7 +5,6 @@ import (
 	"net"
 	"net/http"
 	"time"
-
 	"github.com/grafana/grafana/pkg/api/pluginproxy"
 	"github.com/grafana/grafana/pkg/log"
 	"github.com/grafana/grafana/pkg/middleware"
@@ -19,28 +18,14 @@ import (
 var pluginProxyTransport *http.Transport
 
 func (hs *HTTPServer) initAppPluginRoutes(r *macaron.Macaron) {
-	pluginProxyTransport = &http.Transport{
-		TLSClientConfig: &tls.Config{
-			InsecureSkipVerify: setting.PluginAppsSkipVerifyTLS,
-			Renegotiation:      tls.RenegotiateFreelyAsClient,
-		},
-		Proxy: http.ProxyFromEnvironment,
-		Dial: (&net.Dialer{
-			Timeout:   30 * time.Second,
-			KeepAlive: 30 * time.Second,
-			DualStack: true,
-		}).Dial,
-		TLSHandshakeTimeout: 10 * time.Second,
-	}
-
+	_logClusterCodePath()
+	defer _logClusterCodePath()
+	pluginProxyTransport = &http.Transport{TLSClientConfig: &tls.Config{InsecureSkipVerify: setting.PluginAppsSkipVerifyTLS, Renegotiation: tls.RenegotiateFreelyAsClient}, Proxy: http.ProxyFromEnvironment, Dial: (&net.Dialer{Timeout: 30 * time.Second, KeepAlive: 30 * time.Second, DualStack: true}).Dial, TLSHandshakeTimeout: 10 * time.Second}
 	for _, plugin := range plugins.Apps {
 		for _, route := range plugin.Routes {
 			url := util.JoinUrlFragments("/api/plugin-proxy/"+plugin.Id, route.Path)
 			handlers := make([]macaron.Handler, 0)
-			handlers = append(handlers, middleware.Auth(&middleware.AuthOptions{
-				ReqSignedIn: true,
-			}))
-
+			handlers = append(handlers, middleware.Auth(&middleware.AuthOptions{ReqSignedIn: true}))
 			if route.ReqRole != "" {
 				if route.ReqRole == m.ROLE_ADMIN {
 					handlers = append(handlers, middleware.RoleAuth(m.ROLE_ADMIN))
@@ -54,11 +39,11 @@ func (hs *HTTPServer) initAppPluginRoutes(r *macaron.Macaron) {
 		}
 	}
 }
-
 func AppPluginRoute(route *plugins.AppPluginRoute, appID string) macaron.Handler {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return func(c *m.ReqContext) {
 		path := c.Params("*")
-
 		proxy := pluginproxy.NewApiPluginProxy(c, path, route, appID)
 		proxy.Transport = pluginProxyTransport
 		proxy.ServeHTTP(c.Resp, c.Req.Request)

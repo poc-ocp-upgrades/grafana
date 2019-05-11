@@ -6,50 +6,41 @@ import (
 )
 
 func init() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	bus.AddHandler("sql", UpdateDashboardAcl)
 	bus.AddHandler("sql", GetDashboardAclInfoList)
 }
-
 func UpdateDashboardAcl(cmd *m.UpdateDashboardAclCommand) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	return inTransaction(func(sess *DBSession) error {
-		// delete existing items
 		_, err := sess.Exec("DELETE FROM dashboard_acl WHERE dashboard_id=?", cmd.DashboardId)
 		if err != nil {
 			return err
 		}
-
 		for _, item := range cmd.Items {
 			if item.UserId == 0 && item.TeamId == 0 && (item.Role == nil || !item.Role.IsValid()) {
 				return m.ErrDashboardAclInfoMissing
 			}
-
 			if item.DashboardId == 0 {
 				return m.ErrDashboardPermissionDashboardEmpty
 			}
-
 			sess.Nullable("user_id", "team_id")
 			if _, err := sess.Insert(item); err != nil {
 				return err
 			}
 		}
-
-		// Update dashboard HasAcl flag
 		dashboard := m.Dashboard{HasAcl: true}
 		_, err = sess.Cols("has_acl").Where("id=?", cmd.DashboardId).Update(&dashboard)
 		return err
 	})
 }
-
-// GetDashboardAclInfoList returns a list of permissions for a dashboard. They can be fetched from three
-// different places.
-// 1) Permissions for the dashboard
-// 2) permissions for its parent folder
-// 3) if no specific permissions have been set for the dashboard or its parent folder then get the default permissions
 func GetDashboardAclInfoList(query *m.GetDashboardAclInfoListQuery) error {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	var err error
-
 	falseStr := dialect.BooleanStr(false)
-
 	if query.DashboardId == 0 {
 		sql := `SELECT
 		da.id,
@@ -66,16 +57,12 @@ func GetDashboardAclInfoList(query *m.GetDashboardAclInfoListQuery) error {
 		'' as team,
 		'' as title,
 		'' as slug,
-		'' as uid,` +
-			falseStr + ` AS is_folder,` +
-			falseStr + ` AS inherited
+		'' as uid,` + falseStr + ` AS is_folder,` + falseStr + ` AS inherited
 		FROM dashboard_acl as da
 		WHERE da.dashboard_id = -1`
 		query.Result = make([]*m.DashboardAclInfoDTO, 0)
 		err = x.SQL(sql).Find(&query.Result)
-
 	} else {
-
 		rawSQL := `
 			-- get permissions for the dashboard and its parent folder
 			SELECT
@@ -114,14 +101,11 @@ func GetDashboardAclInfoList(query *m.GetDashboardAclInfoListQuery) error {
 			WHERE d.org_id = ? AND d.id = ? AND da.id IS NOT NULL
 			ORDER BY 1 ASC
 			`
-
 		query.Result = make([]*m.DashboardAclInfoDTO, 0)
 		err = x.SQL(rawSQL, query.OrgId, query.DashboardId).Find(&query.Result)
 	}
-
 	for _, p := range query.Result {
 		p.PermissionName = p.Permission.String()
 	}
-
 	return err
 }

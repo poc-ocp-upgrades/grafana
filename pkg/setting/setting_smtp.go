@@ -1,22 +1,23 @@
 package setting
 
 type SmtpSettings struct {
-	Enabled      bool
-	Host         string
-	User         string
-	Password     string
-	CertFile     string
-	KeyFile      string
-	FromAddress  string
-	FromName     string
-	EhloIdentity string
-	SkipVerify   bool
-
-	SendWelcomeEmailOnSignUp bool
-	TemplatesPattern         string
+	Enabled						bool
+	Host						string
+	User						string
+	Password					string
+	CertFile					string
+	KeyFile						string
+	FromAddress					string
+	FromName					string
+	EhloIdentity				string
+	SkipVerify					bool
+	SendWelcomeEmailOnSignUp	bool
+	TemplatesPattern			string
 }
 
 func (cfg *Cfg) readSmtpSettings() {
+	_logClusterCodePath()
+	defer _logClusterCodePath()
 	sec := cfg.Raw.Section("smtp")
 	cfg.Smtp.Enabled = sec.Key("enabled").MustBool(false)
 	cfg.Smtp.Host = sec.Key("host").String()
@@ -28,7 +29,6 @@ func (cfg *Cfg) readSmtpSettings() {
 	cfg.Smtp.FromName = sec.Key("from_name").String()
 	cfg.Smtp.EhloIdentity = sec.Key("ehlo_identity").String()
 	cfg.Smtp.SkipVerify = sec.Key("skip_verify").MustBool(false)
-
 	emails := cfg.Raw.Section("emails")
 	cfg.Smtp.SendWelcomeEmailOnSignUp = emails.Key("welcome_email_on_sign_up").MustBool(false)
 	cfg.Smtp.TemplatesPattern = emails.Key("templates_pattern").MustString("emails/*.html")

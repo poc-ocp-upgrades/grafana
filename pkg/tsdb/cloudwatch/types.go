@@ -5,17 +5,17 @@ import (
 )
 
 type CloudWatchQuery struct {
-	RefId              string
-	Region             string
-	Namespace          string
-	MetricName         string
-	Dimensions         []*cloudwatch.Dimension
-	Statistics         []*string
-	ExtendedStatistics []*string
-	Period             int
-	Alias              string
-	Id                 string
-	Expression         string
-	ReturnData         bool
-	HighResolution     bool
+	RefId				string
+	Region				string
+	Namespace			string
+	MetricName			string
+	Dimensions			[]*cloudwatch.Dimension
+	Statistics			[]*string
+	ExtendedStatistics	[]*string
+	Period				int
+	Alias				string
+	Id					string
+	Expression			string
+	ReturnData			bool
+	HighResolution		bool
 }
